@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Estimating Parameters Using Confidence Intervals – Data Analytics and Statistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Qualitative_and_Quantitative_Variables_Assignment_Solutions.html" rel="next">
+<link href="./Advanced_Scatterplot_Techniques.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Independent_and_Dependent_Variables.html">Step 4 - Experimentation and Prediction</a></li><li class="breadcrumb-item"><a href="./Estimating_Parameters_Confidence_Intervals.html">Estimating Parameters Using Confidence Intervals</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Analytics and Statistics</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data 1004 - Data Analytics and Statistics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./About.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Data_Science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is Data Science?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 1 - Data Collecting</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What Is Tidyverse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Statistics_Language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Language</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Qualitative_and_Quantitative_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qualitative and Quantitative Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_In_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading In Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 2 - Data Preparation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Tidy_Data_PDF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is “Tidy Data”?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Vectors_DataFrames_Tibbles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vectors, Data Frames, Tibbles</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intro_To_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_and_Interpreting_Tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading and Interpreting Tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dplyr_and_Piping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Cleaning with dplyr and piping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Additional_Data_Cleaning_Functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Data Cleaning Functions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 3 - Exploration and Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Barplots_And_Histograms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Barplots and Histograms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Line_Graphs_and_Pie_Charts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Line Graphs and Pie Charts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Beginning_Data_Visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Measures_of_Central_Tendencies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measures Of Central Tendencies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Measures_of_Variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measures Of Variability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Advanced_Boxplot_Techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Boxplot Techniques.</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 4 - Experimentation and Prediction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Independent_and_Dependent_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Independent and Dependent Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Scatterplots_and_Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scatterplots and Correlation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Linear_Modeling_and_Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Modeling and Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Residuals_Outliers_Predictions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Residuals, Outliers and Predictions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Advanced_Scatterplot_Techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Scatterplot Techniques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Estimating_Parameters_Confidence_Intervals.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Estimating Parameters Using Confidence Intervals</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Qualitative_and_Quantitative_Variables_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qualitative and Quantitative Variables Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Tidy_Data_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy Data Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Beginning_Data_Visualization_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Visualization Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA_Assignment_sheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Assignment Sheet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA_Assignment_Sheet_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_1_Intro_To_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_2_ Read_In_Data_Assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_3_Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 4.</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 6</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#central-limit-theorem" id="toc-central-limit-theorem" class="nav-link active" data-scroll-target="#central-limit-theorem">Central Limit Theorem</a></li>
+  <li><a href="#creating-a-confidence-interval" id="toc-creating-a-confidence-interval" class="nav-link" data-scroll-target="#creating-a-confidence-interval">Creating a Confidence Interval</a></li>
+  <li><a href="#test-statistic" id="toc-test-statistic" class="nav-link" data-scroll-target="#test-statistic">Test Statistic</a></li>
+  <li><a href="#z-score" id="toc-z-score" class="nav-link" data-scroll-target="#z-score">Z-Score</a>
+  <ul class="collapse">
+  <li><a href="#empirical-rule" id="toc-empirical-rule" class="nav-link" data-scroll-target="#empirical-rule">Empirical Rule</a></li>
+  <li><a href="#example-using-z-score" id="toc-example-using-z-score" class="nav-link" data-scroll-target="#example-using-z-score">Example Using Z-Score</a></li>
+  </ul></li>
+  <li><a href="#t-score" id="toc-t-score" class="nav-link" data-scroll-target="#t-score">T-Score</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#problem-1-estimating-the-mean-waiting-time-for-old-faithful-eruptions" id="toc-problem-1-estimating-the-mean-waiting-time-for-old-faithful-eruptions" class="nav-link" data-scroll-target="#problem-1-estimating-the-mean-waiting-time-for-old-faithful-eruptions">Problem 1: Estimating the Mean Waiting Time for Old Faithful Eruptions</a></li>
+  <li><a href="#problem-2-estimating-the-mean-speed-of-cars-in-the-cars-dataset" id="toc-problem-2-estimating-the-mean-speed-of-cars-in-the-cars-dataset" class="nav-link" data-scroll-target="#problem-2-estimating-the-mean-speed-of-cars-in-the-cars-dataset">Problem 2: Estimating the Mean Speed of Cars in the <code>cars</code> Dataset</a></li>
+  <li><a href="#problem-3-estimating-the-mean-gas-mileage-of-cars-in-the-mtcars-dataset" id="toc-problem-3-estimating-the-mean-gas-mileage-of-cars-in-the-mtcars-dataset" class="nav-link" data-scroll-target="#problem-3-estimating-the-mean-gas-mileage-of-cars-in-the-mtcars-dataset">Problem 3: Estimating the Mean Gas Mileage of Cars in the <code>mtcars</code> Dataset</a></li>
+  <li><a href="#problem-4-estimating-the-mean-height-of-trees-in-the-trees-dataset" id="toc-problem-4-estimating-the-mean-height-of-trees-in-the-trees-dataset" class="nav-link" data-scroll-target="#problem-4-estimating-the-mean-height-of-trees-in-the-trees-dataset">Problem 4: Estimating the Mean Height of Trees in the <code>trees</code> Dataset</a></li>
+  <li><a href="#problem-5-estimating-the-mean-air-quality-in-new-york" id="toc-problem-5-estimating-the-mean-air-quality-in-new-york" class="nav-link" data-scroll-target="#problem-5-estimating-the-mean-air-quality-in-new-york">Problem 5: Estimating the Mean Air Quality in New York</a></li>
+  <li><a href="#problem-6-estimating-the-mean-depth-of-quakes-in-fiji" id="toc-problem-6-estimating-the-mean-depth-of-quakes-in-fiji" class="nav-link" data-scroll-target="#problem-6-estimating-the-mean-depth-of-quakes-in-fiji">Problem 6: Estimating the Mean Depth of Quakes in Fiji</a></li>
+  <li><a href="#problem-7-estimating-the-mean-monthly-sunspots" id="toc-problem-7-estimating-the-mean-monthly-sunspots" class="nav-link" data-scroll-target="#problem-7-estimating-the-mean-monthly-sunspots">Problem 7: Estimating the Mean Monthly Sunspots</a></li>
+  <li><a href="#problem-8-estimating-the-mean-pressure-in-the-pressure-dataset" id="toc-problem-8-estimating-the-mean-pressure-in-the-pressure-dataset" class="nav-link" data-scroll-target="#problem-8-estimating-the-mean-pressure-in-the-pressure-dataset">Problem 8: Estimating the Mean Pressure in the <code>pressure</code> Dataset</a></li>
+  <li><a href="#problem-9-estimating-the-mean-weight-of-chickens" id="toc-problem-9-estimating-the-mean-weight-of-chickens" class="nav-link" data-scroll-target="#problem-9-estimating-the-mean-weight-of-chickens">Problem 9: Estimating the Mean Weight of Chickens</a></li>
+  <li><a href="#problem-10-estimating-the-mean-sepal-length-of-versicolor-species" id="toc-problem-10-estimating-the-mean-sepal-length-of-versicolor-species" class="nav-link" data-scroll-target="#problem-10-estimating-the-mean-sepal-length-of-versicolor-species">Problem 10: Estimating the Mean Sepal Length of Versicolor Species</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Independent_and_Dependent_Variables.html">Step 4 - Experimentation and Prediction</a></li><li class="breadcrumb-item"><a href="./Estimating_Parameters_Confidence_Intervals.html">Estimating Parameters Using Confidence Intervals</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Estimating Parameters Using Confidence Intervals</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Imagine you are a political pollster that is working to try to get a candidate elected. What you are really trying to do is determine if the people are going to vote your candidate into office. You want to know the percentage of the voters that are going to vote for your candidate. Unfortunately the only way you will know this is to ask every single voter in the district. What you are trying to figure out is the <strong>parameter</strong> of the population. The parameter is the true value of the population. In this case the parameter is the percentage of voters that are going to vote for your candidate. The value of this parameter is often labelled <span class="math inline">\(\mu\)</span> and it is the value that you are trying to estimate. <br></p>
+<p>Since you can’t ask every voter in the district you are going to have to take a sample of the population. The sample is a subset of the population. You are going to use the sample to estimate the parameter. The estimate is called a <strong>statistic</strong> and it is calculated from the sample. The statistic is the best guess of the parameter that you can make given the information that you have. In this case the statistic is the percentage of voters in the sample that are going to vote for your candidate. The statistic is often labelled <span class="math inline">\(\bar{x}\)</span>. <br></p>
+<p>In almost all cases, the statistic is not going to be the same as the parameter. The statistic should to be close to the parameter but it is not going to be the same. The statistic is going to be off by some amount. The amount that the estimate is off by is called the <strong>margin of error</strong>. The margin of error is the difference between the parameter and the estimate and is often labelled MOE. <br></p>
+<p>The margin of error is going to be different for every sample that you take. It is going to be different because every sample you take is going to be different. In order to avoid bias in creating the sample, you are going to take a random sample. This means you are randomly going to select people from the population to be in the sample. Since the sample is random, the margin of error changes for each group. <br></p>
+<section id="central-limit-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="central-limit-theorem">Central Limit Theorem</h2>
+<p>The theory that is driving the calculation of the margin of error is the Central Limit Theorem. The Central Limit Theorem states that the distribution of the sample mean is approximately normally distributed. Here is a way to wrap your head around this idea. Here is a picture of three completely different distributions, all with the same mean, and none of which look anything remotely like the normal distribution. <br></p>
+<center>
+<img src="./images/EPCI_4.jpg" class="img-fluid" style="width:70.0%">
+</center>
+<p><br></p>
+<p>The first distribution is a uniform distribution. The second distribution is a a bimodal distribution. The third distribution is a positive skewed distribution. <br></p>
+<p>The sampling distribution just means that we need to take every possible sample and look at the distribution that results from those samples. In the picture above, a regular distribution is just a sampling distribution with samples of size 1. <br></p>
+<p>Look what happens when we create a sampling distribution for the three examples above where we are taking samples of size 5. <br></p>
+<center>
+<img src="./images/EPCI_5.jpg" class="img-fluid" style="width:70.0%">
+</center>
+<p><br></p>
+<p>In this scenario, the third distribution is starting to look like a normal distribution. This is because it wasn’t too far off from a normal distribution to begin with. The first two distributions are still not looking like a normal distribution. What happens if we increase the sample size to 30? <br></p>
+<center>
+<img src="./images/EPCI_6.jpg" class="img-fluid" style="width:70.0%">
+</center>
+<p><br></p>
+<p>Wow! All three of the distributions are starting to look like a normal distribution. This is the Central Limit Theorem in action. The Central Limit Theorem states that the distribution of the sample mean is going to be normally distributed as the size of the samples get larger. Generally, once the sample size hits 30, the distribution of the sample mean is going to be normally distributed. This is going to be true no matter what the original distribution of the population is. The Central Limit Theorem also states that the standard deviation of the sample mean is going to be the standard deviation of the sample divided by the square root of the number of observations in the sample. <br></p>
+</section>
+<section id="creating-a-confidence-interval" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-confidence-interval">Creating a Confidence Interval</h2>
+<p>Therefore we are going to use the statistic and the margin of error to come up with an interval that we will claim has a certain probability of containing the parameter. This interval is called a <strong>confidence interval</strong>. We are going to construct confidence intervals that are reasonable to use. <br></p>
+<p>For example, let’s think about the average test score from a typical college course. Here are three different confidence intervals to consider:</p>
+<ol type="1">
+<li><p>A 100% confidence interval for the average test score is 0 to 100.</p></li>
+<li><p>A 5% confidence interval for the average test score is 82 to 85.</p></li>
+<li><p>A 95% confidence interval for the average test score is 78 to 85.</p></li>
+</ol>
+<p>The first confidence interval is not very useful because it is too wide. Has an interval been constructed that will <strong>definitely</strong> catch the parameter? Absolutely! But it is not very useful because it is too wide. <br></p>
+<p>The second confidence interval is too narrow. It is too narrow because it is unlikely that the interval will contain the parameter. This is saying that the confidence interval is 5% likely to contain the parameter. This is not a very useful confidence interval, either. <br></p>
+<p>The third confidence interval is a good confidence interval. It is saying that based on the methods used, the interval is 95% likely to contain the parameter. This is a good confidence because we have a high level of confidence and a reasonable interval. <br></p>
+<p>When you are creating a confidence interval, these are the trade offs you need to consider when creating the confidence interval. You do not want the interval to be so wide it is useless or too small so that you don’t have much confidence that you have the parameter. You want to have a reasonable interval that you have a high level of confidence that you have the parameter. <br></p>
+<p>The idea for creating a confidence interval is not difficult. You are going to take a sample from the population and calculate the statistic from the sample. You are then going to calculate the margin of error The confidence interval can be constructed as follows : <br></p>
+<center>
+<span class="math inline">\(\bar{x} \pm MOE\)</span>
+</center>
+<p><br></p>
+<p>And this leads us to the question of how to calculate the margin of error. The margin of error is calculated as follows: <br></p>
+<center>
+<span class="math inline">\(\displaystyle{MOE = (test\,statistic) \times \frac{standard\,deviation}{\sqrt{n}}}\)</span>
+</center>
+</section>
+<section id="test-statistic" class="level2">
+<h2 class="anchored" data-anchor-id="test-statistic">Test Statistic</h2>
+<p>The test statistic is the number that you are going to use to help create the confidence interval. The test statistic is going to be based on the level of confidence that you want. The higher level of confidence will result in a higher test statistic. The information we are given in the problem will dictate to us the type of test statistic that we are going to use. There are 2 types of test statistics that we are going to use to create a confidence interval. They are the z-score and the t-score. They are similar to each other, especially if we have a large sample size. So which one do we use? <br></p>
+<p>If the sample size is small, or we do not know the standard deviation of the population, then we are going to use the t-score. If we know the population standard deviation and have a large sample size (<span class="math inline">\(n \geq 30\)</span>), then we are going to use the z-score. Here is a flow chart to help you decide which test statistic to use: <br></p>
+<center>
+<img src="./images/EPCI_7.jpg" class="img-fluid" style="width:40.0%">
+</center>
+<p><br></p>
+<p>The normal distribution and the t-distribution are very similar to each other. The t-distribution is going to be wider than the normal distribution. The t-distribution is going to be wider because it has more variability. All this means is that we are not as certain about the t-distribution as we are about the normal distribution. Thus the probabilities in the tails of the t-distribution are going to be larger than the normal distribution. <br></p>
+<center>
+<img src="./images/EPCI_8.jpg" class="img-fluid" style="width:60.0%">
+</center>
+<p><br> As mentioned above, once the samples sizes get large, there is little difference in the sampling distributions. <br></p>
+<p>This means the confidence intervals should take on one of the following two forms:</p>
+<center>
+<span class="math inline">\(\displaystyle{\bar{x} \pm (Z\,score) \times \frac{\sigma}{\sqrt{n}}}\)</span>
+</center>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(Z\)</span> corresponds to the level of confidence that you want</li>
+<li><span class="math inline">\(\sigma\)</span> is the standard deviation of the population</li>
+<li><span class="math inline">\(n\)</span> is the number of observations in the sample</li>
+</ul>
+<p>or</p>
+<center>
+<span class="math inline">\(\displaystyle{\bar{x} \pm (t \, score) \times \frac{s_x}{\sqrt{n}}}\)</span>
+</center>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(t\)</span> corresponds to the level of confidence that you want</li>
+<li><span class="math inline">\(s_x\)</span> is the standard deviation of the sample</li>
+<li><span class="math inline">\(n\)</span> is the number of observations in the sample <br></li>
+</ul>
+<p>Let’s discuss how to find the values for these two test statistics.</p>
+</section>
+<section id="z-score" class="level2">
+<h2 class="anchored" data-anchor-id="z-score">Z-Score</h2>
+<p>The first test statistic that we are going to use is the z-score. The z-score comes from the normal distribution and is the number of standard deviations that you are away from the mean. The z-score is going to be used when we know the standard deviation of the population and when we have a large sample size. <br></p>
+<section id="empirical-rule" class="level3">
+<h3 class="anchored" data-anchor-id="empirical-rule">Empirical Rule</h3>
+<p>A <strong>z-score</strong> is the number of standard deviations that you are away from the mean. This also shows us the percentage of the distribution that is within the z-score. The Empirical Rule gives us a few of the more useful z-scores: <br></p>
+<center>
+<img src="./images/EPCI_1.jpg" class="img-fluid" style="width:60.0%">
+</center>
+<p><br></p>
+<p>Based on the Empirical Rule, we can see that 95% of the distribution is within almost 2 standard deviations of the mean. This means that if we want to have a 95% confidence interval, we are going to use a z-score of 1.96. If we want to have a 90% confidence interval, we are going to use a z-score of 1.645. If we want to have a 99% confidence interval, we are going to use a z-score of 2.58. <br></p>
+<center>
+<img src="./images/EPCI_2.jpg" class="img-fluid" style="width:60.0%">
+</center>
+<p><br></p>
+<p>If we wanted to construct a 95% confidence interval, we would use the following formula to create it :</p>
+<center>
+<span class="math inline">\(\displaystyle{\bar{x} \pm (1.96) \times \frac{\sigma}{\sqrt{n}}}\)</span>
+</center>
+<p>If we wanted to construct a 90% confidence interval, we would use the following formula to create it : <br></p>
+<center>
+<span class="math inline">\(\displaystyle{\bar{x} \pm (1.645) \times \frac{\sigma}{\sqrt{n}}}\)</span>
+</center>
+<p><br></p>
+<p>If we wanted to construct a 99% confidence interval, we would use the following formula to create it : <br></p>
+<center>
+<span class="math inline">\(\displaystyle{\bar{x} \pm (2.58) \times \frac{\sigma}{\sqrt{n}}}\)</span>
+</center>
+<p><br></p>
+<p>When we look at the formula, you may notice that there is not much that we are in control of throughout this process. We are not in control of the sample mean or the standard deviation of the sample. What we can control is the number of observations in the sample and the level of confidence that we want. <br></p>
+<p>What if we have created a confidence interval and think it is too narrow, then we can increase the level of confidence. If we created a 90% confidence interval then we could increase the level of confidence to 95% to make the confidence interval wider. We do have to be too cautious about making it too wide. <br></p>
+<p>What if we have created a confidence interval and think it is too wide, then we can increase the number of observations in the sample. If we increase the number of observations in the sample then the standard deviation of the sample is going to decrease. This is going to make the margin of error smaller and the confidence interval narrower. <br></p>
+<p>Consider this image: <br></p>
+<center>
+<img src="./images/EPCI_3.jpg" class="img-fluid" style="width:60.0%">
+</center>
+<p><br></p>
+<p>This image shows the relationship between the number of observations in the sample and the margin of error. The first part shows the length of the confidence interval with a small sample size of <span class="math inline">\(n=5\)</span>. The second part shows the length of the confidence interval with a slightly larger sample of sinze <span class="math inline">\(10\)</span>. The third part shows the length of the confidence interval with a larger sample size of <span class="math inline">\(n=150\)</span>. As the number of observations in the sample increases, the margin of error decreases. This is because the larger sample size is giving us more information so the data is not as varied. While this is a good thing, it is not always possible to increase the number of observations in the sample. This could be a process that takes a lot of time and money. <br></p>
+<p>The moral of this story is that you may have to make some trade offs when creating a confidence interval. <br></p>
+</section>
+<section id="example-using-z-score" class="level3">
+<h3 class="anchored" data-anchor-id="example-using-z-score">Example Using Z-Score</h3>
+<p>Example : Suppose we collect a population of turtles with the following information :</p>
+<ul>
+<li>Population size : <span class="math inline">\(n=35\)</span></li>
+<li>Population mean weight : <span class="math inline">\(\bar{x} = 300\)</span></li>
+<li>Population standard deviation : <span class="math inline">\(\sigma = 18.5\)</span> <br></li>
+</ul>
+<p>We want to construct a 95% confidence interval for the average weight of the turtles.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample size</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">35</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample mean weight</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample standard deviation</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">18.5</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Z-score for 95% confidence interval</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fl">1.96</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Margin of error</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>MOE <span class="ot">&lt;-</span> z <span class="sc">*</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>MOE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.129059</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Confidence interval</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>CI <span class="ot">&lt;-</span> <span class="fu">c</span>(x_bar <span class="sc">-</span> MOE, x_bar <span class="sc">+</span> MOE)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>CI</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 293.8709 306.1291</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Our interpretation would be that we are 95% confident that the value of the parameter is between 293.87 and 306.13. <br></p>
+<p>I hope some questions are popping into your mind right now. For instance, if we have the data for the entire population, why do we need to create a confidence interval? This is an excellent question. One of the reasons is that we could just be working through an example where the population is given to us. In practice, we will not have the data for the entire population. Which means we will almost always be using a t-score to create a confidence interval.</p>
+</section>
+</section>
+<section id="t-score" class="level2">
+<h2 class="anchored" data-anchor-id="t-score">T-Score</h2>
+<p>The t-score is going to be used when we do not know the standard deviation of the population or when we have a small sample size. We can use R to calculate the value of a t-score that we need. We do need a little bit of information to calculate the t-score. We need to know the level of confidence that we want and the degrees of freedom. The degrees of freedom is the number of observations in the sample minus 1. This represents the number of independent scores in the data set. Let’s revist the previous example, but with a smaller sample size and the stnadard deviation of the population was unknown so we calculated it from the sample. <br></p>
+<ul>
+<li>Sample size : <span class="math inline">\(n=25\)</span></li>
+<li>Sample mean weight : <span class="math inline">\(\bar{x} = 300\)</span></li>
+<li>Sample standard deviation : <span class="math inline">\(s_x = 19.3\)</span> <br></li>
+</ul>
+<p>We want to construct a 95% confidence interval for the average weight of the turtles.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample size</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample mean weight</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample standard deviation</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>s_x <span class="ot">&lt;-</span> <span class="fl">19.3</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Degrees of freedom</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># T-score for 95% confidence interval. Use the qt command.</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, df)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Margin of error</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>MOE <span class="ot">&lt;-</span> t <span class="sc">*</span> s_x <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>MOE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.966648</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Confidence interval</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>CI <span class="ot">&lt;-</span> <span class="fu">c</span>(x_bar <span class="sc">-</span> MOE, x_bar <span class="sc">+</span> MOE)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>CI</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 292.0334 307.9666</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>The interpretation here is that the confidence interval goes from 292.03 to 307.97. We are 95% confident that the parameter is in this interval. <br></p>
+<p>Let’s go over the command we used to find the t-score. <br></p>
+<center>
+<code>t &lt;- qt(0.975, df)</code>
+</center>
+<p>The <code>qt</code> command is used to find the t-score. The first argument is the level of confidence that we want. In this case we want a 95% confidence interval so we are going to use 0.975. Why do we do this? Consider this image: <br></p>
+<center>
+<img src="./images/EPCI_9.jpg" class="img-fluid" style="width:60.0%">
+</center>
+<p><br></p>
+<p>The t-score needed is the mark at the end of the green shaded area, which is the middle 95% of the t-distribution. If you look at the mark though, it covers the first 97.5% of the t-distribution. This is why we use 0.975 as the argument in the <code>qt</code> command. The second argument is the degrees of freedom. The degrees of freedom is the number of observations in the sample minus 1. <br></p>
+<p>When people think about the end areas for the confidence interval, this is measured using the variable <span class="math inline">\(\alpha\)</span>. A 95% confidence interval would have <span class="math inline">\(\alpha\)</span> represent the other 5%, so <span class="math inline">\(\alpha = 0.05\)</span>. <br></p>
+<p>This means that the area in each tail is <strong>half</strong> of <span class="math inline">\(\alpha\)</span>, or 0.025. This is why we use 0.975 as the argument in the <code>qt</code> command, because <span class="math inline">\(1 - 0.025 = 0.975\)</span>.<br></p>
+<p>We could have also used the following command to find the t-score:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (alpha<span class="sc">/</span><span class="dv">2</span>), df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we wanted a 90% confidence interval, we would use the following command to find the t-score:</p>
+<center>
+<code>t &lt;- qt(0.95, df)</code>
+</center>
+<center>
+<img src="./images/EPCI_10.jpg" class="img-fluid" style="width:60.0%">
+</center>
+<p><br></p>
+<p>As you can see, the purple region ends after the first 95% of the area of the distribution. This is why we use 0.95 as the argument in the <code>qt</code> command. <br></p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This section has been about constructing confidence intervals. We are trying to estimate a parameter from a population. We know that when we take a sample, the value from the sample is almost sure to be different from the population. So instead of using the singular value from the sample, we create an interval that we feel comfortable that captures the parameter. Because of the randomness of drawing a sample we are not going to definitively know if the parameter is in the interval. However, based on the methods we have discussed in this section, we can be highly confident that the parameter is in the interval.</p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p>For the following problems you will need to calculate the following :</p>
+<ul>
+<li>The mean of the sample</li>
+<li>The standard deviation of the sample</li>
+<li>The number of observations in the sample</li>
+<li>The alpha level</li>
+<li>The test statistic (t-score)</li>
+<li>The margin of error</li>
+<li>The confidence interval</li>
+</ul>
+<section id="problem-1-estimating-the-mean-waiting-time-for-old-faithful-eruptions" class="level3">
+<h3 class="anchored" data-anchor-id="problem-1-estimating-the-mean-waiting-time-for-old-faithful-eruptions">Problem 1: Estimating the Mean Waiting Time for Old Faithful Eruptions</h3>
+<p>Use the <code>faithful</code> dataset to estimate the mean waiting time between eruptions using a 99% confidence interval.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"faithful"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>waiting_times <span class="ot">&lt;-</span> faithful<span class="sc">$</span>waiting</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>mean_waiting <span class="ot">&lt;-</span> <span class="fu">mean</span>(waiting_times)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>sd_waiting <span class="ot">&lt;-</span> <span class="fu">sd</span>(waiting_times)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(waiting_times)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>alpha_level <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>t_score <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (alpha<span class="sc">/</span><span class="dv">2</span>), <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> t_score <span class="sc">*</span> (sd_waiting <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> mean_waiting <span class="sc">-</span> margin_of_error</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> mean_waiting <span class="sc">+</span> margin_of_error</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">mean =</span> mean_waiting, <span class="at">sd =</span> sd_waiting, <span class="at">t_score =</span> t_score, <span class="at">alpha_level =</span> alpha_level,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">margin_of_error =</span> margin_of_error, <span class="at">lower_bound =</span> lower_bound, <span class="at">upper_bound =</span> upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mean
+[1] 70.89706
+
+$sd
+[1] 13.59497
+
+$t_score
+[1] 1.968756
+
+$alpha_level
+[1] 0.01
+
+$margin_of_error
+[1] 1.622878
+
+$lower_bound
+[1] 69.27418
+
+$upper_bound
+[1] 72.51994</code></pre>
+</div>
+</div>
+<p><strong>Result</strong>: The 99% confidence interval for the mean waiting time between eruptions is approximately [69.2741808, 72.5199369].</p>
+</section>
+<section id="problem-2-estimating-the-mean-speed-of-cars-in-the-cars-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-2-estimating-the-mean-speed-of-cars-in-the-cars-dataset">Problem 2: Estimating the Mean Speed of Cars in the <code>cars</code> Dataset</h3>
+<p>Use the <code>cars</code> dataset to estimate the mean speed of cars using a 95% confidence interval.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"cars"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>car_speeds <span class="ot">&lt;-</span> cars<span class="sc">$</span>speed</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>mean_speed <span class="ot">&lt;-</span> <span class="fu">mean</span>(car_speeds)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>sd_speed <span class="ot">&lt;-</span> <span class="fu">sd</span>(car_speeds)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(car_speeds)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>alpha_level <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>t_score <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (alpha<span class="sc">/</span><span class="dv">2</span>), <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> t_score <span class="sc">*</span> (sd_speed <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> mean_speed <span class="sc">-</span> margin_of_error</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> mean_speed <span class="sc">+</span> margin_of_error</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">mean =</span> mean_speed, <span class="at">sd =</span> sd_speed, <span class="at">t_score =</span> t_score, <span class="at">alpha_level =</span> alpha_level,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">margin_of_error =</span> margin_of_error, <span class="at">lower_bound =</span> lower_bound, <span class="at">upper_bound =</span> upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mean
+[1] 15.4
+
+$sd
+[1] 5.287644
+
+$t_score
+[1] 2.009575
+
+$alpha_level
+[1] 0.05
+
+$margin_of_error
+[1] 1.502732
+
+$lower_bound
+[1] 13.89727
+
+$upper_bound
+[1] 16.90273</code></pre>
+</div>
+</div>
+<p><strong>Result</strong>: The 95% confidence interval for the mean speed of cars is approximately [13.8972681, 16.9027319].</p>
+</section>
+<section id="problem-3-estimating-the-mean-gas-mileage-of-cars-in-the-mtcars-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-3-estimating-the-mean-gas-mileage-of-cars-in-the-mtcars-dataset">Problem 3: Estimating the Mean Gas Mileage of Cars in the <code>mtcars</code> Dataset</h3>
+<p>Use the <code>mtcars</code> dataset to estimate the mean miles per gallon (mpg) of cars using a 99% confidence interval.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mpg <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>mean_mpg <span class="ot">&lt;-</span> <span class="fu">mean</span>(mpg)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>sd_mpg <span class="ot">&lt;-</span> <span class="fu">sd</span>(mpg)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(mpg)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>alpha_level <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>t_score <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (alpha<span class="sc">/</span><span class="dv">2</span>), <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> t_score <span class="sc">*</span> (sd_mpg <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> mean_mpg <span class="sc">-</span> margin_of_error</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> mean_mpg <span class="sc">+</span> margin_of_error</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">mean =</span> mean_mpg, <span class="at">sd =</span> sd_mpg, <span class="at">t_score =</span> t_score, <span class="at">alpha_level =</span> alpha_level,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">margin_of_error =</span> margin_of_error, <span class="at">lower_bound =</span> lower_bound, <span class="at">upper_bound =</span> upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mean
+[1] 20.09062
+
+$sd
+[1] 6.026948
+
+$t_score
+[1] 2.039513
+
+$alpha_level
+[1] 0.01
+
+$margin_of_error
+[1] 2.172946
+
+$lower_bound
+[1] 17.91768
+
+$upper_bound
+[1] 22.26357</code></pre>
+</div>
+</div>
+<p><strong>Result</strong>: The 99% confidence interval for the mean miles per gallon of cars is approximately [17.9176785, 22.2635715].</p>
+</section>
+<section id="problem-4-estimating-the-mean-height-of-trees-in-the-trees-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-4-estimating-the-mean-height-of-trees-in-the-trees-dataset">Problem 4: Estimating the Mean Height of Trees in the <code>trees</code> Dataset</h3>
+<p>Use the <code>trees</code> dataset to estimate the mean height of trees using a 95% confidence interval.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"trees"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>tree_heights <span class="ot">&lt;-</span> trees<span class="sc">$</span>Height</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>mean_height <span class="ot">&lt;-</span> <span class="fu">mean</span>(tree_heights)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>sd_height <span class="ot">&lt;-</span> <span class="fu">sd</span>(tree_heights)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(tree_heights)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>alpha_level <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>t_score <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> t_score <span class="sc">*</span> (sd_height <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> mean_height <span class="sc">-</span> margin_of_error</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> mean_height <span class="sc">+</span> margin_of_error</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">mean =</span> mean_height, <span class="at">sd =</span> sd_height, <span class="at">t_score =</span> t_score, <span class="at">alpha_level =</span> alpha_level,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">margin_of_error =</span> margin_of_error, <span class="at">lower_bound =</span> lower_bound, <span class="at">upper_bound =</span> upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mean
+[1] 76
+
+$sd
+[1] 6.371813
+
+$t_score
+[1] 2.042272
+
+$alpha_level
+[1] 0.05
+
+$margin_of_error
+[1] 2.3372
+
+$lower_bound
+[1] 73.6628
+
+$upper_bound
+[1] 78.3372</code></pre>
+</div>
+</div>
+<p><strong>Result</strong>: The 95% confidence interval for the mean height of trees is approximately [73.6628001, 78.3371999].</p>
+</section>
+<section id="problem-5-estimating-the-mean-air-quality-in-new-york" class="level3">
+<h3 class="anchored" data-anchor-id="problem-5-estimating-the-mean-air-quality-in-new-york">Problem 5: Estimating the Mean Air Quality in New York</h3>
+<p>Use the <code>airquality</code> dataset to estimate the mean ozone level using a 90% confidence interval.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"airquality"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ozone_levels <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Ozone[<span class="sc">!</span><span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone)]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>mean_ozone <span class="ot">&lt;-</span> <span class="fu">mean</span>(ozone_levels)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>sd_ozone <span class="ot">&lt;-</span> <span class="fu">sd</span>(ozone_levels)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(ozone_levels)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>t_score <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>alpha_level <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> t_score <span class="sc">*</span> (sd_ozone <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> mean_ozone <span class="sc">-</span> margin_of_error</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> mean_ozone <span class="sc">+</span> margin_of_error</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">mean =</span> mean_ozone, <span class="at">sd =</span> sd_ozone, <span class="at">t_score =</span> t_score, <span class="at">alpha_level =</span> alpha_level,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">margin_of_error =</span> margin_of_error, <span class="at">lower_bound =</span> lower_bound, <span class="at">upper_bound =</span> upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mean
+[1] 42.12931
+
+$sd
+[1] 32.98788
+
+$t_score
+[1] 1.658212
+
+$alpha_level
+[1] 0.1
+
+$margin_of_error
+[1] 5.078851
+
+$lower_bound
+[1] 37.05046
+
+$upper_bound
+[1] 47.20816</code></pre>
+</div>
+</div>
+<p><strong>Result</strong>: The 90% confidence interval for the mean ozone level is approximately [37.0504593, 47.2081614].</p>
+</section>
+<section id="problem-6-estimating-the-mean-depth-of-quakes-in-fiji" class="level3">
+<h3 class="anchored" data-anchor-id="problem-6-estimating-the-mean-depth-of-quakes-in-fiji">Problem 6: Estimating the Mean Depth of Quakes in Fiji</h3>
+<p>Use the <code>quakes</code> dataset to estimate the mean depth of earthquakes using a 95% confidence interval.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"quakes"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>quake_depths <span class="ot">&lt;-</span> quakes<span class="sc">$</span>depth</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>mean_depth <span class="ot">&lt;-</span> <span class="fu">mean</span>(quake_depths)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>sd_depth <span class="ot">&lt;-</span> <span class="fu">sd</span>(quake_depths)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(quake_depths)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>t_score <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>alpha_level <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> t_score <span class="sc">*</span> (sd_depth <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> mean_depth <span class="sc">-</span> margin_of_error</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> mean_depth <span class="sc">+</span> margin_of_error</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">mean =</span> mean_depth, <span class="at">sd =</span> sd_depth, <span class="at">t_score =</span> t_score, <span class="at">alpha_level =</span> alpha_level,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">margin_of_error =</span> margin_of_error, <span class="at">lower_bound =</span> lower_bound, <span class="at">upper_bound =</span> upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mean
+[1] 311.371
+
+$sd
+[1] 215.5355
+
+$t_score
+[1] 1.962341
+
+$alpha_level
+[1] 0.05
+
+$margin_of_error
+[1] 13.37499
+
+$lower_bound
+[1] 297.996
+
+$upper_bound
+[1] 324.746</code></pre>
+</div>
+</div>
+<p><strong>Result</strong>: The 95% confidence interval for the mean depth of earthquakes is approximately [297.9960124, 324.7459876].</p>
+</section>
+<section id="problem-7-estimating-the-mean-monthly-sunspots" class="level3">
+<h3 class="anchored" data-anchor-id="problem-7-estimating-the-mean-monthly-sunspots">Problem 7: Estimating the Mean Monthly Sunspots</h3>
+<p>Use the <code>sunspot.month</code> dataset to estimate the mean number of monthly sunspots using a 99% confidence interval.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"sunspot.month"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>monthly_sunspots <span class="ot">&lt;-</span> sunspot.month</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>mean_sunspots <span class="ot">&lt;-</span> <span class="fu">mean</span>(monthly_sunspots)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>sd_sunspots <span class="ot">&lt;-</span> <span class="fu">sd</span>(monthly_sunspots)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(monthly_sunspots)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>alpha_level <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>t_score <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.995</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> t_score <span class="sc">*</span> (sd_sunspots <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> mean_sunspots <span class="sc">-</span> margin_of_error</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> mean_sunspots <span class="sc">+</span> margin_of_error</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">mean =</span> mean_sunspots, <span class="at">sd =</span> sd_sunspots, <span class="at">t_score =</span> t_score, <span class="at">alpha_level =</span> alpha_level,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">margin_of_error =</span> margin_of_error, <span class="at">lower_bound =</span> lower_bound, <span class="at">upper_bound =</span> upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mean
+[1] 51.96481
+
+$sd
+[1] 44.12524
+
+$t_score
+[1] 2.577378
+
+$alpha_level
+[1] 0.01
+
+$margin_of_error
+[1] 2.0177
+
+$lower_bound
+[1] 49.94711
+
+$upper_bound
+[1] 53.98251</code></pre>
+</div>
+</div>
+<p><strong>Result</strong>: The 99% confidence interval for the mean number of monthly sunspots is approximately [49.9471096, 53.9825096].</p>
+</section>
+<section id="problem-8-estimating-the-mean-pressure-in-the-pressure-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-8-estimating-the-mean-pressure-in-the-pressure-dataset">Problem 8: Estimating the Mean Pressure in the <code>pressure</code> Dataset</h3>
+<p>Use the <code>pressure</code> dataset to estimate the mean pressure using a 95% confidence interval.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"pressure"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>pressure_values <span class="ot">&lt;-</span> pressure<span class="sc">$</span>pressure</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>mean_pressure <span class="ot">&lt;-</span> <span class="fu">mean</span>(pressure_values)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>sd_pressure <span class="ot">&lt;-</span> <span class="fu">sd</span>(pressure_values)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(pressure_values)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>t_score <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>alpha_level <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> t_score <span class="sc">*</span> (sd_pressure <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> mean_pressure <span class="sc">-</span> margin_of_error</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> mean_pressure <span class="sc">+</span> margin_of_error</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">mean =</span> mean_pressure, <span class="at">sd =</span> sd_pressure, <span class="at">t_score =</span> t_score, <span class="at">alpha_level =</span> alpha_level,</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">margin_of_error =</span> margin_of_error, <span class="at">lower_bound =</span> lower_bound, <span class="at">upper_bound =</span> upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mean
+[1] 124.3367
+
+$sd
+[1] 224.6225
+
+$t_score
+[1] 2.100922
+
+$alpha_level
+[1] 0.05
+
+$margin_of_error
+[1] 108.2646
+
+$lower_bound
+[1] 16.07211
+
+$upper_bound
+[1] 232.6013</code></pre>
+</div>
+</div>
+<p><strong>Result</strong>: The 95% confidence interval for the mean pressure is approximately [16.0721066, 232.6013039].</p>
+</section>
+<section id="problem-9-estimating-the-mean-weight-of-chickens" class="level3">
+<h3 class="anchored" data-anchor-id="problem-9-estimating-the-mean-weight-of-chickens">Problem 9: Estimating the Mean Weight of Chickens</h3>
+<p>Use the <code>ChickWeight</code> dataset to estimate the mean weight of chickens at Time 20 using a 95% confidence interval.</p>
+<p>(Hint : Look at the set up of ChickWeight using ?Chickweight. There are 4 variables, one of which is “Time”. We want the variable Chickweight$Time when Time = 20. Filter the dataset to get the weights at Time 20)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ?ChickWeight</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ChickWeight"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># chick_weights &lt;- filter(ChickWeight, Time == 20)$weight</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>chick_weights <span class="ot">&lt;-</span> ChickWeight<span class="sc">$</span>weight[ChickWeight<span class="sc">$</span>Time <span class="sc">==</span> <span class="dv">20</span>]</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>mean_weight <span class="ot">&lt;-</span> <span class="fu">mean</span>(chick_weights)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>sd_weight <span class="ot">&lt;-</span> <span class="fu">sd</span>(chick_weights)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(chick_weights)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>t_score <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>alpha_level <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> t_score <span class="sc">*</span> (sd_weight <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> mean_weight <span class="sc">-</span> margin_of_error</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> mean_weight <span class="sc">+</span> margin_of_error</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">mean =</span> mean_weight, <span class="at">sd =</span> sd_weight, <span class="at">t_score =</span> t_score, <span class="at">alpha_level =</span> alpha_level,</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">margin_of_error =</span> margin_of_error, <span class="at">lower_bound =</span> lower_bound, <span class="at">upper_bound =</span> upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mean
+[1] 209.7174
+
+$sd
+[1] 66.51171
+
+$t_score
+[1] 2.014103
+
+$alpha_level
+[1] 0.05
+
+$margin_of_error
+[1] 19.75154
+
+$lower_bound
+[1] 189.9659
+
+$upper_bound
+[1] 229.4689</code></pre>
+</div>
+</div>
+<p><strong>Result</strong>: The 95% confidence interval for the mean weight of chickens at Time 20 is approximately [189.9658522, 229.4689304].</p>
+</section>
+<section id="problem-10-estimating-the-mean-sepal-length-of-versicolor-species" class="level3">
+<h3 class="anchored" data-anchor-id="problem-10-estimating-the-mean-sepal-length-of-versicolor-species">Problem 10: Estimating the Mean Sepal Length of Versicolor Species</h3>
+<p>Use the <code>iris</code> dataset to estimate the mean sepal length of the Versicolor species using a 90% confidence interval.</p>
+<p>(Hint : We want to pull out the Sepal.Length column for the Versicolor species)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"iris"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># versicolor_sepal_length &lt;- filter(iris, Species == "versicolor")$Sepal.Length</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>versicolor_sepal_length <span class="ot">&lt;-</span> iris<span class="sc">$</span>Sepal.Length[iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">"versicolor"</span>]</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>mean_sepal_length <span class="ot">&lt;-</span> <span class="fu">mean</span>(versicolor_sepal_length)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>sd_sepal_length <span class="ot">&lt;-</span> <span class="fu">sd</span>(versicolor_sepal_length)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(versicolor_sepal_length)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>t_score <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>alpha_level <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> t_score <span class="sc">*</span> (sd_sepal_length <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> mean_sepal_length <span class="sc">-</span> margin_of_error</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> mean_sepal_length <span class="sc">+</span> margin_of_error</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">mean =</span> mean_sepal_length, <span class="at">sd =</span> sd_sepal_length, <span class="at">t_score =</span> t_score, <span class="at">alpha_level =</span> alpha_level,</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">margin_of_error =</span> margin_of_error, <span class="at">lower_bound =</span> lower_bound, <span class="at">upper_bound =</span> upper_bound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$mean
+[1] 5.936
+
+$sd
+[1] 0.5161711
+
+$t_score
+[1] 1.676551
+
+$alpha_level
+[1] 0.1
+
+$margin_of_error
+[1] 0.1223842
+
+$lower_bound
+[1] 5.813616
+
+$upper_bound
+[1] 6.058384</code></pre>
+</div>
+</div>
+<p><strong>Result</strong>: The 90% confidence interval for the mean sepal length of the Versicolor species is approximately [5.8136158, 6.0583842].</p>
+<p><br><br></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Advanced_Scatterplot_Techniques.html" class="pagination-link" aria-label="Advanced Scatterplot Techniques">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Advanced Scatterplot Techniques</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Qualitative_and_Quantitative_Variables_Assignment_Solutions.html" class="pagination-link" aria-label="Qualitative and Quantitative Variables Assignment Solutions">
+        <span class="nav-page-text">Qualitative and Quantitative Variables Assignment Solutions</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Introductory Data Analytics and Statistics was written by Mike LeVan.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

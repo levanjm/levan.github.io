@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Vectors, Data Frames, Tibbles – Data Analytics and Statistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Intro_To_R.html" rel="next">
+<link href="./What_Is_Tidy_Data_PDF.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./What_Is_Tidy_Data_PDF.html">Step 2 - Data Preparation</a></li><li class="breadcrumb-item"><a href="./Vectors_DataFrames_Tibbles.html">Vectors, Data Frames, Tibbles</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Analytics and Statistics</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data 1004 - Data Analytics and Statistics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./About.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Data_Science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is Data Science?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 1 - Data Collecting</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What Is Tidyverse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Statistics_Language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Language</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Qualitative_and_Quantitative_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qualitative and Quantitative Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_In_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading In Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 2 - Data Preparation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Tidy_Data_PDF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is “Tidy Data”?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Vectors_DataFrames_Tibbles.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Vectors, Data Frames, Tibbles</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intro_To_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_and_Interpreting_Tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading and Interpreting Tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dplyr_and_Piping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Cleaning with dplyr and piping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Additional_Data_Cleaning_Functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Data Cleaning Functions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 3 - Exploration and Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Barplots_And_Histograms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Barplots and Histograms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Line_Graphs_and_Pie_Charts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Line Graphs and Pie Charts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Beginning_Data_Visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Measures_of_Central_Tendencies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measures Of Central Tendencies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Measures_of_Variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measures Of Variability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Advanced_Boxplot_Techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Boxplot Techniques.</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 4 - Experimentation and Prediction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Independent_and_Dependent_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Independent and Dependent Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Scatterplots_and_Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scatterplots and Correlation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Linear_Modeling_and_Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Modeling and Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Residuals_Outliers_Predictions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Residuals, Outliers and Predictions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Advanced_Scatterplot_Techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Scatterplot Techniques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Estimating_Parameters_Confidence_Intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Estimating Parameters Using Confidence Intervals</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Qualitative_and_Quantitative_Variables_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qualitative and Quantitative Variables Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Tidy_Data_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy Data Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Beginning_Data_Visualization_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Visualization Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA_Assignment_sheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Assignment Sheet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA_Assignment_Sheet_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_1_Intro_To_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_2_ Read_In_Data_Assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_3_Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 4.</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 6</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#vectors" id="toc-vectors" class="nav-link active" data-scroll-target="#vectors">Vectors</a></li>
+  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames">Data Frames</a></li>
+  <li><a href="#tibbles" id="toc-tibbles" class="nav-link" data-scroll-target="#tibbles">Tibbles</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#problem-1-numeric-vector" id="toc-problem-1-numeric-vector" class="nav-link" data-scroll-target="#problem-1-numeric-vector">Problem 1: Numeric Vector</a></li>
+  <li><a href="#problem-2-character-vector" id="toc-problem-2-character-vector" class="nav-link" data-scroll-target="#problem-2-character-vector">Problem 2: Character Vector</a></li>
+  <li><a href="#problem-3-logical-vector" id="toc-problem-3-logical-vector" class="nav-link" data-scroll-target="#problem-3-logical-vector">Problem 3: Logical Vector</a></li>
+  <li><a href="#problem-4-factor-vector" id="toc-problem-4-factor-vector" class="nav-link" data-scroll-target="#problem-4-factor-vector">Problem 4: Factor Vector</a></li>
+  <li><a href="#problem-5-complex-vector" id="toc-problem-5-complex-vector" class="nav-link" data-scroll-target="#problem-5-complex-vector">Problem 5: Complex Vector</a></li>
+  <li><a href="#problem-6-creating-a-data-frame-for-students-scores" id="toc-problem-6-creating-a-data-frame-for-students-scores" class="nav-link" data-scroll-target="#problem-6-creating-a-data-frame-for-students-scores">Problem 6: Creating a Data Frame for Students’ Scores</a></li>
+  <li><a href="#problem-7-creating-a-data-frame-for-monthly-expenses" id="toc-problem-7-creating-a-data-frame-for-monthly-expenses" class="nav-link" data-scroll-target="#problem-7-creating-a-data-frame-for-monthly-expenses">Problem 7: Creating a Data Frame for Monthly Expenses</a></li>
+  <li><a href="#problem-8-creating-a-data-frame-for-employee-information" id="toc-problem-8-creating-a-data-frame-for-employee-information" class="nav-link" data-scroll-target="#problem-8-creating-a-data-frame-for-employee-information">Problem 8: Creating a Data Frame for Employee Information</a></li>
+  <li><a href="#problem-9-creating-a-data-frame-for-product-sales" id="toc-problem-9-creating-a-data-frame-for-product-sales" class="nav-link" data-scroll-target="#problem-9-creating-a-data-frame-for-product-sales">Problem 9: Creating a Data Frame for Product Sales</a></li>
+  <li><a href="#problem-10-creating-a-data-frame-for-weather-data" id="toc-problem-10-creating-a-data-frame-for-weather-data" class="nav-link" data-scroll-target="#problem-10-creating-a-data-frame-for-weather-data">Problem 10: Creating a Data Frame for Weather Data</a></li>
+  <li><a href="#problem-11-creating-a-tibble-for-students-scores" id="toc-problem-11-creating-a-tibble-for-students-scores" class="nav-link" data-scroll-target="#problem-11-creating-a-tibble-for-students-scores">Problem 11: Creating a Tibble for Students’ Scores</a></li>
+  <li><a href="#problem-12-converting-a-data-frame-to-a-tibble-for-monthly-expenses" id="toc-problem-12-converting-a-data-frame-to-a-tibble-for-monthly-expenses" class="nav-link" data-scroll-target="#problem-12-converting-a-data-frame-to-a-tibble-for-monthly-expenses">Problem 12: Converting a Data Frame to a Tibble for Monthly Expenses</a></li>
+  <li><a href="#problem-13-creating-a-tibble-for-employee-information-and-selecting-columns" id="toc-problem-13-creating-a-tibble-for-employee-information-and-selecting-columns" class="nav-link" data-scroll-target="#problem-13-creating-a-tibble-for-employee-information-and-selecting-columns">Problem 13: Creating a Tibble for Employee Information and Selecting Columns</a></li>
+  <li><a href="#problem-14-creating-a-tibble-for-product-sales-and-filtering-rows" id="toc-problem-14-creating-a-tibble-for-product-sales-and-filtering-rows" class="nav-link" data-scroll-target="#problem-14-creating-a-tibble-for-product-sales-and-filtering-rows">Problem 14: Creating a Tibble for Product Sales and Filtering Rows</a></li>
+  <li><a href="#problem-15-creating-a-tibble-for-weather-data-and-using-head-and-tail" id="toc-problem-15-creating-a-tibble-for-weather-data-and-using-head-and-tail" class="nav-link" data-scroll-target="#problem-15-creating-a-tibble-for-weather-data-and-using-head-and-tail">Problem 15: Creating a Tibble for Weather Data and Using <code>head()</code> and <code>tail()</code></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./What_Is_Tidy_Data_PDF.html">Step 2 - Data Preparation</a></li><li class="breadcrumb-item"><a href="./Vectors_DataFrames_Tibbles.html">Vectors, Data Frames, Tibbles</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Vectors, Data Frames, Tibbles</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- This document was used in conjunction with GitHub Copilot (AI) to
+write the descriptions -->
+<p>Let’s talk a little bit about structures we can use to store data. These can be complex, so we will just talk about some basic ways in which we will be using them.</p>
+<section id="vectors" class="level2">
+<h2 class="anchored" data-anchor-id="vectors">Vectors</h2>
+<p>A vector is a 1-dimensional (row) structure that can hold multiple elements. For example, we can create a vector that contains 10 numbers such as this one :</p>
+<center>
+<img src="./images/Vector-1.jpg" class="img-fluid" style="width:60.0%">
+</center>
+<p><br></p>
+<p>This example is a 1-dimensional vector that holds 10 values. You can see the <strong>values</strong> that we have saved are 10, 20, 30, 40, 50, 60, 70, 80, 90, and 100. The <strong>index</strong> tells us what position each value is in. The first value is at index 1, the second value is at index 2, and so on. <br></p>
+<p>When creating a new vector, you want to make sure you are giving it a name that makes sense. For example, if you are creating a vector that holds the scores from a test, you might want to name it <code>test_scores</code>. This will help you remember what the vector is for when you are working with it later. <br></p>
+<p>In order to create a vector, we can use the <code>c()</code> function. This function stands for “combine” and is used to combine multiple values into a single vector. For example, if we wanted to create a vector that holds the numbers from above, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>test_scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(test_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>Note : I used the <code>class()</code> function to check the type of the object. The output of this command is <code>numeric</code>. This tells us that the object is a numeric vector. This is because all of the values in the vector are numbers. <br></p>
+<p>We can access the values by using the index. For example, if we wanted to access the first value in the vector, we could do it like this: <code>test_scores[1]</code>. This would return the value <code>10</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>test_scores[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<p>If I wanted to examine the 4th - 7th entries, I could do it like this: <code>test_scores[4:7]</code>. This would return the values <code>40, 50, 60, 70</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>test_scores[<span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 40 50 60 70</code></pre>
+</div>
+</div>
+<p>Note that we can’t just pick random locations in the vector. For example, if I wanted to print out the values in the 2nd, 5th, and 9th locations? The command <code>test_scores[2, 5, 9]</code> would not work. You would get an error message that stops your script.</p>
+<p>Instead, we could create a <strong>vector</strong> that holds the locations we want to examine. For example, we could create a vector that holds the values <code>2, 5, 9</code> and use this vector in our command :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>test_scores[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">9</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20 50 90</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>You can also create a vector that holds <strong>text</strong> values. For example, you could create a vector that holds the names of the students in a class. This would look something like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>student_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>, <span class="st">"David"</span>, <span class="st">"Eve"</span>, <span class="st">"Frank"</span>, <span class="st">"Grace"</span>, <span class="st">"Hannah"</span>, <span class="st">"Ivy"</span>, <span class="st">"Jack"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(student_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>Notice that this vector is of type <code>character</code>. This is because all of the values in the vector are text values. You can access the values in the same way as you would with a numeric vector. For example, if you wanted to access the first value in the vector, you could do it like this: <code>student_names[1]</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>student_names[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Alice"</code></pre>
+</div>
+</div>
+<p>We have seen two examples. The first was a vector that contained numeric values and the second was a vector that contained text values. You can also create a vector that contains a mix of both. For example, you could create a vector that contains the names of the students in a class along with their test scores. This would look something like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>student_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="dv">100</span>, <span class="st">"Bob"</span>, <span class="dv">90</span>, <span class="st">"Charlie"</span>, <span class="dv">80</span>, <span class="st">"David"</span>, <span class="dv">70</span>, <span class="st">"Eve"</span>, <span class="dv">60</span>, <span class="st">"Frank"</span>, <span class="dv">50</span>, <span class="st">"Grace"</span>, <span class="dv">40</span>, <span class="st">"Hannah"</span>, <span class="dv">30</span>, <span class="st">"Ivy"</span>, <span class="dv">20</span>, <span class="st">"Jack"</span>, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When you create a vector that contains a mix of text and numeric values, you need to be careful. <br></p>
+<p>When you create a vector that contains a mix of text and numeric values, R will convert the text values to a different type. For example, if you have a vector that contains both text and numeric values, the text values will be converted to a type called <code>character</code>. This is a type that is used to store text values. For example, if you have a vector that contains the values <code>10, 20, 30, "Alice", "Bob"</code>, the text values <code>"Alice"</code> and <code>"Bob"</code> will be converted to the type <code>character</code>. This is because R can’t store text values in a vector that is meant to hold numeric values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(student_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>If a vector contains text and numeric values, the text values will be converted to a different type. For example, if you have a vector that contains both text and numeric values, the text values will be converted to a type called <code>character</code>. This is a type that is used to store text values. For example, if you have a vector that contains the values <code>10, 20, 30, "Alice", "Bob"</code>, the text values <code>"Alice"</code> and <code>"Bob"</code> will be converted to the type <code>character</code>. This is because R can’t store text values in a vector that is meant to hold numeric values.</p>
+<p>This can be problematic. For instance, what if we wanted to find the average of the test scores from the <code>student_data</code> vector? We would need to convert the text values to numeric values first. We can do this using the <code>as.numeric()</code> function. This function converts a vector to a numeric type. For example, if we wanted to convert the <code>student_data</code> vector to a numeric type, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>student_data <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(student_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>student_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  NA 100  NA  90  NA  80  NA  70  NA  60  NA  50  NA  40  NA  30  NA  20  NA
+[20]  10</code></pre>
+</div>
+</div>
+<p>This is interesting because as we see the output, we get <code>NA</code> values. This is because the <code>as.numeric()</code> function can’t convert text values to numeric values. When it encounters a text value, it returns <code>NA</code>. This is a special value that is used to represent missing or undefined values. In this case, it is used to represent the text values that couldn’t be converted to numeric values. <br></p>
+<p>So if we wanted to then find the average of the test scores, we could pull out the score sand save them into another vector. The test scores are in indices 2, 3, 6, 8, 10, 12, 14, 16, 18 and 20. We could save these into a new vector called <code>test_scores2</code> and then find the average like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>test_scores2 <span class="ot">&lt;-</span> student_data[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">20</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s check the vector to make sure it is correct :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>test_scores2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 100  90  80  70  60  50  40  30  20  10</code></pre>
+</div>
+</div>
+<p>We can now find the average using the <code>mean()</code> function. This function calculates the average of a vector. For example, if we wanted to find the average of the test scores, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(test_scores2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 55</code></pre>
+</div>
+</div>
+<p>The reason why a vector is not useful here is because it is trying to save two different forms of data at once. We are trying to save text and numeric data in the same vector. This is not a good idea. Surely there is an easier way to store the data! That is where data frames come in.</p>
+</section>
+<section id="data-frames" class="level2">
+<h2 class="anchored" data-anchor-id="data-frames">Data Frames</h2>
+<p>A data frame is a 2-dimensional (row and column) structure that can hold multiple elements. It is similar to a matrix, but it can hold different types of data in each column. For example, you could create a data frame that holds the names of the students in a class along with their test scores. This would look something like this:</p>
+<center>
+<img src="./images/Vector-2.jpg" class="img-fluid" style="width:90.0%">
+</center>
+<p><br></p>
+<p>This example is a 2-dimensional data frame that holds 10 rows and 2 columns. This is an example of a <strong>data frame</strong>. In a data frame, each row is called an <strong>observation</strong> and each column is called a <strong>variable</strong>. This data frame has two variables: <code>name</code> and <code>test_score</code>. The <code>name</code> variable holds the names of the students in the class, while the <code>test_score</code> variable holds the test scores of the students. <br></p>
+<p>When creating a new data frame, you want to make sure you are giving it a name that makes sense. For example, if you are creating a data frame that holds the names of the students in a class along with their test scores, you might want to name it <code>student_data</code>. This will help you remember what the data frame is for when you are working with it later. <br></p>
+<p>In order to create a data frame, we can use the <code>data.frame()</code> function. This function is used to create a new data frame. For example, if we wanted to create a data frame that holds the names of the students in a class along with their test scores, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>student_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>, <span class="st">"David"</span>, <span class="st">"Eve"</span>, <span class="st">"Frank"</span>, <span class="st">"Grace"</span>, <span class="st">"Hannah"</span>, <span class="st">"Ivy"</span>, <span class="st">"Jack"</span>),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">test_score =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">90</span>, <span class="dv">80</span>, <span class="dv">70</span>, <span class="dv">60</span>, <span class="dv">50</span>, <span class="dv">40</span>, <span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">10</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(student_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+</div>
+<p>In this example, we are creating a data one column at a time. Since we named these columns as <code>name</code> and <code>test_score</code>, we can access the values in the same way as we would with a vector. For example, if we wanted to access the first value in the <code>name</code> column, we could do it like this: <code>student_data$name[1]</code>. This would return the value <code>Alice</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>student_data<span class="sc">$</span>name[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Alice"</code></pre>
+</div>
+</div>
+<p>Similarly, if we wanted to access the first value in the <code>test_score</code> column, we could do it like this: <code>student_data$test_score[1]</code>. This would return the value <code>100</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>student_data<span class="sc">$</span>test_score[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+</div>
+<p>We could also the value in the fifth row and second column like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>student_data[<span class="dv">5</span>, <span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 60</code></pre>
+</div>
+</div>
+<p>If we wanted to print out the entire first column, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>student_data<span class="sc">$</span>name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Alice"   "Bob"     "Charlie" "David"   "Eve"     "Frank"   "Grace"  
+ [8] "Hannah"  "Ivy"     "Jack"   </code></pre>
+</div>
+</div>
+<p>If we wanted to print out the entire second column, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>student_data<span class="sc">$</span>test_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 100  90  80  70  60  50  40  30  20  10</code></pre>
+</div>
+</div>
+<p>What happens if we wanted to print out the entore data frame? We could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>student_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      name test_score
+1    Alice        100
+2      Bob         90
+3  Charlie         80
+4    David         70
+5      Eve         60
+6    Frank         50
+7    Grace         40
+8   Hannah         30
+9      Ivy         20
+10    Jack         10</code></pre>
+</div>
+</div>
+<p>These commands are nice, but if you have a large data set then just printing it off can be a bit overwhelming. We can use the <code>head()</code> function to print out the first few rows of the data frame. For example, if we wanted to print out the first 3 rows of the data frame, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(student_data, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     name test_score
+1   Alice        100
+2     Bob         90
+3 Charlie         80</code></pre>
+</div>
+</div>
+<p>If we wanted to print out the last few rows of the data frame, we could use the <code>tail()</code> function. For example, if we wanted to print out the last 5 rows</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(student_data, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     name test_score
+6   Frank         50
+7   Grace         40
+8  Hannah         30
+9     Ivy         20
+10   Jack         10</code></pre>
+</div>
+</div>
+<p>The default amount of lines for <code>head()</code> and <code>tail()</code> is 6. If you don’t specify an amount of lines, it will print out 6 lines.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(student_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     name test_score
+1   Alice        100
+2     Bob         90
+3 Charlie         80
+4   David         70
+5     Eve         60
+6   Frank         50</code></pre>
+</div>
+</div>
+<p>How is a data frame different from a tibble? Let’s talk about that next.</p>
+</section>
+<section id="tibbles" class="level2">
+<h2 class="anchored" data-anchor-id="tibbles">Tibbles</h2>
+<p>A tibble is a modern version of a data frame that is part of the <strong>tidyverse</strong>. It is similar to a data frame, but it has some additional features that make it easier to work with. For example, tibbles have a nicer print method that makes it easier to view the data. They also have some additional functions that make it easier to manipulate the data. For example, you can use the <code>select()</code> function to select specific columns from a tibble. You can also use the <code>filter()</code> function to filter rows based on a condition. These functions make it easier to work with tibbles than with data frames.</p>
+<p>In order to create a tibble, we can use the <code>tibble()</code> function. This function is used to create a new tibble. For example, if we wanted to create a tibble that holds the names of the students in a class along with their test scores, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure tidyverse is installed and loaded up. Remember, if you</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># need to install it, use the following :</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(tidyverse)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If it is already downloaded, then you just need to load up the library :</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ forcats   1.0.0     ✔ readr     2.1.5
+✔ ggplot2   3.5.1     ✔ stringr   1.5.1
+✔ lubridate 1.9.4     ✔ tibble    3.2.1
+✔ purrr     1.0.2     ✔ tidyr     1.3.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I have already installed the tibble package, so I will just load it up</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>student_data2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>, <span class="st">"David"</span>, <span class="st">"Eve"</span>, <span class="st">"Frank"</span>, <span class="st">"Grace"</span>, <span class="st">"Hannah"</span>, <span class="st">"Ivy"</span>, <span class="st">"Jack"</span>),</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">test_score =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">90</span>, <span class="dv">80</span>, <span class="dv">70</span>, <span class="dv">60</span>, <span class="dv">50</span>, <span class="dv">40</span>, <span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">10</span>)</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(student_data2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
+</div>
+</div>
+<p>In this example, we are creating a tibble that is similar to the data frame we created earlier. The main difference is that this tibble is part of the tidyverse. This means that it has some additional features that make it easier to work with. For example, we can use the <code>select()</code> function to select specific columns from the tibble. For example, if we wanted to select the <code>name</code> column from the tibble, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(student_data2, name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+   name   
+   &lt;chr&gt;  
+ 1 Alice  
+ 2 Bob    
+ 3 Charlie
+ 4 David  
+ 5 Eve    
+ 6 Frank  
+ 7 Grace  
+ 8 Hannah 
+ 9 Ivy    
+10 Jack   </code></pre>
+</div>
+</div>
+<p>If we wanted to select the <code>test_score</code> column from the tibble, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(student_data2, test_score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+   test_score
+        &lt;dbl&gt;
+ 1        100
+ 2         90
+ 3         80
+ 4         70
+ 5         60
+ 6         50
+ 7         40
+ 8         30
+ 9         20
+10         10</code></pre>
+</div>
+</div>
+<p>If I want all of the students that got higher than a 65 for their test score, I could use the <code>filter()</code> command to help us out. The <code>filter()</code> command needs two arguments. The first is the name of the tibble and the second is the condition that we want to filter on. For example, if we wanted to filter out all of the students that got higher than a 65 on their test, we could do it like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(student_data2, test_score <span class="sc">&gt;</span> <span class="dv">65</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  name    test_score
+  &lt;chr&gt;        &lt;dbl&gt;
+1 Alice          100
+2 Bob             90
+3 Charlie         80
+4 David           70</code></pre>
+</div>
+</div>
+<p>Another advantage a tibble has over a data frame is that it is easier to work with when you are working with large data sets. For example, if you have a data set that has 1 million rows, it can be difficult to work with a data frame. This is because data frames are stored in memory, and if you have a large data set, it can take up a lot of memory. This can slow down your computer and make it difficult to work with the data. Tibbles are designed to be more memory efficient than data frames. This means that they can handle larger data sets more easily. This makes it easier to work with large data sets in R.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In conclusion, vectors, data frames, and tibbles are all useful structures that can be used to store data. Vectors are 1-dimensional structures that can hold multiple elements. Data frames are 2-dimensional structures that can hold multiple elements. Tibbles are a modern version of data frames that are part of the tidyverse. They have some additional features that make them easier to work with. All of these structures are useful for storing data in R, and you will likely use all of them at some point when working with data in R.</p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p>In this part of the assignment, you will practice creating different types of vectors in R and using common commands associated with them, such as determining their class. Each problem will involve creating a unique type of vector and performing specific operations.</p>
+<section id="problem-1-numeric-vector" class="level3">
+<h3 class="anchored" data-anchor-id="problem-1-numeric-vector">Problem 1: Numeric Vector</h3>
+<p><strong>Task:</strong> Create a numeric vector containing the first 10 positive integers and determine its class.</p>
+<p><strong>Steps:</strong> 1. Create a numeric vector <code>num_vector</code> containing the numbers 1 to 10. 2. Determine the class of the vector.</p>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create numeric vector</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>num_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the class of the vector</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>class_num_vector <span class="ot">&lt;-</span> <span class="fu">class</span>(num_vector)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>num_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>class_num_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-2-character-vector" class="level3">
+<h3 class="anchored" data-anchor-id="problem-2-character-vector">Problem 2: Character Vector</h3>
+<p><strong>Task:</strong> Create a character vector containing the names of the first five months of the year and determine its class.</p>
+<p><strong>Steps:</strong> 1. Create a character vector <code>char_vector</code> containing the names “January”, “February”, “March”, “April”, and “May”. 2. Determine the class of the vector.</p>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create character vector</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>char_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"January"</span>, <span class="st">"February"</span>, <span class="st">"March"</span>, <span class="st">"April"</span>, <span class="st">"May"</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the class of the vector</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>class_char_vector <span class="ot">&lt;-</span> <span class="fu">class</span>(char_vector)</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>char_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "January"  "February" "March"    "April"    "May"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>class_char_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-3-logical-vector" class="level3">
+<h3 class="anchored" data-anchor-id="problem-3-logical-vector">Problem 3: Logical Vector</h3>
+<p><strong>Task:</strong> Create a logical vector containing alternating TRUE and FALSE values for a length of 8 and determine its class.</p>
+<p><strong>Steps:</strong> 1. Create a logical vector <code>log_vector</code> with alternating TRUE and FALSE values. 2. Determine the class of the vector.</p>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create logical vector</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>log_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the class of the vector</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>class_log_vector <span class="ot">&lt;-</span> <span class="fu">class</span>(log_vector)</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>log_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>class_log_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-4-factor-vector" class="level3">
+<h3 class="anchored" data-anchor-id="problem-4-factor-vector">Problem 4: Factor Vector</h3>
+<p><strong>Task:</strong> Create a factor vector from a character vector containing three levels: “High”, “Medium”, and “Low”, and determine its class.</p>
+<p><strong>Steps:</strong> 1. Create a character vector <code>char_levels</code> with values “High”, “Medium”, “Low”, “High”, “Low”. 2. Convert this character vector into a factor vector <code>fact_vector</code>. 3. Determine the class of the factor vector.</p>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create character vector with levels</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>char_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"High"</span>, <span class="st">"Medium"</span>, <span class="st">"Low"</span>, <span class="st">"High"</span>, <span class="st">"Low"</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to factor vector</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>fact_vector <span class="ot">&lt;-</span> <span class="fu">factor</span>(char_levels, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>))</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the class of the factor vector</span></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>class_fact_vector <span class="ot">&lt;-</span> <span class="fu">class</span>(fact_vector)</span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>fact_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] High   Medium Low    High   Low   
+Levels: Low Medium High</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>class_fact_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-5-complex-vector" class="level3">
+<h3 class="anchored" data-anchor-id="problem-5-complex-vector">Problem 5: Complex Vector</h3>
+<p><strong>Task:</strong> Create a complex vector containing the first four complex numbers with real and imaginary parts, and determine its class.</p>
+<p><strong>Steps:</strong> 1. Create a complex vector <code>comp_vector</code> with values <code>1+2i</code>, <code>3+4i</code>, <code>5+6i</code>, <code>7+8i</code>. 2. Determine the class of the vector.</p>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create complex vector</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>comp_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span>i, <span class="dv">3</span><span class="sc">+</span><span class="dv">4</span>i, <span class="dv">5</span><span class="sc">+</span><span class="dv">6</span>i, <span class="dv">7</span><span class="sc">+</span><span class="dv">8</span>i)</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the class of the vector</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>class_comp_vector <span class="ot">&lt;-</span> <span class="fu">class</span>(comp_vector)</span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>comp_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1+2i 3+4i 5+6i 7+8i</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>class_comp_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "complex"</code></pre>
+</div>
+</div>
+<p>In this part of the assignment, you will practice creating different types of data frames in R and using common commands associated with them, such as pulling out values, and using <code>head()</code> and <code>tail()</code> functions. Each problem will involve creating a unique type of data frame and performing specific operations.</p>
+</section>
+<section id="problem-6-creating-a-data-frame-for-students-scores" class="level3">
+<h3 class="anchored" data-anchor-id="problem-6-creating-a-data-frame-for-students-scores">Problem 6: Creating a Data Frame for Students’ Scores</h3>
+<p><strong>Task:</strong> Create a data frame containing the names and scores of five students in a math test. Use commands to pull out specific values and display the first few rows of the data frame.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Create a data frame <code>students_df</code> with columns <code>Name</code> and <code>Score</code>.</li>
+<li>Pull out the score of the student named “Alice”.</li>
+<li>Display the first three rows of the data frame using <code>head()</code>.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>students_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Name =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>, <span class="st">"David"</span>, <span class="st">"Eve"</span>),</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Score =</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">78</span>, <span class="dv">92</span>, <span class="dv">88</span>)</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out the score of Alice</span></span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>alice_score <span class="ot">&lt;-</span> students_df<span class="sc">$</span>Score[students_df<span class="sc">$</span>Name <span class="sc">==</span> <span class="st">"Alice"</span>]</span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of the data frame</span></span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>head_students_df <span class="ot">&lt;-</span> <span class="fu">head</span>(students_df, <span class="dv">3</span>)</span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a>students_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Name Score
+1   Alice    85
+2     Bob    90
+3 Charlie    78
+4   David    92
+5     Eve    88</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>alice_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 85</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>head_students_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Name Score
+1   Alice    85
+2     Bob    90
+3 Charlie    78</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-7-creating-a-data-frame-for-monthly-expenses" class="level3">
+<h3 class="anchored" data-anchor-id="problem-7-creating-a-data-frame-for-monthly-expenses">Problem 7: Creating a Data Frame for Monthly Expenses</h3>
+<p><strong>Task:</strong> Create a data frame containing the monthly expenses for three categories (Rent, Food, Utilities) over six months. Use commands to pull out specific values and display the last few rows of the data frame.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Create a data frame <code>expenses_df</code> with columns <code>Month</code>, <code>Rent</code>, <code>Food</code>, and <code>Utilities</code>.</li>
+<li>Pull out the food expense for the month of March.</li>
+<li>Display the last two rows of the data frame using <code>tail()</code>.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>expenses_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Month =</span> <span class="fu">c</span>(<span class="st">"January"</span>, <span class="st">"February"</span>, <span class="st">"March"</span>, <span class="st">"April"</span>, <span class="st">"May"</span>, <span class="st">"June"</span>),</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Rent =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>),</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Food =</span> <span class="fu">c</span>(<span class="dv">300</span>, <span class="dv">320</span>, <span class="dv">310</span>, <span class="dv">330</span>, <span class="dv">340</span>, <span class="dv">350</span>),</span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Utilities =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">160</span>, <span class="dv">155</span>, <span class="dv">165</span>, <span class="dv">170</span>, <span class="dv">175</span>)</span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out the food expense for March</span></span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>march_food_expense <span class="ot">&lt;-</span> expenses_df<span class="sc">$</span>Food[expenses_df<span class="sc">$</span>Month <span class="sc">==</span> <span class="st">"March"</span>]</span>
+<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the last two rows of the data frame</span></span>
+<span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a>tail_expenses_df <span class="ot">&lt;-</span> <span class="fu">tail</span>(expenses_df, <span class="dv">2</span>)</span>
+<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-15"><a href="#cb82-15" aria-hidden="true" tabindex="-1"></a>expenses_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Month Rent Food Utilities
+1  January 1000  300       150
+2 February 1000  320       160
+3    March 1000  310       155
+4    April 1000  330       165
+5      May 1000  340       170
+6     June 1000  350       175</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>march_food_expense</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 310</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>tail_expenses_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Month Rent Food Utilities
+5   May 1000  340       170
+6  June 1000  350       175</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-8-creating-a-data-frame-for-employee-information" class="level3">
+<h3 class="anchored" data-anchor-id="problem-8-creating-a-data-frame-for-employee-information">Problem 8: Creating a Data Frame for Employee Information</h3>
+<p><strong>Task:</strong> Create a data frame containing the employee information (ID, Name, Department, Salary). Use commands to pull out specific values and display the first few rows of the data frame.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Create a data frame <code>employee_df</code> with columns <code>ID</code>, <code>Name</code>, <code>Department</code>, and <code>Salary</code>.</li>
+<li>Pull out the department of the employee with ID 3.</li>
+<li>Display the first four rows of the data frame using <code>head()</code>.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>employee_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Name =</span> <span class="fu">c</span>(<span class="st">"John"</span>, <span class="st">"Jane"</span>, <span class="st">"Doe"</span>, <span class="st">"Smith"</span>, <span class="st">"Emily"</span>),</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Department =</span> <span class="fu">c</span>(<span class="st">"HR"</span>, <span class="st">"Finance"</span>, <span class="st">"IT"</span>, <span class="st">"Marketing"</span>, <span class="st">"Admin"</span>),</span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Salary =</span> <span class="fu">c</span>(<span class="dv">50000</span>, <span class="dv">60000</span>, <span class="dv">55000</span>, <span class="dv">70000</span>, <span class="dv">65000</span>)</span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out the department of the employee with ID 3</span></span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>dept_id_3 <span class="ot">&lt;-</span> employee_df<span class="sc">$</span>Department[employee_df<span class="sc">$</span>ID <span class="sc">==</span> <span class="dv">3</span>]</span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first four rows of the data frame</span></span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>head_employee_df <span class="ot">&lt;-</span> <span class="fu">head</span>(employee_df, <span class="dv">4</span>)</span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a>employee_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID  Name Department Salary
+1  1  John         HR  50000
+2  2  Jane    Finance  60000
+3  3   Doe         IT  55000
+4  4 Smith  Marketing  70000
+5  5 Emily      Admin  65000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>dept_id_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "IT"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>head_employee_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID  Name Department Salary
+1  1  John         HR  50000
+2  2  Jane    Finance  60000
+3  3   Doe         IT  55000
+4  4 Smith  Marketing  70000</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-9-creating-a-data-frame-for-product-sales" class="level3">
+<h3 class="anchored" data-anchor-id="problem-9-creating-a-data-frame-for-product-sales">Problem 9: Creating a Data Frame for Product Sales</h3>
+<p><strong>Task:</strong> Create a data frame containing the product sales information (ProductID, ProductName, UnitsSold, Revenue). Use commands to pull out specific values and display the last few rows of the data frame.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Create a data frame <code>sales_df</code> with columns <code>ProductID</code>, <code>ProductName</code>, <code>UnitsSold</code>, and <code>Revenue</code>.</li>
+<li>Pull out the revenue of the product named “Tablet”.</li>
+<li>Display the last three rows of the data frame using <code>tail()</code>.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>sales_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ProductID =</span> <span class="fu">c</span>(<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>, <span class="dv">105</span>),</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ProductName =</span> <span class="fu">c</span>(<span class="st">"Laptop"</span>, <span class="st">"Tablet"</span>, <span class="st">"Smartphone"</span>, <span class="st">"Desktop"</span>, <span class="st">"Monitor"</span>),</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">UnitsSold =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">30</span>, <span class="dv">80</span>),</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Revenue =</span> <span class="fu">c</span>(<span class="dv">50000</span>, <span class="dv">30000</span>, <span class="dv">40000</span>, <span class="dv">15000</span>, <span class="dv">20000</span>)</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out the revenue of the product named Tablet</span></span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>tablet_revenue <span class="ot">&lt;-</span> sales_df<span class="sc">$</span>Revenue[sales_df<span class="sc">$</span>ProductName <span class="sc">==</span> <span class="st">"Tablet"</span>]</span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the last three rows of the data frame</span></span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>tail_sales_df <span class="ot">&lt;-</span> <span class="fu">tail</span>(sales_df, <span class="dv">3</span>)</span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>sales_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ProductID ProductName UnitsSold Revenue
+1       101      Laptop        50   50000
+2       102      Tablet       100   30000
+3       103  Smartphone       200   40000
+4       104     Desktop        30   15000
+5       105     Monitor        80   20000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>tablet_revenue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 30000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>tail_sales_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ProductID ProductName UnitsSold Revenue
+3       103  Smartphone       200   40000
+4       104     Desktop        30   15000
+5       105     Monitor        80   20000</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-10-creating-a-data-frame-for-weather-data" class="level3">
+<h3 class="anchored" data-anchor-id="problem-10-creating-a-data-frame-for-weather-data">Problem 10: Creating a Data Frame for Weather Data</h3>
+<p><strong>Task:</strong> Create a data frame containing the weather data (Day, Temperature, Humidity, WindSpeed). Use commands to pull out specific values and display the first and last few rows of the data frame.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Create a data frame <code>weather_df</code> with columns <code>Day</code>, <code>Temperature</code>, <code>Humidity</code>, and <code>WindSpeed</code>.</li>
+<li>Pull out the temperature on the 5th day.</li>
+<li>Display the first two and last two rows of the data frame using <code>head()</code> and <code>tail()</code>.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>weather_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Temperature =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">27</span>, <span class="dv">24</span>, <span class="dv">26</span>, <span class="dv">28</span>, <span class="dv">29</span>, <span class="dv">30</span>, <span class="dv">31</span>, <span class="dv">32</span>, <span class="dv">33</span>),</span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Humidity =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">82</span>, <span class="dv">78</span>, <span class="dv">76</span>, <span class="dv">79</span>, <span class="dv">81</span>, <span class="dv">83</span>, <span class="dv">85</span>, <span class="dv">84</span>, <span class="dv">86</span>),</span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">WindSpeed =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>)</span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out the temperature on the 5th day</span></span>
+<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a>temp_day_5 <span class="ot">&lt;-</span> weather_df<span class="sc">$</span>Temperature[weather_df<span class="sc">$</span>Day <span class="sc">==</span> <span class="dv">5</span>]</span>
+<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first two rows of the data frame</span></span>
+<span id="cb100-13"><a href="#cb100-13" aria-hidden="true" tabindex="-1"></a>head_weather_df <span class="ot">&lt;-</span> <span class="fu">head</span>(weather_df, <span class="dv">2</span>)</span>
+<span id="cb100-14"><a href="#cb100-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-15"><a href="#cb100-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the last two rows of the data frame</span></span>
+<span id="cb100-16"><a href="#cb100-16" aria-hidden="true" tabindex="-1"></a>tail_weather_df <span class="ot">&lt;-</span> <span class="fu">tail</span>(weather_df, <span class="dv">2</span>)</span>
+<span id="cb100-17"><a href="#cb100-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-18"><a href="#cb100-18" aria-hidden="true" tabindex="-1"></a>weather_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Day Temperature Humidity WindSpeed
+1    1          25       80        10
+2    2          27       82        12
+3    3          24       78        11
+4    4          26       76        13
+5    5          28       79        14
+6    6          29       81        15
+7    7          30       83        16
+8    8          31       85        17
+9    9          32       84        18
+10  10          33       86        19</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>temp_day_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 28</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>head_weather_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Day Temperature Humidity WindSpeed
+1   1          25       80        10
+2   2          27       82        12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>tail_weather_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Day Temperature Humidity WindSpeed
+9    9          32       84        18
+10  10          33       86        19</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>In this part of the assignment, you will practice creating different types of tibbles in R and using common commands associated with them, such as creating a tibble, converting a data frame to a tibble, selecting columns, and filtering rows. Each problem will involve creating or manipulating tibbles and performing specific operations.</p>
+</section>
+<section id="problem-11-creating-a-tibble-for-students-scores" class="level3">
+<h3 class="anchored" data-anchor-id="problem-11-creating-a-tibble-for-students-scores">Problem 11: Creating a Tibble for Students’ Scores</h3>
+<p><strong>Task:</strong> Create a tibble containing the names and scores of five students in a math test. Use commands to select specific columns and display the tibble.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Create a tibble <code>students_tbl</code> with columns <code>Name</code> and <code>Score</code>.</li>
+<li>Select the <code>Name</code> column from the tibble.</li>
+<li>Display the entire tibble.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the tibble package</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create tibble</span></span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>students_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Name =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>, <span class="st">"David"</span>, <span class="st">"Eve"</span>),</span>
+<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Score =</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">78</span>, <span class="dv">92</span>, <span class="dv">88</span>)</span>
+<span id="cb108-8"><a href="#cb108-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the Name column</span></span>
+<span id="cb108-11"><a href="#cb108-11" aria-hidden="true" tabindex="-1"></a>name_column <span class="ot">&lt;-</span> <span class="fu">select</span>(students_tbl, Name)</span>
+<span id="cb108-12"><a href="#cb108-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-13"><a href="#cb108-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the tibble</span></span>
+<span id="cb108-14"><a href="#cb108-14" aria-hidden="true" tabindex="-1"></a>students_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  Name    Score
+  &lt;chr&gt;   &lt;dbl&gt;
+1 Alice      85
+2 Bob        90
+3 Charlie    78
+4 David      92
+5 Eve        88</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>name_column</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 1
+  Name   
+  &lt;chr&gt;  
+1 Alice  
+2 Bob    
+3 Charlie
+4 David  
+5 Eve    </code></pre>
+</div>
+</div>
+</section>
+<section id="problem-12-converting-a-data-frame-to-a-tibble-for-monthly-expenses" class="level3">
+<h3 class="anchored" data-anchor-id="problem-12-converting-a-data-frame-to-a-tibble-for-monthly-expenses">Problem 12: Converting a Data Frame to a Tibble for Monthly Expenses</h3>
+<p><strong>Task:</strong> Create a data frame containing the monthly expenses for three categories (Rent, Food, Utilities) over six months and convert it to a tibble. Use commands to filter specific rows and display the tibble.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Create a data frame <code>expenses_df</code> with columns <code>Month</code>, <code>Rent</code>, <code>Food</code>, and <code>Utilities</code>.</li>
+<li>Convert the data frame to a tibble <code>expenses_tbl</code>.</li>
+<li>Filter the tibble to include only the rows where <code>Rent</code> is greater than 1000.</li>
+<li>Display the entire tibble.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>expenses_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Month =</span> <span class="fu">c</span>(<span class="st">"January"</span>, <span class="st">"February"</span>, <span class="st">"March"</span>, <span class="st">"April"</span>, <span class="st">"May"</span>, <span class="st">"June"</span>),</span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Rent =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>),</span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Food =</span> <span class="fu">c</span>(<span class="dv">300</span>, <span class="dv">320</span>, <span class="dv">310</span>, <span class="dv">330</span>, <span class="dv">340</span>, <span class="dv">350</span>),</span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Utilities =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">160</span>, <span class="dv">155</span>, <span class="dv">165</span>, <span class="dv">170</span>, <span class="dv">175</span>)</span>
+<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert data frame to tibble</span></span>
+<span id="cb112-10"><a href="#cb112-10" aria-hidden="true" tabindex="-1"></a>expenses_tbl <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(expenses_df)</span>
+<span id="cb112-11"><a href="#cb112-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-12"><a href="#cb112-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the tibble</span></span>
+<span id="cb112-13"><a href="#cb112-13" aria-hidden="true" tabindex="-1"></a>filtered_expenses_tbl <span class="ot">&lt;-</span> <span class="fu">filter</span>(expenses_tbl, Rent <span class="sc">&gt;</span> <span class="dv">1000</span>)</span>
+<span id="cb112-14"><a href="#cb112-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-15"><a href="#cb112-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the tibble</span></span>
+<span id="cb112-16"><a href="#cb112-16" aria-hidden="true" tabindex="-1"></a>expenses_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  Month     Rent  Food Utilities
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1 January   1000   300       150
+2 February  1000   320       160
+3 March     1000   310       155
+4 April     1000   330       165
+5 May       1000   340       170
+6 June      1000   350       175</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>filtered_expenses_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 4
+# ℹ 4 variables: Month &lt;chr&gt;, Rent &lt;dbl&gt;, Food &lt;dbl&gt;, Utilities &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-13-creating-a-tibble-for-employee-information-and-selecting-columns" class="level3">
+<h3 class="anchored" data-anchor-id="problem-13-creating-a-tibble-for-employee-information-and-selecting-columns">Problem 13: Creating a Tibble for Employee Information and Selecting Columns</h3>
+<p><strong>Task:</strong> Create a tibble containing the employee information (ID, Name, Department, Salary). Use commands to select specific columns and display the tibble.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Create a tibble <code>employee_tbl</code> with columns <code>ID</code>, <code>Name</code>, <code>Department</code>, and <code>Salary</code>.</li>
+<li>Select the <code>Name</code> and <code>Salary</code> columns from the tibble.</li>
+<li>Display the entire tibble.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the tibble package</span></span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create tibble</span></span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>employee_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb116-7"><a href="#cb116-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Name =</span> <span class="fu">c</span>(<span class="st">"John"</span>, <span class="st">"Jane"</span>, <span class="st">"Doe"</span>, <span class="st">"Smith"</span>, <span class="st">"Emily"</span>),</span>
+<span id="cb116-8"><a href="#cb116-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Department =</span> <span class="fu">c</span>(<span class="st">"HR"</span>, <span class="st">"Finance"</span>, <span class="st">"IT"</span>, <span class="st">"Marketing"</span>, <span class="st">"Admin"</span>),</span>
+<span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Salary =</span> <span class="fu">c</span>(<span class="dv">50000</span>, <span class="dv">60000</span>, <span class="dv">55000</span>, <span class="dv">70000</span>, <span class="dv">65000</span>)</span>
+<span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb116-11"><a href="#cb116-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-12"><a href="#cb116-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the Name and Salary columns</span></span>
+<span id="cb116-13"><a href="#cb116-13" aria-hidden="true" tabindex="-1"></a>name_salary_columns <span class="ot">&lt;-</span> <span class="fu">select</span>(employee_tbl, Name, Salary)</span>
+<span id="cb116-14"><a href="#cb116-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-15"><a href="#cb116-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the tibble</span></span>
+<span id="cb116-16"><a href="#cb116-16" aria-hidden="true" tabindex="-1"></a>employee_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+     ID Name  Department Salary
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;
+1     1 John  HR          50000
+2     2 Jane  Finance     60000
+3     3 Doe   IT          55000
+4     4 Smith Marketing   70000
+5     5 Emily Admin       65000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>name_salary_columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  Name  Salary
+  &lt;chr&gt;  &lt;dbl&gt;
+1 John   50000
+2 Jane   60000
+3 Doe    55000
+4 Smith  70000
+5 Emily  65000</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-14-creating-a-tibble-for-product-sales-and-filtering-rows" class="level3">
+<h3 class="anchored" data-anchor-id="problem-14-creating-a-tibble-for-product-sales-and-filtering-rows">Problem 14: Creating a Tibble for Product Sales and Filtering Rows</h3>
+<p><strong>Task:</strong> Create a tibble containing the product sales information (ProductID, ProductName, UnitsSold, Revenue). Use commands to filter specific rows and display the tibble.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Create a tibble <code>sales_tbl</code> with columns <code>ProductID</code>, <code>ProductName</code>, <code>UnitsSold</code>, and <code>Revenue</code>.</li>
+<li>Filter the tibble to include only the rows where <code>UnitsSold</code> is greater than 50.</li>
+<li>Display the entire tibble.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the tibble package</span></span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create tibble</span></span>
+<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a>sales_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ProductID =</span> <span class="fu">c</span>(<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>, <span class="dv">105</span>),</span>
+<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ProductName =</span> <span class="fu">c</span>(<span class="st">"Laptop"</span>, <span class="st">"Tablet"</span>, <span class="st">"Smartphone"</span>, <span class="st">"Desktop"</span>, <span class="st">"Monitor"</span>),</span>
+<span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">UnitsSold =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">30</span>, <span class="dv">80</span>),</span>
+<span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Revenue =</span> <span class="fu">c</span>(<span class="dv">50000</span>, <span class="dv">30000</span>, <span class="dv">40000</span>, <span class="dv">15000</span>, <span class="dv">20000</span>)</span>
+<span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb120-11"><a href="#cb120-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-12"><a href="#cb120-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the tibble</span></span>
+<span id="cb120-13"><a href="#cb120-13" aria-hidden="true" tabindex="-1"></a>filtered_sales_tbl <span class="ot">&lt;-</span> <span class="fu">filter</span>(sales_tbl, UnitsSold <span class="sc">&gt;</span> <span class="dv">50</span>)</span>
+<span id="cb120-14"><a href="#cb120-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-15"><a href="#cb120-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the tibble</span></span>
+<span id="cb120-16"><a href="#cb120-16" aria-hidden="true" tabindex="-1"></a>sales_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  ProductID ProductName UnitsSold Revenue
+      &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt;
+1       101 Laptop             50   50000
+2       102 Tablet            100   30000
+3       103 Smartphone        200   40000
+4       104 Desktop            30   15000
+5       105 Monitor            80   20000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>filtered_sales_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  ProductID ProductName UnitsSold Revenue
+      &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt;
+1       102 Tablet            100   30000
+2       103 Smartphone        200   40000
+3       105 Monitor            80   20000</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-15-creating-a-tibble-for-weather-data-and-using-head-and-tail" class="level3">
+<h3 class="anchored" data-anchor-id="problem-15-creating-a-tibble-for-weather-data-and-using-head-and-tail">Problem 15: Creating a Tibble for Weather Data and Using <code>head()</code> and <code>tail()</code></h3>
+<p><strong>Task:</strong> Create a tibble containing the weather data (Day, Temperature, Humidity, WindSpeed). Use commands to display the first and last few rows of the tibble.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Create a tibble <code>weather_tbl</code> with columns <code>Day</code>, <code>Temperature</code>, <code>Humidity</code>, and <code>WindSpeed</code>.</li>
+<li>Display the first three rows of the tibble using <code>head()</code>.</li>
+<li>Display the last three rows of the tibble using <code>tail()</code>.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the tibble package</span></span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create tibble</span></span>
+<span id="cb124-5"><a href="#cb124-5" aria-hidden="true" tabindex="-1"></a>weather_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb124-6"><a href="#cb124-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb124-7"><a href="#cb124-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Temperature =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">27</span>, <span class="dv">24</span>, <span class="dv">26</span>, <span class="dv">28</span>, <span class="dv">29</span>, <span class="dv">30</span>, <span class="dv">31</span>, <span class="dv">32</span>, <span class="dv">33</span>),</span>
+<span id="cb124-8"><a href="#cb124-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Humidity =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">82</span>, <span class="dv">78</span>, <span class="dv">76</span>, <span class="dv">79</span>, <span class="dv">81</span>, <span class="dv">83</span>, <span class="dv">85</span>, <span class="dv">84</span>, <span class="dv">86</span>),</span>
+<span id="cb124-9"><a href="#cb124-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">WindSpeed =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>)</span>
+<span id="cb124-10"><a href="#cb124-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb124-11"><a href="#cb124-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-12"><a href="#cb124-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first three rows of the tibble</span></span>
+<span id="cb124-13"><a href="#cb124-13" aria-hidden="true" tabindex="-1"></a>head_weather_tbl <span class="ot">&lt;-</span> <span class="fu">head</span>(weather_tbl, <span class="dv">3</span>)</span>
+<span id="cb124-14"><a href="#cb124-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-15"><a href="#cb124-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the last three rows of the tibble</span></span>
+<span id="cb124-16"><a href="#cb124-16" aria-hidden="true" tabindex="-1"></a>tail_weather_tbl <span class="ot">&lt;-</span> <span class="fu">tail</span>(weather_tbl, <span class="dv">3</span>)</span>
+<span id="cb124-17"><a href="#cb124-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-18"><a href="#cb124-18" aria-hidden="true" tabindex="-1"></a>weather_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+     Day Temperature Humidity WindSpeed
+   &lt;int&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1     1          25       80        10
+ 2     2          27       82        12
+ 3     3          24       78        11
+ 4     4          26       76        13
+ 5     5          28       79        14
+ 6     6          29       81        15
+ 7     7          30       83        16
+ 8     8          31       85        17
+ 9     9          32       84        18
+10    10          33       86        19</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>head_weather_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+    Day Temperature Humidity WindSpeed
+  &lt;int&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1     1          25       80        10
+2     2          27       82        12
+3     3          24       78        11</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>tail_weather_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+    Day Temperature Humidity WindSpeed
+  &lt;int&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1     8          31       85        17
+2     9          32       84        18
+3    10          33       86        19</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./What_Is_Tidy_Data_PDF.html" class="pagination-link" aria-label="What is &quot;Tidy Data&quot;?">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">What is “Tidy Data”?</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Intro_To_R.html" class="pagination-link" aria-label="Intro to R">
+        <span class="nav-page-text">Intro to R</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Introductory Data Analytics and Statistics was written by Mike LeVan.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Scatterplots and Correlation – Data Analytics and Statistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Linear_Modeling_and_Regression.html" rel="next">
+<link href="./Independent_and_Dependent_Variables.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Independent_and_Dependent_Variables.html">Step 4 - Experimentation and Prediction</a></li><li class="breadcrumb-item"><a href="./Scatterplots_and_Correlation.html">Scatterplots and Correlation</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Analytics and Statistics</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data 1004 - Data Analytics and Statistics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./About.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Data_Science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is Data Science?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 1 - Data Collecting</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What Is Tidyverse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Statistics_Language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Language</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Qualitative_and_Quantitative_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qualitative and Quantitative Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_In_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading In Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 2 - Data Preparation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Tidy_Data_PDF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is “Tidy Data”?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Vectors_DataFrames_Tibbles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vectors, Data Frames, Tibbles</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intro_To_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_and_Interpreting_Tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading and Interpreting Tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dplyr_and_Piping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Cleaning with dplyr and piping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Additional_Data_Cleaning_Functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Data Cleaning Functions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 3 - Exploration and Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Barplots_And_Histograms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Barplots and Histograms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Line_Graphs_and_Pie_Charts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Line Graphs and Pie Charts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Beginning_Data_Visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Measures_of_Central_Tendencies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measures Of Central Tendencies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Measures_of_Variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measures Of Variability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Advanced_Boxplot_Techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Boxplot Techniques.</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 4 - Experimentation and Prediction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Independent_and_Dependent_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Independent and Dependent Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Scatterplots_and_Correlation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Scatterplots and Correlation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Linear_Modeling_and_Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Modeling and Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Residuals_Outliers_Predictions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Residuals, Outliers and Predictions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Advanced_Scatterplot_Techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Scatterplot Techniques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Estimating_Parameters_Confidence_Intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Estimating Parameters Using Confidence Intervals</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Qualitative_and_Quantitative_Variables_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qualitative and Quantitative Variables Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Tidy_Data_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy Data Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Beginning_Data_Visualization_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Visualization Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA_Assignment_sheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Assignment Sheet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA_Assignment_Sheet_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_1_Intro_To_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_2_ Read_In_Data_Assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_3_Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 4.</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 6</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#describing-a-scatterplot" id="toc-describing-a-scatterplot" class="nav-link active" data-scroll-target="#describing-a-scatterplot">Describing a Scatterplot</a>
+  <ul class="collapse">
+  <li><a href="#form" id="toc-form" class="nav-link" data-scroll-target="#form">Form</a></li>
+  <li><a href="#direction" id="toc-direction" class="nav-link" data-scroll-target="#direction">Direction</a></li>
+  <li><a href="#strength" id="toc-strength" class="nav-link" data-scroll-target="#strength">Strength</a></li>
+  </ul></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation">Correlation</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#problem-1-iris-dataset---sepal-length-vs-petal-length" id="toc-problem-1-iris-dataset---sepal-length-vs-petal-length" class="nav-link" data-scroll-target="#problem-1-iris-dataset---sepal-length-vs-petal-length">Problem 1: Iris Dataset - Sepal Length vs Petal Length</a></li>
+  <li><a href="#problem-2-airquality-dataset---ozone-vs-wind" id="toc-problem-2-airquality-dataset---ozone-vs-wind" class="nav-link" data-scroll-target="#problem-2-airquality-dataset---ozone-vs-wind">Problem 2: Airquality Dataset - Ozone vs Wind</a></li>
+  <li><a href="#problem-3-toothgrowth-dataset---dose-vs-length" id="toc-problem-3-toothgrowth-dataset---dose-vs-length" class="nav-link" data-scroll-target="#problem-3-toothgrowth-dataset---dose-vs-length">Problem 3: ToothGrowth Dataset - Dose vs Length</a></li>
+  <li><a href="#problem-4-cars-dataset---speed-vs-stopping-distance" id="toc-problem-4-cars-dataset---speed-vs-stopping-distance" class="nav-link" data-scroll-target="#problem-4-cars-dataset---speed-vs-stopping-distance">Problem 4: Cars Dataset - Speed vs Stopping Distance</a></li>
+  <li><a href="#problem-5-faithful-dataset---eruptions-vs-waiting-time" id="toc-problem-5-faithful-dataset---eruptions-vs-waiting-time" class="nav-link" data-scroll-target="#problem-5-faithful-dataset---eruptions-vs-waiting-time">Problem 5: Faithful Dataset - Eruptions vs Waiting Time</a></li>
+  <li><a href="#problem-6-chickweight-dataset---time-vs-weight" id="toc-problem-6-chickweight-dataset---time-vs-weight" class="nav-link" data-scroll-target="#problem-6-chickweight-dataset---time-vs-weight">Problem 6: ChickWeight Dataset - Time vs Weight</a></li>
+  <li><a href="#problem-7-pressure-dataset---temperature-vs-pressure" id="toc-problem-7-pressure-dataset---temperature-vs-pressure" class="nav-link" data-scroll-target="#problem-7-pressure-dataset---temperature-vs-pressure">Problem 7: Pressure Dataset - Temperature vs Pressure</a></li>
+  <li><a href="#problem-8-trees-dataset---girth-vs-volume" id="toc-problem-8-trees-dataset---girth-vs-volume" class="nav-link" data-scroll-target="#problem-8-trees-dataset---girth-vs-volume">Problem 8: Trees Dataset - Girth vs Volume</a></li>
+  <li><a href="#problem-9-usarrests-dataset---urban-population-vs-assaults" id="toc-problem-9-usarrests-dataset---urban-population-vs-assaults" class="nav-link" data-scroll-target="#problem-9-usarrests-dataset---urban-population-vs-assaults">Problem 9: USArrests Dataset - Urban Population vs Assaults</a></li>
+  <li><a href="#problem-10-swiss-dataset---education-vs-fertility" id="toc-problem-10-swiss-dataset---education-vs-fertility" class="nav-link" data-scroll-target="#problem-10-swiss-dataset---education-vs-fertility">Problem 10: Swiss Dataset - Education vs Fertility</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Independent_and_Dependent_Variables.html">Step 4 - Experimentation and Prediction</a></li><li class="breadcrumb-item"><a href="./Scatterplots_and_Correlation.html">Scatterplots and Correlation</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Scatterplots and Correlation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In our last section we talked about possible associations between variables. For this lesson we will concentrate on the association between two quantitative variables. While the are processes that are in place to discuss the association between qualitative / categorical variables, we will not worry about that now.</p>
+<p>So let’s assume that we have asked a question about the association between two quantitative variables. How can we go about trying to determine if there <strong>may be</strong> an association? The first step we will take it to draw a picture to determine if there could be an association. The picture we will draw is called a scatterplot. <br></p>
+<p>A scatterplot has a horizontal and a vertical axis. The horizontal axis will represent the independent / explanatory variable while the verical axis will represent the dependent / response variable.</p>
+<p>For example,let’s say we are reviewing the grades in our class. We are looking at the grade received on the final and comparing it to how well the student did on the quizzes throughout the semester.The idea is that if you<br>
+did well on the quizzes, then you did well on the final. If you have struggled on the quizzes, then you struggled on the final. In this case we are using the quiz scores as the explanatory variable and the grade on the final as the response variable. Here we will read in the data set from the class grades :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The grades are stored in the file name "Grades.csv"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>grades <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Grades.csv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's look at the three rows of the data :</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>grades_3 <span class="ot">&lt;-</span> grades[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>grades_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Quiz_Average Final
+1       84.440    90
+2       96.633   100
+3       74.809    67</code></pre>
+</div>
+</div>
+<p>For the scatterplot, we would now plot these rows as points. Since the quiz average is the explanatory variable it will come first followed by the final score, the response variable: <br></p>
+<center>
+(84.44, 90) <span class="math inline">\(\hspace{0.5in}\)</span>(96.633, 100) <span class="math inline">\(\hspace{0.5in}\)</span> (74.809, 67)
+</center>
+<p><br></p>
+<p>We can use <strong>ggplot</strong> to create the scatterplot for use. The basic command is : <br></p>
+<p><code>ggplot(data_frame, aes( x = explanatory, y = response)) + geom_point( )</code> <br></p>
+<p>The first part creates the horizontal and vertical axis and the second part says to use points on the graph. <br></p>
+<p>The scatterplot for the first three points would look like :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grades_3, <span class="fu">aes</span>(<span class="at">x =</span> Quiz_Average, <span class="at">y =</span> Final)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You can easily see the three points we listed above. We could then move on and do this for all the pairs in the data frame for the entire class. This data set has 50 rows, and here are the first and last six rows : <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(grades)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Quiz_Average Final
+1       84.440    90
+2       96.633   100
+3       74.809    67
+4       79.108    80
+5       95.490    92
+6       91.623    78</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(grades)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Quiz_Average Final
+45       96.740    76
+46       75.555    78
+47       63.071    37
+48       88.941    67
+49       92.247    65
+50       95.567    82</code></pre>
+</div>
+</div>
+<p>This is what the scatterplot would look like if we plotted all of the pairs :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grades, <span class="fu">aes</span>(<span class="at">x =</span> Quiz_Average, <span class="at">y =</span> Final)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>( )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="describing-a-scatterplot" class="level2">
+<h2 class="anchored" data-anchor-id="describing-a-scatterplot">Describing a Scatterplot</h2>
+<p>When we describe a scatterplot there are three components we want to discuss : form, direction, and strength.</p>
+<section id="form" class="level3">
+<h3 class="anchored" data-anchor-id="form">Form</h3>
+<p>When we talk about the form of a scatterlpot, we are talking about the shape of the scatterplot. If the graph has a definitive pattern, then it can be modelled. What that means is that we can come up with a mathematical formula that follows the pattern of the data. As we will see later, having a model for our data set allows us to take deeper steps in understanding what the data has told us and what the data may still tell us. <br></p>
+<p>For this course, we will focus our efforts on data sets that follow a linear pattern. These pattens are a nice introduction to creating a model for a data set. Linear models (lines) are the easiest to create. This does not mean that a linear model is the best model for every data set, far from it. As you advance in your studies you will find data that follows quadratic, logarithmic, and many other forms. You will even find data sets that will not follow any pattern whatsoever! <br></p>
+<p>Therefore, at least for this class, we will describe the form of a data set as either <strong>linear</strong> or <strong>non-linear</strong>.</p>
+</section>
+<section id="direction" class="level3">
+<h3 class="anchored" data-anchor-id="direction">Direction</h3>
+<p>Since we are only going to be creating linear models, the direction of the scatterplot really talks about the direction the model is going. Are the points of the data set going in an upward direction or a downward direction? If the points are going up, then the linear model would be a line that is going up. If the points are going down, then the linear model would be a line that is going down.<br></p>
+<p>If you recall, when a line is going up, it has a <strong>positive</strong> slope, and if it is going down, then it has a <strong>negative</strong> slope. When a linear model is going up (positive slope), then the smaller explanatory values are matched with lower response variables while larger explanatory variables get matched with larger response variables. Similarly, for linear models that are going in a downward direction (negative slope), then smaller explantory variables get matched with larger response variables and larger explanatory variables get matched with smaller response variables.</p>
+<p>We will use this same varnacular when discussing the direction of a scatterplot. If the points of the scatterplot are following a linear pattern that is going up, then we will say that this is a <strong>positive association</strong>. If the scatter plot is following a decreasing linear pattern then we will say it has a <strong>negative association</strong>.</p>
+</section>
+<section id="strength" class="level3">
+<h3 class="anchored" data-anchor-id="strength">Strength</h3>
+<p>The strength of the scatterplot describes how closely the points follow a pattern. If the points follow a pattern very closely then the data is said to be strong. If it does not follow a pattern then it is said to be weak. <br></p>
+<p>Where you have to be careful is when you are only considering one kind of pattern. For example, we are only considering linear patterns for now. So if we are given a data set that clearly follows a quadratic pattern, it would still have a model that is very good for that particular data set. But for our purposes, we would say that the strength is weak because it does not follow a linear pattern. What you need to remember is that when we are talking about the strength of a data set, we are talking exclusively about the <strong>linear strength</strong> of a data set.</p>
+<p>Consider the following pictures and briefly describe them using the three descriptors form, direction, and strength. <br></p>
+<p>The first example is the data set we used above. A line has been added to help think about how to describe the data.</p>
+<center>
+<img src="./images/SC_1.jpg" class="img-fluid" style="width:60.0%">
+</center>
+<ul>
+<li>Form : The data loosely follows a <strong>linear pattern</strong>.</li>
+<li>Direction : The data follows a <strong>positve association</strong>.</li>
+<li>Strength : While the data is not a perfect line, it does somewhat follow a linear pattern, so we will say this has <strong>moderate strength</strong>. <br></li>
+</ul>
+<p>Consider this scatterplot for our second example :</p>
+<center>
+<img src="./images/SC_2.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<ul>
+<li>Form : The data follows closely a <strong>linear pattern</strong>.</li>
+<li>Direction : The data follows a <strong>negative association</strong>.</li>
+<li>Strength : This data set is close to a perfect line, so we will say this association is <strong>strong</strong>. <br></li>
+</ul>
+<p>The third example gives us a different shape.</p>
+<center>
+<img src="./images/SC_3.jpg" class="img-fluid" style="width:40.0%">
+</center>
+<ul>
+<li>Form : The data clearly follows a pattern, but it is not a linear pattern. This means we will describe this form as <strong>non-linear</strong>.</li>
+<li>Direction : This data set goes down and up, so we should say it has a <strong>non-linear direction</strong>.</li>
+<li>Strength : The data closely follows a pattern, but it does not follow a linear pattern, Therefore we will say this has a <strong>weak linear strength</strong>. <br></li>
+</ul>
+<p>Our fourth example also gives us a different shape :</p>
+<center>
+<img src="./images/SC_4.jpg" class="img-fluid" style="width:40.0%">
+</center>
+<ul>
+<li>Form : The data follows a logarithmic pattern so we would say the form is <strong>non-linear</strong>.</li>
+<li>Direction : This data set goes up but doesn’t follow a linear pattern, so we should say it has a <strong>non-linear direction</strong>.</li>
+<li>Strength : The data closely follows a pattern, but it does not follow a linear pattern, Therefore we will say this has a <strong>weak linear strength</strong>. <br></li>
+</ul>
+<center>
+<img src="./images/SC_5.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<ul>
+<li>Form : The data is just about a perfect line. Clearly we would say the form is <strong>linear</strong>.</li>
+<li>Direction : This data set goes up in a linear fashion, so we would say this has a <strong>positive association</strong>.</li>
+<li>Strength : The data follows a linear pattern about as well as possible. We would say this has a <strong>perfect strength</strong>. <br></li>
+</ul>
+<p>Our last example shows us a picture with no real pattern at all:</p>
+<center>
+<img src="./images/SC_6.jpg" class="img-fluid" style="width:40.0%">
+</center>
+<ul>
+<li>Form : The data appears to be random points. We would say this has <strong>no form</strong>.</li>
+<li>Direction : This data doesn’t appear to go in any kind of direction so we would say <strong>no direction</strong>.</li>
+<li>Strength : The data follows no linear pattern at all, so we would say this scatterplot has <strong>no strength</strong>. <br></li>
+</ul>
+<p>So if someone walks up to you on the street, hands you a scatterplot and asks you to describe the scatterplot, this is what you want to do. You want to describe the form, direction, and strength of the scatterplot. <br></p>
+<p>Hopefully you have had at least one concern pop in your head when trying to determine some of these attributes from a picture. The form and direction should not be much of an issue from the picture, but what about the strength? This can sometimes be difficult to determine from a picture. <br></p>
+<p>A picture can be misleading depending on how it is presented. If a picture is drawn with a poor scale, the points themselves might appear to be much further apart from each other than they should, causing one to thing the strength is weaker than it really is. On the other hand, the scale could cause the points to be much closer than they should causing the reader to thing that there is more strength than there should be. What needs to be done to addressing the question of strength is to come up with a quantifiable measure (a formula) that can help us assess the linear strength of the data. <br></p>
+<p>Luckily for us, there is such a measure and it is called the <strong>correlation</strong> of the data set.</p>
+</section>
+</section>
+<section id="correlation" class="level2">
+<h2 class="anchored" data-anchor-id="correlation">Correlation</h2>
+<p>Correlation is a device that measures the <strong>linear strength</strong> between two variables. So before calcuating the correlation of a data set, it is often a good idea to create a scatterplot to see if the data follows a linear pattern. If it does, then calculating the correlation is a good next step. If the data does not follow a linear pattern, then it does not make sense to use a correlation. It is entirely possible that you are given a data set that follows a pattern very closely that is not a linear pattern. The data would have a good strength but it would not have a good <strong>linear</strong> strength. Since that is what correlation measures, make sure the data somewhat follows a linear pattern before moving forward. <br></p>
+<p>That leads us to the obvious question of how we calculate the correlation. For this course, you will not be asked to prove the formula for correlation, nor will you be asked to calculate the correlation by hand. However, for completion sake, I will present to formula below : <br></p>
+<center>
+<img src="./images/SC_7.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<p><br></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(n\)</span> is the size of the sample</li>
+<li><span class="math inline">\(\overline{x}\)</span> is the average of the explanatory variable</li>
+<li><span class="math inline">\(\overline{y}\)</span> is the average of the response variable</li>
+<li><span class="math inline">\(s_x\)</span> is the standard deviation of the explanatory variable</li>
+<li><span class="math inline">\(s_y\)</span> is the standard deviation of the response variable</li>
+<li><span class="math inline">\(r\)</span> is the calcualted value called the correlation.</li>
+</ul>
+<p>There are some properties for <span class="math inline">\(r\)</span> we need to know in order to understand the result of the calculation.</p>
+<ul>
+<li><span class="math inline">\(r\)</span> should always be a value between -1 and 1.</li>
+<li>If the scatterplot has a positive association, then <span class="math inline">\(r\)</span> should have a positve value.</li>
+<li>If the scatterplot has a negative association, then <span class="math inline">\(r\)</span> should have a negative value.</li>
+<li>If the strength is strong and positive, then <span class="math inline">\(r\)</span> will be closer to 1.</li>
+<li>If the strength is strong and negative, then <span class="math inline">\(r\)</span> will be closer to -1.</li>
+<li>If there is no association and the strength is weak then <span class="math inline">\(r\)</span> will be close to <span class="math inline">\(0\)</span></li>
+</ul>
+<p>Luckily for us, this is very easy to calculate with R. We can use the built in <strong>cor( )</strong> command. All you need to tell it are the two variables you want to find the correlation between. The form is pretty simple: <br></p>
+<center>
+<code>cor( Explanatory Variable, Response Variable)</code>
+</center>
+<p><br></p>
+<p>Note : For this particular command the order of explanatory and response is not important, but there are other commands where the order <strong>is</strong> important. Make sure you read the descriptions to understand the order in which to write out the variables. <br></p>
+<p>Let’s go back to the grades example we look at above. If you recall, the scatterplot had a positive linear association that was mostly following a linear pattern. The pattern wasn’t very close to perfect, so <span class="math inline">\(r \neq 1\)</span>, but it is not a weak pattern either so <span class="math inline">\(r &gt; 0\)</span>. In these cases, a guess of <span class="math inline">\(r\)</span> being between 0.5 and 0.7 is probably pretty good. We can check below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the coorelation between the Quiz Average and grade on Final</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(grades<span class="sc">$</span>Quiz_Average, grades<span class="sc">$</span>Final)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6086302</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Here are some examples of what other correlation values might look like :</p>
+<center>
+<img src="./images/SC_8.jpg" class="img-fluid" style="width:90.0%">
+</center>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Let’s not lose sight of what we are doing and why we are doing it. We have started down the road of trying to determine if there is a relationship between two variables and if there is a way we can create a mathematical model for that relationship. The model we have chosen as our first choice is a linear model. <br></p>
+<p>Our first step was to look at a visualization of the relationship. Therefore we created a scatterplot for the explanatory and response variable. After we had this completed, we look at the description (form, direction, and strength) of the scatterplot to determine if there was a linear pattern in the data. If there was, we were then curious about the linear strength of the data. To determine this, we calculated the correlation of the data. <br></p>
+<p>This brings us to the next question. What’s next? <br></p>
+<p>If we have decided that there is a linear relationship between the variables, then we want to come up with a model for this relationship. In our case we will be creating a linear model, which is a line. We will see how we can construct this model and how we can use it in the next section.</p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p>In this assignment, you will practice determining if there is a linear relationship between two quantitative variables in various built-in datasets in R. You will calculate the correlation and create basic scatterplots using <code>ggplot2</code> to visualize the relationships. Each problem will involve different pairs of variables from different datasets. Provide solutions a nd explanations for each problem. <br></p>
+<p>For each of the following problems, answer the following:</p>
+<ol type="1">
+<li>Calculate the correlation between the variables given.</li>
+<li>Create a scatterplot using <code>ggplot2</code>.</li>
+<li>Describe the scatterplot by discussing the form, direction, and strength of the relationship.</li>
+<li>Determine if this could be a good candidate for linear regression.</li>
+</ol>
+<section id="problem-1-iris-dataset---sepal-length-vs-petal-length" class="level3">
+<h3 class="anchored" data-anchor-id="problem-1-iris-dataset---sepal-length-vs-petal-length">Problem 1: Iris Dataset - Sepal Length vs Petal Length</h3>
+<p><strong>Task:</strong> Determine if there is a linear relationship between <code>Sepal.Length</code> and <code>Petal.Length</code> in the <code>iris</code> dataset.</p>
+<p><strong>Solution and Explanation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 and iris dataset</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlation</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>cor_sepal_petal <span class="ot">&lt;-</span> <span class="fu">cor</span>(iris<span class="sc">$</span>Sepal.Length, iris<span class="sc">$</span>Petal.Length)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>cor_sepal_petal</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8717538</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatterplot</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Length)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Sepal Length vs Petal Length"</span>, <span class="at">x =</span> <span class="st">"Sepal Length"</span>, <span class="at">y =</span> <span class="st">"Petal Length"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation:</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The correlation value indicates the strength and direction of the linear relationship between Sepal Length and Petal Length.</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The scatterplot visualizes this relationship.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="problem-2-airquality-dataset---ozone-vs-wind" class="level3">
+<h3 class="anchored" data-anchor-id="problem-2-airquality-dataset---ozone-vs-wind">Problem 2: Airquality Dataset - Ozone vs Wind</h3>
+<p><strong>Task:</strong> Determine if there is a linear relationship between <code>Ozone</code> and <code>Wind</code> in the <code>airquality</code> dataset.</p>
+<p><strong>Solution and Explanation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 and airquality dataset</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(airquality)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove NA values</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>airquality_clean <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(airquality)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlation</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>cor_ozone_wind <span class="ot">&lt;-</span> <span class="fu">cor</span>(airquality_clean<span class="sc">$</span>Ozone, airquality_clean<span class="sc">$</span>Wind)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>cor_ozone_wind</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.6124966</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatterplot</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(airquality_clean, <span class="fu">aes</span>(<span class="at">x =</span> Ozone, <span class="at">y =</span> Wind)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Ozone vs Wind"</span>, <span class="at">x =</span> <span class="st">"Ozone"</span>, <span class="at">y =</span> <span class="st">"Wind"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation:</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The correlation value indicates the strength and direction of the linear relationship between Ozone and Wind.</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The scatterplot visualizes this relationship.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="problem-3-toothgrowth-dataset---dose-vs-length" class="level3">
+<h3 class="anchored" data-anchor-id="problem-3-toothgrowth-dataset---dose-vs-length">Problem 3: ToothGrowth Dataset - Dose vs Length</h3>
+<p><strong>Task:</strong> Determine if there is a linear relationship between <code>dose</code> and <code>len</code> in the <code>ToothGrowth</code> dataset.</p>
+<p><strong>Solution and Explanation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 and ToothGrowth dataset</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ToothGrowth)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlation</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>cor_dose_len <span class="ot">&lt;-</span> <span class="fu">cor</span>(ToothGrowth<span class="sc">$</span>dose, ToothGrowth<span class="sc">$</span>len)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>cor_dose_len</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8026913</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatterplot</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> dose, <span class="at">y =</span> len)) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Dose vs Length"</span>, <span class="at">x =</span> <span class="st">"Dose"</span>, <span class="at">y =</span> <span class="st">"Length"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation:</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The correlation value indicates the strength and direction of the linear relationship between Dose and Length.</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The scatterplot visualizes this relationship.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="problem-4-cars-dataset---speed-vs-stopping-distance" class="level3">
+<h3 class="anchored" data-anchor-id="problem-4-cars-dataset---speed-vs-stopping-distance">Problem 4: Cars Dataset - Speed vs Stopping Distance</h3>
+<p><strong>Task:</strong> Determine if there is a linear relationship between <code>speed</code> and <code>dist</code> in the <code>cars</code> dataset.</p>
+<p><strong>Solution and Explanation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 and cars dataset</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(cars)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlation</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>cor_speed_dist <span class="ot">&lt;-</span> <span class="fu">cor</span>(cars<span class="sc">$</span>speed, cars<span class="sc">$</span>dist)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>cor_speed_dist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8068949</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatterplot</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cars, <span class="fu">aes</span>(<span class="at">x =</span> speed, <span class="at">y =</span> dist)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Speed vs Stopping Distance"</span>, <span class="at">x =</span> <span class="st">"Speed"</span>, <span class="at">y =</span> <span class="st">"Stopping Distance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation:</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The correlation value indicates the strength and direction of the linear relationship between Speed and Stopping Distance.</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The scatterplot visualizes this relationship.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="problem-5-faithful-dataset---eruptions-vs-waiting-time" class="level3">
+<h3 class="anchored" data-anchor-id="problem-5-faithful-dataset---eruptions-vs-waiting-time">Problem 5: Faithful Dataset - Eruptions vs Waiting Time</h3>
+<p><strong>Task:</strong> Determine if there is a linear relationship between <code>eruptions</code> and <code>waiting</code> in the <code>faithful</code> dataset.</p>
+<p><strong>Solution and Explanation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 and faithful dataset</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(faithful)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlation</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>cor_eruptions_waiting <span class="ot">&lt;-</span> <span class="fu">cor</span>(faithful<span class="sc">$</span>eruptions, faithful<span class="sc">$</span>waiting)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>cor_eruptions_waiting</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9008112</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatterplot</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x =</span> eruptions, <span class="at">y =</span> waiting)) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Eruptions vs Waiting Time"</span>, <span class="at">x =</span> <span class="st">"Eruptions"</span>, <span class="at">y =</span> <span class="st">"Waiting Time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation:</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The correlation value indicates the strength and direction of the linear relationship between Eruptions and Waiting Time.</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The scatterplot visualizes this relationship.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="problem-6-chickweight-dataset---time-vs-weight" class="level3">
+<h3 class="anchored" data-anchor-id="problem-6-chickweight-dataset---time-vs-weight">Problem 6: ChickWeight Dataset - Time vs Weight</h3>
+<p><strong>Task:</strong> Determine if there is a linear relationship between <code>Time</code> and <code>weight</code> in the <code>ChickWeight</code> dataset.</p>
+<p><strong>Solution and Explanation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 and ChickWeight dataset</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ChickWeight)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlation</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>cor_time_weight <span class="ot">&lt;-</span> <span class="fu">cor</span>(ChickWeight<span class="sc">$</span>Time, ChickWeight<span class="sc">$</span>weight)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>cor_time_weight</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8371017</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatterplot</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Time vs Weight"</span>, <span class="at">x =</span> <span class="st">"Time"</span>, <span class="at">y =</span> <span class="st">"Weight"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation:</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The correlation value indicates the strength and direction of the linear relationship between Time and Weight.</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The scatterplot visualizes this relationship.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="problem-7-pressure-dataset---temperature-vs-pressure" class="level3">
+<h3 class="anchored" data-anchor-id="problem-7-pressure-dataset---temperature-vs-pressure">Problem 7: Pressure Dataset - Temperature vs Pressure</h3>
+<p><strong>Task:</strong> Determine if there is a linear relationship between <code>temperature</code> and <code>pressure</code> in the <code>pressure</code> dataset.</p>
+<p><strong>Solution and Explanation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 and pressure dataset</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(pressure)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlation</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>cor_temperature_pressure <span class="ot">&lt;-</span> <span class="fu">cor</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>cor_temperature_pressure</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7577923</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatterplot</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pressure, <span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> pressure)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Temperature vs Pressure"</span>, <span class="at">x =</span> <span class="st">"Temperature"</span>, <span class="at">y =</span> <span class="st">"Pressure"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation:</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The correlation value indicates the strength and direction of the linear relationship between Temperature and Pressure.</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The scatterplot visualizes this relationship.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="problem-8-trees-dataset---girth-vs-volume" class="level3">
+<h3 class="anchored" data-anchor-id="problem-8-trees-dataset---girth-vs-volume">Problem 8: Trees Dataset - Girth vs Volume</h3>
+<p><strong>Task:</strong> Determine if there is a linear relationship between <code>Girth</code> and <code>Volume</code> in the <code>trees</code> dataset.</p>
+<p><strong>Solution and Explanation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 and trees dataset</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(trees)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlation</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>cor_girth_volume <span class="ot">&lt;-</span> <span class="fu">cor</span>(trees<span class="sc">$</span>Girth, trees<span class="sc">$</span>Volume)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>cor_girth_volume</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9671194</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatterplot</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(trees, <span class="fu">aes</span>(<span class="at">x =</span> Girth, <span class="at">y =</span> Volume)) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Girth vs Volume"</span>, <span class="at">x =</span> <span class="st">"Girth"</span>, <span class="at">y =</span> <span class="st">"Volume"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation:</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The correlation value indicates the strength and direction of the linear relationship between Girth and Volume.</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The scatterplot visualizes this relationship.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="problem-9-usarrests-dataset---urban-population-vs-assaults" class="level3">
+<h3 class="anchored" data-anchor-id="problem-9-usarrests-dataset---urban-population-vs-assaults">Problem 9: USArrests Dataset - Urban Population vs Assaults</h3>
+<p><strong>Task:</strong> Determine if there is a linear relationship between <code>UrbanPop</code> and <code>Assault</code> in the <code>USArrests</code> dataset.</p>
+<p><strong>Solution and Explanation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 and USArrests dataset</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(USArrests)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlation</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>cor_urbanpop_assault <span class="ot">&lt;-</span> <span class="fu">cor</span>(USArrests<span class="sc">$</span>UrbanPop, USArrests<span class="sc">$</span>Assault)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>cor_urbanpop_assault</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2588717</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatterplot</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(USArrests, <span class="fu">aes</span>(<span class="at">x =</span> UrbanPop, <span class="at">y =</span> Assault)) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Urban Population vs Assaults"</span>, <span class="at">x =</span> <span class="st">"Urban Population"</span>, <span class="at">y =</span> <span class="st">"Assaults"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation:</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The correlation value indicates the strength and direction of the linear relationship between Urban Population and Assaults.</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The scatterplot visualizes this relationship.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="problem-10-swiss-dataset---education-vs-fertility" class="level3">
+<h3 class="anchored" data-anchor-id="problem-10-swiss-dataset---education-vs-fertility">Problem 10: Swiss Dataset - Education vs Fertility</h3>
+<p><strong>Task:</strong> Determine if there is a linear relationship between <code>Education</code> and <code>Fertility</code> in the <code>swiss</code> dataset.</p>
+<p><strong>Solution and Explanation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 and swiss dataset</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(swiss)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlation</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>cor_education_fertility <span class="ot">&lt;-</span> <span class="fu">cor</span>(swiss<span class="sc">$</span>Education, swiss<span class="sc">$</span>Fertility)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>cor_education_fertility</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.6637889</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create scatterplot</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(swiss, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Fertility)) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Education vs Fertility"</span>, <span class="at">x =</span> <span class="st">"Education"</span>, <span class="at">y =</span> <span class="st">"Fertility"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Scatterplots_and_Correlation_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explanation:</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The correlation value indicates the strength and direction of the linear relationship between Education and Fertility.</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The scatterplot visualizes this relationship.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Independent_and_Dependent_Variables.html" class="pagination-link" aria-label="Independent and Dependent Variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Independent and Dependent Variables</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Linear_Modeling_and_Regression.html" class="pagination-link" aria-label="Linear Modeling and Regression">
+        <span class="nav-page-text">Linear Modeling and Regression</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Introductory Data Analytics and Statistics was written by Mike LeVan.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

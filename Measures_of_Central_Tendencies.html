@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Measures Of Central Tendencies – Data Analytics and Statistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Measures_of_Variability.html" rel="next">
+<link href="./Beginning_Data_Visualization.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Barplots_And_Histograms.html">Step 3 - Exploration and Visualization</a></li><li class="breadcrumb-item"><a href="./Measures_of_Central_Tendencies.html">Measures Of Central Tendencies</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Analytics and Statistics</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data 1004 - Data Analytics and Statistics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./About.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Data_Science.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is Data Science?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 1 - Data Collecting</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What Is Tidyverse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Statistics_Language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Language</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Qualitative_and_Quantitative_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qualitative and Quantitative Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_In_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading In Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 2 - Data Preparation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./What_Is_Tidy_Data_PDF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is “Tidy Data”?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Vectors_DataFrames_Tibbles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vectors, Data Frames, Tibbles</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intro_To_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_and_Interpreting_Tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reading and Interpreting Tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dplyr_and_Piping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Cleaning with dplyr and piping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Additional_Data_Cleaning_Functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Data Cleaning Functions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 3 - Exploration and Visualization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Barplots_And_Histograms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Barplots and Histograms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Line_Graphs_and_Pie_Charts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Line Graphs and Pie Charts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Beginning_Data_Visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Measures_of_Central_Tendencies.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Measures Of Central Tendencies</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Measures_of_Variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measures Of Variability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Advanced_Boxplot_Techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Boxplot Techniques.</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Step 4 - Experimentation and Prediction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Independent_and_Dependent_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Independent and Dependent Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Scatterplots_and_Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scatterplots and Correlation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Linear_Modeling_and_Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Modeling and Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Residuals_Outliers_Predictions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Residuals, Outliers and Predictions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Advanced_Scatterplot_Techniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Scatterplot Techniques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Estimating_Parameters_Confidence_Intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Estimating Parameters Using Confidence Intervals</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Qualitative_and_Quantitative_Variables_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qualitative and Quantitative Variables Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Tidy_Data_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy Data Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Beginning_Data_Visualization_Assignment_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beginning Data Visualization Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA_Assignment_sheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Assignment Sheet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA_Assignment_Sheet_Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA Assignment Solutions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_1_Intro_To_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_2_ Read_In_Data_Assignment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_3_Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 4.</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Individual_Lab_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Individual Lab 6</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-mean" id="toc-the-mean" class="nav-link active" data-scroll-target="#the-mean">The Mean</a></li>
+  <li><a href="#the-median" id="toc-the-median" class="nav-link" data-scroll-target="#the-median">The Median</a></li>
+  <li><a href="#the-mode" id="toc-the-mode" class="nav-link" data-scroll-target="#the-mode">The Mode</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#calculating-the-mean-and-median" id="toc-calculating-the-mean-and-median" class="nav-link" data-scroll-target="#calculating-the-mean-and-median">Calculating the Mean and Median</a></li>
+  <li><a href="#what-about-the-mode" id="toc-what-about-the-mode" class="nav-link" data-scroll-target="#what-about-the-mode">What About The Mode?</a></li>
+  <li><a href="#quickly-compare-mean-and-median" id="toc-quickly-compare-mean-and-median" class="nav-link" data-scroll-target="#quickly-compare-mean-and-median">Quickly Compare Mean And Median</a></li>
+  <li><a href="#properties-of-mean-median-and-mode" id="toc-properties-of-mean-median-and-mode" class="nav-link" data-scroll-target="#properties-of-mean-median-and-mode">Properties of mean, median, and mode</a></li>
+  <li><a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data">Missing Data</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#problem-1-mean-and-median-of-sepal-length-in-the-iris-dataset" id="toc-problem-1-mean-and-median-of-sepal-length-in-the-iris-dataset" class="nav-link" data-scroll-target="#problem-1-mean-and-median-of-sepal-length-in-the-iris-dataset">Problem 1: Mean and Median of Sepal Length in the <code>iris</code> Dataset</a></li>
+  <li><a href="#problem-2-mean-and-median-of-ozone-levels-in-the-airquality-dataset" id="toc-problem-2-mean-and-median-of-ozone-levels-in-the-airquality-dataset" class="nav-link" data-scroll-target="#problem-2-mean-and-median-of-ozone-levels-in-the-airquality-dataset">Problem 2: Mean and Median of Ozone Levels in the <code>airquality</code> Dataset</a></li>
+  <li><a href="#problem-3-mean-and-median-of-annual-lynx-trappings-in-the-lynx-dataset" id="toc-problem-3-mean-and-median-of-annual-lynx-trappings-in-the-lynx-dataset" class="nav-link" data-scroll-target="#problem-3-mean-and-median-of-annual-lynx-trappings-in-the-lynx-dataset">Problem 3: Mean and Median of Annual Lynx Trappings in the <code>lynx</code> Dataset</a></li>
+  <li><a href="#problem-4-mean-and-median-of-tooth-length-in-the-toothgrowth-dataset" id="toc-problem-4-mean-and-median-of-tooth-length-in-the-toothgrowth-dataset" class="nav-link" data-scroll-target="#problem-4-mean-and-median-of-tooth-length-in-the-toothgrowth-dataset">Problem 4: Mean and Median of Tooth Length in the <code>ToothGrowth</code> Dataset</a></li>
+  <li><a href="#problem-5-mean-and-median-of-age-in-the-infert-dataset" id="toc-problem-5-mean-and-median-of-age-in-the-infert-dataset" class="nav-link" data-scroll-target="#problem-5-mean-and-median-of-age-in-the-infert-dataset">Problem 5: Mean and Median of Age in the <code>infert</code> Dataset</a></li>
+  <li><a href="#problem-6-mean-and-median-of-wind-speed-in-the-airquality-dataset" id="toc-problem-6-mean-and-median-of-wind-speed-in-the-airquality-dataset" class="nav-link" data-scroll-target="#problem-6-mean-and-median-of-wind-speed-in-the-airquality-dataset">Problem 6: Mean and Median of Wind Speed in the <code>airquality</code> Dataset</a></li>
+  <li><a href="#problem-7-create-a-new-column-and-calculate-mean-and-median-in-the-iris-dataset" id="toc-problem-7-create-a-new-column-and-calculate-mean-and-median-in-the-iris-dataset" class="nav-link" data-scroll-target="#problem-7-create-a-new-column-and-calculate-mean-and-median-in-the-iris-dataset">Problem 7: Create a New Column and Calculate Mean and Median in the <code>iris</code> Dataset</a></li>
+  <li><a href="#problem-8-mean-and-median-of-temperature-in-the-airquality-dataset" id="toc-problem-8-mean-and-median-of-temperature-in-the-airquality-dataset" class="nav-link" data-scroll-target="#problem-8-mean-and-median-of-temperature-in-the-airquality-dataset">Problem 8: Mean and Median of Temperature in the <code>airquality</code> Dataset</a></li>
+  <li><a href="#problem-9-create-a-new-column-and-calculate-mean-and-median-in-the-toothgrowth-dataset" id="toc-problem-9-create-a-new-column-and-calculate-mean-and-median-in-the-toothgrowth-dataset" class="nav-link" data-scroll-target="#problem-9-create-a-new-column-and-calculate-mean-and-median-in-the-toothgrowth-dataset">Problem 9: Create a New Column and Calculate Mean and Median in the <code>ToothGrowth</code> Dataset</a></li>
+  <li><a href="#problem-10-mean-and-median-of-child-count-in-the-infert-dataset" id="toc-problem-10-mean-and-median-of-child-count-in-the-infert-dataset" class="nav-link" data-scroll-target="#problem-10-mean-and-median-of-child-count-in-the-infert-dataset">Problem 10: Mean and Median of Child Count in the <code>infert</code> Dataset</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Barplots_And_Histograms.html">Step 3 - Exploration and Visualization</a></li><li class="breadcrumb-item"><a href="./Measures_of_Central_Tendencies.html">Measures Of Central Tendencies</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Measures Of Central Tendencies</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<center>
+<!-- 
+### Packages and Libraries needed
+
+tidyverse
+
+-->
+</center>
+<p><br> Note : Many of the graphics and descriptions may be found here : https://www.r4epi.com/measures-of-central-tendency</p>
+<p><br></p>
+<p>We have gotten to the point where we are starting to describe a given data set. Here is where we are, as of now : <br></p>
+<center>
+<img src="./images/Daily-4-Pic-1.jpg" class="img-fluid" style="width:75.0%">
+</center>
+<p><br></p>
+<p>Why do we want to be able to describe the central tendency of a data set? Consider epidemiology. In epidemiology, we often want to describe the “typical” person in a population with respect to some characteristic that is recorded as a numerical variable – like height or weight. The most basic, and probably most commonly used, way to do so is with a measure of central tendency. <br></p>
+<p>In this lesson we have discussed three measures of central tendency: <br></p>
+<ul>
+<li>The mean</li>
+<li>The median</li>
+<li>The mode <br></li>
+</ul>
+<center>
+<img src="./images/Daily-4-Pic-2.jpg" class="img-fluid" style="width:50.0%">
+</center>
+<p><br></p>
+<section id="the-mean" class="level2">
+<h2 class="anchored" data-anchor-id="the-mean">The Mean</h2>
+<p><br> When we talk about the typical, or “average”, value of some variable measured on a continuous scale, we are usually talking about the mean value of that variable. To be even more specific, we are usually talking about the arithmetic mean value. This value has some favorable characteristics that make it a good description of central tendency. <br></p>
+<ul>
+<li><p>For starters it’s simple. Most people are familiar with the mean, and at the very least, have some intuitive sense of what it means (no pun intended).</p></li>
+<li><p>In addition, there can be only one mean value for any set of values.</p></li>
+</ul>
+<p><br> However, there are a couple of potentially problematic characteristics of the mean as well: <br></p>
+<ul>
+<li><p>It’s susceptible to extreme values in your data. In other words, a couple of people with very atypical values for the characteristic you are interested in can drastically alter the value of the mean, and your estimate for the typical person in your population of interest along with it.</p></li>
+<li><p>Additionally, it’s highly likely to calculate a mean value that is not actually observed anywhere in your data. <br></p></li>
+</ul>
+<p>Let’s assume we have a data set with <span class="math inline">\(n\)</span> points and we label them as <span class="math inline">\(a_1\)</span>, <span class="math inline">\(a_2\)</span>, . . . <span class="math inline">\(a_n\)</span>. Here is the fancy, schmancy formula for finding the Average / Mean :</p>
+<center>
+<img src="./images/Daily-4-Pic-8.jpg" class="img-fluid" style="width:40.0%">
+</center>
+<p><br></p>
+<p>The capital sigma there is a mathematical symbol that tells us to sum up what ever follows the sigma and we will then divide by <span class="math inline">\(n\)</span> which is the number of points we have in the data set. It can be said a little easier as : <br></p>
+<center>
+<img src="./images/Daily-4-Pic-9.jpg" class="img-fluid" style="width:35.0%">
+</center>
+<p><br></p>
+<p><strong>Caution :</strong> The mean is a nice way to get a value that describes the centrality of a data set, but it can sometimes be problematic if there are values that drastically higher or lower than most of the values in a data set. <br></p>
+<p>Consider this data set : <br></p>
+<center>
+<span class="math inline">\(1 \,\,\,2 \,\,\,3\,\,\,4\,\,\,5\,\,\,6\,\,\,7\,\,\,8\,\,\,9\)</span>
+</center>
+<p><br></p>
+<p>We can quickly calculate the average to be <span class="math display">\[(1 + 2 + 3 + \dots +9\,)\,/\,9 = \frac{45}{9}=5\]</span> which is right smack dab in the middle of the data set. 50% of the scores are above and below the value for the average, os it is a very good measure of centrality for this set. <br></p>
+<p>However, adding a single value can sometimes make the average a poor choice for measure of centrality. Consider adding the value <span class="math inline">\(100\)</span> to the previous data set : <br></p>
+<center>
+<span class="math inline">\(1 \,\,\,2 \,\,\,3\,\,\,4\,\,\,5\,\,\,6\,\,\,7\,\,\,8\,\,\,9\,\,\,100\)</span>
+</center>
+<p><br></p>
+<p>Calculating the average for this data set yields as average of : <span class="math display">\[(1 + 2 + 3 + \dots +9+100\,)\,/\,9 = \frac{145}{10} = 14.5\]</span> In this example, the mean is actually larger than 90% of all the scores in the data set. That means it is a <strong>poor</strong> choice as a representative value for the data set. <br></p>
+<p>Note that scores that are far away from most of the values in a data set are called <strong>outliers</strong> and as you will see, even a single outlier can vastly affect the mean. This means that the mean is <strong>not</strong> resistant to outliers!</p>
+<p>This is one of the reasons why it is important that there is more than one option as a measure of centrality. <br></p>
+</section>
+<section id="the-median" class="level2">
+<h2 class="anchored" data-anchor-id="the-median">The Median</h2>
+<p><br></p>
+<p>The median is probably the second most commonly used measure of central tendency.</p>
+<ul>
+<li><p>Like the mean, it’s computationally simple and relatively straightforward to understand.</p></li>
+<li><p>There can be one, and only one, median.</p></li>
+<li><p>And, its value may also be unobserved in the data. <br></p></li>
+</ul>
+<p>The idea of finding the Median is fairly simple : <br></p>
+<ul>
+<li><p>Line up the values from smallest to largest</p></li>
+<li><p>The value that occurs in the middle will be the <strong>median</strong></p></li>
+<li><p>This means the <strong>median</strong> scores has half of the values <strong>below it</strong> and half the values <strong>above it</strong>, when you exclude the spot representing the median. <br></p></li>
+</ul>
+<p>There is a small caveat depending on if there is an even or odd amount of values in the data set. Let’s assume there are <strong>n</strong> values in the data set. <br></p>
+<p>Let’s assume <strong>n is odd</strong>. Consider this example where we have a data set with 7 values, where the data has already been arranged from smallest to largest: <br></p>
+<center>
+<img src="./images/Daily-4-Pic-4.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<p><br></p>
+<p>When <strong>n is odd</strong>, the median is the value located in spot <strong>(n+1)/2</strong>. So in this case the median is located in spot <span class="math inline">\((7+1)/2 = 4\)</span>th spot : <br></p>
+<center>
+<img src="./images/Daily-4-Pic-5.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<p><br></p>
+<p>Notice that when we exclude the median, we have just as many values <strong>below</strong> the median (3) as we have <strong>above</strong> the median (3). <br></p>
+<p><strong>Important :</strong> The <strong>median</strong> is a <strong>spot-based</strong> measure. We are looking for the value that occurs in the middle spot. In this example, the median was in spot 4 with the median taking on the value of 18. <br></p>
+<p>It is entirely possible that the median takes on a value below or above this spot if there are repeated values. Consider a similar data set : <br></p>
+<center>
+<span class="math inline">\(8\,\,\, 11\,\,\,  15\,\,\,  15\,\,\,  24\,\,\,  30\,\,\,  31\)</span>
+</center>
+<p><br></p>
+<p>In this example, there are still 7 values in the data set so the median is still located in spot 4 : <br></p>
+<center>
+<span class="math inline">\(8\,\,\, 11\,\,\,  15\,\,\,  \underline{\,\,15\,\,}\,\,\,  24\,\,\,  30\,\,\,  31\)</span>
+</center>
+<p><br></p>
+<p>In this case, the median takes on the value in the fourth spot, namely 15. We still have three values below the median : <span class="math inline">\(8\,\,\, 11 \,\,\, 15\,\)</span> and three values above the median : <span class="math inline">\(24 \,\,\, 30\,\,\, 31\,\)</span>. So even though we have a value for the median that is also in a different spot of the data set, we still have 50% of the scores above the median and 50% of the scores below the median. This means that the important aspect of finding the median is finding the <strong>spot</strong> that is in the middle and that will inform us on the value of the median. <br></p>
+<p>What happens when <strong>n is even</strong>? This complicates the process a bit because there is not a single value that falls in the middle. Consider this example of an already ordered set of six values : <br></p>
+<center>
+<img src="./images/Daily-4-Pic-6.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<p><br></p>
+<p>As you can see above, we don’t have a single spot that is right in the middle that we can call the median. However, we do have <strong>two</strong> values in the middle. In this case, those values are <strong>18</strong> and <strong>24</strong>. To get the median, we will simply find the average of these two values to create the median.</p>
+<p>Finding the two middle spots is simple. The first value is located in spot <span class="math inline">\((n\,/\,2)\)</span> and the second spot in lcoated immediatley following, <span class="math inline">\((n\,/\,2) + 1\)</span>. In the following example we have a data set with <span class="math inline">\(6\)</span> values. Since this is an even amount of values, we will work with the values in spots <span class="math inline">\((6\,/\,2\,) = 3\)</span> and <span class="math inline">\((6\,/\,2\,) + 1 = 4\)</span> <br></p>
+<center>
+<img src="./images/Daily-4-Pic-7.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<p><br></p>
+<p>As you can see spot 3 has the value <span class="math inline">\(18\)</span> and spot 4 has the value <span class="math inline">\(24\)</span>. The median is the average of these two values. Therefore the median is <span class="math inline">\((18 + 24)/2 = (42) / 2 = 21\)</span>. <br></p>
+<p>Note that in this case we still have the same amount of scores <strong>below</strong> the median as we have <strong>above</strong> the median. This shows us that 50% of the data set is below this value and 50% above this value which is the definition of median. <br></p>
+<p>An interesting result is that in this case the median is <strong>not</strong> a value from the data set! If you look at the orginal six values in the data set, 21 is not one of them! If you have a data set with an even amount of values, this will almost always be the case. THe only time where the median will actually be a value on in the data set is if the two values in the middle happen to be the exact same value. Otherwise, the median will be a value not in the original data set. <br></p>
+<p>Let’s revisit an issue we discovered when discussing averages, namely outliers. How do outliers affect the median?</p>
+<p>Let calculate the median for the following two data sets : <br></p>
+<center>
+<span class="math inline">\(1 \,\,\,2 \,\,\,3\,\,\,4\,\,\,5\,\,\,6\,\,\,7\,\,\,8\,\,\,9\)</span>
+</center>
+<p><br> In this example, there are <span class="math inline">\(9\)</span> scores, which tells us the median is located in spot <span class="math inline">\(\frac{9+1}{2} = \frac{10}{2}= 5\)</span>. Spot 5 happens to contain the value <span class="math inline">\(5\)</span>. Notice that this stil has 50% of the scores below and 50% of the scores above the median which tells us it is a good representative for the measure of centrality. <br></p>
+<p>What does adding an outlier do? How does it affect the median? Let’s explore and find out. <br></p>
+<center>
+<span class="math inline">\(1 \,\,\,2 \,\,\,3\,\,\,4\,\,\,5\,\,\,6\,\,\,7\,\,\,8\,\,\,9\,\,\,100\)</span>
+</center>
+<p><br></p>
+<p>We now have 10 scores which means we want to take the average of the tow middle scores in spots <span class="math inline">\(\frac{10}{2} = 5\)</span> and <span class="math inline">\(\frac{10}{2} + 1 = 6\)</span>.</p>
+<center>
+<span class="math inline">\(1 \,\,\,2 \,\,\,3\,\,\,4\,\,\underline{\,5\,}\,\,\,\underline{\,6\,}\,\,7\,\,\,8\,\,\,9\,\,\,100\)</span>
+</center>
+<p><br> The average of these two values gives us <span class="math inline">\(\frac{5 + 6}{2} = 5.5\)</span>. Again, think about the definition of a measure of centrality. If you consider the median to be 5.5, then notice there are 5 values below the median and 5 valuse above the median, showing us that this is a good representative for the measure of centrality.</p>
+<p>This tells us that outliers do not affect the median very much at all. The median moved from <span class="math inline">\(5\)</span> up to <span class="math inline">\(5.5\)</span>. What this shows us is that medians <strong>are resistant</strong> to outiers! <br></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This means that if we have a data set that contains outliers, we need to consider using the median as the measure of centrality and not the mean. This raises the question of when does a data set have outliers, and this will be discussed when we talk about Measures of Spread.</p>
+</div>
+</div>
+</section>
+<section id="the-mode" class="level2">
+<h2 class="anchored" data-anchor-id="the-mode">The Mode</h2>
+<p>And finally, we have the mode, or the value that is most often observed in the data. It doesn’t get much simpler than that. But, unlike the mean and the median, there can be more than one mode for a given set of values. In fact, there can even be no mode if all the values are observed the exact same number of times. However, if there is a mode, by definition it’s observed in the data. <br></p>
+<p>Consider these examples : <br></p>
+<p><strong>Mode Example 1</strong> <br></p>
+<center>
+<span class="math inline">\(8\,\,\, 11\,\,\,  15\,\,\,  15\,\,\,  24\,\,\,  30\,\,\,  31\)</span>
+</center>
+<p><br></p>
+<p>In this data set, then value <span class="math inline">\(15\)</span> appears twice and everything else appears once. Therefore the mode of this data set is <span class="math inline">\(15\)</span>. <br></p>
+<p><strong>Mode Example 2</strong> <br></p>
+<center>
+<span class="math inline">\(8\,\,\, 11\,\,\,  15\,\,\,  15\,\,\,  24\,\,\,  30\,\,\,  30\,\,\ 31\)</span>
+</center>
+<p><br></p>
+<p>In this data set, then value <span class="math inline">\(15\)</span> <strong>and</strong> <span class="math inline">\(30\)</span> appear twice and everything else appears once. Therefore the mode of this data set is <span class="math inline">\(15\)</span> <strong>and</strong> <span class="math inline">\(30\)</span>. <br></p>
+<p><strong>Mode Example 3</strong> <br></p>
+<center>
+<span class="math inline">\(8\,\,\, 11\,\,\,  12\,\,\,  15\,\,\,  24\,\,\,  30\,\,\,  33\,\,\ 37\)</span>
+</center>
+<p><br></p>
+<p>In this data set, <strong>no</strong> value appears more than any other value, so this data set <strong>does not</strong> have a mode! <br></p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>Here is a graphic that reviews what we have discussed so far : <br></p>
+<center>
+<img src="./images/Daily-4-Pic-10.jpg" class="img-fluid" style="width:60.0%">
+</center>
+<p><br></p>
+</section>
+<section id="calculating-the-mean-and-median" class="level2">
+<h2 class="anchored" data-anchor-id="calculating-the-mean-and-median">Calculating the Mean and Median</h2>
+<p><br></p>
+<p>Now that we are all on the same page with respect to the fundamentals of central tendency, let’s remind ourselves how to calculate these measures using R. <br></p>
+<p>Calculating the mean is really straightforward. We can just use base R’s built-in <strong>mean( )</strong> function.</p>
+<p>Load the <strong>dplyr</strong> package. We will need several <strong>dplyr</strong> functions and can install and load the package with the code below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is the command of we need to install the package. </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("dplyr")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We can load the dplyr pack :</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>We can simulate some data by typing (cut and paste?) the following into your code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load up tibble, if needed</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We can now create the tibble</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>id,   <span class="sc">~</span>sex,     <span class="sc">~</span>ht_in, <span class="sc">~</span>wt_lbs,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"001"</span>, <span class="st">"Male"</span>,   <span class="dv">71</span>,     <span class="dv">190</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"002"</span>, <span class="st">"Male"</span>,   <span class="dv">69</span>,     <span class="dv">177</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"003"</span>, <span class="st">"Female"</span>, <span class="dv">64</span>,     <span class="dv">130</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"004"</span>, <span class="st">"Female"</span>, <span class="dv">65</span>,     <span class="dv">153</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"005"</span>, <span class="cn">NA</span>,       <span class="dv">73</span>,     <span class="dv">173</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"006"</span>, <span class="st">"Male"</span>,   <span class="dv">69</span>,     <span class="dv">182</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"007"</span>, <span class="st">"Female"</span>, <span class="dv">68</span>,     <span class="dv">186</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"008"</span>, <span class="cn">NA</span>,       <span class="dv">73</span>,     <span class="dv">185</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"009"</span>, <span class="st">"Female"</span>, <span class="dv">71</span>,     <span class="dv">157</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"010"</span>, <span class="st">"Male"</span>,   <span class="dv">66</span>,     <span class="dv">155</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"011"</span>, <span class="st">"Male"</span>,   <span class="dv">71</span>,     <span class="dv">213</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"012"</span>, <span class="st">"Female"</span>, <span class="dv">69</span>,     <span class="dv">151</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"013"</span>, <span class="st">"Female"</span>, <span class="dv">66</span>,     <span class="dv">147</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"014"</span>, <span class="st">"Female"</span>, <span class="dv">68</span>,     <span class="dv">196</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"015"</span>, <span class="st">"Male"</span>,   <span class="dv">75</span>,     <span class="dv">212</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"016"</span>, <span class="st">"Female"</span>, <span class="dv">69</span>,     <span class="dv">19000</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"017"</span>, <span class="st">"Female"</span>, <span class="dv">66</span>,     <span class="dv">194</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"018"</span>, <span class="st">"Female"</span>, <span class="dv">65</span>,     <span class="dv">176</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">"019"</span>, <span class="st">"Female"</span>, <span class="dv">65</span>,     <span class="dv">176</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">"020"</span>, <span class="st">"Female"</span>, <span class="dv">65</span>,     <span class="dv">102</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>In the code above, here are what the steps were :</p>
+<ul>
+<li><p>We loaded the tibble package so that we could use its tribble() function.</p></li>
+<li><p>We used the <code>tribble( )</code> function to simulate some data – heights and weights for 20 hypothetical students.</p>
+<ul>
+<li><p>The <code>tribble( )</code> function creates something called a tibble. A tibble is the tidyverse version of a data frame. In fact, it is a data frame, but with some additional functionality. You can use the link to read more about it if you’d like.</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/74000054/what-are-the-differences-between-the-data-frame-tribble-and-tibble-functi">More information on tribble( ) vs tibble( ) vs data.frame </a> <br></li>
+</ul></li>
+<li><p>We used the tribble( ) function instead of the data.frame( ) function to create our data frame above because we can use the tribble( ) function to create our data frames in rows (like you see above) instead of columns with the c( ) function.</p></li>
+<li><p>Using the tribble( ) function to create a data frame isn’t any better or worse than using the data.frame( ) function. I just wanted you to be aware that it exists and is sometimes useful.</p></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>MEAN Example :</strong> Find the mean of the heights in the data frame.</p>
+<ul>
+<li><p>The name of the tibble is <strong>height_and_weight_20</strong>.</p></li>
+<li><p>The name of the variable we want to use is the column <strong>ht_in</strong></p></li>
+<li><p>The way we can access a variable (column) of a data fram or tibble uses syntax such as <strong>data_frame_name$variable_name</strong></p></li>
+<li><p>Therefore we want to find the mean of <strong>height_and_weight_20$ht_in</strong></p></li>
+<li><p>We will use the command <strong>mean( )</strong> as follows :</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(height_and_weight_20<span class="sc">$</span>ht_in)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.4</code></pre>
+</div>
+</div>
+<p><br></p>
+<p><strong>MEDIAN Example :</strong> Find the median of the heights in the data frame. <br></p>
+<p>If we were going to do this by hand, we would first need to sort the data. We can accompish this using the <strong>sort( )</strong> command. It will sort the list and the default listing is smallest to largest:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(height_and_weight_20<span class="sc">$</span>ht_in)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 64 65 65 65 65 66 66 66 68 68 69 69 69 69 71 71 71 73 73 75</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Because we have an even amount of terms, we would then locate the two middle values and find their average. We have 20 values in this data set, so we are looking at spots 10 and 11.</p>
+<center>
+<span class="math inline">\(64\,\,\, 65\,\,\, 65\,\,\, 65\,\,\, 65\,\,\, 66\,\,\, 66\,\,\, 66\,\,\, 68\,\,\underline{\, 68\,}\,
+\underline{\, 69\,}\,\,
+69\,\,\, 69\,\,\, 69\,\,\, 71\,\,\, 71\,\,\, 71\,\,\, 73\,\,\, 73\,\,\, 75\)</span>
+</center>
+<p><br></p>
+<p>The median is the average of these two values which says the median is <span class="math inline">\(\frac{68+69}{2} = \frac{137}{2} = 68.5\)</span></p>
+<p>We clearly don’t want to do this if we have a large amount of values in the data set. We will use the <strong>median( )</strong> function to help us out.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(height_and_weight_20<span class="sc">$</span>ht_in)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.5</code></pre>
+</div>
+</div>
+</section>
+<section id="what-about-the-mode" class="level2">
+<h2 class="anchored" data-anchor-id="what-about-the-mode">What About The Mode?</h2>
+<p><br></p>
+<p>Base R does not have a built-in <strong>mode( )</strong> function. Well, it actually does have a <strong>mode( )</strong> function, but for some reason that function does not return the mode value(s) of a set of numbers. Instead, the <strong>mode( )</strong> function gets or sets the type or storage mode of an object. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(height_and_weight_20<span class="sc">$</span>ht_in)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p><br> This is clearly not what we are looking for. So, how do we find the mode value(s)? Go back to the slides from the lesson to see how we found this.</p>
+</section>
+<section id="quickly-compare-mean-and-median" class="level2">
+<h2 class="anchored" data-anchor-id="quickly-compare-mean-and-median">Quickly Compare Mean And Median</h2>
+<p><br></p>
+<p>Now that you know how to calculate the mean and the median, let’s compare these three measures of central tendency. This is a good opportunity to demonstrate some of the different characteristics of each that we spoke about earlier. Try the following code :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_weight    =</span> <span class="fu">min</span>(ht_in),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_weight   =</span> <span class="fu">mean</span>(ht_in),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_weight =</span> <span class="fu">median</span>(ht_in),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_weight    =</span> <span class="fu">max</span>(ht_in)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  min_weight mean_weight median_weight max_weight
+       &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+1         64        68.4          68.5         75</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>This example shows you how you can find the <strong>min( )</strong>, <strong>mean( )</strong>, <strong>median( )</strong>, and <strong>max( )</strong> values in a data set. The <strong>summarise( )</strong> command just prints them out nicely for us as a <span class="math inline">\(1 \times 4\)</span> tibble. <br></p>
+<p>This also allows us to quickly compare the values of the mean and the median. This can sometimes give us hints as to if we have any extreme values (outliers) in our data. If you remember, outiers can really affect the mean. Therefore, if we have a high outlier, it would pull the mean up much more than the median. If we have a low outlier, then the mean would be pulled down much more than the median. <br></p>
+<p>So in the previous example, where the mean is 68.4 and the median is 68.5 then we have one of two options for us:</p>
+<ul>
+<li>There are no outliers in the data set</li>
+<li>There are the same amount of high and low outliers balancing each other out, or perhaps a bi-modal distribution. <br></li>
+</ul>
+<p>This tells us that if the mean and median are not claose to each other, then there are some values that are affecting the mean. These could be outliers or they could be something as mundane as a data entry error. By running these comparisons, we can sometimes notice there is a problem with the data set. <br></p>
+<p>For example, let’s do a quick summary for the weights instead of the heights and examine the output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_weight    =</span> <span class="fu">min</span>(wt_lbs),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_weight   =</span> <span class="fu">mean</span>(wt_lbs),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_weight =</span> <span class="fu">median</span>(wt_lbs),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_weight    =</span> <span class="fu">max</span>(wt_lbs)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  min_weight mean_weight median_weight max_weight
+       &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+1        102       1113.          176.      19000</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Do you see any red flags as you scan the results? Do you really think a mean weight of 1,113 pounds sounds reasonable? This should definitely be a red flag for you. Now move your gaze three columns to the right and notice that the maximum value of weight is 19,000 lbs – an impossible value for a study in human populations. In this case the real weight was supposed to be 190 pounds, but the person entering the data accidently got a little trigger-happy with the zero key. <br></p>
+<p>This is an example of how we can use descriptive analysis to uncover errors in our data. Oftentimes, for various reasons, some observations for a given variable take on values that don’t make sense. Starting by calculating some basic descriptive statistics for each variable is one approach you can use to try to figure out if you have values in your data that don’t make sense. <br></p>
+<p>In this case we can just go back and fix our data, but what if we didn’t know this value was an error? What if it were a value that was technically possible, but very unlikely? Well, we can’t just change values in our data. It’s unethical, and in some cases illegal. Below, we discuss how the properties of the median and mode can come in handy in situations such as this. <br></p>
+</section>
+<section id="properties-of-mean-median-and-mode" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-mean-median-and-mode">Properties of mean, median, and mode</h2>
+<p><br></p>
+<p>Despite the fact that this impossibly extreme value is in our data, the median and mode estimates are reasonable estimates of the typical person’s weight in this sample. This is what is meant when it is said that the median and mode were more “resistant to extreme values” than the mean. <br></p>
+<p>You may also notice that no person in our sample had an actual weight of 1,113 (the mean) or even 176 (the median). This is what I meant above when I said that the mean and median values are “not necessarily observed in the data.” <br></p>
+<p>In this case, the mode value (176) is also a more reasonable estimate of the average person’s weight than the mean. And unlike the mean and the median, participants 18 and 19 actually weigh 176 pounds. I’m not saying that the mode is always the best measure of central tendency to use. However, I am saying that you can often learn useful information from your data by calculating and comparing these relatively simple descriptive statistics on each of your numeric variables.</p>
+</section>
+<section id="missing-data" class="level2">
+<h2 class="anchored" data-anchor-id="missing-data">Missing Data</h2>
+<p>We can use the <strong>dplyr::filter( )</strong> function to remove all the rows from our data frame that contained a missing value for any of our variables of interest. This is called a <strong>complete case analysis</strong>. This method should pretty much always work, but in this section I’m going to show you an alternative method for dropping missing values from your analysis that you are likely to come across often when reading R documentation – the <strong>na.rm</strong> argument. <br></p>
+<p>Many R functions that perform calculations on numerical variables include an <strong>na.rm</strong> – short for <strong>“Remove NA”</strong> – argument. By default, this argument is typically set to FALSE. By passing the value TRUE to this argument, we can perform a complete case analysis. Let’s quickly take a look at how it works. <br></p>
+<p>We already saw that we can calculate the mean value of a numeric vector using the <strong>mean( )</strong> function. For instance, if I wanted to find the average of the three numbers 34, 87, 23, I could create a vector of these three numbers and then put the vector into the <strong>mean( )</strong> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">87</span>, <span class="dv">23</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48</code></pre>
+</div>
+</div>
+<p><br> But what happens when our vector has a missing value?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">87</span>, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p><br> As you can see, the <strong>mean( )</strong> function returns <strong>NA</strong> by default when we pass it a numeric vector that contains a missing value. It took me a little while to wrap my head around why this is the case when I was a student. Perhaps some of you are confused as well. The logic goes something like this. <br></p>
+<p>In R, an <strong>NA</strong> doesn’t represent the absence of a value – a value that doesn’t exist at all; rather, it represents a value that does exist, but is unknown to us. So, if I ask you to tell me the mean of a set of numbers that contains 34, 87, and some unknown number what would your answer be? Well, you can’t just give me the mean of 34 and 87. That would imply that the unknown number doesn’t exist. Further, you can’t really give me any numeric answer because that answer will depend on the value of the missing number. So, the only logical answer to give me is something like “I don’t know” or “it depends.” That is essentially what R is telling us when it returns an <strong>NA</strong>. <br></p>
+<p>While this answer is technically correct, it usually isn’t very satisfying to us. Instead, we often want R to calculate the mean of the numbers that remain after all missing values are removed from the original set. The implicit assumption is that the mean of that reduced set of numbers will be “close enough” to the mean of the original set of numbers for our purposes. We can ask R to do this by changing the value of the <strong>na.rm</strong> argument from <strong>FALSE</strong> – the default – to <strong>TRUE</strong>. <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">87</span>, <span class="cn">NA</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 60.5</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Finally, let’s work with <code>mutate( )</code> and `na.rm = TRUE<code>in  a **dplyr** pipeline. We will first use the</code>replace( )`` function to add some missing values to our <strong>height_and_weight_20</strong> data. (Remember to make sure the <strong>dplyr</strong> package is loaded up so we can use the <strong>mutate( )</strong> and <strong>%&gt;%</strong> commands.) <br></p>
+<p>Note : Here is <a href="https://www.sharpsightlabs.com/blog/mutate-in-r/">more information</a> on the <strong>mutate( )</strong> command. It basically either (a) creates a new variable, which means we are adding a column to the data set or (b) manipulates a current variable, as we see below : <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="ot">&lt;-</span> height_and_weight_20 <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ht_in =</span> <span class="fu">replace</span>(ht_in, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 4
+   id    sex    ht_in wt_lbs
+   &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 001   Male      NA    190
+ 2 002   Male      NA    177
+ 3 003   Female    64    130
+ 4 004   Female    65    153
+ 5 005   &lt;NA&gt;      73    173
+ 6 006   Male      69    182
+ 7 007   Female    68    186
+ 8 008   &lt;NA&gt;      73    185
+ 9 009   Female    71    157
+10 010   Male      66    155
+11 011   Male      71    213
+12 012   Female    69    151
+13 013   Female    66    147
+14 014   Female    68    196
+15 015   Male      75    212
+16 016   Female    69  19000
+17 017   Female    66    194
+18 018   Female    65    176
+19 019   Female    65    176
+20 020   Female    65    102</code></pre>
+</div>
+</div>
+<p><br> Here’s what we did in this command :</p>
+<ul>
+<li>“height_and_weight_20 %&gt;%”
+<ul>
+<li>This says to take the data set and “pipe it” into the next command, which is the <strong>mutate( )</strong> command.</li>
+</ul></li>
+<li>“mutate(ht_in = replace(ht_in, c(1,2), NA)) %&gt;%”
+<ul>
+<li>Since the variable <strong>ht_in</strong> already exists in this data frame, we are <strong>not</strong> going to create a new column (variable)</li>
+<li>We are then going to look at the variable <strong>ht_in</strong>, look at spots 1 (71) and 2 (69), and then replace them with an <strong>NA</strong>.</li>
+</ul></li>
+<li>We then piped this result to the <strong>print( )</strong> command which printed out the modified data set so we could verify the results. We didn’t absolutely need to do this as we could also have examined the variable in the Environment pane on Posit Cloud, but it does look nice to see it.</li>
+<li>“height_and_weight_20 &lt;-”
+<ul>
+<li>This command tells us to store the result <strong>back</strong> in the variable “height_and_weight-20”</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>The height variable now has a couple of <strong>NA</strong> values. What happens if we try to do a quick summary of the variable? <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_height    =</span> <span class="fu">min</span>(ht_in),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_height   =</span> <span class="fu">mean</span>(ht_in),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_height =</span> <span class="fu">median</span>(ht_in),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_height    =</span> <span class="fu">max</span>(ht_in)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  min_height mean_height median_height max_height
+       &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+1         NA          NA            NA         NA</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Those <strong>NA’s</strong> really messed up our analysis. We can try again, only let’s not include the <strong>NA</strong> values by changing the <strong>na.rm</strong> argument to <strong>TRUE</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_height    =</span> <span class="fu">min</span>(ht_in, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_height   =</span> <span class="fu">mean</span>(ht_in, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_height =</span> <span class="fu">median</span>(ht_in, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_height    =</span> <span class="fu">max</span>(ht_in, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  min_height mean_height median_height max_height
+       &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+1         64        68.2            68         75</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>These are just a few of hte ways we can handle data set swith extreme or missing values. We will delve more into this when we dive deeper into <strong>data cleaning</strong>.</p>
+<p><br></p>
+<hr>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p>In this assignment, you will practice reading in data, calculating descriptive statistics (mean and median), handling missing values (NA), and using the <code>mutate</code> function to create new data columns. You will use built-in datasets from R for this assignment.</p>
+<section id="problem-1-mean-and-median-of-sepal-length-in-the-iris-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-1-mean-and-median-of-sepal-length-in-the-iris-dataset">Problem 1: Mean and Median of Sepal Length in the <code>iris</code> Dataset</h3>
+<p><strong>Task:</strong> Calculate the mean and median of the <code>Sepal.Length</code> column in the <code>iris</code> dataset. <br></p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Load the <code>iris</code> dataset.</li>
+<li>Calculate the mean and median of the <code>Sepal.Length</code> column.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load iris dataset</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median of Sepal.Length</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>mean_sepal_length <span class="ot">&lt;-</span> <span class="fu">mean</span>(iris<span class="sc">$</span>Sepal.Length)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>median_sepal_length <span class="ot">&lt;-</span> <span class="fu">median</span>(iris<span class="sc">$</span>Sepal.Length)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>mean_sepal_length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.843333</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>median_sepal_length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.8</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-2-mean-and-median-of-ozone-levels-in-the-airquality-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-2-mean-and-median-of-ozone-levels-in-the-airquality-dataset">Problem 2: Mean and Median of Ozone Levels in the <code>airquality</code> Dataset</h3>
+<p><strong>Task:</strong> Calculate the mean and median of the <code>Ozone</code> column in the <code>airquality</code> dataset after removing NA values. <br></p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Load the <code>airquality</code> dataset.</li>
+<li>Remove NA values from the <code>Ozone</code> column.</li>
+<li>Calculate the mean and median of the <code>Ozone</code> column.</li>
+</ol>
+<p><strong>Code Example:</strong> <br></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load airquality dataset</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(airquality)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove NA values from Ozone column</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>ozone_no_na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(airquality<span class="sc">$</span>Ozone)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median of Ozone</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>mean_ozone <span class="ot">&lt;-</span> <span class="fu">mean</span>(ozone_no_na)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>median_ozone <span class="ot">&lt;-</span> <span class="fu">median</span>(ozone_no_na)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>mean_ozone</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 42.12931</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>median_ozone</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31.5</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-3-mean-and-median-of-annual-lynx-trappings-in-the-lynx-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-3-mean-and-median-of-annual-lynx-trappings-in-the-lynx-dataset">Problem 3: Mean and Median of Annual Lynx Trappings in the <code>lynx</code> Dataset</h3>
+<p><strong>Task:</strong> Calculate the mean and median of the annual number of lynx trapped in the <code>lynx</code> dataset. <br></p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Load the <code>lynx</code> dataset.</li>
+<li>Calculate the mean and median of the lynx trappings.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load lynx dataset</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(lynx)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median of lynx trappings</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>mean_lynx <span class="ot">&lt;-</span> <span class="fu">mean</span>(lynx)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>median_lynx <span class="ot">&lt;-</span> <span class="fu">median</span>(lynx)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>mean_lynx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1538.018</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>median_lynx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 771</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-4-mean-and-median-of-tooth-length-in-the-toothgrowth-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-4-mean-and-median-of-tooth-length-in-the-toothgrowth-dataset">Problem 4: Mean and Median of Tooth Length in the <code>ToothGrowth</code> Dataset</h3>
+<p><strong>Task:</strong> Calculate the mean and median of the <code>len</code> column in the <code>ToothGrowth</code> dataset. <br></p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Load the <code>ToothGrowth</code> dataset.</li>
+<li>Calculate the mean and median of the <code>len</code> column.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ToothGrowth dataset</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ToothGrowth)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median of len</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>mean_len <span class="ot">&lt;-</span> <span class="fu">mean</span>(ToothGrowth<span class="sc">$</span>len)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>median_len <span class="ot">&lt;-</span> <span class="fu">median</span>(ToothGrowth<span class="sc">$</span>len)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>mean_len</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18.81333</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>median_len</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19.25</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-5-mean-and-median-of-age-in-the-infert-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-5-mean-and-median-of-age-in-the-infert-dataset">Problem 5: Mean and Median of Age in the <code>infert</code> Dataset</h3>
+<p><strong>Task:</strong> Calculate the mean and median of the <code>age</code> column in the <code>infert</code> dataset. <br></p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Load the <code>infert</code> dataset.</li>
+<li>Calculate the mean and median of the <code>age</code> column.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load infert dataset</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(infert)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median of age</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>mean_age <span class="ot">&lt;-</span> <span class="fu">mean</span>(infert<span class="sc">$</span>age)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>median_age <span class="ot">&lt;-</span> <span class="fu">median</span>(infert<span class="sc">$</span>age)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>mean_age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31.50403</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>median_age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-6-mean-and-median-of-wind-speed-in-the-airquality-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-6-mean-and-median-of-wind-speed-in-the-airquality-dataset">Problem 6: Mean and Median of Wind Speed in the <code>airquality</code> Dataset</h3>
+<p><strong>Task:</strong> Calculate the mean and median of the <code>Wind</code> column in the <code>airquality</code> dataset after removing NA values. <br></p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Load the <code>airquality</code> dataset.</li>
+<li>Remove NA values from the <code>Wind</code> column.</li>
+<li>Calculate the mean and median of the <code>Wind</code> column.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load airquality dataset</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(airquality)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove NA values from Wind column</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>wind_no_na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(airquality<span class="sc">$</span>Wind)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median of Wind</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>mean_wind <span class="ot">&lt;-</span> <span class="fu">mean</span>(wind_no_na)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>median_wind <span class="ot">&lt;-</span> <span class="fu">median</span>(wind_no_na)</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>mean_wind</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.957516</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>median_wind</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.7</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-7-create-a-new-column-and-calculate-mean-and-median-in-the-iris-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-7-create-a-new-column-and-calculate-mean-and-median-in-the-iris-dataset">Problem 7: Create a New Column and Calculate Mean and Median in the <code>iris</code> Dataset</h3>
+<p><strong>Task:</strong> Create a new column <code>Sepal.Area</code> as the product of <code>Sepal.Length</code> and <code>Sepal.Width</code> in the <code>iris</code> dataset. Calculate the mean and median of the <code>Sepal.Area</code> column. <br></p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Load the <code>iris</code> dataset.</li>
+<li>Create a new column <code>Sepal.Area</code>.</li>
+<li>Calculate the mean and median of the <code>Sepal.Area</code> column.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load iris dataset</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new column Sepal.Area</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">mutate</span>(iris, <span class="at">Sepal.Area =</span> Sepal.Length <span class="sc">*</span> Sepal.Width)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median of Sepal.Area</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>mean_sepal_area <span class="ot">&lt;-</span> <span class="fu">mean</span>(iris<span class="sc">$</span>Sepal.Area)</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>median_sepal_area <span class="ot">&lt;-</span> <span class="fu">median</span>(iris<span class="sc">$</span>Sepal.Area)</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>mean_sepal_area</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17.82287</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>median_sepal_area</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17.66</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-8-mean-and-median-of-temperature-in-the-airquality-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-8-mean-and-median-of-temperature-in-the-airquality-dataset">Problem 8: Mean and Median of Temperature in the <code>airquality</code> Dataset</h3>
+<p><strong>Task:</strong> Calculate the mean and median of the <code>Temp</code> column in the <code>airquality</code> dataset after removing NA values. <br></p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Load the <code>airquality</code> dataset.</li>
+<li>Remove NA values from the <code>Temp</code> column.</li>
+<li>Calculate the mean and median of the <code>Temp</code> column.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load airquality dataset</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(airquality)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove NA values from Temp column</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>temp_no_na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(airquality<span class="sc">$</span>Temp)</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median of Temp</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>mean_temp <span class="ot">&lt;-</span> <span class="fu">mean</span>(temp_no_na)</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>median_temp <span class="ot">&lt;-</span> <span class="fu">median</span>(temp_no_na)</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>mean_temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 77.88235</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>median_temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 79</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-9-create-a-new-column-and-calculate-mean-and-median-in-the-toothgrowth-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-9-create-a-new-column-and-calculate-mean-and-median-in-the-toothgrowth-dataset">Problem 9: Create a New Column and Calculate Mean and Median in the <code>ToothGrowth</code> Dataset</h3>
+<p><strong>Task:</strong> Create a new column <code>Dose.Milligrams</code> as the product of <code>dose</code> and <code>len</code> in the <code>ToothGrowth</code> dataset. Calculate the mean and median of the <code>Dose.Milligrams</code> column. <br></p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Load the <code>ToothGrowth</code> dataset.</li>
+<li>Create a new column <code>Dose.Milligrams</code>.</li>
+<li>Calculate the mean and median of the <code>Dose.Milligrams</code> column.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ToothGrowth dataset</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ToothGrowth)</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new column Dose.Milligrams</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>ToothGrowth <span class="ot">&lt;-</span> <span class="fu">mutate</span>(ToothGrowth, <span class="at">Dose.Milligrams =</span> dose <span class="sc">*</span> len)</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median of Dose.Milligrams</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>mean_dose_mg <span class="ot">&lt;-</span> <span class="fu">mean</span>(ToothGrowth<span class="sc">$</span>Dose.Milligrams)</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>median_dose_mg <span class="ot">&lt;-</span> <span class="fu">median</span>(ToothGrowth<span class="sc">$</span>Dose.Milligrams)</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>mean_dose_mg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25.74583</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>median_dose_mg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19.25</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-10-mean-and-median-of-child-count-in-the-infert-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="problem-10-mean-and-median-of-child-count-in-the-infert-dataset">Problem 10: Mean and Median of Child Count in the <code>infert</code> Dataset</h3>
+<p><strong>Task:</strong> Calculate the mean and median of the <code>parity</code> column in the <code>infert</code> dataset. <br></p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Load the <code>infert</code> dataset.</li>
+<li>Calculate the mean and median of the <code>parity</code> column.</li>
+</ol>
+<p><strong>Code Example:</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load infert dataset</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(infert)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median of parity</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>mean_parity <span class="ot">&lt;-</span> <span class="fu">mean</span>(infert<span class="sc">$</span>parity)</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>median_parity <span class="ot">&lt;-</span> <span class="fu">median</span>(infert<span class="sc">$</span>parity)</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>mean_parity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.092742</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>median_parity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p><br> <br> <br> <br></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Beginning_Data_Visualization.html" class="pagination-link" aria-label="Beginning Data Visualization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Beginning Data Visualization</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Measures_of_Variability.html" class="pagination-link" aria-label="Measures Of Variability">
+        <span class="nav-page-text">Measures Of Variability</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Introductory Data Analytics and Statistics was written by Mike LeVan.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
