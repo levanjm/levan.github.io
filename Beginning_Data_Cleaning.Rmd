@@ -1,0 +1,155 @@
+---
+title: "Beginning Data Cleaning"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Beginning Data Cleaning
+
+What is "data cleaning"? Data cleaning is the process of preparing data 
+for analysis. This process includes:
+
+1. Removing missing values
+2. Removing duplicates
+3. Removing outliers
+4. Standardizing data
+5. Normalizing data
+6. Encoding categorical variables
+7. Creating new variables
+8. Merging datasets
+9. Reshaping datasets
+10. Splitting datasets
+
+In this tutorial, we will focus on the first three steps: removing missing 
+values, removing duplicates, and removing outliers.
+
+### Removing Missing Values
+
+Missing values are values that are not present in the dataset. Missing 
+values can be represented in many ways, including:
+
+- `NA`
+- `NaN`
+- `NULL`
+- `""`
+- `0`
+- `-1`
+- `9999`
+
+To remove missing values from a dataset, we can use the `na.omit()` 
+function in R. This function removes rows with missing values from a dataset.
+
+```{r}
+
+# Create a dataset with missing values
+
+data <- data.frame(
+  x = c(1, 2, NA, 4, 5),
+  y = c(NA, 2, 3, 4, 5)
+)
+
+# Remove missing values
+
+data_clean <- na.omit(data)
+
+# Print the cleaned dataset
+
+print(data_clean)
+
+```
+
+### Removing Duplicates
+
+Duplicates are rows that are identical in a dataset. To remove duplicates 
+from a dataset, we can use the `unique()` function in R. This function 
+removes duplicate rows from a dataset.
+
+```{r}
+
+# Create a dataset with duplicates
+
+data <- data.frame(
+  x = c(1, 2, 3, 4, 5, 1, 2, 3, 4, 5),
+  y = c(1, 2, 3, 4, 5, 1, 2, 3, 4, 5)
+)
+
+# Remove duplicates
+
+data_clean <- unique(data)
+
+# Print the cleaned dataset
+
+print(data_clean)
+
+```
+
+### Removing Outliers
+
+Outliers are values that are significantly different from the rest of 
+the data in a dataset. To remove outliers from a dataset, we can use 
+the `boxplot()` function in R. This function creates a boxplot of the 
+data, which can help us identify outliers.
+
+```{r}
+
+# Create a dataset with outliers
+
+data <- data.frame(
+  x = c(1, 2, 3, 4, 5, 100),
+  y = c(1, 2, 3, 4, 5, 100)
+)
+
+# Create a boxplot of the data
+
+boxplot(data)
+
+```
+
+From the boxplot, we can see that the value `100` is an outlier. To remove 
+this outlier, we can use the `subset()` function in R. This function 
+removes rows that meet a certain condition from a dataset.
+
+```{r}
+
+# Remove outliers
+
+data_clean <- subset(data, x < 100 & y < 100)
+
+# Print the cleaned dataset
+
+print(data_clean)
+
+```
+
+In this tutorial, we learned how to remove missing values, duplicates, 
+and outliers from a dataset. In the next tutorial, we will focus on 
+standardizing and normalizing data.
+
+---
+
+## References
+
+- Wickham, H. (2014). Tidy data. Journal of Statistical Software, 59(10), 1-23.
+
+- Wickham, H. (2019). R for Data Science. O'Reilly Media.
+
+- Grolemund, G., & Wickham, H. (2017). R for Data Science. O'Reilly Media.
+
+- Kuhn, M., & Johnson, K. (2013). Applied Predictive Modeling. Springer.
+
+- James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). An Introduction to Statistical Learning. Springer.
+
+- Hastie, T., Tibshirani, R., & Friedman, J. (2009). The Elements of Statistical Learning. Springer.
+
+- Zuur, A., Ieno, E. N., & Smith, G. M. (2007). Analysing Ecological Data. Springer.
+
+- Venables, W. N., & Ripley, B. D. (2002). Modern Applied Statistics with S. Springer.
+
+
+```
+

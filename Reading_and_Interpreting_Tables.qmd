@@ -1,0 +1,501 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+# Reading and Interpreting Tables {.unnumbered}
+
+Descriptive statistics are the first pieces of information used to understand and represent a dataset. Their goal, in essence, is to describe the main features of numerical and categorical information with simple summaries. These summaries can be presented with a single numeric measure, using summary tables, or via graphical representation. Here, I illustrate the most common forms of descriptive statistics for categorical data but keep in mind there are numerous ways to describe and illustrate key features of data. <br>
+
+<center>![](./images/Daily-6-Pic-1.jpg){width="35%"}</center>
+
+<br>
+
+This tutorial covers the key features we are initially interested in understanding for categorical data, to include:
+
+-   Frequencies: The number of observations for a particular category
+-   Proportions: The percent that each category accounts for out of the whole
+-   Marginals: The totals in a cross tabulation by row or column <br>
+
+**Replication Requirements** <br>
+
+To illustrate ways to compute these summary statistics and to visualize categorical data, I’ll demonstrate using this data which contains artificial supermarket transaction data and can be found on our Canvas page : <br>
+
+**Supermarket Transaction.xls** <br>
+
+Posit Cloud is running on a server, not your computer. To access a file on your local drive, you need to upload it to the server. Click on the Files tab (in the lower right pane) then on Upload. In the Upload Files dialog, click on Choose File, navigate to the file and click on Open. You can also change the target directory for the upload. <br>
+
+In addition, the packages we will need include the following:
+
+```{r}
+
+# install.packages("tidyverse")
+library(readxl)                   # for reading in excel spreadsheet
+
+```
+
+<br>
+
+First, let’s read in the data. The data frame consists of 16 variables, which I illustrate a select few below: <br>
+
+```{r}
+
+supermarket <- read_excel("./Supermarket Transactions.xlsx")
+
+# Check out the first few lines but only columns 3,4,5,8,9,14,15,16
+
+# These are the 8 variables : Customer ID, Gender, Marital Status, Annual Income,
+# City, Product Category, Units Sold, Revenue
+
+head(supermarket[, c(3:5,8:9,14:16)])
+
+```
+
+<br>
+
+## table()
+
+The first function we will use to summarize categorical data is the **table( )** function. This function is used to create a frequency table of the counts of the unique values in a vector. For example, we can use the **table( )** function to count the number of customers. We can then
+use the **prop.table( )** function to calculate the proportion of customers. <br>
+
+When we use these commands, we are creating structures that are **tables**, but not data frames. <br>
+
+### Frequencies
+
+To produce **contingency tables** which calculate counts for each combination of categorical variables we can use R’s **table( )** function. For instance, we may want to get the total count of female and male customers. <br>
+
+```{r}
+
+table(supermarket$Gender)
+
+```
+
+<br>
+
+If we want to understand the number of married and single females and male customers we can produce a cross classification table: <br>
+
+```{r}
+
+# cross classication counts for gender by marital status
+
+table(supermarket$`Marital Status`, supermarket$Gender)
+```
+
+<br>
+
+We can also produce multidimensional tables based on three or more categorical variables. For this, we leverage the **ftable( )** function to print the results more attractively. In this case we assess the count of customers by marital status, gender, and location: <br>
+
+```{r}
+
+# customer counts across location by gender and marital status
+
+table1 <- table(supermarket$`Marital Status`, supermarket$Gender, supermarket$`State or Province`)
+
+# Remember that the previous command is taking the table we are creating and saving it into
+# a new variable called "table1". We will now take this table and evaluate it 
+# using the **ftable( )** command.
+
+ftable(table1)
+
+```
+
+<br>
+
+### Proportions
+
+We can also produce contingency tables that present the proportions (percentages) of each category or combination of categories. To do this we simply feed the frequency tables produced by **table( )** to the **prop.table( )** function. The following reproduces the previous tables but calculates the proportions rather than counts: <br>
+
+```{r}
+
+# Calculate the percentages of gender categories
+
+# We will first create a new table so we don't accidentally hurt our previous work.
+
+table2 <- table(supermarket$Gender)
+
+# After saving the output ( new table) to the variable table2, we will now send
+# this table2 to prop.table( ).
+
+prop.table(table2)
+```
+
+<br>
+
+Based on the output, we can see that there are about 51% of respondents saying they are female (F) and about 49% of the respondents saying they are male (M). <br>
+
+We could also create a two-way table by adding another variable. For example, let's create a table that tallies up the variables **Marital Status** and **Gender**. <br>
+
+```{r}
+
+# We shall create a new table (table3) to analyze. 
+
+table3 <- table(supermarket$`Marital Status`, supermarket$Gender)
+
+# We can now create a table of proportions for these variables.
+
+prop.table(table3)
+```
+
+<br>
+
+We can interpret this tables as follows :
+
+-   25.6% of the respondents identify as Female (F) and Married (M)
+-   23.2% of the respondents identify as Male (M) and Married (M)
+-   25.3% of the respondents identify as Female (F) and Single (S)
+-   25.8% of the respondents identify as Male (M) and Single (S) <br>
+
+Note that we can tell **ftable( )** how many decimal place to use when reporting the results. For example, go back to table 1. We can combine several commands together into one :
+
+-   We want to run **prop.table( )** on table 1
+-   We want to limit to 3 decimal places
+-   We want to round the results
+-   We want to take this result and use **ftable( )** <br>
+
+```{r}
+
+ftable(round(prop.table(table1), 3))
+
+
+```
+
+<br>
+
+### Marginals
+
+Marginals show the total counts or percentages across columns or rows in a contingency table. For instance, if we go back to table3 which is the cross classification counts for gender by marital status: <br>
+
+<center>![](./images/Daily-6-Pic-2.jpg){width="20%"}</center>
+
+<br>
+
+The **margins** are simply the sums of the rows and the columns. For example, if we look at table3, I might want to know, "How many respondents identify as Single?" This is the sum on the last row, 3568 + 3625 = 7,193. Similarly, the amount of those identifying as Married would be 3602 + 3264 = 6,866. We can calculate these values using the **margin.table( )** command. <br>
+
+```{r}
+
+# FREQUENCY MARGINALS
+# row marginals - totals for each marital status across gender
+
+margin.table(table3, 1)
+
+# This command takes in the table for which we want to find the margins.
+# The second parameter tells us if we want row (1) or column (2) margins.
+
+```
+
+<br> We can see that this example verifes the values we calculated above. <br>
+
+We could also calculate the column margins by changing the second parameter to 2. It is left to you to verify that these values are correct. <br>
+
+```{r}
+
+# column marginals - totals for each gender across marital status
+
+margin.table(table3, 2)
+
+```
+
+<br>
+
+If we were more interested in proportions / percentage rather than counts, we could use the **prop.table( )** command to calculate these proportions. The first example will calculate the row percentages. <br>
+
+```{r}
+
+# PERCENTAGE MARGINALS
+
+# row marginals - row percentages across gender
+
+prop.table(table3, margin = 1)
+
+```
+
+<br>
+
+We could easily calcuate the column percentages using the following command. <br>
+
+```{r}
+
+# column marginals - column percentages across marital status
+
+prop.table(table3, margin = 2)
+```
+
+<br>
+
+## tabyl()
+
+The **tabyl( )** function from the **janitor** package is a powerful tool for 
+creating contingency tables. It is a more modern and user-friendly version of 
+the **table( )** function. The **tabyl( )** function is used to create a 
+contingency table of counts or proportions or both! <br>
+
+
+
+
+```{r}
+#| message: false
+#| warning: false
+
+# Make sure you install the janitor package if it is not already loaded up
+# and ready to go.
+
+# install.packages("janitor")
+
+library(janitor)
+```
+
+
+We previously used this command to create a frequency table for the 
+Gender variable in the supermarket data set.
+
+<center>
+`table(supermarket$Gender)`
+</center>
+<br>
+
+We can use the `tabyl()` function to create the same table, along with 
+the percentages.
+<br>
+
+```{r}
+t1 <- tabyl(supermarket, Gender)
+
+t1
+```
+<br>
+
+While we are here, let's take a look at the structure we just created, `t1`. 
+
+```{r}
+
+class(t1)
+
+```
+<br>
+
+Nice! We have created a data frame! This sets us up to more easily manipulate the data. <br>
+<br>
+
+We can also create a two-way table by adding another variable. For example, let's create a table that tallies up the variables **Marital Status** and **Gender**. <br>
+
+```{r}
+
+# Here was the code from above:
+
+# table(supermarket$`Marital Status`, supermarket$Gender)
+
+# Here is the code using the tabyl() function:
+
+t2 <- tabyl(supermarket,`Marital Status`, Gender)
+
+t2
+```
+<br>
+
+We can also add percentages to the table using the **adorn_percentages( )** function. 
+Since this is a two way table, we need to know if we want the percentages 
+to be calculated by row or by column. <br>
+
+Note : We will use the pipe operator **%>%** to chain the functions together.
+We will go over this in more detail in the **Beginning Data Cleaning** section. 
+<br>
+
+```{r}
+
+# Here is the default command. the %>% bascially means to take t2 and 
+# send it to the next function, adorn_percentages() :
+
+t2 %>% adorn_percentages()
+
+```
+<br>
+
+This shows us that the default is to calculate the percentages by row. If we 
+want to calculate the percentages by column, we can use the **denominator**
+parameter. <br>
+
+```{r}
+
+t2 %>% adorn_percentages(denominator = "col")
+
+```
+<br>
+
+We can also add the counts to the table using the **adorn_ns( )** function. <br>
+
+```{r}
+
+t2 %>% adorn_percentages(denominator = "col") %>% adorn_ns()
+
+```
+<br>
+
+You can see from the output that the counts are added to the table parenthetically. <br>
+
+Lastly, we could add the totals (marginals) to the table using the **adorn_totals( )** function. <br>
+
+```{r}
+
+t2 %>% adorn_percentages(denominator = "col")  |> adorn_ns()
+
+```
+
+<br>
+
+This now gives us two different methods to create contingency tables in R.
+`tabyl()` is a more modern and user-friendly version of the `table()` function.
+It can be incorporated into the `dplyr` workflow and is a great tool for creating
+contingency tables. `table()` is a base R function that is also useful for creating
+contingency tables. It is a bit more straightforward than `tabyl()` and is also
+ a good tool for creating contingency tables. <br>
+
+------------------------------------------------------------------------
+
+## Exercises
+
+1.  Install and attch the library for the package **"vcd"**.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+2.  Do a Google search to describe what we are getting when we load the **vcd** library.
+
+```{r}
+
+# Put response in comments
+
+```
+
+<br>
+
+3.  Describe what is in this data set (with **View(Arthritis)** ) and explain the variables and factors of each variable.
+
+```{r}
+
+# Response
+
+
+```
+
+<br>
+
+4.  Show what is in the 1st to the 17th rows of the frame “Arthritis”
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+5.  Show rows 28 to 42 and only columns 2 and 5 of the frame “Arthritis”
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+6.  Show patient ID’s 1, 15, 42, and 81 and only the “Treatment” and “Improved” columns of the frame “Arthritis” using a single command. <br>
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+7.  Show the summary information for “Arthritis”
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+8.  Show the values of the “Treatment” column for “Arthritis”
+
+```{r}
+
+# Response
+```
+
+<br>
+
+9.  Show the levels of the “Treatment” column for “Arthritis”. (Hint : **levels** command…..)
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+10. Use the **length( )** function to find the number of patients in “Arthritis”
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+11. Use the **table( )** function to display the tabulated results for the “Improved” column of “Arthritis” (Note the **summary( )** function does the same thing). Put the result in the variable **“ImprovedTable”**.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+12. Use the **prop.table( )** function on **ImprovedTable** to get a table of proportions
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+13. Use the **xtabs( )** function to cross-tabulate “Treatment” versus “Improved” in the “Arthritis” data frame. Call the result **“Treat.Improv”**.
+
+```{r}
+
+
+# Response
+
+```
+
+<br> 14. Add marginal sums to the table using the **addmargins( )** function.
+
+```{r}
+
+# Response
+
+```
+
+<br> 15. Create 3 tables of proportions: proportion of **total**, proportion of **row sum**, and proportion of **column sum**. Call the 3 tables: **P.Table1**, **P.Table2**, and **P.Table3**
+
+```{r}
+
+# Response
+
+```
+
+<br> <br> <br>

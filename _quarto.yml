@@ -1,0 +1,106 @@
+project:
+  type: book
+
+book:
+  title: "Data Analytics and Statistics"
+  author: "Mike LeVan"
+  date: "2/11/2025"
+  page-footer:
+    left: |
+      Introductory Data Analytics and Statistics was written by Mike LeVan.
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.  
+  chapters:
+    - index.qmd
+    - About.qmd
+    - What_Is_Data_Science.qmd
+    
+    - part: Step 1 - Data Collecting
+      chapters:    
+      - What_Is_Tidyverse.qmd
+      - Statistics_Language.qmd
+      - Qualitative_and_Quantitative_Variables.qmd
+#   - Qualitative_and_Quantitative_Variables_Assignment.qmd
+      - Reading_In_Data.qmd
+#   - Reading_In_Data_Assignment.qmd
+    
+    - part: Step 2 - Data Preparation
+      chapters:
+#        - What_Is_Tidy_Data.qmd
+        - What_Is_Tidy_Data_PDF.qmd 
+#   - Tidy_Data_Assignment.qmd
+        - Vectors_DataFrames_Tibbles.qmd
+#   - Vectors_DataFrames_Tibbles_Assignment.qmd
+        - Intro_To_R.qmd
+#   - Intro_To_R_Assignment.qmd
+        - Reading_and_Interpreting_Tables.qmd
+#   - Reading_and_Interpreting_Tables_Assignment.qmd
+        - dplyr_and_Piping.qmd
+#   - dplyr_and_Piping_Assignment.qmd
+        - Additional_Data_Cleaning_Functions.qmd
+#   - Additional_Data_Cleaning_Functions_Assignment.qmd
+
+    - part: Step 3 - Exploration and Visualization
+      chapters:
+        - Barplots_And_Histograms.qmd
+#   - Barplots_And_Histograms_Assignment.qmd
+        - Line_Graphs_and_Pie_Charts.qmd
+#   - Line_Graph_And_Pie_Chart_Assignment.qmd
+        - Beginning_Data_Visualization.qmd
+#   - Beginning_Data_Visualization_Assignment.qmd
+        - Measures_of_Central_Tendencies.qmd
+#   - Measures_Of_Central_Tendencies_Assignment.qmd
+        - Measures_of_Variability.qmd
+#   - Measures_Of_Variability_Assignment.qmd
+        - Advanced_Boxplot_Techniques.qmd
+#   - Advanced_Boxplot_Techniques_Assignment.qmd
+
+    - part: Step 4 - Experimentation and Prediction
+      chapters:
+
+        - Independent_and_Dependent_Variables.qmd
+#   - Independent_and_Dependent_Variables_Assignment.qmd
+        - Scatterplots_and_Correlation.qmd
+#   - Scatterplots_and_Correlation_Assignment.qmd
+        - Linear_Modeling_and_Regression.qmd
+#   - Linear_Modeling_and_Regression_Assignment.qmd 
+        - Residuals_Outliers_Predictions.qmd
+#   - Residual_Outliers_Predictions_Assignment.qmd
+        - Advanced_Scatterplot_Techniques.qmd
+#   - Advanced_Scatterplot_Techniques_Assignment.qmd
+        - Estimating_Parameters_Confidence_Intervals.qmd
+#   - Estimating_Parameters_Confidence_Intervals_Assignment.qmd
+#   - Intermediate Data Cleaning
+#   - Using AI with R
+#   - Web Scraping
+#   - Intro to RMarkdown
+#   - Daily Assignments
+#   - Categorical Variables - Assignment.qmd
+  appendices:
+    - Qualitative_and_Quantitative_Variables_Assignment_Solutions.qmd
+    - Tidy_Data_Assignment_Solutions.qmd
+    - Beginning_Data_Visualization_Assignment_Solutions.qmd
+    - EDA_Assignment_sheet.qmd
+    - EDA_Assignment_Sheet_Solutions.qmd
+#    - Individual Labs
+    - Individual_Lab_1_Intro_To_R.qmd
+    - Individual_Lab_2_ Read_In_Data_Assignment.qmd
+    - Individual_Lab_3_Review.qmd
+    - Individual_Lab_4.qmd
+    - Individual_Lab_5.qmd
+    - Individual_Lab_6.qmd
+
+#    - Group Projects
+
+#    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

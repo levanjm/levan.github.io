@@ -1,0 +1,918 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Residuals, Outliers and Predictions {.unnumbered}
+
+If you recall from the last section, we have been working with a data set from a local airport. This data set included several variables and we were looking into the possibility of a relationship / association between the variables Temperature (Explanatory) and Dew Point (Response). During our initial analysis we create a scatterplot and based on the graph, there appeared to be a strong, positive, linear association between the variables. Because of this we went on to calculate the correlation between the two variables (R = 0.9512) and used this to help find the equation for a linear model to represent the data set. <br>
+
+## Finding Residuals
+
+We found that the slope of the model (or regression line) was $b_1 \,= \,1.107$ and the intercept was found to be $b_0\, = \,-18.03$. This gave us a regression line of <br>
+
+<center>$\displaystyle{\hat{y} \,\,\, = 1.107\,*\, x \,\,\, - \,\,\, 18.03}$</center>
+
+<br> When constructed in this manner, this model is known as the **line of best fit**. It was mentioned earlier that what is meant by best fit is where the vertical distances between the points and the model is as small as possible. We will jump into a deeper example in a bit, but the first application of this regression line is to **make predictions**. What this means is that every point that is on the regression line is the predicted response value based on the explanatory value given. Consider this small example : <br>
+
+<center>![](./images/ROP_1.jpg){width="50%"}</center>
+
+<br>
+
+Here is a table that has the actual points from the data set and the predicted values taken from the linear model:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+library(knitr)
+library(kableExtra)
+
+example_data <- data.frame(
+  X = c(1,2,4,6,8),
+  Y = c(2,8,3,7,8),
+  Predicted_Y = c(3.5, 4, 5, 6, 7)
+)
+
+# kable(example_data, align="c",format = "html", table.attr = "style='width:30%;'")%>% 
+#   kableExtra::kable_styling()
+
+kable(example_data, align="c", table.attr = "style='width:30%;'")%>% 
+  kableExtra::kable_styling()
+```
+
+This image shows is two different type of points, one that is above the regression line and one that is below. Consider the point that is 4 units above the line. It appears the actual point is located at $(2, 8)$ while the point on the line is at $(2, 4)$. We can interpret this example from the regression line as: <br>
+
+When the explanatory value of $x = 2$ is used in the model, the **predicted** response value is $\hat{y} = 4.0$. <br>
+
+As you can see from the graph, the predicted value does not match up with the actual value (green arrow). We have some distance between the actual and predicted $y$ values. The distance between the actual point and the line is called a **residual**. You can see the point above the line has a residual of $4$ and the point below the line has a residual of $-2$ (red arrow). <br>
+
+Calculating the residual is easy enough : <br>
+
+<center>$residual \,\, = \,\, (actual \, response\, value\,) \, - \, (predicted
+\, response\, value \,)$</center>
+
+<br>
+
+As you can see above, the point $(\,2\, , \,8\,)$ has a predicted value of $4$ when $x=2$, which leads to a residual of $8-4 =4$. <br>
+
+The point $(\,4\, , \, 3 \,)$ has a predicted value of 5 when $x=4$, which returns a residual of $3 - 5 = -2$. <br>
+
+This shows us that when a residual turns out positive, then the actual point is **above** the regression line and when the actual point is **below** the line the residual will wind up being negative. This brings us back to the idea of "line of best fit". <br>
+
+If we had wanted, we could have put any line on this graph to use as our linear model. But how could we determine when one model was better than another? What we can do is use the residuals to help us decide. It is tempting to say that the model where the sum of the residuals is the smallest would be the best fit. While this is a good idea, there are some problems that might arise because we are adding positive and negative values together. <br>
+
+Our solution will then be to take all of the residuals and square them. When we do this, we will turn the negative residuals into positive values when they are squared and the positive residuals will still return positive values when they are squared. We can **now** add these squared residuals together and use the model that has the smallest total. <br>
+
+The model that we created earlier has been shown as the model that returns the smallest value. This is why the linear model (or regression line) is also sometimes called the **least squares regression line**. <br>
+
+## Finding Outliers
+
+When we determing how to find some measures of center and spread, there were certain situations when one measure was better than another. For example, when we were calculating the average of a data set, we had to be cautious if the data set had outliers. As we saw, even a few outliers could severly affect the reliability of the mean. Since the standard deviation is calculated using the mean, it is also affected by outliers. So what does that say about the correlation between two variables, the slope of the regression line ot the intercept of the regression line? After all, they also use averages and standard deviations when we calculated these values? <br>
+
+This tells us that outliers can affect all three of them, so they can also affect our model. That leads us to the question of how we can determine if a data set has outliers. We saw how we can use the IQR method if we are looking at a single variable, but how does having two variables change identifying outliers? It all comes back to the scatterplot. <br>
+
+An outlier is a point that does not follow the pattern of the data. It will be a point that stands out away from the others. For example, look at the following scatterplot: <br>
+
+<center>![](./images/ROP_3.jpg){width="60%"}</center>
+
+<br>
+
+In this graph we can definitely see one point that does not follow the pattern at all. This is a point that we would investigate as a possible outlier. Do not rule it out of hand because there are several reasons why this point appears to be an outlier.
+
+1.  Measurement Error: This can occur when collecting the data and the measurement tool that is being used is faulty or inaccurate.
+
+2.  Data Entry Error: Errors caused by humans, due to invalid data collection, data entry, or measurement can lead to outliers in the data.
+
+3.  Experimental Error: If the data collection involves experimentation, oftentimes there can be errors while planning and executing the experiment.
+
+4.  Data Processing Error: After the data is collected, the data is often processed. This process includes data modeling and manipulation; which can l ead to the creation of outliers if not performed correctly.
+
+5.  True Outlier: Outliers that are not created due to human error are natural Outliers. These data points are true and can have many reasons behind their existence.
+
+```{r include=FALSE}
+# Load required library
+library(ggplot2)
+
+# Set seed for reproducibility
+set.seed(12)
+
+# Generate independent variable (x) with 20 values between 0 and 10
+x <- sample(0:10, 9, replace = TRUE)
+
+# Generate dependent variable (y) with values between 0 and 70
+y <- sample(0:70, 9, replace = TRUE)
+
+# Introduce an outlier (choosing a random index)
+outlier_index <- sample(1:20, 1)
+y[outlier_index] <- y[outlier_index] + 50  # Making it a clear outlier
+
+CORA <- cor(x,y)
+
+CORA
+
+# Create a data frame
+data <- data.frame(x, y)
+
+lm(data)
+# Identify outliers for plotting
+data$outlier <- ifelse(1:9 == outlier_index, "Outlier", "Normal")
+
+# Plot the data using ggplot
+
+p1 <- ggplot(data, aes(x, y, color = outlier)) +
+  ylim(0,120) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("Normal" = "blue", "Outlier" = "red")) +
+  geom_smooth(method='lm', se=FALSE, color="black") +
+  theme_minimal() +
+  labs(title = "Scatterplot with Outlier Highlighted",
+       x = "Independent Variable (x)",
+       y = "Dependent Variable (y)",
+       color = "Point Type") 
+  
+
+###################
+  
+# Generate independent variable (x) with 20 values between 0 and 10
+#x <- sample(0:10, 9, replace = TRUE)
+
+# Generate dependent variable (y) with values between 0 and 70
+#y <- sample(0:70, 9, replace = TRUE)
+
+# Introduce an outlier (choosing a random index)
+#outlier_index <- sample(1:20, 1)
+#y[outlier_index] <- y[outlier_index] + 50  # Making it a clear outlier
+
+x1 <- c(1,9,6,10,4,4,7,10)
+y1 <- c(37,47,12,55,67,23,42,45)
+
+CORB <- cor(x1,y1)
+
+CORB
+# Create a data frame
+data6 <- data.frame(x1, y1)
+
+lm(data6)
+
+# Identify outliers for plotting
+#data$outlier <- ifelse(1:9 == outlier_index, "Outlier", "Normal")
+
+# Plot the data using ggplot
+p2 <- ggplot(data6, aes(x1, y1)) +
+  ylim(0,120) +
+  geom_point(size = 3, color="blue") +
+ # scale_color_manual(values = c("Normal" = "blue", "Outlier" = "red")) +
+  geom_smooth(method='lm', se=FALSE, color="black") +
+  theme_minimal() +
+  labs(title = "Scatterplot without Outlier",
+       x = "Independent Variable (x)",
+       y = "Dependent Variable (y)",
+       color = "Point Type")   
+ 
+library(patchwork)
+
+p1 + p2
+
+```
+
+<br>
+
+One of the ways to test if this is an outlier is to examine the scatterplot with and without the possible outliers. If removing the point causes a drastic change in the regression line, then this is good evidence that that point is an outlier and needs to be investigated further. <br>
+
+Here is a side by side picture of the scatterplot with and without the suspected outlier: <br>
+
+<center>![](./images/ROP_6.jpg){width="70%"}</center>
+
+<br>
+
+As you can see, we do have a dramatic shift in the regression line. The data set that contains the outlier has a regression line that has a negative association and when the suspected outlier is removed, then we can see that the new model has changed direction and now has a positive association. If the removed point were not an outlier, then the regression line would have changed slightly. <br>
+
+## Influential Observations
+
+There is one other type of point to be cautious of because it may look like an outlier, but it is really what is called an **influential observation**. These are points that are far from most of the data, yet it still follows the pattern of the regession line. In the example above, the suspected outlier was far from the data **and** did not follow the pattern of the model. Here is an example: <br>
+
+<center>![](./images/ROP_7.jpg){width="30%"}</center>
+
+<br>
+
+As you can see from this graph, we have a point that looks like it could be an outlier. However, it still follows the model for the regression line fairly closely. Because of this, we will not call this point an outlier, but we will label it as an influential observation. <br>
+
+## Making Predictions
+
+Let's now take the ideas and turn our attention back to the weather example we have been using. <br>
+
+```{r include=FALSE}
+library(readr)
+
+SVA <- read_csv("./SVA-Weather-2013.csv")
+
+```
+
+We have been examining if there is any kind of association between Temperature and Dew Point. Based upon earlier work, we found the data to be appropriate for a linear model. We then developed the model as : <br>
+
+<center>$\hat{y} \, = \, 1.107*x - 18.03$</center>
+
+<br>
+
+Using this model, we could now start to make predictions for the Dew Point based on values from the Temperature. For instance, I could ask what the predicted (expected) Dew Point will be if the Temperature is 60 degrees. All we need to do is to go to our model and and let the explanatory variable, x, be 60: <br>
+
+<center>$\hat{y} \, = \, (1.107)*(60) - 18.03 = 66.42 - 18.03 = 48.39$</center>
+
+<br>
+
+This tells us that when the Temperature is 60 degrees, the expected Dew Point is at 48.39 degrees. Also, this says that the point $(60, 48.39)$ is a point on the regression line. <br>
+
+For another example, let's consider the first day of the year. On this day the temperature was listed at 43.3 degrees, what would be the predicted value for the Dew Point? <br>
+
+<center>$\hat{y} \, = \, (1.107)*(43.3) - 18.03 = 47.93 - 18.03 = 29.9$</center>
+
+<br>
+
+Finding predictions one at a time like this would be fine, but what if we 
+wanted to make several predictions at once? We could use the `predict( )` 
+function in R to help us with this. The syntax for this function is: <br>
+
+<center>`predict(regression_line, newdata = data.frame(Explanatory_Values))`</center>
+
+<br>
+
+This says that we need to calculate the regression line, save it to a variable, 
+and then run the `predict( )` command using the name of this regression line. 
+We will also need to create a data frame with the explanatory values that 
+we want to use for our predictions. 
+<br>
+
+Let's go back to the example where we wanted to make a prediction for the
+Dew Point when the Temperature was 60 degrees. We will use the `predict( )`
+function to make this prediction. <br>
+
+```{r}
+
+# Recall the lm( ) command needs the Explanatory first followed by Response
+
+reg_line <- lm(SVA$DEWP ~ SVA$TEMP)
+
+# We have now saved the regression line to the variable "reg_line"
+
+# We will now send all of the temperatures in SVA$TEMP to the "predict( )" 
+# command and save the results to the variable "predictions". If we didn't
+# save the results, then all of the predictions would be printed to the console.
+
+predictions <- predict(reg_line, newdata = data.frame(SVA$TEMP))
+
+# We can now just look at the first few predictions.
+
+head(predictions, 8)
+
+```
+<br>
+
+If we wanted to use `predict( )` to make a prediction for the Dew Point when 
+the Temperature was 43.3 degrees, we could use the following code: <br>
+
+```{r}
+
+# Recall the predict command needs a data frame for the values we want to
+# predict. We will use the value 43.3 for the temperature.
+
+reg_line<- lm(DEWP ~ TEMP, data = SVA)
+
+# We need to create a data frame for this point. Let's call the new data
+# frame "predicted-values" 
+
+predicted_values = data.frame(TEMP = 43.3)
+
+predict(reg_line, newdata = predicted_values)
+
+```
+
+This tells me that when the temperature was 43.3 degrees, the predicted Dew Point was 29.9 degrees. <br>
+
+If we wanted to predict 5 values, say Temp = 30, 35, 40, 45, 50, we could use the following code: <br>
+
+```{r}
+
+# Recall the predict command needs a data frame for the values we want to
+# predict. We will use the values 30, 35, 40, 45, and 50 for the temperature.
+
+# We need to create a data frame for these points. Let's call the new data
+
+predicted_values = data.frame(TEMP = c(30, 35, 40, 45, 50))
+
+predict(reg_line, newdata = predicted_values)
+
+```
+
+The output is in the same order as the data frame we created.
+<br>
+
+This says that 
+
+  - when the temperature was 30 degrees, the predicted Dew Point was 13.3 degrees. 
+  - when the temperature was 35 degrees, the predicted Dew Point was 18.4 degrees. 
+  - when the temperature was 40 degrees, the predicted Dew Point was 23.5 degrees. 
+  - when the temperature was 45 degrees, the predicted Dew Point was 28.6 degrees. 
+  - when the temperature was 50 degrees, the predicted Dew Point was 33.7 degrees. <br>
+
+## Calculating Residuals and Residual Plots
+
+How close is the predicted value from the actual value? Here is the actual data from that day: <br>
+
+<center>![](./images/ROP_8.jpg){width="30%"}</center>
+
+<br>
+
+We could then calculate the residual to get : <br>
+
+<center>$residual \, = \, 25.8 - 29.9\, = \, -4.1$</center>
+
+<br>
+
+Because the residual is negative, we know our point falls **below** the regression line telling us that the predicted value is larger than the acutal value. So the regression line is **above** the actual data point. <br>
+
+Luckily, R has a built-in function that will calculate all of these residuals for us. The syntax is: <br>
+
+<center>`resid(regression_line)`</center>
+
+<br>
+
+This says that we need to calculate the regression line, save it to a variable, and then run the `resid( )` command using the name of this regression line. Here is how we could calculate all of the residuals for our current Weather data set. <br>
+
+```{r}
+
+# Recall the lm( ) command needs the Explanatory first followed by Response
+
+reg_line <- lm(SVA$DEWP ~ SVA$TEMP)
+
+# We have now saved the regression line to the variable "reg_line"
+
+# We will now send this to the "resid( )" command. Note that there are 
+# 365 days in this data set. In order to not print out the entire set
+# of residuals, I will print off the first 12 so you can see the result
+
+head(resid(reg_line), 12)
+
+```
+
+<br>
+
+Residuals are another tool we can use to help us determine if the linear model is a good fit. <br>
+
+A residual plot is a graph that shows the residuals on the vertical axis and the independent variable on the horizontal axis. If the points in a residual plot are randomly dispersed around the horizontal axis, a linear regression model is appropriate for the data; otherwise, a nonlinear model is more appropriate. <br>
+
+```{r message=FALSE, warning=FALSE}
+# Load required library for ggplot
+
+library(ggplot2)
+
+# Fit a linear model predicting TEMP using DEW
+
+model <- lm(TEMP ~ DEWP, data = SVA)
+
+# In order to use ggplot, we need to create a data frame
+# Create a data frame with explanatory values and residuals
+
+residual_data <- data.frame(
+  Explanatory_Values = SVA$TEMP,
+  Residuals = resid(model)
+)
+
+# Create a residual plot using ggplot2
+
+# Notice the third layer is just a dashed horizontal line through 0. This makes 
+# it easier to see which points are above and below the regression line.
+
+# The fourth layer is an arrow to show you the first residual we found.
+
+# The Explanatory value was 43.3 and the residual was -4.1
+
+ggplot(residual_data, aes(x = Explanatory_Values, y = Residuals)) +
+  geom_point(color = "blue") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_segment(aes(x = 50, y = -12, xend = 43.3, yend = -4.1),
+    arrow = arrow(length = unit(0.25, "cm"), type = "closed"),
+    color = "red",
+    size = 0.25,
+    linetype = "solid"
+  ) +
+  theme_minimal() +
+  labs(title = "Residual Plot",
+       x = "Explanatory Values",
+       y = "Residuals")
+```
+
+<br>
+
+Remember that if there is no clear pattern to this picture, then that is more evidence that the linear model is a good fit. In this case the points are fairly random around the line $y = 0$ which leads to confidence the linear pattern is a good choice. <br>
+
+Here is an example of a residual plot with a non-linear pattern. Once we see this, we should recognize that the linear model is not a good fit. <br>
+
+<center>![](./images/ROP_9.jpg){width="50%"}</center>
+
+<br>
+
+There is one final warning for you when it comes to making predictions using a model. When you are making predictions, you want to make sure that you are using explanatory values that are relevant to the data set. For instance, in our SVA data set, look at the largest and smallest temperatures: <br>
+
+```{r}
+
+# Find the maximum value
+
+max(SVA$TEMP)
+
+# Find the minimum value
+min(SVA$TEMP)
+```
+
+<br>
+
+Based on this quick check, we only want to make predictions based on the values for which the model is built. In other words, for this example we only want to use values that fall between 16.9 and 79.1. It is not bad to expand your values a little bit, but the further you get away from these values, the less reliable your prediction will become. <br>
+
+## Extrapolation
+
+For example, **could** we make a prediction on the dew point if the temperature were 300 degrees? Absolutely. All we are doing is evaluating our model when the temperature is 300: <br>
+
+<center>$\hat{y} \, = \, (1.107)*(300) - 18.03 = 332.1 - 18.03 = 314.07$</center>
+
+<br>
+
+As an exercise, this is certainly as answer. Unfortunately, it is not very reliable or even useful. When someone is trying to make predictions outside of the bounds of the model, this is called **extrapolation**. When someone does this, feel free to discount the results presented. Could they be correct? Maybe, but highly unlikely. <br>
+
+::: callout-important
+**Extrapolation** produces predictions that are unreliable. Avoid this practice at all times.
+:::
+
+## Putting It All Together
+
+Let's walk through an example where we will go through these steps one at a time
+and then put them all together. <br>
+
+1. **Create a Scatterplot with Linear Model:**
+   - Use `ggplot2` to create a scatterplot of the two variables.
+   - Add a linear model to the scatterplot using `geom_smooth` with the `lm` method.
+
+2. **Determine Possible Outliers or Influential Observations:**
+   - Identify any potential outliers or influential points from the scatterplot.
+
+3. **Calculate Residuals:**
+   - Fit a linear model using `lm()`.
+   - Extract the residuals from the model.
+
+4. **Make a Residual Plot:**
+   - Create a residual plot using `ggplot2`.
+
+5. **Make Predictions Using the Linear Model:**
+   - Use the `predict()` function to make three predictions.
+   - Ensure that one of the values used for prediction is an example of extrapolation (a value outside the range of the original data).
+
+
+**Task:** Determine if there is a linear relationship between `speed` and `dist` in the `cars` dataset.
+
+We will first load up the data set and take a look at the first few rows:
+
+```{r}
+# Load ggplot2 and cars dataset
+library(ggplot2)
+data(cars)
+
+head(cars)
+
+min(cars$speed)
+max(cars$speed)
+
+min(cars$dist)
+max(cars$dist)
+```
+
+From the output of `head(cars)`, we can see that the `cars` dataset contains two variables: `speed` and `dist`.
+
+Let's make sure we have an outlier in the data set. We will add one using the
+`rbind( )` function to add a row to the data frame. We will want to add a
+point that is far from the rest of the data. 
+The speed has values that range between 4 - 25 and the stopping distance has
+values that range between 2 - 120.
+
+Let's add a point with a speed
+of 10 and a stopping distance of 200.
+
+  - `rbind( )` is a function that is used to combine two data frames by row.
+  - `data.frame( )` is a function that creates a data frame, so data.frame(speed = 10, dist = 200) creates a data frame with one row and two columns (speed and dist).
+  - We will combine these and save the result in a new data frame called `cars_with_outlier`.
+<br>
+
+```{r}
+# Add an outlier to the dataset
+cars_with_outlier <- rbind(cars, data.frame(speed = 10, dist = 200))
+```
+
+Now, we can proceed with the analysis:
+
+```{r}
+
+# Scatterplot with linear model
+ggplot(cars_with_outlier, aes(x = speed, y = dist)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Speed vs Stopping Distance with Linear Model", x = "Speed", y = "Stopping Distance")
+```
+
+From the scatterplot, there is a point that is a clear candidate to be an outlier.
+<br>
+
+At this point we would need to question if we should continue with the analysis or
+remove the outlier. For the sake of this assignment, we will continue with the
+analysis.'
+
+We can create the linear model and store it in a variable called `model_cars`.
+This will allow us to easily see the slope and intercept for the linear model.
+
+```{r}
+# Fit linear model
+model_cars <- lm(dist ~ speed, data = cars_with_outlier)
+
+model_cars
+```
+
+Now that we have the model, we are ready to calculate the residuals and make a residual plot.
+<br> 
+
+We will calculate the residuals and store them in a variable called `residuals_cars`.
+
+```{r}
+# Calculate residuals
+residuals_cars <- resid(model_cars)
+
+residuals_cars
+```
+
+We can now create the residual plot using `ggplot( )` where we will keep the
+same independent variable `speed` and use the `residuals_cars` as the dependent variable.
+We will add a horizontal dashed line at 0 to help us see which points are above and below the regression line.
+<br>
+
+```{r}
+# Residual plot
+ggplot(cars_with_outlier, aes(x = speed, y = residuals_cars)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color="red") +
+  labs(title = "Residual Plot of Speed vs Stopping Distance", x = "Speed", y = "Residuals")
+```
+
+Notice that we have a little more evidence that the point we added is an outlier!
+<br>
+
+Finally, we can use the linear model to make predictions. We will use the 
+`predict()` function to make three predictions: one for a speed of 10, 
+one for a speed of 15, and one for a speed of 50 (which is an 
+example of extrapolation).
+<br>
+
+If you recall, we need to use a data frame to make the predictions. We will
+create a data frame with the `speed` values we want to predict.
+<br>
+
+```{r}
+# Make predictions
+predictions <- predict(model_cars, newdata = data.frame(speed = c(10, 15, 50))) # 50 is extrapolated
+predictions
+```
+
+We could interpret the output as follows :
+
+  - For a speed of 10, the predicted stopping distance is approximately 4.5.
+  - For a speed of 15, the predicted stopping distance is approximately 6.5.
+  - For a speed of 50 (extrapolation), the predicted stopping distance is approximately 120.5.
+
+This concludes the analysis of the linear relationship between `speed` and `dist` in the `cars` dataset.
+
+## Exercises
+
+
+In this assignment, you will be told which data set and two different quantitative 
+variables to analyse. The data sets are already built into R so you don't
+have to download any of the data. You will create scatterplots with 
+linear models using `ggplot2`, determine any possible outliers or influential 
+observations, calculate the residuals, make a residual plot, and use the 
+linear model to make three predictions, where one of the values is an 
+example of extrapolation. 
+
+**Steps**
+
+1. **Create a Scatterplot with Linear Model:**
+   - Use `ggplot2` to create a scatterplot of the two variables.
+   - Add a linear model to the scatterplot using `geom_smooth` with the `lm` method.
+
+2. **Determine Possible Outliers or Influential Observations:**
+   - Identify any potential outliers or influential points from the scatterplot.
+
+3. **Calculate Residuals:**
+   - Fit a linear model using `lm()`.
+   - Extract the residuals from the model.
+
+4. **Make a Residual Plot:**
+   - Create a residual plot using `ggplot2`.
+
+5. **Make Predictions Using the Linear Model:**
+   - Use the `predict()` function to make three predictions.
+   - Ensure that one of the values used for prediction is an example of extrapolation (a value outside the range of the original data).
+
+### Problem 1: Iris Dataset - Sepal Length vs Petal Length
+
+```{r}
+# Load ggplot2 and iris dataset
+library(ggplot2)
+data(iris)
+
+# Scatterplot with linear model
+ggplot(iris, aes(x = Sepal.Length, y = Petal.Length)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Sepal Length vs Petal Length with Linear Model", x = "Sepal Length", y = "Petal Length")
+
+# Fit linear model
+model_iris <- lm(Petal.Length ~ Sepal.Length, data = iris)
+
+# Calculate residuals
+residuals_iris <- resid(model_iris)
+
+# Residual plot
+ggplot(iris, aes(x = Sepal.Length, y = residuals_iris)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Sepal Length vs Petal Length", x = "Sepal Length", y = "Residuals")
+
+# Make predictions
+predictions <- predict(model_iris, newdata = data.frame(Sepal.Length = c(5, 6, 10))) # 10 is extrapolated
+predictions
+```
+
+### Problem 2: Airquality Dataset - Ozone vs Wind
+
+```{r}
+# Load ggplot2 and airquality dataset
+library(ggplot2)
+data(airquality)
+
+# Remove NA values
+airquality_clean <- na.omit(airquality)
+
+# Scatterplot with linear model
+ggplot(airquality_clean, aes(x = Ozone, y = Wind)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Ozone vs Wind with Linear Model", x = "Ozone", y = "Wind")
+
+# Fit linear model
+model_airquality <- lm(Wind ~ Ozone, data = airquality_clean)
+
+# Calculate residuals
+residuals_airquality <- resid(model_airquality)
+
+# Residual plot
+ggplot(airquality_clean, aes(x = Ozone, y = residuals_airquality)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Ozone vs Wind", x = "Ozone", y = "Residuals")
+
+# Make predictions
+predictions <- predict(model_airquality, newdata = data.frame(Ozone = c(50, 100, 200))) # 200 is extrapolated
+predictions
+```
+
+### Problem 3: ToothGrowth Dataset - Dose vs Length
+
+```{r}
+# Load ggplot2 and ToothGrowth dataset
+library(ggplot2)
+data(ToothGrowth)
+
+# Scatterplot with linear model
+ggplot(ToothGrowth, aes(x = dose, y = len)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Dose vs Length with Linear Model", x = "Dose", y = "Length")
+
+# Fit linear model
+model_toothgrowth <- lm(len ~ dose, data = ToothGrowth)
+
+# Calculate residuals
+residuals_toothgrowth <- resid(model_toothgrowth)
+
+# Residual plot
+ggplot(ToothGrowth, aes(x = dose, y = residuals_toothgrowth)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Dose vs Length", x = "Dose", y = "Residuals")
+
+# Make predictions
+predictions <- predict(model_toothgrowth, newdata = data.frame(dose = c(0.5, 1, 3))) # 3 is extrapolated
+predictions
+```
+
+### Problem 4: Cars Dataset - Speed vs Stopping Distance
+
+```{r}
+# Load ggplot2 and cars dataset
+library(ggplot2)
+data(cars)
+
+# Scatterplot with linear model
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Speed vs Stopping Distance with Linear Model", x = "Speed", y = "Stopping Distance")
+
+# Fit linear model
+model_cars <- lm(dist ~ speed, data = cars)
+
+# Calculate residuals
+residuals_cars <- resid(model_cars)
+
+# Residual plot
+ggplot(cars, aes(x = speed, y = residuals_cars)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Speed vs Stopping Distance", x = "Speed", y = "Residuals")
+
+# Make predictions
+predictions <- predict(model_cars, newdata = data.frame(speed = c(10, 15, 30))) # 30 is extrapolated
+predictions
+```
+
+### Problem 5: Faithful Dataset - Eruptions vs Waiting Time
+
+```{r}
+# Load ggplot2 and faithful dataset
+library(ggplot2)
+data(faithful)
+
+# Scatterplot with linear model
+ggplot(faithful, aes(x = eruptions, y = waiting)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Eruptions vs Waiting Time with Linear Model", x = "Eruptions", y = "Waiting Time")
+
+# Fit linear model
+model_faithful <- lm(waiting ~ eruptions, data = faithful)
+
+# Calculate residuals
+residuals_faithful <- resid(model_faithful)
+
+# Residual plot
+ggplot(faithful, aes(x = eruptions, y = residuals_faithful)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Eruptions vs Waiting Time", x = "Eruptions", y = "Residuals")
+
+# Make predictions
+predictions <- predict(model_faithful, newdata = data.frame(eruptions = c(2, 3, 5))) # 5 is extrapolated
+predictions
+```
+
+### Problem 6: ChickWeight Dataset - Time vs Weight
+
+```{r}
+# Load ggplot2 and ChickWeight dataset
+library(ggplot2)
+data(ChickWeight)
+
+# Scatterplot with linear model
+ggplot(ChickWeight, aes(x = Time, y = weight)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Time vs Weight with Linear Model", x = "Time", y = "Weight")
+
+# Fit linear model
+model_chickweight <- lm(weight ~ Time, data = ChickWeight)
+
+# Calculate residuals
+residuals_chickweight <- resid(model_chickweight)
+
+# Residual plot
+ggplot(ChickWeight, aes(x = Time, y = residuals_chickweight)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Time vs Weight", x = "Time", y = "Residuals")
+
+# Make predictions
+predictions <- predict(model_chickweight, newdata = data.frame(Time = c(10, 20, 50))) # 50 is extrapolated
+predictions
+```
+
+### Problem 7: Pressure Dataset - Temperature vs Pressure
+
+```{r}
+# Load ggplot2 and pressure dataset
+library(ggplot2)
+data(pressure)
+
+# Scatterplot with linear model
+ggplot(pressure, aes(x = temperature, y = pressure)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Temperature vs Pressure with Linear Model", x = "Temperature", y = "Pressure")
+
+# Fit linear model
+model_pressure <- lm(pressure ~ temperature, data = pressure)
+
+# Calculate residuals
+residuals_pressure <- resid(model_pressure)
+
+# Residual plot
+ggplot(pressure, aes(x = temperature, y = residuals_pressure)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Temperature vs Pressure", x = "Temperature", y = "Residuals")
+
+# Make predictions
+predictions <- predict(model_pressure, newdata = data.frame(temperature = c(0, 100, 500))) # 500 is extrapolated
+predictions
+```
+
+### Problem 8: Trees Dataset - Girth vs Volume
+
+```{r}
+# Load ggplot2 and trees dataset
+library(ggplot2)
+data(trees)
+
+# Scatterplot with linear model
+ggplot(trees, aes(x = Girth, y = Volume)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Girth vs Volume with Linear Model", x = "Girth", y = "Volume")
+
+# Fit linear model
+model_trees <- lm(Volume ~ Girth, data = trees)
+
+# Calculate residuals
+residuals_trees <- resid(model_trees)
+
+# Residual plot
+ggplot(trees, aes(x = Girth, y = residuals_trees)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Girth vs Volume", x = "Girth", y = "Residuals")
+
+# Make predictions
+predictions <- predict(model_trees, newdata = data.frame(Girth = c(8, 12, 20))) # 20 is extrapolated
+predictions
+```
+
+### Problem 9: USArrests Dataset - Urban Population vs Assaults
+
+```{r}
+# Load ggplot2 and USArrests dataset
+library(ggplot2)
+data(USArrests)
+
+# Scatterplot with linear model
+ggplot(USArrests, aes(x = UrbanPop, y = Assault)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Urban Population vs Assaults with Linear Model", x = "Urban Population", y = "Assaults")
+
+# Fit linear model
+model_usarrests <- lm(Assault ~ UrbanPop, data = USArrests)
+
+# Calculate residuals
+residuals_usarrests <- resid(model_usarrests)
+
+# Residual plot
+ggplot(USArrests, aes(x = UrbanPop, y = residuals_usarrests)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Urban Population vs Assaults", x = "Urban Population", y = "Residuals")
+
+# Make predictions
+predictions <- predict(model_usarrests, newdata = data.frame(UrbanPop = c(50, 80, 100))) # 100 is extrapolated
+predictions
+```
+
+### Problem 10: Swiss Dataset - Education vs Fertility
+
+```{r}
+# Load ggplot2 and swiss dataset
+library(ggplot2)
+data(swiss)
+
+# Scatterplot with linear model
+ggplot(swiss, aes(x = Education, y = Fertility)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Education vs Fertility with Linear Model", x = "Education", y = "Fertility")
+
+# Fit linear model
+model_swiss <- lm(Fertility ~ Education, data = swiss)
+
+# Calculate residuals
+residuals_swiss <- resid(model_swiss)
+
+# Residual plot
+ggplot(swiss, aes(x = Education, y = residuals_swiss)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Education vs Fertility", x = "Education", y = "Residuals")
+
+# Make predictions
+predictions <- predict(model_swiss, newdata = data.frame(Education = c(10, 20, 50))) # 50 is extrapolated
+predictions
+```
+

@@ -1,0 +1,244 @@
+---
+title: "Estimating Parameters Confidence Intervals Assignment"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercises
+
+### Problem 1: Estimating the Mean Weight of Chickens
+Use the `ChickWeight` dataset to estimate the mean weight of chickens at Time 20 using a 95% confidence interval.
+
+```{r}
+# Solution
+data("ChickWeight")
+chick_weights <- ChickWeight$weight[ChickWeight$Time == 20]
+
+mean_weight <- mean(chick_weights)
+sd_weight <- sd(chick_weights)
+n <- length(chick_weights)
+t_score <- qt(0.975, df = n - 1)
+alpha_level <- 0.05
+margin_of_error <- t_score * (sd_weight / sqrt(n))
+lower_bound <- mean_weight - margin_of_error
+upper_bound <- mean_weight + margin_of_error
+
+list(mean = mean_weight, sd = sd_weight, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 95% confidence interval for the mean weight of chickens at Time 20 is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 2: Estimating the Mean Waiting Time for Old Faithful Eruptions
+Use the `faithful` dataset to estimate the mean waiting time between eruptions using a 99% confidence interval.
+
+```{r}
+# Solution
+data("faithful")
+waiting_times <- faithful$waiting
+
+mean_waiting <- mean(waiting_times)
+sd_waiting <- sd(waiting_times)
+n <- length(waiting_times)
+t_score <- qt(0.995, df = n - 1)
+alpha_level <- 0.01
+margin_of_error <- t_score * (sd_waiting / sqrt(n))
+lower_bound <- mean_waiting - margin_of_error
+upper_bound <- mean_waiting + margin_of_error
+
+list(mean = mean_waiting, sd = sd_waiting, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 99% confidence interval for the mean waiting time between eruptions is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 3: Estimating the Mean Sepal Length of Versicolor Species
+Use the `iris` dataset to estimate the mean sepal length of the Versicolor species using a 90% confidence interval.
+
+```{r}
+# Solution
+data("iris")
+versicolor_sepal_length <- iris$Sepal.Length[iris$Species == "versicolor"]
+
+mean_sepal_length <- mean(versicolor_sepal_length)
+sd_sepal_length <- sd(versicolor_sepal_length)
+n <- length(versicolor_sepal_length)
+t_score <- qt(0.95, df = n - 1)
+alpha_level <- 0.10
+margin_of_error <- t_score * (sd_sepal_length / sqrt(n))
+lower_bound <- mean_sepal_length - margin_of_error
+upper_bound <- mean_sepal_length + margin_of_error
+
+list(mean = mean_sepal_length, sd = sd_sepal_length, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 90% confidence interval for the mean sepal length of the Versicolor species is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 4: Estimating the Mean Speed of Cars in the `cars` Dataset
+Use the `cars` dataset to estimate the mean speed of cars using a 95% confidence interval.
+
+```{r}
+# Solution
+data("cars")
+car_speeds <- cars$speed
+
+mean_speed <- mean(car_speeds)
+sd_speed <- sd(car_speeds)
+n <- length(car_speeds)
+t_score <- qt(0.975, df = n - 1)
+alpha_level <- 0.05
+margin_of_error <- t_score * (sd_speed / sqrt(n))
+lower_bound <- mean_speed - margin_of_error
+upper_bound <- mean_speed + margin_of_error
+
+list(mean = mean_speed, sd = sd_speed, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 95% confidence interval for the mean speed of cars is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 5: Estimating the Mean Gas Mileage of Cars in the `mtcars` Dataset
+Use the `mtcars` dataset to estimate the mean miles per gallon (mpg) of cars using a 99% confidence interval.
+
+```{r}
+# Solution
+data("mtcars")
+mpg <- mtcars$mpg
+
+mean_mpg <- mean(mpg)
+sd_mpg <- sd(mpg)
+n <- length(mpg)
+t_score <- qt(0.995, df = n - 1)
+alpha_level <- 0.01
+margin_of_error <- t_score * (sd_mpg / sqrt(n))
+lower_bound <- mean_mpg - margin_of_error
+upper_bound <- mean_mpg + margin_of_error
+
+list(mean = mean_mpg, sd = sd_mpg, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 99% confidence interval for the mean miles per gallon of cars is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 6: Estimating the Mean Height of Trees in the `trees` Dataset
+Use the `trees` dataset to estimate the mean height of trees using a 95% confidence interval.
+
+```{r}
+# Solution
+data("trees")
+tree_heights <- trees$Height
+
+mean_height <- mean(tree_heights)
+sd_height <- sd(tree_heights)
+n <- length(tree_heights)
+t_score <- qt(0.975, df = n - 1)
+alpha_level <- 0.05
+margin_of_error <- t_score * (sd_height / sqrt(n))
+lower_bound <- mean_height - margin_of_error
+upper_bound <- mean_height + margin_of_error
+
+list(mean = mean_height, sd = sd_height, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 95% confidence interval for the mean height of trees is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 7: Estimating the Mean Air Quality in New York
+Use the `airquality` dataset to estimate the mean ozone level using a 90% confidence interval.
+
+```{r}
+# Solution
+data("airquality")
+ozone_levels <- airquality$Ozone[!is.na(airquality$Ozone)]
+
+mean_ozone <- mean(ozone_levels)
+sd_ozone <- sd(ozone_levels)
+n <- length(ozone_levels)
+t_score <- qt(0.95, df = n - 1)
+alpha_level <- 0.10
+margin_of_error <- t_score * (sd_ozone / sqrt(n))
+lower_bound <- mean_ozone - margin_of_error
+upper_bound <- mean_ozone + margin_of_error
+
+list(mean = mean_ozone, sd = sd_ozone, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 90% confidence interval for the mean ozone level is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 8: Estimating the Mean Depth of Quakes in Fiji
+Use the `quakes` dataset to estimate the mean depth of earthquakes using a 95% confidence interval.
+
+```{r}
+# Solution
+data("quakes")
+quake_depths <- quakes$depth
+
+mean_depth <- mean(quake_depths)
+sd_depth <- sd(quake_depths)
+n <- length(quake_depths)
+t_score <- qt(0.975, df = n - 1)
+alpha_level <- 0.05
+margin_of_error <- t_score * (sd_depth / sqrt(n))
+lower_bound <- mean_depth - margin_of_error
+upper_bound <- mean_depth + margin_of_error
+
+list(mean = mean_depth, sd = sd_depth, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 95% confidence interval for the mean depth of earthquakes is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 9: Estimating the Mean Monthly Sunspots
+Use the `sunspot.month` dataset to estimate the mean number of monthly sunspots using a 99% confidence interval.
+
+```{r}
+# Solution
+data("sunspot.month")
+monthly_sunspots <- sunspot.month
+
+mean_sunspots <- mean(monthly_sunspots)
+sd_sunspots <- sd(monthly_sunspots)
+n <- length(monthly_sunspots)
+t_score <- qt(0.995, df = n - 1)
+alpha_level <- 0.01
+margin_of_error <- t_score * (sd_sunspots / sqrt(n))
+lower_bound <- mean_sunspots - margin_of_error
+upper_bound <- mean_sunspots + margin_of_error
+
+list(mean = mean_sunspots, sd = sd_sunspots, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 99% confidence interval for the mean number of monthly sunspots is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 10: Estimating the Mean Pressure in the `pressure` Dataset
+Use the `pressure` dataset to estimate the mean pressure using a 95% confidence interval.
+
+```{r}
+# Solution
+data("pressure")
+pressure_values <- pressure$pressure
+
+mean_pressure <- mean(pressure_values)
+sd_pressure <- sd(pressure_values)
+n <- length(pressure_values)
+t_score <- qt(0.975, df = n - 1)
+alpha_level <- 0.05
+margin_of_error <- t_score * (sd_pressure / sqrt(n))
+lower_bound <- mean_pressure - margin_of_error
+upper_bound <- mean_pressure + margin_of_error
+
+list(mean = mean_pressure, sd = sd_pressure, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 95% confidence interval for the mean pressure is approximately [`r lower_bound`, `r upper_bound`].
+<br><br>
+

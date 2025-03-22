@@ -1,0 +1,290 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercises
+
+In this assignment, you will practice calculating descriptive statistics 
+(range, variance, standard deviation, and 5-number summary), creating basic 
+boxplots using `ggplot2`, and determining if the data has any outliers 
+using the Interquartile Range (IQR). You will use built-in datasets from 
+R for this assignment.
+
+### Problem 1: Descriptive Statistics of Sepal Length in the `iris` Dataset
+
+**Task:** Calculate the range, variance, standard deviation, and 5-number summary of the `Sepal.Length` column in the `iris` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `iris` dataset.
+2. Calculate the range, variance, standard deviation, and 5-number summary of the `Sepal.Length` column.
+
+**Code Example:**
+```{r}
+# Load iris dataset
+data(iris)
+
+# Calculate descriptive statistics
+range_sepal_length <- range(iris$Sepal.Length)
+variance_sepal_length <- var(iris$Sepal.Length)
+sd_sepal_length <- sd(iris$Sepal.Length)
+summary_sepal_length <- summary(iris$Sepal.Length)
+
+range_sepal_length
+variance_sepal_length
+sd_sepal_length
+summary_sepal_length
+```
+
+### Problem 2: Descriptive Statistics of Ozone Levels in the `airquality` Dataset
+
+**Task:** Calculate the range, variance, standard deviation, and 5-number summary of the `Ozone` column in the `airquality` dataset after removing NA values.
+<br>
+
+**Steps:**
+
+1. Load the `airquality` dataset.
+2. Remove NA values from the `Ozone` column.
+3. Calculate the range, variance, standard deviation, and 5-number summary of the `Ozone` column.
+
+**Code Example:**
+```{r}
+# Load airquality dataset
+data(airquality)
+
+# Remove NA values from Ozone column
+ozone_no_na <- na.omit(airquality$Ozone)
+
+# Calculate descriptive statistics
+range_ozone <- range(ozone_no_na)
+variance_ozone <- var(ozone_no_na)
+sd_ozone <- sd(ozone_no_na)
+summary_ozone <- summary(ozone_no_na)
+
+range_ozone
+variance_ozone
+sd_ozone
+summary_ozone
+```
+
+### Problem 3: Boxplot of Annual Lynx Trappings in the `lynx` Dataset
+
+**Task:** Create a basic boxplot of the annual number of lynx trapped in the `lynx` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `lynx` dataset.
+2. Create a boxplot using `ggplot2`.
+
+**Code Example:**
+```{r}
+# Load ggplot2 and lynx dataset
+library(ggplot2)
+data(lynx)
+
+# Create boxplot
+ggplot(data.frame(lynx), aes(y = lynx)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Annual Lynx Trappings", y = "Number of Lynx Trapped")
+```
+
+### Problem 4: Descriptive Statistics of Tooth Length in the `ToothGrowth` Dataset
+
+**Task:** Calculate the range, variance, standard deviation, and 5-number summary of the `len` column in the `ToothGrowth` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `ToothGrowth` dataset.
+2. Calculate the range, variance, standard deviation, and 5-number summary of the `len` column.
+
+**Code Example:**
+
+```{r}
+# Load ToothGrowth dataset
+data(ToothGrowth)
+
+# Calculate descriptive statistics
+range_len <- range(ToothGrowth$len)
+variance_len <- var(ToothGrowth$len)
+sd_len <- sd(ToothGrowth$len)
+summary_len <- summary(ToothGrowth$len)
+
+range_len
+variance_len
+sd_len
+summary_len
+```
+
+### Problem 5: Boxplot of Age in the `infert` Dataset
+
+**Task:** Create a basic boxplot of the `age` column in the `infert` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `infert` dataset.
+2. Create a boxplot using `ggplot2`.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2 and infert dataset
+library(ggplot2)
+data(infert)
+
+# Create boxplot
+ggplot(infert, aes(y = age)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Age in Infert Dataset", y = "Age")
+```
+
+### Problem 6: Descriptive Statistics of Wind Speed in the `airquality` Dataset
+
+**Task:** Calculate the range, variance, standard deviation, and 5-number summary of the `Wind` column in the `airquality` dataset after removing NA values.
+<br>
+
+**Steps:**
+
+1. Load the `airquality` dataset.
+2. Remove NA values from the `Wind` column.
+3. Calculate the range, variance, standard deviation, and 5-number summary of the `Wind` column.
+
+**Code Example:**
+
+```{r}
+# Load airquality dataset
+data(airquality)
+
+# Remove NA values from Wind column
+wind_no_na <- na.omit(airquality$Wind)
+
+# Calculate descriptive statistics
+range_wind <- range(wind_no_na)
+variance_wind <- var(wind_no_na)
+sd_wind <- sd(wind_no_na)
+summary_wind <- summary(wind_no_na)
+
+range_wind
+variance_wind
+sd_wind
+summary_wind
+```
+
+### Problem 7: Determine Outliers in Sepal Length of the `iris` Dataset
+
+**Task:** Determine if the `Sepal.Length` column in the `iris` dataset has any outliers using the Interquartile Range (IQR).
+<br>
+
+**Steps:**
+
+1. Load the `iris` dataset.
+2. Calculate the IQR of the `Sepal.Length` column.
+3. Identify any outliers in the `Sepal.Length` column.
+
+**Code Example:**
+
+```{r}
+# Load iris dataset
+data(iris)
+
+# Calculate IQR
+iqr_sepal_length <- IQR(iris$Sepal.Length)
+
+# Identify outliers
+q1 <- quantile(iris$Sepal.Length, 0.25)
+q3 <- quantile(iris$Sepal.Length, 0.75)
+lower_bound <- q1 - 1.5 * iqr_sepal_length
+upper_bound <- q3 + 1.5 * iqr_sepal_length
+outliers <- iris$Sepal.Length[iris$Sepal.Length < lower_bound | iris$Sepal.Length > upper_bound]
+
+iqr_sepal_length
+outliers
+```
+
+### Problem 8: Descriptive Statistics of Child Count in the `infert` Dataset
+
+**Task:** Calculate the range, variance, standard deviation, and 5-number summary of the `parity` column in the `infert` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `infert` dataset.
+2. Calculate the range, variance, standard deviation, and 5-number summary of the `parity` column.
+
+**Code Example:**
+
+```{r}
+# Load infert dataset
+data(infert)
+
+# Calculate descriptive statistics
+range_parity <- range(infert$parity)
+variance_parity <- var(infert$parity)
+sd_parity <- sd(infert$parity)
+summary_parity <- summary(infert$parity)
+
+range_parity
+variance_parity
+sd_parity
+summary_parity
+```
+
+### Problem 9: Boxplot of Sepal Width in the `iris` Dataset
+
+**Task:** Create a basic boxplot of the `Sepal.Width` column in the `iris` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `iris` dataset.
+2. Create a boxplot using `ggplot2`.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2 and iris dataset
+library(ggplot2)
+data(iris)
+
+# Create boxplot
+ggplot(iris, aes(y = Sepal.Width)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Sepal Width in Iris Dataset", y = "Sepal Width")
+```
+
+### Problem 10: Determine Outliers in Tooth Length of the `ToothGrowth` Dataset
+
+**Task:** Determine if the `len` column in the `ToothGrowth` dataset has any outliers using the Interquartile Range (IQR).
+<br>
+
+**Steps:**
+
+1. Load the `ToothGrowth` dataset.
+2. Calculate the IQR of the `len` column.
+3. Identify any outliers in the `len` column.
+
+**Code Example:**
+
+```{r}
+# Load ToothGrowth dataset
+data(ToothGrowth)
+
+# Calculate IQR
+iqr_len <- IQR(ToothGrowth$len)
+
+# Identify outliers
+q1 <- quantile(ToothGrowth$len, 0.25)
+q3 <- quantile(ToothGrowth$len, 0.75)
+lower_bound <- q1 - 1.5 * iqr_len
+upper_bound <- q3 + 1.5 * iqr_len
+outliers <- ToothGrowth$len[ToothGrowth$len < lower_bound | ToothGrowth$len > upper_bound]
+
+iqr_len
+outliers
+```
+
+Happy coding!

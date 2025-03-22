@@ -1,0 +1,194 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Beginning Data Visualization Assignment {.unnumbered}
+
+## Problem 1
+
+Run ggplot(data = mpg). What do you see? Why do you think this is? <br>
+
+```{r Ex1}
+
+### Write Code Here
+
+# ggplot(data = mpg)
+
+```
+
+## Problem 2
+
+How many rows are in mpg? How many columns? <br>
+
+```{r Ex2}
+
+### Write Code Here
+
+# nrow(mpg)
+
+# ncol(mpg)
+
+```
+
+## Problem 3
+
+What does the drv variable describe? Read the help for ?mpg to find out. <br>
+
+```{r Ex3}
+
+### Write Code Here
+
+```
+
+## Problem 4
+
+Make a scatterplot of hwy vs cyl. <br>
+
+```{r Ex4}
+
+### Write Code Here
+
+#ggplot(data = mpg, aes(x=hwy, y=cyl)) +
+#  geom_point()
+
+```
+
+## Problem 5
+
+What happens if you make a scatterplot of class vs drv? Why is the plot not useful? <br>
+
+```{r Ex5}
+
+### Write Code Here
+
+#ggplot(data = mpg, aes(x=class, y=drv)) +
+#  geom_point()
+
+```
+
+## Problem 6
+
+Consider the following plot. Whay are the points not blue?
+
+```{r Ex6}
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+
+```
+
+<br>
+
+## Problem 7
+
+Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?
+
+```{r Ex7}
+
+### Answer
+```
+
+## Problem 8
+
+Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?
+
+```{r Ex8}
+
+### Answer
+```
+
+## Problem 9
+
+What happens if you map the same variable to multiple aesthetics?
+
+```{r Ex9}
+
+### Answer
+```
+
+## Problem 10
+
+What does the **stroke** aesthetic do? What shapes does it work with? (Hint: use ?geom_point)
+
+```{r Ex10}
+
+
+### Answer
+```
+
+## Problem 11
+
+What happens if you map an aesthetic to something other than a variable name, like aes(colour = displ \< 5)? Note, you’ll also need to specify x and y.
+
+```{r Ex11}
+
+### Answer
+```
+
+## Problem 12
+
+What happens if you facet on a continuous variable?
+
+```{r Ex12}
+
+# Answer
+
+```
+
+## Problem 13
+
+What do the empty cells in plot with facet_grid(drv \~ cyl) mean? How do they relate to this plot?
+
+```{r Ex13}
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl))
+```
+
+## Problem 14
+
+What plots does the following code make? What does . do?
+
+```{r Ex 14}
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+ facet_grid(. ~ cyl)
+```
+
+## Problem 15
+
+Consider the first faceted plot in this section. What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?
+
+```{r Ex15}
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+
+## Problem 16
+
+Read `?facet_wrap`. What does nrow do? What does ncol do? What other options control the layout of the individual panels? Why doesn’t facet_grid() have nrow and ncol arguments?
+
+```{r Ex 16}
+
+# Answer
+
+```
+
+## Problem 17
+
+When using facet_grid() you should usually put the variable with more unique levels in the columns. Why?
+
+```{r Ex 17}
+
+# Answer
+
+```

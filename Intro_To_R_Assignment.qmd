@@ -1,0 +1,264 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercises 
+
+This exercise set will review the basic functions of R. Most of the commands 
+were reviewed in the lesson, but there are a few that you will have to look up
+to see how to carry out the commands.
+<br>
+
+**Instructions**
+
+- Write R code to solve each of the following problems.
+- Make sure to test your code to ensure it works correctly.
+- Provide comments in your code to explain your logic where necessary.
+
+Problem 1: Addition
+Add two numbers, 12 and 34.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+Problem 2: Subtraction
+
+Subtract 25 from 75.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 3: Multiplication
+ 
+Multiply 28 by 19.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 4: Division
+ 
+Divide 144 by 12.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 5: Exponentiation
+ 
+Calculate 9 raised to the power of 7.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 6: Square Root
+ 
+Find the square root of 64.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 7: Logarithm
+ 
+Calculate the natural logarithm (base e) of 20.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 8: Absolute Value
+ 
+Find the absolute value of -15.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 9: Factorial
+ 
+Calculate the factorial of 6.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 10: Variables
+ 
+Create a variable `x` that is assigned the value 10 and another variable `y` 
+that is assigned the value 5. Add the two variables together.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 11: Variables
+ 
+Create a variable `z` that is the combination of `11*x + 13*y`, where `x` 
+and `y` are from the previous problem.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 12: Mean and Median of a Vector
+ 
+Find the mean and median of the elements in the vector c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20).
+
+```{r}
+
+# Response
+
+```
+<br>
+
+Problem 13: Create a Vector
+
+Create a vector (with an appropriate name) that contains the names of 5 of your friends. What is the
+class of this vector? 
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 14:
+ 
+ Create a vector with 20 random values between 300 and 500. What is the mean of this vector?
+ What is the median of this vector?
+ 
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 15: Maximum and Minimum
+ 
+Find the maximum and minimum values of the vector created in Problem 14.
+
+```{r}
+
+# Response
+
+```
+<br> 
+
+Problem 16: Vectors
+ 
+In the vector you created in problem 14 : 
+
+  - Print out the 7th element.
+  - Print out the first 10 elements.
+  - Print out the last 5 elements.
+  - Add the 4th and 18th elements together.
+
+  
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 17: Loading Libraries
+ 
+Load the library `readr` and use the help file to find out what 
+the `read_csv` function does.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 18: Boolean Vectors
+
+Create a boolean vector that contains the values TRUE, FALSE, TRUE, TRUE, FALSE.
+Print out the vector.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+Problem 19: Logical Operators
+ 
+```{r}
+
+# Explain the output for the following code :
+
+x <- TRUE
+
+y <- FALSE
+
+z <- TRUE
+
+x & (y | z)
+ 
+```
+<br>
+
+Problem 20: Logical Operators
+ 
+```{r}
+ 
+# Explain the output for the following code :
+
+x <- 5
+
+y <- 10
+
+z <- 15
+
+x > y & y < z
+ 
+```
+ 
+ <br>
+ 
+
+ 

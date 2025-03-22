@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>measures-of-central-tendencies</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Measures Of Central Tendencies_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Measures Of Central Tendencies_files/libs/quarto-html/quarto.js"></script>
+<script src="Measures Of Central Tendencies_files/libs/quarto-html/popper.min.js"></script>
+<script src="Measures Of Central Tendencies_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Measures Of Central Tendencies_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Measures Of Central Tendencies_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Measures Of Central Tendencies_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Measures Of Central Tendencies_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Measures Of Central Tendencies_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Measures Of Central Tendencies_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<center>
+<section id="measures-of-central-tendencies" class="level1 unnumbered">
+<h1 class="unnumbered">Measures Of Central Tendencies</h1>
+<!-- 
+### Packages and Libraries needed
+
+tidyverse
+
+-->
+</section></center>
+<p><br> Note : Many of the graphics and descriptions may be found here : https://www.r4epi.com/measures-of-central-tendency</p>
+<p><br></p>
+<p>We have gotten to the point where we are starting to describe a given data set. Here is where we are, as of now : <br></p>
+<center>
+<img src="./images/Daily-4-Pic-1.jpg" class="img-fluid" style="width:75.0%">
+</center>
+<p><br></p>
+<p>Why do we want to be able to describe the central tendency of a data set? Consider epidemiology. In epidemiology, we often want to describe the “typical” person in a population with respect to some characteristic that is recorded as a numerical variable – like height or weight. The most basic, and probably most commonly used, way to do so is with a measure of central tendency. <br></p>
+<p>In this lesson we have discussed three measures of central tendency: <br></p>
+<ul>
+<li>The mean</li>
+<li>The median</li>
+<li>The mode <br></li>
+</ul>
+<center>
+<img src="./images/Daily-4-Pic-2.jpg" class="img-fluid" style="width:50.0%">
+</center>
+<p><br></p>
+<section id="the-mean" class="level3">
+<h3 class="anchored" data-anchor-id="the-mean">The Mean</h3>
+<p><br> When we talk about the typical, or “average”, value of some variable measured on a continuous scale, we are usually talking about the mean value of that variable. To be even more specific, we are usually talking about the arithmetic mean value. This value has some favorable characteristics that make it a good description of central tendency. <br></p>
+<ul>
+<li><p>For starters it’s simple. Most people are familiar with the mean, and at the very least, have some intuitive sense of what it means (no pun intended).</p></li>
+<li><p>In addition, there can be only one mean value for any set of values.</p></li>
+</ul>
+<p><br> However, there are a couple of potentially problematic characteristics of the mean as well: <br></p>
+<ul>
+<li><p>It’s susceptible to extreme values in your data. In other words, a couple of people with very atypical values for the characteristic you are interested in can drastically alter the value of the mean, and your estimate for the typical person in your population of interest along with it.</p></li>
+<li><p>Additionally, it’s highly likely to calculate a mean value that is not actually observed anywhere in your data. <br></p></li>
+</ul>
+<p>Let’s assume we have a data set with <span class="math inline">\(n\)</span> points and we label them as <span class="math inline">\(a_1\)</span>, <span class="math inline">\(a_2\)</span>, . . . <span class="math inline">\(a_n\)</span>. Here is the fancy, schmancy formula for finding the Average / Mean :</p>
+<center>
+<img src="./images/Daily-4-Pic-8.jpg" class="img-fluid" style="width:40.0%">
+</center>
+<p><br></p>
+<p>The capital sigma there is a mathematical symbol that tells us to sum up what ever follows the sigma and we will then divide by <span class="math inline">\(n\)</span> which is the number of points we have in the data set. It can be said a little easier as : <br></p>
+<center>
+<img src="./images/Daily-4-Pic-9.jpg" class="img-fluid" style="width:35.0%">
+</center>
+<p><br></p>
+<p><strong>Caution :</strong> The mean is a nice way to get a value that describes the centrality of a data set, but it can sometimes be problematic if there are values that drastically higher or lower than most of the values in a data set. <br></p>
+<p>Consider this data set : <br></p>
+<center>
+<span class="math inline">\(1 \,\,\,2 \,\,\,3\,\,\,4\,\,\,5\,\,\,6\,\,\,7\,\,\,8\,\,\,9\)</span>
+</center>
+<p><br></p>
+<p>We can quickly calculate the average to be <span class="math display">\[(1 + 2 + 3 + \dots +9\,)\,/\,9 = \frac{45}{9}=5\]</span> which is right smack dab in the middle of the data set. 50% of the scores are above and below the value for the average, os it is a very good measure of centrality for this set. <br></p>
+<p>However, adding a single value can sometimes make the average a poor choice for measure of centrality. Consider adding the value <span class="math inline">\(100\)</span> to the previous data set : <br></p>
+<center>
+<span class="math inline">\(1 \,\,\,2 \,\,\,3\,\,\,4\,\,\,5\,\,\,6\,\,\,7\,\,\,8\,\,\,9\,\,\,100\)</span>
+</center>
+<p><br></p>
+<p>Calculating the average for this data set yields as average of : <span class="math display">\[(1 + 2 + 3 + \dots +9+100\,)\,/\,9 = \frac{145}{10} = 14.5\]</span> In this example, the mean is actually larger than 90% of all the scores in the data set. That means it is a <strong>poor</strong> choice as a representative value for the data set. <br></p>
+<p>Note that scores that are far away from most of the values in a data set are called <strong>outliers</strong> and as you will see, even a single outlier can vastly affect the mean. This means that the mean is <strong>not</strong> resistant to outliers!</p>
+<p>This is one of the reasons why it is important that there is more than one option as a measure of centrality. <br></p>
+</section>
+<section id="the-median" class="level3">
+<h3 class="anchored" data-anchor-id="the-median">The Median</h3>
+<p><br></p>
+<p>The median is probably the second most commonly used measure of central tendency.</p>
+<ul>
+<li><p>Like the mean, it’s computationally simple and relatively straightforward to understand.</p></li>
+<li><p>There can be one, and only one, median.</p></li>
+<li><p>And, its value may also be unobserved in the data. <br></p></li>
+</ul>
+<p>The idea of finding the Median is fairly simple : <br></p>
+<ul>
+<li><p>Line up the values from smallest to largest</p></li>
+<li><p>The value that occurs in the middle will be the <strong>median</strong></p></li>
+<li><p>This means the <strong>median</strong> scores has half of the values <strong>below it</strong> and half the values <strong>above it</strong>, when you exclude the spot representing the median. <br></p></li>
+</ul>
+<p>There is a small caveat depending on if there is an even or odd amount of values in the data set. Let’s assume there are <strong>n</strong> values in the data set. <br></p>
+<p>Let’s assume <strong>n is odd</strong>. Consider this example where we have a data set with 7 values, where the data has already been arranged from smallest to largest: <br></p>
+<center>
+<img src="./images/Daily-4-Pic-4.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<p><br></p>
+<p>When <strong>n is odd</strong>, the median is the value located in spot <strong>(n+1)/2</strong>. So in this case the median is located in spot <span class="math inline">\((7+1)/2 = 4\)</span>th spot : <br></p>
+<center>
+<img src="./images/Daily-4-Pic-5.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<p><br></p>
+<p>Notice that when we exclude the median, we have just as many values <strong>below</strong> the median (3) as we have <strong>above</strong> the median (3). <br></p>
+<p><strong>Important :</strong> The <strong>median</strong> is a <strong>spot-based</strong> measure. We are looking for the value that occurs in the middle spot. In this example, the median was in spot 4 with the median taking on the value of 18. <br></p>
+<p>It is entirely possible that the median takes on a value below or above this spot if there are repeated values. Consider a similar data set : <br></p>
+<center>
+<span class="math inline">\(8\,\,\, 11\,\,\,  15\,\,\,  15\,\,\,  24\,\,\,  30\,\,\,  31\)</span>
+</center>
+<p><br></p>
+<p>In this example, there are still 7 values in the data set so the median is still located in spot 4 : <br></p>
+<center>
+<span class="math inline">\(8\,\,\, 11\,\,\,  15\,\,\,  \underline{\,\,15\,\,}\,\,\,  24\,\,\,  30\,\,\,  31\)</span>
+</center>
+<p><br></p>
+<p>In this case, the median takes on the value in the fourth spot, namely 15. We still have three values below the median : <span class="math inline">\(8\,\,\, 11 \,\,\, 15\,\)</span> and three values above the median : <span class="math inline">\(24 \,\,\, 30\,\,\, 31\,\)</span>. So even though we have a value for the median that is also in a different spot of the data set, we still have 50% of the scores above the median and 50% of the scores below the median. This means that the important aspect of finding the median is finding the <strong>spot</strong> that is in the middle and that will inform us on the value of the median. <br></p>
+<p>What happens when <strong>n is even</strong>? This complicates the process a bit because there is not a single value that falls in the middle. Consider this example of an already ordered set of six values : <br></p>
+<center>
+<img src="./images/Daily-4-Pic-6.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<p><br></p>
+<p>As you can see above, we don’t have a single spot that is right in the middle that we can call the median. However, we do have <strong>two</strong> values in the middle. In this case, those values are <strong>18</strong> and <strong>24</strong>. To get the median, we will simply find the average of these two values to create the median.</p>
+<p>Finding the two middle spots is simple. The first value is located in spot <span class="math inline">\((n\,/\,2)\)</span> and the second spot in lcoated immediatley following, <span class="math inline">\((n\,/\,2) + 1\)</span>. In the following example we have a data set with <span class="math inline">\(6\)</span> values. Since this is an even amount of values, we will work with the values in spots <span class="math inline">\((6\,/\,2\,) = 3\)</span> and <span class="math inline">\((6\,/\,2\,) + 1 = 4\)</span> <br></p>
+<center>
+<img src="./images/Daily-4-Pic-7.jpg" class="img-fluid" style="width:30.0%">
+</center>
+<p><br></p>
+<p>As you can see spot 3 has the value <span class="math inline">\(18\)</span> and spot 4 has the value <span class="math inline">\(24\)</span>. The median is the average of these two values. Therefore the median is <span class="math inline">\((18 + 24)/2 = (42) / 2 = 21\)</span>. <br></p>
+<p>Note that in this case we still have the same amount of scores <strong>below</strong> the median as we have <strong>above</strong> the median. This shows us that 50% of the data set is below this value and 50% above this value which is the definition of median. <br></p>
+<p>An interesting result is that in this case the median is <strong>not</strong> a value from the data set! If you look at the orginal six values in the data set, 21 is not one of them! If you have a data set with an even amount of values, this will almost always be the case. THe only time where the median will actually be a value on in the data set is if the two values in the middle happen to be the exact same value. Otherwise, the median will be a value not in the original data set. <br></p>
+<p>Let’s revisit an issue we discovered when discussing averages, namely outliers. How do outliers affect the median?</p>
+<p>Let calculate the median for the following two data sets : <br></p>
+<center>
+<span class="math inline">\(1 \,\,\,2 \,\,\,3\,\,\,4\,\,\,5\,\,\,6\,\,\,7\,\,\,8\,\,\,9\)</span>
+</center>
+<p><br> In this example, there are <span class="math inline">\(9\)</span> scores, which tells us the median is located in spot <span class="math inline">\(\frac{9+1}{2} = \frac{10}{2}= 5\)</span>. Spot 5 happens to contain the value <span class="math inline">\(5\)</span>. Notice that this stil has 50% of the scores below and 50% of the scores above the median which tells us it is a good representative for the measure of centrality. <br></p>
+<p>What does adding an outlier do? How does it affect the median? Let’s explore and find out. <br></p>
+<center>
+<span class="math inline">\(1 \,\,\,2 \,\,\,3\,\,\,4\,\,\,5\,\,\,6\,\,\,7\,\,\,8\,\,\,9\,\,\,100\)</span>
+</center>
+<p><br></p>
+<p>We now have 10 scores which means we want to take the average of the tow middle scores in spots <span class="math inline">\(\frac{10}{2} = 5\)</span> and <span class="math inline">\(\frac{10}{2} + 1 = 6\)</span>.</p>
+<center>
+<span class="math inline">\(1 \,\,\,2 \,\,\,3\,\,\,4\,\,\underline{\,5\,}\,\,\,\underline{\,6\,}\,\,7\,\,\,8\,\,\,9\,\,\,100\)</span>
+</center>
+<p><br> The average of these two values gives us <span class="math inline">\(\frac{5 + 6}{2} = 5.5\)</span>. Again, think about the definition of a measure of centrality. If you consider the median to be 5.5, then notice there are 5 values below the median and 5 valuse above the median, showing us that this is a good representative for the measure of centrality.</p>
+<p>This tells us that outliers do not affect the median very much at all. The median moved from <span class="math inline">\(5\)</span> up to <span class="math inline">\(5.5\)</span>. What this shows us is that medians <strong>are resistant</strong> to outiers! This means that if we have a data set that contains outliers, we need to consider unsing the median as the measure of centrality and not the mean.</p>
+</section>
+<section id="the-mode" class="level3">
+<h3 class="anchored" data-anchor-id="the-mode">The Mode</h3>
+<p>And finally, we have the mode, or the value that is most often observed in the data. It doesn’t get much simpler than that. But, unlike the mean and the median, there can be more than one mode for a given set of values. In fact, there can even be no mode if all the values are observed the exact same number of times. However, if there is a mode, by definition it’s observed in the data. <br></p>
+<p>Consider these examples : <br></p>
+<p><strong>Mode Example 1</strong> <br></p>
+<center>
+<span class="math inline">\(8\,\,\, 11\,\,\,  15\,\,\,  15\,\,\,  24\,\,\,  30\,\,\,  31\)</span>
+</center>
+<p><br></p>
+<p>In this data set, then value <span class="math inline">\(15\)</span> appears twice and everything else appears once. Therefore the mode of this data set is <span class="math inline">\(15\)</span>. <br></p>
+<p><strong>Mode Example 2</strong> <br></p>
+<center>
+<span class="math inline">\(8\,\,\, 11\,\,\,  15\,\,\,  15\,\,\,  24\,\,\,  30\,\,\,  30\,\,\ 31\)</span>
+</center>
+<p><br></p>
+<p>In this data set, then value <span class="math inline">\(15\)</span> <strong>and</strong> <span class="math inline">\(30\)</span> appear twice and everything else appears once. Therefore the mode of this data set is <span class="math inline">\(15\)</span> <strong>and</strong> <span class="math inline">\(30\)</span>. <br></p>
+<p><strong>Mode Example 3</strong> <br></p>
+<center>
+<span class="math inline">\(8\,\,\, 11\,\,\,  12\,\,\,  15\,\,\,  24\,\,\,  30\,\,\,  33\,\,\ 37\)</span>
+</center>
+<p><br></p>
+<p>In this data set, <strong>no</strong> value appears more than any other value, so this data set <strong>does not</strong> have a mode! <br></p>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<p>Here is a graphic that reviews what we have discussed so far : <br></p>
+<center>
+<img src="./images/Daily-4-Pic-10.jpg" class="img-fluid" style="width:60.0%">
+</center>
+<p><br></p>
+</section>
+<section id="calculating-the-mean-and-median" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-the-mean-and-median">Calculating the Mean and Median</h3>
+<p><br></p>
+<p>Now that we are all on the same page with respect to the fundamentals of central tendency, let’s remind ourselves how to calculate these measures using R. <br></p>
+<p>Calculating the mean is really straightforward. We can just use base R’s built-in <strong>mean( )</strong> function.</p>
+<p>Load the <strong>dplyr</strong> package. We will need several <strong>dplyr</strong> functions and can install and load the package with the code below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is the command of we need to install the package. </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("dplyr")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We can load the dplyr pack :</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>We can simulate some data by typing (cut and paste?) in the following :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>id,   <span class="sc">~</span>sex,     <span class="sc">~</span>ht_in, <span class="sc">~</span>wt_lbs,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"001"</span>, <span class="st">"Male"</span>,   <span class="dv">71</span>,     <span class="dv">190</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"002"</span>, <span class="st">"Male"</span>,   <span class="dv">69</span>,     <span class="dv">177</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"003"</span>, <span class="st">"Female"</span>, <span class="dv">64</span>,     <span class="dv">130</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"004"</span>, <span class="st">"Female"</span>, <span class="dv">65</span>,     <span class="dv">153</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"005"</span>, <span class="cn">NA</span>,       <span class="dv">73</span>,     <span class="dv">173</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"006"</span>, <span class="st">"Male"</span>,   <span class="dv">69</span>,     <span class="dv">182</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"007"</span>, <span class="st">"Female"</span>, <span class="dv">68</span>,     <span class="dv">186</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"008"</span>, <span class="cn">NA</span>,       <span class="dv">73</span>,     <span class="dv">185</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"009"</span>, <span class="st">"Female"</span>, <span class="dv">71</span>,     <span class="dv">157</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"010"</span>, <span class="st">"Male"</span>,   <span class="dv">66</span>,     <span class="dv">155</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"011"</span>, <span class="st">"Male"</span>,   <span class="dv">71</span>,     <span class="dv">213</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"012"</span>, <span class="st">"Female"</span>, <span class="dv">69</span>,     <span class="dv">151</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"013"</span>, <span class="st">"Female"</span>, <span class="dv">66</span>,     <span class="dv">147</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"014"</span>, <span class="st">"Female"</span>, <span class="dv">68</span>,     <span class="dv">196</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"015"</span>, <span class="st">"Male"</span>,   <span class="dv">75</span>,     <span class="dv">212</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"016"</span>, <span class="st">"Female"</span>, <span class="dv">69</span>,     <span class="dv">19000</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"017"</span>, <span class="st">"Female"</span>, <span class="dv">66</span>,     <span class="dv">194</span>,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"018"</span>, <span class="st">"Female"</span>, <span class="dv">65</span>,     <span class="dv">176</span>,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"019"</span>, <span class="st">"Female"</span>, <span class="dv">65</span>,     <span class="dv">176</span>,</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"020"</span>, <span class="st">"Female"</span>, <span class="dv">65</span>,     <span class="dv">102</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<p>In the code above, here are what the steps were :</p>
+<ul>
+<li><p>We loaded the tibble package so that we could use its tribble() function.</p></li>
+<li><p>We used the tribble() function to simulate some data – heights and weights for 20 hypothetical students.</p>
+<ul>
+<li><p>The tribble() function creates something called a tibble. A tibble is the tidyverse version of a data frame. In fact, it is a data frame, but with some additional functionality. You can use the link to read more about it if you’d like.</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/74000054/what-are-the-differences-between-the-data-frame-tribble-and-tibble-functi">More information on tribble( ) vs tibble( ) vs data.frame </a> <br></li>
+</ul></li>
+<li><p>We used the tribble( ) function instead of the data.frame( ) function to create our data frame above because we can use the tribble( ) function to create our data frames in rows (like you see above) instead of columns with the c( ) function.</p></li>
+<li><p>Using the tribble( ) function to create a data frame isn’t any better or worse than using the data.frame( ) function. I just wanted you to be aware that it exists and is sometimes useful.</p></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>MEAN Example :</strong> Find the mean of the heights in the data frame.</p>
+<ul>
+<li><p>The name of the tibble is <strong>height_and_weight_20</strong>.</p></li>
+<li><p>The name of the variable we want to use is the column <strong>ht_in</strong></p></li>
+<li><p>The way we can access a variable (column) of a data fram or tibble uses syntax such as <strong>data_frame_name$variable_name</strong></p></li>
+<li><p>Therefore we want to find the mean of <strong>height_and_weight_20$ht_in</strong></p></li>
+<li><p>We will use the command <strong>mean( )</strong> as follows :</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(height_and_weight_20<span class="sc">$</span>ht_in)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.4</code></pre>
+</div>
+</div>
+<p><br></p>
+<p><strong>MEDIAN Example :</strong> Find the median of the heights in the data frame. <br></p>
+<p>If we were going to do this by hand, we would first need to sort the data. We can accompish this using the <strong>sort( )</strong> command. It will sort the list and the default listing is smallest to largest:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(height_and_weight_20<span class="sc">$</span>ht_in)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 64 65 65 65 65 66 66 66 68 68 69 69 69 69 71 71 71 73 73 75</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Because we have an even amount of terms, we would then locate the two middle values and find their average. We have 20 values in this data set, so we are looking at spots 10 and 11.</p>
+<center>
+<span class="math inline">\(64\,\,\, 65\,\,\, 65\,\,\, 65\,\,\, 65\,\,\, 66\,\,\, 66\,\,\, 66\,\,\, 68\,\,\underline{\, 68\,}\,
+\underline{\, 69\,}\,\,
+69\,\,\, 69\,\,\, 69\,\,\, 71\,\,\, 71\,\,\, 71\,\,\, 73\,\,\, 73\,\,\, 75\)</span>
+</center>
+<p><br></p>
+<p>The median is the average of these two values which says the median is <span class="math inline">\(\frac{68+69}{2} = \frac{137}{2} = 68.5\)</span></p>
+<p>We clearly don’t want to do this if we have a large amount of values in the data set. We will use the <strong>median( )</strong> function to help us out.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(height_and_weight_20<span class="sc">$</span>ht_in)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.5</code></pre>
+</div>
+</div>
+</section>
+<section id="what-about-the-mode" class="level3">
+<h3 class="anchored" data-anchor-id="what-about-the-mode">What About The Mode?</h3>
+<p><br> Base R does not have a built-in <strong>mode( )</strong> function. Well, it actually does have a <strong>mode( )</strong> function, but for some reason that function does not return the mode value(s) of a set of numbers. Instead, the <strong>mode( )</strong> function gets or sets the type or storage mode of an object. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(height_and_weight_20<span class="sc">$</span>ht_in)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>This is clearly not what we are looking for. So, how do we find the mode value(s)? Go back to the slides from the lesson to see how we found this.</p>
+</section>
+<section id="quickly-compare-mean-and-median" class="level3">
+<h3 class="anchored" data-anchor-id="quickly-compare-mean-and-median">Quickly Compare Mean And Median</h3>
+<p><br> Now that you know how to calculate the mean and the median, let’s compare these three measures of central tendency. This is a good opportunity to demonstrate some of the different characteristics of each that we spoke about earlier. Try the following code :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_weight    =</span> <span class="fu">min</span>(ht_in),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_weight   =</span> <span class="fu">mean</span>(ht_in),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_weight =</span> <span class="fu">median</span>(ht_in),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_weight    =</span> <span class="fu">max</span>(ht_in)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  min_weight mean_weight median_weight max_weight
+       &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+1         64        68.4          68.5         75</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>This example shows you how you can find the <strong>min( )</strong>, <strong>mean( )</strong>, <strong>median( )</strong>, and <strong>max( )</strong> values in a data set. The <strong>summarise( )</strong> command just prints them out nicely for us as a <span class="math inline">\(1 \times 4\)</span> tibble. <br></p>
+<p>This also allows us to quickly compare the values of the mean and the median. This can sometimes give us hints as to if we have any extreme values (outliers) in our data. If you remember, outiers can really affect the mean. Therefore, if we have a high outlier, it would pull the mean up much more than the median. If we have a low outlier, then the mean would be pulled down much more than the median. <br></p>
+<p>So in the previous example, where the mean is 68.4 and the median is 68.5 then we have one of two options for us:</p>
+<ul>
+<li>There are no outliers in the data set</li>
+<li>There are the same amount of high and low outliers balancing each other out, or perhaps a bi-modal distribution. <br></li>
+</ul>
+<p>This tells us that if the mean and median are not claose to each other, then there are some values that are affecting the mean. These could be outliers or they could be something as mundane as a data entry error. By running these comparisons, we can sometimes notice there is a problem with the data set. <br></p>
+<p>For example, let’s do a quick summary for the weights instead of the heights and examine the output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_weight    =</span> <span class="fu">min</span>(wt_lbs),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_weight   =</span> <span class="fu">mean</span>(wt_lbs),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_weight =</span> <span class="fu">median</span>(wt_lbs),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_weight    =</span> <span class="fu">max</span>(wt_lbs)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  min_weight mean_weight median_weight max_weight
+       &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+1        102       1113.          176.      19000</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Do you see any red flags as you scan the results? Do you really think a mean weight of 1,113 pounds sounds reasonable? This should definitely be a red flag for you. Now move your gaze three columns to the right and notice that the maximum value of weight is 19,000 lbs – an impossible value for a study in human populations. In this case the real weight was supposed to be 190 pounds, but the person entering the data accidently got a little trigger-happy with the zero key. <br></p>
+<p>This is an example of how we can use descriptive analysis to uncover errors in our data. Oftentimes, for various reasons, some observations for a given variable take on values that don’t make sense. Starting by calculating some basic descriptive statistics for each variable is one approach you can use to try to figure out if you have values in your data that don’t make sense. <br></p>
+<p>In this case we can just go back and fix our data, but what if we didn’t know this value was an error? What if it were a value that was technically possible, but very unlikely? Well, we can’t just change values in our data. It’s unethical, and in some cases illegal. Below, we discuss how the properties of the median and mode can come in handy in situations such as this. <br></p>
+</section>
+<section id="properties-of-mean-median-and-mode" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-mean-median-and-mode">Properties of mean, median, and mode</h3>
+<p><br></p>
+<p>Despite the fact that this impossibly extreme value is in our data, the median and mode estimates are reasonable estimates of the typical person’s weight in this sample. This is what is meant when it is said that the median and mode were more “resistant to extreme values” than the mean. <br></p>
+<p>You may also notice that no person in our sample had an actual weight of 1,113 (the mean) or even 176 (the median). This is what I meant above when I said that the mean and median values are “not necessarily observed in the data.” <br></p>
+<p>In this case, the mode value (176) is also a more reasonable estimate of the average person’s weight than the mean. And unlike the mean and the median, participants 18 and 19 actually weigh 176 pounds. I’m not saying that the mode is always the best measure of central tendency to use. However, I am saying that you can often learn useful information from your data by calculating and comparing these relatively simple descriptive statistics on each of your numeric variables.</p>
+</section>
+<section id="missing-data" class="level3">
+<h3 class="anchored" data-anchor-id="missing-data">Missing Data</h3>
+<p>We can use the <strong>dplyr::filter( )</strong> function to remove all the rows from our data frame that contained a missing value for any of our variables of interest. This is called a <strong>complete case analysis</strong>. This method should pretty much always work, but in this section I’m going to show you an alternative method for dropping missing values from your analysis that you are likely to come across often when reading R documentation – the <strong>na.rm</strong> argument. <br></p>
+<p>Many R functions that perform calculations on numerical variables include an <strong>na.rm</strong> – short for <strong>“Remove NA”</strong> – argument. By default, this argument is typically set to FALSE. By passing the value TRUE to this argument, we can perform a complete case analysis. Let’s quickly take a look at how it works. <br></p>
+<p>We already saw that we can calculate the mean value of a numeric vector using the <strong>mean( )</strong> function. For instance, if I wanted to find the average of the three numbers 34, 87, 23, I could create a vector of these three numbers and then put the vector into the <strong>mean( )</strong> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">87</span>, <span class="dv">23</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48</code></pre>
+</div>
+</div>
+<p><br> But what happens when our vector has a missing value?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">87</span>, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p><br> As you can see, the <strong>mean( )</strong> function returns <strong>NA</strong> by default when we pass it a numeric vector that contains a missing value. It took me a little while to wrap my head around why this is the case when I was a student. Perhaps some of you are confused as well. The logic goes something like this. <br></p>
+<p>In R, an <strong>NA</strong> doesn’t represent the absence of a value – a value that doesn’t exist at all; rather, it represents a value that does exist, but is unknown to us. So, if I ask you to tell me the mean of a set of numbers that contains 34, 87, and some unknown number what would your answer be? Well, you can’t just give me the mean of 34 and 87. That would imply that the unknown number doesn’t exist. Further, you can’t really give me any numeric answer because that answer will depend on the value of the missing number. So, the only logical answer to give me is something like “I don’t know” or “it depends.” That is essentially what R is telling us when it returns an <strong>NA</strong>. <br></p>
+<p>While this answer is technically correct, it usually isn’t very satisfying to us. Instead, we often want R to calculate the mean of the numbers that remain after all missing values are removed from the original set. The implicit assumption is that the mean of that reduced set of numbers will be “close enough” to the mean of the original set of numbers for our purposes. We can ask R to do this by changing the value of the <strong>na.rm</strong> argument from <strong>FALSE</strong> – the default – to <strong>TRUE</strong>. <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">87</span>, <span class="cn">NA</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 60.5</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Finally, let’s work with <strong>mutate( )</strong> and <strong>na.rm = TRUE</strong> in a <strong>dplyr</strong> pipeline. We will first use the <strong>replace( )</strong> function to add some missing values to our <strong>height_and_weight_20</strong> data. (Remember to make sure the <strong>dplyr</strong> package is loaded up to use the <strong>mutate( )</strong> and <strong>%&gt;%</strong> commands.) <br></p>
+<p>Note : Here is <a href="https://www.sharpsightlabs.com/blog/mutate-in-r/">more information</a> on the <strong>mutate( )</strong> command. It basically either (a) creates a new variable, which means we are adding a column to the data set or (b) manipulates a current variable, as we see below : <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="ot">&lt;-</span> height_and_weight_20 <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ht_in =</span> <span class="fu">replace</span>(ht_in, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 4
+   id    sex    ht_in wt_lbs
+   &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 001   Male      NA    190
+ 2 002   Male      NA    177
+ 3 003   Female    64    130
+ 4 004   Female    65    153
+ 5 005   &lt;NA&gt;      73    173
+ 6 006   Male      69    182
+ 7 007   Female    68    186
+ 8 008   &lt;NA&gt;      73    185
+ 9 009   Female    71    157
+10 010   Male      66    155
+11 011   Male      71    213
+12 012   Female    69    151
+13 013   Female    66    147
+14 014   Female    68    196
+15 015   Male      75    212
+16 016   Female    69  19000
+17 017   Female    66    194
+18 018   Female    65    176
+19 019   Female    65    176
+20 020   Female    65    102</code></pre>
+</div>
+</div>
+<p><br> Here’s what we did in this command :</p>
+<ul>
+<li>“height_and_weight_20 %&gt;%”
+<ul>
+<li>This says to take the data set and “pipe it” into the next command, which is the <strong>mutate( )</strong> command.</li>
+</ul></li>
+<li>“mutate(ht_in = replace(ht_in, c(1,2), NA)) %&gt;%”
+<ul>
+<li>Since the variable <strong>ht_in</strong> already exists in this data frame, we are <strong>not</strong> going to create a new column (variable)</li>
+<li>We are then going to look at the variable <strong>ht_in</strong>, look at spots 1 (71) and 2 (69), and then replace them with an <strong>NA</strong>.</li>
+</ul></li>
+<li>We then piped this result to the <strong>print( )</strong> command which printed out the modified data set so we could verify the results. We didn’t absolutely need to do this as we could also have examined the variable in the Environment pane on Posit Cloud, but it does look nice to see it.</li>
+<li>“height_and_weight_20 &lt;-”
+<ul>
+<li>This command tells us to store the result <strong>back</strong> in the variable “height_and_weight-20”</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>The height variable now has a couple of <strong>NA</strong> values. What happens if we try to do a quick summary of the variable? <br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_height    =</span> <span class="fu">min</span>(ht_in),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_height   =</span> <span class="fu">mean</span>(ht_in),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_height =</span> <span class="fu">median</span>(ht_in),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_height    =</span> <span class="fu">max</span>(ht_in)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  min_height mean_height median_height max_height
+       &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+1         NA          NA            NA         NA</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Those <strong>NA’s</strong> really messed up our analysis. We can try again, only let’s not include the <strong>NA</strong> values by changing the <strong>na.rm</strong> argument to <strong>TRUE</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>height_and_weight_20 <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_height    =</span> <span class="fu">min</span>(ht_in, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_height   =</span> <span class="fu">mean</span>(ht_in, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_height =</span> <span class="fu">median</span>(ht_in, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_height    =</span> <span class="fu">max</span>(ht_in, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  min_height mean_height median_height max_height
+       &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+1         64        68.2            68         75</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>These are just a few of hte ways we can handle data set swith extreme or missing values. We will delve more into this when we dive deeper into <strong>data cleaning</strong>.</p>
+<p><br> <br> <br> <br> <br></p>
+</section>
+
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,85 @@
+<center>
+
+# Data 1004 - Data Analytics and Statistics {.unnumbered}
+
+## Welcome!
+
+</center>
+
+<br>
+
+Welcome to DATA 1004! This course is designed to introduce you to the world of data analytics and how we can view this field of study through the lens of the liberal arts. <br>
+
+Data analytics is the process of examining data sets in order to draw conclusions about the information they contain. This process involves a variety of techniques and tools, including data mining, machine learning, and statistical analysis. The purpose of studying data analytics is to gain insights from data that can be used to make informed decisions. <br>
+
+In this course, we will explore the fundamentals of data analytics and how it can be applied to a wide range of disciplines. We will learn how to collect, clean, and analyze data, as well as how to visualize and interpret the results. We will also discuss ethical considerations related to data analytics and how to communicate our findings effectively.
+
+In this course we will be using the R programming language to explore data, create visualizations, and perform statistical analysis. R is a powerful tool for data analysis and is widely used in academia, industry, and government. It is open-source and has a large community of users who contribute to its development.
+
+This course is designed for students who are interested in learning about data analytics and how it can be applied to their field of study. Whether you are majoring in the humanities, social sciences, natural sciences, or any other discipline, data analytics can help you gain new insights and make better decisions based on evidence.
+
+This course is different from a typical introductory data science course that one would take at other institutions. Those courses are often focused on teaching students solely about the technical aspects of data science, such as programming and statistical methods. While those are important skills to have, they are not the only skills that we want to prioritize to be successful in the field of data analytics.
+
+In this course, we will take a more holistic approach to data analytics, combining technical skills with critical thinking, problem-solving, and communication skills. We will also explore how data analytics can be used to address real-world problems and make a positive impact on society. We want you to be able to take these skills to see how you can use them to help make you better citizens and professionals to those around you. We want you to consider the ethical implications of data analytics and how we can use data to make the world a better place.
+
+Once you have completed this course, you will have experience in the following areas:
+
+-   Learning how to code using R
+-   Collecting and cleaning data
+-   Learn about different types of variables.
+-   Analyzing data using statistical methods
+-   Creating visualizations to communicate results
+-   Applying data analytics to real-world problems
+-   Communicating findings effectively
+-   Understanding ethical considerations related to data analytics
+-   Collaborating with others to solve problems
+-   Learn how to carry out Elementary Data Analysis
+-   Learn how to create a linear regression model in R
+
+## Data Science and the Liberal Arts
+
+Why is it important to study data analytics through the lens of the liberal arts? It bridges the gap between quantitative analysis and the qualitative insights that are the hallmark of liberal arts education. Here are some key points that highlight its importance:
+
+1.  Interdisciplinary Applications
+
+Data science can be applied across a wide range of disciplines within the liberal arts, including sociology, psychology, political science, economics, history, and more. It provides tools to analyze complex data sets, uncover patterns, and generate insights that can inform and enrich these fields.
+
+2.  Critical Thinking and Problem-Solving
+
+Liberal arts education emphasizes critical thinking and problem-solving skills. Data science enhances these skills by teaching students how to approach problems methodically, use data to support their arguments, and make data-driven decisions.
+
+3.  Data Literacy
+
+In today's data-driven world, data literacy is becoming as important as traditional literacy. Understanding data science equips liberal arts students with the ability to interpret data, understand statistical concepts, and critically evaluate the information presented to them.
+
+4.  Empirical Research
+
+Data science provides powerful tools for conducting empirical research. Liberal arts students can use data analysis techniques to test hypotheses, validate theories, and contribute to academic knowledge in their respective fields.
+
+5.  Ethical Considerations
+
+The liberal arts often emphasize ethical considerations and the impact of decisions on society. Data science intersects with ethics, particularly in areas like data privacy, bias in algorithms, and the use of data for social good. Understanding these ethical implications is crucial for responsible data use.
+
+6.  Communication Skills
+
+Data science involves not only analyzing data but also communicating findings effectively. Liberal arts students, who typically excel in written and verbal communication, can leverage these skills to present data insights in a compelling and understandable manner.
+
+7.  Innovation and Creativity
+
+Liberal arts education fosters creativity and innovation. Data science can benefit from this creative approach, as students can explore novel ways to visualize data, generate hypotheses, and apply data-driven insights to real-world problems.
+
+8.  Career Opportunities
+
+Data science skills are in high demand across various industries. Liberal arts students with data science expertise can pursue diverse career paths, including roles in research, policy analysis, marketing, journalism, and more.
+
+9.  Social Justice and Advocacy
+
+Data science can be a powerful tool for social justice and advocacy. By analyzing data related to social issues, liberal arts students can highlight disparities, inform policy decisions, and advocate for positive change.
+
+10. Personal Empowerment
+
+Understanding data science empowers individuals to make informed decisions in their personal lives, from interpreting health data to making financial choices. It also enables them to engage more critically with information in the media and public discourse.
+
+In summary, data science enriches the liberal arts by providing valuable skills, fostering critical thinking, and enabling interdisciplinary applications. It prepares students to navigate and contribute to a data-driven world while maintaining the ethical and humanistic perspectives central to the liberal arts.
+
+We hope that you will find this course to be a valuable experience and that you will be able to apply the skills you learn to your future studies and career.

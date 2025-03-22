@@ -1,0 +1,448 @@
+---
+title: "Vectors Data Frames Tibbles Assignment"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+## Exercises
+
+In this part of the assignment, you will practice creating different types of vectors in R and using common commands associated with them, such as determining their class. Each problem will involve creating a unique type of vector and performing specific operations.
+
+### Problem 1: Numeric Vector
+
+**Task:** Create a numeric vector containing the first 10 positive integers and determine its class.
+
+**Steps:**
+1. Create a numeric vector `num_vector` containing the numbers 1 to 10.
+2. Determine the class of the vector.
+
+**Code Example:**
+```{r}
+# Create numeric vector
+num_vector <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+# Determine the class of the vector
+class_num_vector <- class(num_vector)
+
+num_vector
+class_num_vector
+```
+
+### Problem 2: Character Vector
+
+**Task:** Create a character vector containing the names of the first five months of the year and determine its class.
+
+**Steps:**
+1. Create a character vector `char_vector` containing the names "January", "February", "March", "April", and "May".
+2. Determine the class of the vector.
+
+**Code Example:**
+```{r}
+# Create character vector
+char_vector <- c("January", "February", "March", "April", "May")
+
+# Determine the class of the vector
+class_char_vector <- class(char_vector)
+
+char_vector
+class_char_vector
+```
+
+### Problem 3: Logical Vector
+
+**Task:** Create a logical vector containing alternating TRUE and FALSE values for a length of 8 and determine its class.
+
+**Steps:**
+1. Create a logical vector `log_vector` with alternating TRUE and FALSE values.
+2. Determine the class of the vector.
+
+**Code Example:**
+```{r}
+# Create logical vector
+log_vector <- c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
+
+# Determine the class of the vector
+class_log_vector <- class(log_vector)
+
+log_vector
+class_log_vector
+```
+
+### Problem 4: Factor Vector
+
+**Task:** Create a factor vector from a character vector containing three levels: "High", "Medium", and "Low", and determine its class.
+
+**Steps:**
+1. Create a character vector `char_levels` with values "High", "Medium", "Low", "High", "Low".
+2. Convert this character vector into a factor vector `fact_vector`.
+3. Determine the class of the factor vector.
+
+**Code Example:**
+```{r}
+# Create character vector with levels
+char_levels <- c("High", "Medium", "Low", "High", "Low")
+
+# Convert to factor vector
+fact_vector <- factor(char_levels, levels = c("Low", "Medium", "High"))
+
+# Determine the class of the factor vector
+class_fact_vector <- class(fact_vector)
+
+fact_vector
+class_fact_vector
+```
+
+### Problem 5: Complex Vector
+
+**Task:** Create a complex vector containing the first four complex numbers with real and imaginary parts, and determine its class.
+
+**Steps:**
+1. Create a complex vector `comp_vector` with values `1+2i`, `3+4i`, `5+6i`, `7+8i`.
+2. Determine the class of the vector.
+
+**Code Example:**
+```{r}
+# Create complex vector
+comp_vector <- c(1+2i, 3+4i, 5+6i, 7+8i)
+
+# Determine the class of the vector
+class_comp_vector <- class(comp_vector)
+
+comp_vector
+class_comp_vector
+```
+
+In this part of the assignment, you will practice creating different types of data frames in R and using common commands associated with them, such as pulling out values, and using `head()` and `tail()` functions. Each problem will involve creating a unique type of data frame and performing specific operations.
+
+### Problem 6: Creating a Data Frame for Students' Scores
+
+**Task:** Create a data frame containing the names and scores of five students in a math test. Use commands to pull out specific values and display the first few rows of the data frame.
+
+**Steps:**
+
+1. Create a data frame `students_df` with columns `Name` and `Score`.
+2. Pull out the score of the student named "Alice".
+3. Display the first three rows of the data frame using `head()`.
+
+**Code Example:**
+
+```{r}
+# Create data frame
+students_df <- data.frame(
+  Name = c("Alice", "Bob", "Charlie", "David", "Eve"),
+  Score = c(85, 90, 78, 92, 88)
+)
+
+# Pull out the score of Alice
+alice_score <- students_df$Score[students_df$Name == "Alice"]
+
+# Display the first three rows of the data frame
+head_students_df <- head(students_df, 3)
+
+students_df
+alice_score
+head_students_df
+```
+
+### Problem 7: Creating a Data Frame for Monthly Expenses
+
+**Task:** Create a data frame containing the monthly expenses for three categories (Rent, Food, Utilities) over six months. Use commands to pull out specific values and display the last few rows of the data frame.
+
+**Steps:**
+
+1. Create a data frame `expenses_df` with columns `Month`, `Rent`, `Food`, and `Utilities`.
+2. Pull out the food expense for the month of March.
+3. Display the last two rows of the data frame using `tail()`.
+
+**Code Example:**
+
+```{r}
+# Create data frame
+expenses_df <- data.frame(
+  Month = c("January", "February", "March", "April", "May", "June"),
+  Rent = c(1000, 1000, 1000, 1000, 1000, 1000),
+  Food = c(300, 320, 310, 330, 340, 350),
+  Utilities = c(150, 160, 155, 165, 170, 175)
+)
+
+# Pull out the food expense for March
+march_food_expense <- expenses_df$Food[expenses_df$Month == "March"]
+
+# Display the last two rows of the data frame
+tail_expenses_df <- tail(expenses_df, 2)
+
+expenses_df
+march_food_expense
+tail_expenses_df
+```
+
+### Problem 8: Creating a Data Frame for Employee Information
+
+**Task:** Create a data frame containing the employee information (ID, Name, Department, Salary). Use commands to pull out specific values and display the first few rows of the data frame.
+
+**Steps:**
+
+1. Create a data frame `employee_df` with columns `ID`, `Name`, `Department`, and `Salary`.
+2. Pull out the department of the employee with ID 3.
+3. Display the first four rows of the data frame using `head()`.
+
+**Code Example:**
+
+```{r}
+# Create data frame
+employee_df <- data.frame(
+  ID = c(1, 2, 3, 4, 5),
+  Name = c("John", "Jane", "Doe", "Smith", "Emily"),
+  Department = c("HR", "Finance", "IT", "Marketing", "Admin"),
+  Salary = c(50000, 60000, 55000, 70000, 65000)
+)
+
+# Pull out the department of the employee with ID 3
+dept_id_3 <- employee_df$Department[employee_df$ID == 3]
+
+# Display the first four rows of the data frame
+head_employee_df <- head(employee_df, 4)
+
+employee_df
+dept_id_3
+head_employee_df
+```
+
+### Problem 9: Creating a Data Frame for Product Sales
+
+**Task:** Create a data frame containing the product sales information (ProductID, ProductName, UnitsSold, Revenue). Use commands to pull out specific values and display the last few rows of the data frame.
+
+**Steps:**
+
+1. Create a data frame `sales_df` with columns `ProductID`, `ProductName`, `UnitsSold`, and `Revenue`.
+2. Pull out the revenue of the product named "Tablet".
+3. Display the last three rows of the data frame using `tail()`.
+
+**Code Example:**
+
+```{r}
+# Create data frame
+sales_df <- data.frame(
+  ProductID = c(101, 102, 103, 104, 105),
+  ProductName = c("Laptop", "Tablet", "Smartphone", "Desktop", "Monitor"),
+  UnitsSold = c(50, 100, 200, 30, 80),
+  Revenue = c(50000, 30000, 40000, 15000, 20000)
+)
+
+# Pull out the revenue of the product named Tablet
+tablet_revenue <- sales_df$Revenue[sales_df$ProductName == "Tablet"]
+
+# Display the last three rows of the data frame
+tail_sales_df <- tail(sales_df, 3)
+
+sales_df
+tablet_revenue
+tail_sales_df
+```
+
+### Problem 10: Creating a Data Frame for Weather Data
+
+**Task:** Create a data frame containing the weather data (Day, Temperature, Humidity, WindSpeed). Use commands to pull out specific values and display the first and last few rows of the data frame.
+
+**Steps:**
+
+1. Create a data frame `weather_df` with columns `Day`, `Temperature`, `Humidity`, and `WindSpeed`.
+2. Pull out the temperature on the 5th day.
+3. Display the first two and last two rows of the data frame using `head()` and `tail()`.
+
+**Code Example:**
+
+```{r}
+# Create data frame
+weather_df <- data.frame(
+  Day = 1:10,
+  Temperature = c(25, 27, 24, 26, 28, 29, 30, 31, 32, 33),
+  Humidity = c(80, 82, 78, 76, 79, 81, 83, 85, 84, 86),
+  WindSpeed = c(10, 12, 11, 13, 14, 15, 16, 17, 18, 19)
+)
+
+# Pull out the temperature on the 5th day
+temp_day_5 <- weather_df$Temperature[weather_df$Day == 5]
+
+# Display the first two rows of the data frame
+head_weather_df <- head(weather_df, 2)
+
+# Display the last two rows of the data frame
+tail_weather_df <- tail(weather_df, 2)
+
+weather_df
+temp_day_5
+head_weather_df
+tail_weather_df
+```
+<br>
+
+In this assignment, you will practice creating different types of tibbles in R and using common commands associated with them, such as creating a tibble, converting a data frame to a tibble, selecting columns, and filtering rows. Each problem will involve creating or manipulating tibbles and performing specific operations.
+
+### Problem 11: Creating a Tibble for Students' Scores
+
+**Task:** Create a tibble containing the names and scores of five students in a math test. Use commands to select specific columns and display the tibble.
+
+**Steps:**
+
+1. Create a tibble `students_tbl` with columns `Name` and `Score`.
+2. Select the `Name` column from the tibble.
+3. Display the entire tibble.
+
+**Code Example:**
+
+```{r}
+# Load the tibble package
+library(tibble)
+
+# Create tibble
+students_tbl <- tibble(
+  Name = c("Alice", "Bob", "Charlie", "David", "Eve"),
+  Score = c(85, 90, 78, 92, 88)
+)
+
+# Select the Name column
+name_column <- select(students_tbl, Name)
+
+# Display the tibble
+students_tbl
+name_column
+```
+
+### Problem 12: Converting a Data Frame to a Tibble for Monthly Expenses
+
+**Task:** Create a data frame containing the monthly expenses for three categories (Rent, Food, Utilities) over six months and convert it to a tibble. Use commands to filter specific rows and display the tibble.
+
+**Steps:**
+
+1. Create a data frame `expenses_df` with columns `Month`, `Rent`, `Food`, and `Utilities`.
+2. Convert the data frame to a tibble `expenses_tbl`.
+3. Filter the tibble to include only the rows where `Rent` is greater than 1000.
+4. Display the entire tibble.
+
+**Code Example:**
+
+```{r}
+# Create data frame
+expenses_df <- data.frame(
+  Month = c("January", "February", "March", "April", "May", "June"),
+  Rent = c(1000, 1000, 1000, 1000, 1000, 1000),
+  Food = c(300, 320, 310, 330, 340, 350),
+  Utilities = c(150, 160, 155, 165, 170, 175)
+)
+
+# Convert data frame to tibble
+expenses_tbl <- as_tibble(expenses_df)
+
+# Filter the tibble
+filtered_expenses_tbl <- filter(expenses_tbl, Rent > 1000)
+
+# Display the tibble
+expenses_tbl
+filtered_expenses_tbl
+```
+
+### Problem 13: Creating a Tibble for Employee Information and Selecting Columns
+
+**Task:** Create a tibble containing the employee information (ID, Name, Department, Salary). Use commands to select specific columns and display the tibble.
+
+**Steps:**
+
+1. Create a tibble `employee_tbl` with columns `ID`, `Name`, `Department`, and `Salary`.
+2. Select the `Name` and `Salary` columns from the tibble.
+3. Display the entire tibble.
+
+**Code Example:**
+
+```{r}
+# Load the tibble package
+library(tibble)
+
+# Create tibble
+employee_tbl <- tibble(
+  ID = c(1, 2, 3, 4, 5),
+  Name = c("John", "Jane", "Doe", "Smith", "Emily"),
+  Department = c("HR", "Finance", "IT", "Marketing", "Admin"),
+  Salary = c(50000, 60000, 55000, 70000, 65000)
+)
+
+# Select the Name and Salary columns
+name_salary_columns <- select(employee_tbl, Name, Salary)
+
+# Display the tibble
+employee_tbl
+name_salary_columns
+```
+
+### Problem 14: Creating a Tibble for Product Sales and Filtering Rows
+
+**Task:** Create a tibble containing the product sales information (ProductID, ProductName, UnitsSold, Revenue). Use commands to filter specific rows and display the tibble.
+
+**Steps:**
+
+1. Create a tibble `sales_tbl` with columns `ProductID`, `ProductName`, `UnitsSold`, and `Revenue`.
+2. Filter the tibble to include only the rows where `UnitsSold` is greater than 50.
+3. Display the entire tibble.
+
+**Code Example:**
+
+```{r}
+# Load the tibble package
+library(tibble)
+
+# Create tibble
+sales_tbl <- tibble(
+  ProductID = c(101, 102, 103, 104, 105),
+  ProductName = c("Laptop", "Tablet", "Smartphone", "Desktop", "Monitor"),
+  UnitsSold = c(50, 100, 200, 30, 80),
+  Revenue = c(50000, 30000, 40000, 15000, 20000)
+)
+
+# Filter the tibble
+filtered_sales_tbl <- filter(sales_tbl, UnitsSold > 50)
+
+# Display the tibble
+sales_tbl
+filtered_sales_tbl
+```
+
+### Problem 15: Creating a Tibble for Weather Data and Using `head()` and `tail()`
+
+**Task:** Create a tibble containing the weather data (Day, Temperature, Humidity, WindSpeed). Use commands to display the first and last few rows of the tibble.
+
+**Steps:**
+
+1. Create a tibble `weather_tbl` with columns `Day`, `Temperature`, `Humidity`, and `WindSpeed`.
+2. Display the first three rows of the tibble using `head()`.
+3. Display the last three rows of the tibble using `tail()`.
+
+**Code Example:**
+
+```{r}
+# Load the tibble package
+library(tibble)
+
+# Create tibble
+weather_tbl <- tibble(
+  Day = 1:10,
+  Temperature = c(25, 27, 24, 26, 28, 29, 30, 31, 32, 33),
+  Humidity = c(80, 82, 78, 76, 79, 81, 83, 85, 84, 86),
+  WindSpeed = c(10, 12, 11, 13, 14, 15, 16, 17, 18, 19)
+)
+
+# Display the first three rows of the tibble
+head_weather_tbl <- head(weather_tbl, 3)
+
+# Display the last three rows of the tibble
+tail_weather_tbl <- tail(weather_tbl, 3)
+
+weather_tbl
+head_weather_tbl
+tail_weather_tbl
+```

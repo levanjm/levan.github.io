@@ -1,0 +1,227 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Individual Lab 3 {.unnumbered}
+
+This lab will review the following concepts:
+
+1.  Reading in a data set
+
+-   Make sure the datasets library is installed and loaded up.
+-   We will be using the "iris" data set.
+
+2.  Use ggplot to create graphs by :
+
+-   Changing aesthetics
+-   Adding labels
+-   Using Facets
+
+3.  Pulling variables from a data set
+4.  Finding the maximum and minimum values of a variable
+5.  Finding the mean and median of the variables.
+6.  Comparing values from the species to the entire data set
+7.  Turning a Data Frame into a Tibble <br>
+
+Step 1 : Install / load the "tidyverse" package
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 2 : Install / load the "datasets" package. Examine the package and determine how many datasets are in the package.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 3 : Copy the dataset "iris" into the variable "iris_data". Print out iris_data to make sure it is correct.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+We will now start to create a plot one step at a time : <br>
+
+Step 4 : Create a graph using Sepal Length as the x axis and Sepal Width as the y axis, but no points are plotted.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 5 : Add the data points using basic dots.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 6 : Differentiate the dots by coloring the by their species.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+We need to start adding labels. <br>
+
+Step 7 : Add the title "Sepal Length vs Sepal Width"
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 8 : Add a subtitle "Wowsers"
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 9 : Add better looking labels on the x and y axis. Rename the x axis "Sepal Length" and the y axis "Sepal Width"
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 10 : Add a caption at the bottom of the graph that says "Source : Iris Data Set"
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 11 : Change the shape of the dots by species
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 12 : Change the size of the dots by Petal Length
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 13 : Create a facet_grid for each species using Species \~ Petal.Length
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 14 : Create a facet wrap. Describe the patterns you see. Is it random? Do the facets follow any kind of a pattern? Linear? Quadratic?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Step 15 : Let's describe each species values by finding the maximum and minimum values of the Sepal Length, Sepal Width, Petal Length, and Petal Width, and the means and medians of each species and comparing that to the mean of the entire data set. <br>
+
+Find the mean and median of the variables using two different techniques : <br>
+
+(a) Pulling out the data from the data set, storing it in a different variable name, and then using the mean command. <br>
+
+Ex : name_1 \<- dataset\[,3\] <br> name_2 \<- mean(name_1)
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+(b) Use the mean and median command directly on the variable in the data set. <br> Ex : name_3 \<- mean(dataset\$variable_name)
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+(c) Compare the means of the species to the mean of the entire data set. Which variables had values above the mean? Which had values below the mean? <br>
+
+For example, did the variable Sepal Length of the species virginica have a value larger or smaller than the Sepal Length of the entire data set?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+(d) Determine the maximum and minimum values for each of the variables for the four species.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Turn the iris_data dataframe into a tibble. Verify your result.
+
+```{r}
+
+# Response
+
+```
+
+<br>

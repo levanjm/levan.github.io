@@ -1,0 +1,149 @@
+---
+title: "Practice Problem"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Homework Assignment: Comparing Quantitative Variables with Linear Models
+
+## Introduction
+
+In this assignment, you will practice comparing two different quantitative continuous variables in a built-in dataset in R. You will create scatterplots with linear models using `ggplot2`, identify any possible outliers, calculate the residuals, make a residual plot, and use the linear model to make three predictions, where one of the values is an example of extrapolation.
+
+## Steps
+
+1. **Create a Scatterplot with Linear Model:**
+   - Use `ggplot2` to create a scatterplot of the two variables.
+   - Add a linear model to the scatterplot using `geom_smooth` with the `lm` method.
+
+2. **Identify Possible Outliers:**
+   - Identify any potential outliers in the scatterplot.
+
+3. **Calculate Residuals:**
+   - Fit a linear model using `lm()`.
+   - Extract the residuals from the model.
+
+4. **Make a Residual Plot:**
+   - Create a residual plot using `ggplot2`.
+
+5. **Make Predictions Using the Linear Model:**
+   - Use the `predict()` function to make three predictions.
+   - Ensure that one of the values used for prediction is an example of extrapolation (a value outside the range of the original data).
+
+## Problem: Cars Dataset - Speed vs Stopping Distance
+
+**Task:** Determine if there is a linear relationship between `speed` and `dist` in the `cars` dataset.
+
+We will first load up the data set and take a look at the first few rows:
+
+```{r}
+# Load ggplot2 and cars dataset
+library(ggplot2)
+data(cars)
+
+head(cars)
+
+min(cars$speed)
+max(cars$speed)
+
+min(cars$dist)
+max(cars$dist)
+```
+
+From the output of `head(cars)`, we can see that the `cars` dataset contains two variables: `speed` and `dist`.
+
+Let's make sure we have an outlier in the data set. We will add one using the
+`rbind( )` function to add a row to the data frame. We will want to add a
+point that is far from the rest of the data. 
+The speed has values that range between 4 - 25 and the stopping distance has
+values that range between 2 - 120.
+
+Let's add a point with a speed
+of 10 and a stopping distance of 200.
+
+
+```{r}
+# Add an outlier to the dataset
+cars_with_outlier <- rbind(cars, data.frame(speed = 10, dist = 200))
+```
+
+Now, we can proceed with the analysis:
+
+```{r}
+
+# Scatterplot with linear model
+ggplot(cars_with_outlier, aes(x = speed, y = dist)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Speed vs Stopping Distance with Linear Model", x = "Speed", y = "Stopping Distance")
+```
+
+From the scatterplot, there is a point that is a clear candidate to be an outlier.
+<br>
+
+At this point we would need to question if we should continue with the analysis or
+remove the outlier. For the sake of this assignment, we will continue with the
+analysis.'
+
+We can create the linear model and store it in a variable called `model_cars`.
+This will allow us to easily see the slope and intercept for the linear model.
+
+```{r}
+# Fit linear model
+model_cars <- lm(dist ~ speed, data = cars_with_outlier)
+
+model_cars
+```
+
+Now that we have the model, we are ready to calculate the residuals and make a residual plot.
+<br> 
+
+We will calculate the residuals and store them in a variable called `residuals_cars`.
+
+```{r}
+# Calculate residuals
+residuals_cars <- resid(model_cars)
+
+residuals_cars
+```
+
+We can now create the residual plot using ``ggplot( )` where we will keep the
+same independent variable `speed` and use the `residuals_cars` as the dependent variable.
+
+```{r}
+# Residual plot
+ggplot(cars_with_outlier, aes(x = speed, y = residuals_cars)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residual Plot of Speed vs Stopping Distance", x = "Speed", y = "Residuals")
+```
+
+Notice that we have a little more evidence that the point we added is an outlier!
+<br>
+
+Finally, we can use the linear model to make predictions. We will use the 
+`predict()` function to make three predictions: one for a speed of 10, 
+one for a speed of 15, and one for a speed of 50 (which is an 
+example of extrapolation).
+<br>
+
+If you recall, we need to use a data frame to make the predictions. We will
+create a data frame with the `speed` values we want to predict.
+<br>
+
+```{r}
+# Make predictions
+predictions <- predict(model_cars, newdata = data.frame(speed = c(10, 15, 50))) # 50 is extrapolated
+predictions
+```
+
+**Explanation:**
+- The correlation value indicates the strength and direction of the linear relationship between Speed and Stopping Distance.
+- The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+- By adding an outlier, you can see how it might influence the linear model.
+- The residual plot helps identify patterns in the residuals, indicating how well the model fits the data.
+- The predictions include an example of extrapolation, demonstrating how the model can be used to predict values outside the range of the original data.

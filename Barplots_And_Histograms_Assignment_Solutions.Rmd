@@ -1,0 +1,78 @@
+---
+title: "Barplots and Histograms Assignment Solutions"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(tidyverse)
+```
+
+# Barplots and Histograms Assignment Solutions
+
+## Overview {.unnumbered}
+
+In this assignment, you will be working with a small dataset and using R to create basic bar plots and histograms. This exercise will help you get familiar with data visualization techniques, which are essential for data analysis and interpretation.
+
+## Skills Checked
+
+1.  **Load the Dataset**: Load the provided dataset into R.
+2.  **Bar Plot**: Create a bar plot to visualize the data.
+3.  **Histogram**: Create a histogram to visualize the data.
+
+## Barplot Dataset 1
+
+You will be using a dataset that contains information about the number of students enrolled in different courses at a university. Copy the following dataset into a CSV file named `courses.csv` and upload it to your working directory.
+
+| Course           | Number of Students |
+|:-----------------|:------------------:|
+| Mathematics      |         45         |
+| Physics          |         30         |
+| Chemistry        |         25         |
+| Biology          |         50         |
+| Computer_Science |         40         |
+| History          |         35         |
+| English          |         20         |
+| Economics        |         30         |
+
+## Instructions
+
+1.  **Load the Dataset**
+    -   Make sure you have the `readr` package installed.
+    -   Use the `read_csv` function to load the dataset from the provided CSV file.
+    -   Store the dataset in a variable called `courses_data`.
+
+```{r message=FALSE, warning=FALSE}
+   # Load the dataset
+   courses_data <- read_csv("./courses.csv")
+```
+
+2.  **Create a Bar Plot**
+    -   Use the `ggplot` function to create a bar plot of the number of students enrolled in each course.
+    -   Label the x-axis as "Courses" and the y-axis as "Number of Students".
+    -   Add a title to the plot: "Number of Students Enrolled in Each Course".
+
+```{r}
+#| code-fold: true
+   # Create a bar plot
+# Create a bar plot using ggplot2
+ggplot(courses_data, aes(x = Course, y = Students)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  xlab("Courses") +
+  ylab("Number of Students") +
+  ggtitle("Number of Students Enrolled in Each Course") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Submission
+
+Submit the R script file containing your code for loading the dataset, creating the bar plot, and creating the histogram. Ensure that your code is well-documented with comments explaining each step.
+
+## Evaluation
+
+Your assignment will be evaluated based on the following criteria: - Correctness of the code - Proper use of R functions for data visualization - Clear and accurate labeling of the plots - Overall presentation and readability of the code
+
+Good luck!

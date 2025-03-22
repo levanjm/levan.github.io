@@ -1,0 +1,198 @@
+---
+title: "Independent And Dependent Variables Assignment"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercises
+
+For each question, identify the independent and dependent variables, 
+and determine if there are any causal relationships, confounding variables, 
+or common responses. Provide explanations for your answers.
+
+### Question 1
+
+A researcher is studying the effect of fertilizer on plant growth. They apply different amounts of fertilizer to different plants and measure their growth after a month.
+<br>
+
+1. Identify the independent variable.
+2. Identify the dependent variable.
+
+Answer:
+
+1. Independent Variable: Amount of fertilizer applied.
+   - Explanation: The researcher manipulates the amount of fertilizer to observe its effect on plant growth.
+   
+2. Dependent Variable: Plant growth (measured after a month).
+   - Explanation: The plant growth is measured to see how it changes in response to different amounts of fertilizer.
+
+### Question 2
+
+Scenario: A study is conducted to examine the relationship between the number of hours studied and the scores on a math test.
+
+1. Identify the independent variable.
+2. Identify the dependent variable.
+
+Answer:
+
+1. Independent Variable: Number of hours studied.
+   - Explanation: The number of hours studied is varied to observe its impact on test scores.
+<br>
+
+2. Dependent Variable: Scores on the math test.
+   - Explanation: The test scores are measured to see how they change with different study durations.
+
+### Question 3
+
+Scenario: A scientist is investigating the effect of temperature on the rate of a chemical reaction. They conduct the experiment at different temperatures and record the reaction rate.
+
+1. Identify the independent variable.
+2. Identify the dependent variable.
+
+Answer:
+
+1. Independent Variable: Temperature.
+   - Explanation: The scientist changes the temperature to see its effect on the reaction rate.
+   
+2. Dependent Variable: Reaction rate.
+   - Explanation: The reaction rate is measured to determine how it varies with temperature.
+
+### Question 4
+
+Scenario: A researcher is examining the relationship between physical activity and weight loss in a group of people. They track the amount of physical activity and the weight loss of each individual over six months.
+
+1. Identify the independent variable.
+2. Identify the dependent variable.
+
+Answer:
+
+1. Independent Variable: Amount of physical activity.
+   - Explanation: The amount of physical activity is observed to see its effect on weight loss.
+   
+2. Dependent Variable: Weight loss.
+   - Explanation: The weight loss is measured to see how it changes with different levels of physical activity.
+
+### Question 5
+
+Scenario: A study is conducted to determine if there is a relationship between smoking and lung cancer. The researchers collect data on smoking habits and lung cancer diagnoses.
+
+1. Identify the independent variable.
+
+2. Identify the dependent variable.
+
+3. Determine if there is a potential causal relationship, and if confounding variables might be present.
+
+Answer:
+
+1. Independent Variable: Smoking habits.
+   - Explanation: The smoking habits are observed to see if they are related to lung cancer.
+   
+2. Dependent Variable: Lung cancer diagnoses.
+   - Explanation: The diagnoses of lung cancer are measured to see if they are related to smoking habits.
+   
+3. Causal Relationship: There is a potential causal relationship between smoking and lung cancer.
+   - Explanation: Smoking is known to cause lung cancer, but other factors (confounding variables) such as genetics and environmental exposure might also influence the relationship.
+
+### Question 6
+
+Scenario: A researcher is studying the effect of a new drug on blood pressure. They administer the drug to one group and a placebo to another group, then measure the blood pressure of both groups.
+
+1. Identify the independent variable.
+2. Identify the dependent variable.
+3. Determine if there is a potential causal relationship and if any confounding variables need to be controlled.
+
+Answer:
+
+1. Independent Variable: Administration of the new drug or placebo.
+   - Explanation: The researcher controls who receives the drug and who receives the placebo.
+   
+2. Dependent Variable: Blood pressure.
+   - Explanation: The blood pressure is measured to see how it changes in response to the drug or placebo.
+   
+3. Causal Relationship: There is a potential causal relationship between the drug and blood pressure.
+   - Explanation: The drug might cause changes in blood pressure, but other factors such as diet and stress levels (confounding variables) should be controlled to ensure accurate results.
+
+### Question 7
+
+Scenario: A study is conducted to examine the relationship between income level and educational attainment. Researchers collect data on individuals' income and their highest level of education completed.
+
+1. Identify the independent variable.
+2. Identify the dependent variable.
+3. Determine if there is a potential common response variable that might influence both income and educational attainment.
+
+Answer:
+
+1. Independent Variable: Income level.
+   - Explanation: The income level is observed to see if it is related to educational attainment.
+   
+2. Dependent Variable: Educational attainment.
+   - Explanation: The educational attainment is measured to see if it is related to income level.
+   
+3. Common Response: Socioeconomic status could be a common response variable.
+   - Explanation: Socioeconomic status might influence both income level and educational attainment, creating a relationship between the two.
+
+### Question 8
+
+Scenario: A researcher is investigating the effect of diet on cholesterol levels. They put participants on different diets and measure their cholesterol levels after three months.
+
+1. Identify the independent variable.
+2. Identify the dependent variable.
+3. Determine if there is a potential causal relationship and if any confounding variables need to be controlled.
+
+Answer:
+
+1. Independent Variable: Type of diet.
+   - Explanation: The researcher controls the type of diet that participants follow.
+   
+2. Dependent Variable: Cholesterol levels.
+   - Explanation: The cholesterol levels are measured to see how they change with different diets.
+   
+3. Causal Relationship: There is a potential causal relationship between diet and cholesterol levels.
+   - Explanation: Diet might cause changes in cholesterol levels, but factors such as age and physical activity (confounding variables) should be controlled to ensure accurate results.
+
+### Question 9
+
+Scenario: A study is conducted to determine if there is a relationship between exercise frequency and mental health. Researchers collect data on how often participants exercise and their mental health status.
+
+1. Identify the independent variable.
+2. Identify the dependent variable.
+3. Determine if there is a potential causal relationship and if any confounding variables might be present.
+
+Answer:
+
+1. Independent Variable: Exercise frequency.
+   - Explanation: The exercise frequency is observed to see if it is related to mental health.
+   
+2. Dependent Variable: Mental health status.
+   - Explanation: The mental health status is measured to see if it is related to exercise frequency.
+   
+3. Causal Relationship: There is a potential causal relationship between exercise frequency and mental health.
+   - Explanation: Exercise might improve mental health, but factors such as stress levels and social support (confounding variables) should be considered.
+
+### Question 10
+
+Scenario: A researcher is studying the effect of class size on student performance. They collect data on the number of students in a class and the average test scores of the students.
+
+1. Identify the independent variable.
+2. Identify the dependent variable.
+3. Determine if there is a potential causal relationship and if any confounding variables might be present.
+
+Answer:
+
+1. Independent Variable: Class size.
+   - Explanation: The number of students in a class is observed to see its effect on student performance.
+   
+2. Dependent Variable: Average test scores.
+   - Explanation: The average test scores are measured to see how they vary with class size.
+   
+3. Causal Relationship: There is a potential causal relationship between class size and student performance.
+   - Explanation: Smaller class sizes might lead to better student performance, but factors such as teaching quality and student socio-economic status (confounding variables) should be considered.
+
+<br><br><br>

@@ -1,0 +1,66 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Individual Lab 5  {.unnumbered}
+
+## Correlation and Regression Lines  
+
+**Instructions** : You have been hired as a data analyst for the 2024 WNBA champion New York Liberty. The first task that you are being assigned is to try to determine what the team needs to improve in order to increase the number of wins from last season. Some people might think that points scored should obviously be the statistics that determines if a team is going to win, but is that true? In the past season the Liberty were second in the league in points scored, but is that what really helped them win games? Was it something on defense that helped more than points scored? <br>
+
+Your task is to investigate team statistics from the 2023 - 2024 season and try to determine which variables affect a team’s winning percentage (found <a href="https://www.espn.com/wnba/standings">here</a>). You can find team statistics <a href="https://www.espn.com/wnba/stats/team">here</a>. <br>
+
+This site has team offensive (Team) and defensive (Opponent) statistics. You are to analyze which of these statistics would be a good predictor for winning percentage (or games won). <br>
+
+This could lead to good information for the front office. For example, if you discover that the percentage of 3-pointers made is a good indicator for winning percentage that tells us that we need to go out and get players that can make these shots. Perhaps your analysis would say that defensive rebounds is a good indicator for winning percentage, in which case we would want to go out and sign a free agent that has good rebounding statistics. <br>
+
+You are being asked to complete the following : <br>
+
+1.  Download the statistics into a Google Sheet. You can find them under the FILES section on Canvas called, “2024 WNBA Stats.csv”
+
+2.  Export the Google Sheet as a Comma-Separated Values (csv) file and upload it to Posit Cloud.
+
+3.  Load the data into the variable “df”. Check to make sure that the data is loaded properly.
+
+4.  Construct a scatterplot comparing the variable **Win Percentage** to **Free Throws Made by the Opponent**. Describe the scatterplot, find the correlation between the two variables and explain what the data is implying.
+
+5.  The command `cor(DATAFRAME_NAME)` will return a table with all of the variables correlated against each other. However, what happens when you run the command `cor(df)` ? What is the error message and what could be the problem?
+
+6.  If we want to calculate several correlations at the same time, we will need to remove the column with Team names. Create a new variable called **df2** that will have this column removed. Check and verify that the new variable is correct.
+
+7.  We can now run the command `cor(df2)`. Do this and save the result to the variable **cor_values**.
+
+8.  Referring back to the script we used in class when talking about **Advanced Correlation Techniques.R**
+
+-   Install and load the package `PerformanceAnalytics`.
+-   Run the command `chart.Correlation(df2, histogram=TRUE, pch=19)`
+    -   Note this may take 10 - 15 seconds, so be patient!
+-   Is this information useful? Why or why not?
+
+9.  Again referring back to the script, install and load the package `corrplot`. This is a different command that we can use to plot the correlations. Carry out this command by typing, `corrplot(cor(df2))`
+
+-   Explain the information given to you in this plot.
+-   Is this more useful than the previous plot? Explain.
+-   Using this plot, see if you can determine three variables that have a high positive and high negative correlation. What are the variables? Note that this does not give the values.
+
+10. For our last visualization, refer one final time to the script and use `ggcorrplot` as follows:
+
+``` r
+
+ggcorrplt(cor(df2)) +
+  geom_text( aes(Var2, Var1, label = value), color="white", size=2)
+  
+```
+
+<br> Note that the size of the text is 2 to make it easier to read. You may want to zoom in on the values.
+
+11. We can now see which values we should use for our analysis. It is probably clear that Points Scored by our team, Field Goals Made for our team, and Field Goals Percentage are obviously going to affect the Winning Percentage. We want to dig deeper than the obvious choices. Without using these three, find the three variables with the strongest positive and negative correlations, when compared to Winning Percentage. What are they? What are their values?
+
+12. What are the two variables that affect the winning percentage the least?
+
+13. For each of these variables, examine scatterplots, residual plots, correlation, and regression lines. Make predictions on what could happen to the winning percentage if these explanatory values go up or down. How far would they have to increase or decrease to make a significant change to the winning percentage.
+
+14. If you were going to report to the GM, what attributes they should look for in players to sign to the team to improve winning percentage, as well as those that should not affect winning percentage. Explain to them the information that you found.
+
+15. Share your report with me via Google Docs or however the GM requests.

@@ -1,0 +1,148 @@
+# Reading and Interpreting Tables Assignment {.unnumbered}
+
+1.  Install and attch the library for the package **"vcd"**.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+2.  Do a Google search to describe what we are getting when we load the **vcd** library.
+
+```{r}
+
+# Put response in comments
+
+```
+
+<br>
+
+3.  Describe what is in this data set (with **View(Arthritis)** ) and explain the variables and factors of each variable.
+
+```{r}
+
+# Response
+
+
+```
+
+<br>
+
+4.  Show what is in the 1st to the 17th rows of the frame “Arthritis”
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+5.  Show rows 28 to 42 and only columns 2 and 5 of the frame “Arthritis”
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+6.  Show patient ID’s 1, 15, 42, and 81 and only the “Treatment” and “Improved” columns of the frame “Arthritis” using a single command. <br>
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+7.  Show the summary information for “Arthritis”
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+8.  Show the values of the “Treatment” column for “Arthritis”
+
+```{r}
+
+# Response
+```
+
+<br>
+
+9.  Show the levels of the “Treatment” column for “Arthritis”. (Hint : **levels** command…..)
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+10. Use the **length( )** function to find the number of patients in “Arthritis”
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+11. Use the **table( )** function to display the tabulated results for the “Improved” column of “Arthritis” (Note the **summary( )** function does the same thing). Put the result in the variable **“ImprovedTable”**.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+12. Use the **prop.table( )** function on **ImprovedTable** to get a table of proportions
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+13. Use the **xtabs( )** function to cross-tabulate “Treatment” versus “Improved” in the “Arthritis” data frame. Call the result **“Treat.Improv”**.
+
+```{r}
+
+
+# Response
+
+```
+
+<br> 14. Add marginal sums to the table using the **addmargins( )** function.
+
+```{r}
+
+# Response
+
+```
+
+<br> 15. Create 3 tables of proportions: proportion of **total**, proportion of **row sum**, and proportion of **column sum**. Call the 3 tables: **P.Table1**, **P.Table2**, and **P.Table3**
+
+```{r}
+
+# Response
+
+```
+
+<br> <br> <br>

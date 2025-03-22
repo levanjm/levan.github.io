@@ -1,0 +1,253 @@
+---
+title: "dplyr and Piping Assignment"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+## Exercises
+
+**Instructions:** Solve each of the following problems using the commands 
+we saw earlier from the dplyr package : 
+
+-   chaining operations with the `%>%` (piping) operator
+-   `filter()`: Filter rows based on conditions
+-   `mutate()`: Create new columns
+-   `select()`: Select columns
+-   `arrange()`: Arrange rows
+-   `group_by()`: Group data
+-   `summarize()`: Summarize data
+
+Each of the solutions should be one piped command. Some may be a single
+pipe  while others may take multiple pipes. 
+
+### Problem 1: Filtering Rows
+Use the `mtcars` dataset to filter the rows where the `mpg` (miles per gallon) is greater than 20.
+Save the result to `filtered_mtcars`.
+
+```{r}
+# Solution
+
+# If needed, load up dplyr
+
+# library(dplyr)
+
+filtered_mtcars <- mtcars %>%
+  filter(mpg > 20)
+
+filtered_mtcars
+```
+
+### Problem 2: Selecting Columns
+Use the `mtcars` dataset to select the columns `mpg`, `cyl`, and `hp`. Save the 
+result to `selected_mtcars`.
+
+```{r}
+
+# Solution
+
+selected_mtcars <- mtcars %>%
+  select(mpg, cyl, hp)
+
+selected_mtcars
+```
+
+### Problem 3: Arranging Rows
+Use the `mtcars` dataset to arrange the rows in descending order of `hp` (horsepower).
+Save the result to `arranged_mtcars`.
+
+```{r}
+
+# Solution
+
+arranged_mtcars <- mtcars %>%
+  arrange(desc(hp))
+
+arranged_mtcars
+```
+
+### Problem 4: Creating New Columns
+Use the `mtcars` dataset to create a new column `power_to_weight` which is the ratio of `hp` (horsepower) to `wt` (weight).
+Save the result to `mutated_mtcars`.
+
+```{r}
+
+# Solution
+
+mutated_mtcars <- mtcars %>%
+  mutate(power_to_weight = hp / wt)
+
+mutated_mtcars
+```
+
+### Problem 5: Summarizing Data
+Use the `mtcars` dataset to calculate the mean `mpg` (miles per gallon).
+Save the result to `summary_mtcars`.
+
+```{r}
+
+# Solution
+
+summary_mtcars <- mtcars %>%
+  summarise(mean_mpg = mean(mpg))
+
+summary_mtcars
+```
+
+### Problem 6: Grouping and Summarizing Data
+Use the `mtcars` dataset to calculate the mean `mpg` (miles per gallon) for each number of cylinders (`cyl`).
+Save the result to `grouped_summary_mtcars`.
+
+```{r}
+
+# Solution
+
+grouped_summary_mtcars <- mtcars %>%
+  group_by(cyl) %>%
+  summarise(mean_mpg = mean(mpg))
+
+grouped_summary_mtcars
+```
+
+### Problem 7: Filtering, Selecting, and Arranging
+Use the `mtcars` dataset to filter the rows where `mpg` is greater than 20, select the columns `mpg` and `hp`, and arrange the rows in ascending order of `hp`. Save the result to `filtered_selected_arranged_mtcars`.
+
+```{r}
+# Solution
+
+filtered_selected_arranged_mtcars <- mtcars %>%
+  filter(mpg > 20) %>%
+  select(mpg, hp) %>%
+  arrange(hp)
+
+filtered_selected_arranged_mtcars
+```
+
+### Problem 8: Creating Multiple New Columns
+Use the `mtcars` dataset to create two new columns: `power_to_weight` (ratio of `hp` to `wt`) and `mpg_per_cyl` (ratio of `mpg` to `cyl`).
+Save the result to `mutated_mtcars`.
+
+```{r}
+# Solution
+
+mutated_mtcars <- mtcars %>%
+  mutate(power_to_weight = hp / wt,
+         mpg_per_cyl = mpg / cyl)
+
+mutated_mtcars
+```
+
+### Problem 9: Counting Rows
+Use the `mtcars` dataset to count the number of cars for each number of cylinders (`cyl`). 
+Save the result to `counted_mtcars`.
+
+```{r}
+
+# Solution
+
+counted_mtcars <- mtcars %>%
+  count(cyl)
+
+counted_mtcars
+```
+
+### Problem 10: Filtering and Summarizing
+Use the `airquality` dataset to filter the rows where `Month` is 5 (May), and calculate the mean `Temp` (temperature).
+Save the result to `filtered_summary_airquality`.
+
+
+```{r}
+
+# Solution
+
+data("airquality")
+
+filtered_summary_airquality <- airquality %>%
+  filter(Month == 5) %>%
+  summarise(mean_temp = mean(Temp, na.rm = TRUE))
+
+filtered_summary_airquality
+```
+
+### Problem 11: Grouping and Creating New Columns
+Use the `airquality` dataset to group the data by `Month` and create a new column `mean_temp` which is the mean `Temp` (temperature) for each month. Save the result to `grouped_mutated_airquality`. 
+
+```{r}
+
+# Solution
+
+grouped_mutated_airquality <- airquality %>%
+  group_by(Month) %>%
+  mutate(mean_temp = mean(Temp, na.rm = TRUE))
+
+grouped_mutated_airquality
+```
+
+### Problem 12: Filtering, Grouping, and Summarizing
+Use the `airquality` dataset to filter the rows where `Temp` is greater than 80, group by `Month`, and calculate the mean `Ozone` level for each month. Save the result to `filtered_grouped_summary_airquality`.
+
+```{r}
+
+# Solution
+
+filtered_grouped_summary_airquality <- airquality %>%
+  filter(Temp > 80) %>%
+  group_by(Month) %>%
+  summarise(mean_ozone = mean(Ozone, na.rm = TRUE))
+
+filtered_grouped_summary_airquality
+```
+
+### Problem 13: Selecting and Summarizing
+Use the `trees` dataset to select the `Height` and `Volume` columns and calculate the mean `Height` and `Volume`.
+Save the result to `selected_summary_trees`.
+
+```{r}
+
+# Solution
+
+data("trees")
+
+selected_summary_trees <- trees %>%
+  select(Height, Volume) %>%
+  summarise(mean_height = mean(Height),
+            mean_volume = mean(Volume))
+
+selected_summary_trees
+```
+
+### Problem 14: Filtering, Mutating, and Arranging
+Use the `trees` dataset to filter the rows where `Height` is greater than 75, create a new column `volume_to_height` which is the ratio of `Volume` to `Height`, and arrange the rows in descending order of `volume_to_height`. Save the result to `filtered_mutated_arranged_trees`.
+
+```{r}
+# Solution
+
+filtered_mutated_arranged_trees <- trees %>%
+  filter(Height > 75) %>%
+  mutate(volume_to_height = Volume / Height) %>%
+  arrange(desc(volume_to_height))
+
+filtered_mutated_arranged_trees
+```
+
+### Problem 15: Combining Multiple Steps
+Use the `trees` dataset to filter the rows where `Height` is greater than 70, select the `Height` and `Volume` columns, create a new column `volume_to_height` which is the ratio of `Volume` to `Height`, and calculate the mean `volume_to_height`.
+Save the result to `combined_trees`.
+
+```{r}
+
+# Solution
+
+combined_trees <- trees %>%
+  filter(Height > 70) %>%
+  select(Height, Volume) %>%
+  mutate(volume_to_height = Volume / Height) %>%
+  summarise(mean_volume_to_height = mean(volume_to_height))
+combined_trees
+
+```

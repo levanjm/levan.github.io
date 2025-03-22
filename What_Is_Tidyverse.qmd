@@ -1,0 +1,205 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<center>
+
+<html>
+
+<head>
+
+<title>Table with Column Span</title>
+<center>
+<html>
+<head>
+    <title>Table with Column Span</title>
+    <style>
+        table {
+            width: 6in;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        .col1 {
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td class="col1">![](./images/WIT_2.jpg){width="100%"}</td>
+            <td rowspan="2">The tidyverse is a collection of R packages 
+            that share an underlying design philosophy, grammar, and data 
+            structures. The tidyverse is designed to make data science 
+            faster, easier, and more fun!
+            <br><br><br>
+            https://www.tidyverse.org</td>
+        </tr>
+        <tr>
+            <td class="col1">![](./images/WIT_1.jpg){width="100%"}</td>
+        </tr>
+    </table>
+</body>
+</html>
+</center>
+
+</center>
+<!--
+Here is the table and graphic in case the code gets messed up again :
+
+<center>
+<html>
+<head>
+    <title>Table with Column Span</title>
+    <style>
+        table {
+            width: 6in;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        .col1 {
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td class="col1">![](./images/WIT_2.jpg){width="100%"}</td>
+            <td rowspan="2">The tidyverse is a collection of R packages 
+            that share an underlying design philosophy, grammar, and data 
+            structures. The tidyverse is designed to make data science 
+            faster, easier, and more fun!
+            <br><br><br>
+            https://www.tidyverse.org</td>
+        </tr>
+        <tr>
+            <td class="col1">![](./images/WIT_1.jpg){width="100%"}</td>
+        </tr>
+    </table>
+</body>
+</html>
+</center>
+</center>
+
+-->
+
+## What Is Tidyverse {.unnumbered}
+
+<br>
+
+Tidyverse is a very important package that contains several other packages that are used for data manipulation and visualization. This provides a consistent, efficient, and user-friendly framework for data manipulation, visualization, and analysis. Here are some key reasons why learning the tidyverse is beneficial:
+
+1.  **Unified and Consistent Approach :** The tidyverse is a collection of R packages (e.g., ggplot2, dplyr, tidyr, readr, purrr, tibble) that follow a consistent syntax and philosophy. Functions work seamlessly together, reducing the learning curve compared to working with disparate R packages.
+
+2.  **Data Wrangling Made Easy :** dplyr provides intuitive functions like filter(), mutate(), select(), and group_by() to transform and manipulate data efficiently. tidyr helps reshape and clean messy data using functions like pivot_longer(), pivot_wider(), and separate().
+
+3.  **Powerful Data Visualization :** ggplot2 is one of the most popular visualization tools, allowing you to create elegant, customizable plots using a layered grammar of graphics. ggplot2 makes it easy to create complex visualizations with minimal code.
+
+4.  **Efficient Data Import & Export :** readr enables fast reading and writing of CSV, Excel, and other data formats without unnecessary conversions.
+
+5.  **Functional Programming with Purrr :** purrr provides functions like map() to perform operations on lists and apply functions efficiently.
+
+6.  **Reproducibility and Readability :** The pipe operator (%\>%) makes code more readable by allowing operations to be chained together in a logical sequence. Code written using the tidyverse is often easier to understand and reproduce.
+
+7.  **Wide Adoption and Strong Community Support :** The tidyverse is widely used in academia, research, and industry, with extensive documentation and community support. <br>
+
+By mastering the tidyverse, you can streamline your data science workflow, making data manipulation, visualization, and analysis more intuitive and efficient. <br>
+
+------------------------------------------------------------------------
+
+As we go through this course, you will use several of these packages many times. Here is a list of the four main tidyverse packages we will be using in this course:
+
+### readr
+
+The `readr( )` package makes it easy to read in files that contain data. It can read in files that are in CSV, TSV, XLS, and other formats. While there are built in base commands that can do this, the readr package is faster and more consistent.
+
+### tibble
+
+The tibble package is a modern version of the data.frame. Tibbles are easier to read and work with than data.frames. Tibbles also have an enhanced `print( )` method which makes them easier to use with large datasets containing complex objects. <br>
+
+We will use the tibble package to create data frames as we learn to read in data.
+
+### dplyr
+
+The dplyr package is a grammar of data manipulation. The dplyr package makes it easy to analyse data using commands such as `filter( )`, `select( )`, `mutate( )`, `arrange( )`, and `summarize( )`.
+
+We will use the dplyr package to manipulate data frames as we learn to clean data.
+
+### ggplot2
+
+The `ggplot2( )` package is a grammar of graphics. The ggplot2 package makes it easy to create beautiful and informative plots. This will be the primary method we will use to create vizualizations in this course. <br>
+
+We will go over several different types of plots that can be created using ggplot2. <br>
+
+------------------------------------------------------------------------
+
+Here are some other tidyverse packages that are not as commonly used in this course, but are still very important to know: <br>
+
+### tidyr
+
+The tidyr package makes it easy to tidy data. The tidyr package makes it easy to convert data from wide to long format. <br>
+
+This type of data cleaning will not be used as much in this course, but it is a very important concept to understand and is addressed in a more advanced course.
+
+### broom
+
+The broom package makes it easy to work with statistical models. The broom package makes it easy to tidy up the output of statistical models. <br>
+
+We will revisit this package when we delve into modelling a data set.
+
+### purrr
+
+The purrr package is a functional programming toolkit. The purrr package makes it easy to work with lists and vectors.
+
+### stringr
+
+The stringr package makes it easy to work with strings. The stringr package makes it easy to manipulate strings.
+
+### forcats
+
+The forcats package makes it easy to work with factors. The forcats package makes it easy to manipulate factors.
+
+### lubridate
+
+The lubridate package makes it easy to work with dates and times. The lubridate package makes it easy to manipulate dates and times. <br>
+
+------------------------------------------------------------------------
+
+### Installation
+
+To install the tidyverse package, you can use the following command:
+
+```{r}
+
+# If needed, you can install tidyverse by using the following command:
+
+# install.packages("tidyverse")
+
+# Once the package is installed, you can load it up using the library command:
+
+library(tidyverse)
+
+```
+
+<br>
+
+You can see that we now have access to the packages that we described above and by looking at the `Packages` tab in RStudio. You can see that the tidyverse package is loaded up and ready to use.
+
+### Conclusion
+
+This is one of the more important packages to get to know if you want to become a data scientist. This package is constantly being updated and improved, so it is important to stay up to date with the latest changes. <br>
+
+You can find the latest updates and information on the tidyverse website: <br>
+
+<center>https://www.tidyverse.org</center>
+
+<br><br><br><br>

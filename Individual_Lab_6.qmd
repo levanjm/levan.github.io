@@ -1,0 +1,367 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Individual Lab 6 {.unnumbered}
+
+## Data Cleaning
+
+**Instructions :** In this lab we are going to work on how to properly clean a data set. There are some very advanced techniques one can use to clean a data set. However, we are just getting started so we will be looking at some of the basic ideas to think about when confronted with a data set that is “dirty.” We will cover the following topics in this lesson :
+
+-   Skill 1: Modify Column Names
+-   Skill 2: Format Missing Values
+-   Skill 3: Remove Empty Rows & Columns
+-   Skill 4: Remove Rows with Missing Values
+-   Skill 5: Remove Duplicates
+-   Skill 6: Modify Classes of Columns
+-   Skill 7: Detect & Remove Outliers
+-   Skill 8: Remove Spaces in Character Strings
+-   Skill 9: Combine Categories
+
+We will also be using a few commands that we have not gone over in class. Please make sure to read about these commands so you know what they are supposed to do for you. Don’t just type in a command without knowing and thinking about what is supposed to happen. <br>
+
+Your job is to follow along and enter in the commands as shown. Please go slow and write out any questions or notes as you need them. <br>
+
+First, let’s create a data set to clean up. Enter this in EXACTLY to make sure you get the same results as my code. Cutting and pasting this is probably easiest :
+
+```{r}
+# Create example data frame
+
+data <- data.frame(x1 = c(1:4, 99999, 1, NA, 1, 1, NA),
+                   x1 = c(1:5, 1, "NA", 1, 1, "NA"),
+                   x1 = c(letters[c(1:3)], "x x", "x"," y y y", "x", "a", "a", NA),
+                   x4 = "",
+                   x5 = NA)
+# Print example data frame
+
+data
+
+```
+
+<br>
+
+## Skill 1 - Modify Column Names
+
+You can examine the names of the columns using the `colnames( )` command :
+
+```{r}
+
+# Examine column names
+
+colnames(data)
+
+```
+
+<br> Let’s assume that we want to change these column names to a consecutive range with the prefix “col”. In other words, col1, col2, col3, col4, and col5. Then, we can apply the `colnames`, `paste0`, and `ncol` functions as shown below: <br>
+
+```{r}
+
+# Modify column names
+
+colnames(data) <- paste0("col", 1:ncol(data))
+
+# Print the updated data frame
+
+data
+```
+
+<br>
+
+As yo ucan see above, he previous syntax has created an updated version of our data frame where the column names have been changed.
+
+## Skill 2 - Format Missing Values
+
+A typical problem for each data preparation and cleaning task are missing values. <br>
+
+In the R programming language, missing values are usually represented by NA. For that reason, it is useful to convert all missing values to this NA format. <br>
+
+In our specific example data frame, we have the problem that some missing values are represented by blank character strings. <br>
+
+We can print all those blanks to the RStudio console as shown below:
+
+```{r}
+
+# Print all blank character strings
+
+data[data == ""]
+
+```
+
+<br>
+
+If we want to assign NA values to those blank cells, we can use the following syntax:
+
+```{r}
+
+# Format missing values by replacing blank character strings with NA
+
+data[data == ""] <- NA
+
+# Print the updated data frame
+
+data
+
+```
+
+<br>
+
+Another typical problem with missing values – that also occurs in our data set – is that NA values are formatted as the character string “NA”. <br>
+
+Let’s have a closer look at the column col2: <br>
+
+```{r}
+
+# Print all cells of column col2
+
+data$col2
+
+```
+
+<br>
+
+As you can see in the previous output, the NA values in this column are shown between quotes (i.e. “NA”). This indicates that those NA values are formatted as characters instead of real NA values. <br>
+
+We can change that using the following R code:
+
+```{r}
+
+# Format missing values by replacing "NA" character strings with NA
+
+data$col2[data$col2 == "NA"] <- NA
+
+# Print the updated data frame
+
+data
+
+```
+
+<br>
+
+Note that the NA in columns 1 and 5 are different than the ones in columns 2, 3, and 4. Why do you think that is?
+
+## Skill 3 - Remove Empty Rows & Columns
+
+Example 3 demonstrates how to identify and delete rows and columns that contain only missing values. <br>
+
+On a side note: Example 2 was also important for this step, since the false formatted NA values would not have been recognized by the following R code. <br>
+
+The syntax below demonstrates how to use the `rowSums`, `is.na`, and `ncol` functions to remove only-NA rows:
+
+```{r}
+
+# Remove rows with only missing values
+
+data <- data[rowSums(is.na(data)) != ncol(data), ]
+
+# Print the updated data frame
+
+data
+
+```
+
+<br>
+
+Comparing the latest table with the previous one, you can see that the rows with only missing values have been removed. In other words, the last row in the previous example has been deleted. <br>
+
+Similar to that, we can also exclude columns that contain only NA values:
+
+```{r}
+
+# Remove columns with only missing values
+
+data <- data[, colSums(is.na(data)) != nrow(data)]
+
+# Print the updated data frame
+
+data
+
+```
+
+<br>
+
+This command removed columns 4 and 5, leaving us with only the first three columns.
+
+## Skill 4 - Remove Rows with Missing Values
+
+As you can see in the previously shown table, our data still contains some NA values in the 7th row of the data frame. <br>
+
+In this example, I’ll explain how to delete all rows with at least one NA value. <br>
+
+This method is called listwise deletion or complete cases analysis, and it **should be done with care**! Statistical bias might be introduced to your results, if data is removed without theoretical justification. <br>
+
+However, in case you have decided to remove all rows with one or more NA values, you may use the na.omit function as shown below:
+
+```{r}
+
+# Remove rows with missing values
+
+data <- na.omit(data)
+
+# Print the updated data frame
+
+data
+
+```
+
+<br>
+
+In the previous output, you can see that the 7th row has been removed from the data frame.
+
+## Skill 5 - Remove Duplicates
+
+In this example, we will see how to keep only unique rows in a data frame. <br>
+
+For this task, we can apply the `unique( )` function to the data frame.
+
+```{r}
+
+# Remove duplicates
+
+data <- unique(data)
+
+# Print the updated data frame
+
+data
+
+```
+
+<br>
+
+In the previous table, rows 8 and 9 were copies of row 1, so they were removed.
+
+## Skill 6 - Modify Classes of Columns
+
+The class of the columns of a data frame is another critical topic when it comes to data cleaning. <br>
+
+This example explains how to format each column to the most appropriate data type automatically. <br>
+
+Let’s first check the current classes of our data frame columns:
+
+```{r}
+
+# Check the classes of the columns
+
+sapply(data, class)
+
+```
+
+<br>
+
+We can now use the type.convert function to change the column classes whenever it is appropriate:
+
+```{r}
+
+# Modify classes of columns
+
+data <- type.convert(data, as.is = TRUE)
+
+# Print the updated data frame
+
+data
+
+```
+
+<br>
+
+Visually, there’s no difference. <br>
+
+However, if we print the data types of our columns once again, we can see that the first two columns have been changed to the integer class. The character class was retained for the third column.
+
+```{r}
+
+# Check the classes of the columns
+
+sapply(data, class)
+
+```
+
+<br>
+
+## Skill 7 - Detect & Remove Outliers
+
+In Skill 7, we will demonstrate a different method to detect and delete outliers. We could calculate these using the Five Number Summary alongside the IQR to find the upper and lower fences to determine outliers, but here is a new way. <br>
+
+Please note: Outlier deletion is another very controversial topic. Please verify that it is justified to extract the outliers from your data frame. Please have a look at the outlier removal guidelines \<a href="https://statisticsbyjim.com/basics/remove-outliers/"here</a>. <br>
+
+However, one method to detect outliers is provided by the boxplot.stats function. The following R code demonstrates how to test for outliers in our data frame column col1:
+
+```{r}
+
+# Detect outliers in column col1
+
+data$col1[data$col1 %in% boxplot.stats(data$col1)$out]
+
+```
+
+<br>
+
+The previous output shows that the value 99999 is an outlier in column col1. This value is obviously much higher than the other values in the column. <br>
+
+Let’s assume that we have confirmed theoretically that the observation containing this outlier should be removed. Then, we can apply the R code below:
+
+```{r}
+
+# Remove outliers in column col1
+
+data <- data[!data$col1 %in% boxplot.stats(data$col1)$out, ]
+  
+# Print the updated data frame
+
+data
+
+```
+
+<br>
+
+In the previous output, you can see that the row containing the outlier has been removed.
+
+## Skill 8 - Remove Spaces in Character Strings
+
+The manipulation of character strings is another important aspect of the data cleaning process. <br>
+
+This example demonstrates how to avoid blank spaces in the character strings of a certain variable. <br>
+
+For this task, we can use the `gsub` function as demonstrated below:
+
+```{r}
+
+# Remove spaces in character strings
+
+data$col3 <- gsub(" ", "", data$col3)
+
+# Print the updated data frame
+
+data
+
+```
+
+<br>
+
+All blanks in the column col3 have been dropped and only the actual letters have been kept.
+
+## Skill 9 - Combine Categories
+
+Example 9 shows how to merge certain categories of a categorical variable. <br>
+
+The following R code illustrates how to group the categories “**a**”, “**b**”, and “**c**” in a single category “a”. <br>
+
+Consider the R syntax below
+
+```{r}
+
+# Combine categories
+
+data$col3[data$col3 %in% c("b", "c")] <- "a"
+
+# Print the updated data frame
+
+data
+
+```
+
+<br>
+
+We have created another version of our data frame where the categories “b” and “c” have been replaced by the category “a”. <br>
+
+That completes our introduction to Data Cleaning. As you can imagine, there are dozens (hundreds?) of different methods one can use to clean a data set. This lesson goes over some of the most important concepts one needs to understand in cleaning data. The method one uses to do the actual cleaning is important, but it is more important to know what strategies you should use when cleaning a data set. This lesson gives you 9 ideas to think about when encountering a data set. Naturally, there are many more ideas one might have to discover, depending on the data that needs to be cleaned.

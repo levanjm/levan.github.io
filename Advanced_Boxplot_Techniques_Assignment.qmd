@@ -1,0 +1,222 @@
+---
+title: "Advanced Boxplot Techniques Assignment"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercises
+
+In this assignment, you will practice creating different types of boxplots using the `ggplot2` library in R. You will use built-in datasets from R for this assignment. The problems vary in difficulty from basic boxplots to more advanced plots with additional customization.
+
+## Problem 1: Basic Boxplot of Sepal Length in the `iris` Dataset
+
+**Task:** Create a basic boxplot of the `Sepal.Length` column in the `iris` dataset.
+
+**Steps:**
+1. Load the `iris` dataset.
+2. Create a boxplot using `ggplot2`.
+
+**Code Example:**
+```r
+# Load ggplot2 and iris dataset
+library(ggplot2)
+data(iris)
+
+# Create boxplot
+ggplot(iris, aes(y = Sepal.Length)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Sepal Length in Iris Dataset", y = "Sepal Length")
+```
+
+## Problem 2: Boxplot of Sepal Length by Species in the `iris` Dataset
+
+**Task:** Create a boxplot of the `Sepal.Length` column grouped by `Species` in the `iris` dataset.
+
+**Steps:**
+1. Load the `iris` dataset.
+2. Create a grouped boxplot using `ggplot2`.
+
+**Code Example:**
+```r
+# Load ggplot2 and iris dataset
+library(ggplot2)
+data(iris)
+
+# Create boxplot
+ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Sepal Length by Species in Iris Dataset", x = "Species", y = "Sepal Length")
+```
+
+## Problem 3: Boxplot of Tooth Length in the `ToothGrowth` Dataset
+
+**Task:** Create a boxplot of the `len` column in the `ToothGrowth` dataset and add color to the boxes.
+
+**Steps:**
+1. Load the `ToothGrowth` dataset.
+2. Create a colored boxplot using `ggplot2`.
+
+**Code Example:**
+```r
+# Load ggplot2 and ToothGrowth dataset
+library(ggplot2)
+data(ToothGrowth)
+
+# Create boxplot with color
+ggplot(ToothGrowth, aes(y = len, fill = supp)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Tooth Length in ToothGrowth Dataset", y = "Tooth Length") +
+  scale_fill_manual(values = c("VC" = "blue", "OJ" = "orange"))
+```
+
+## Problem 4: Boxplot with Points of Wind Speed in the `airquality` Dataset
+
+**Task:** Create a boxplot of the `Wind` column in the `airquality` dataset and add points to it.
+
+**Steps:**
+1. Load the `airquality` dataset.
+2. Create a boxplot with points using `ggplot2`.
+
+**Code Example:**
+```r
+# Load ggplot2 and airquality dataset
+library(ggplot2)
+data(airquality)
+
+# Create boxplot with points
+ggplot(airquality, aes(y = Wind)) +
+  geom_boxplot() +
+  geom_point(position = position_jitter(width = 0.2), alpha = 0.5) +
+  labs(title = "Boxplot of Wind Speed in Airquality Dataset", y = "Wind Speed")
+```
+
+## Problem 5: Boxplot of Annual Lynx Trappings in the `lynx` Dataset with Changed Alpha Levels
+
+**Task:** Create a boxplot of the annual number of lynx trapped in the `lynx` dataset and change the alpha levels for the points.
+
+**Steps:**
+1. Load the `lynx` dataset.
+2. Create a boxplot with changed alpha levels using `ggplot2`.
+
+**Code Example:**
+```r
+# Load ggplot2 and lynx dataset
+library(ggplot2)
+data(lynx)
+
+# Create boxplot with changed alpha levels
+ggplot(data.frame(lynx), aes(y = lynx)) +
+  geom_boxplot() +
+  geom_point(position = position_jitter(width = 0.2), alpha = 0.3) +
+  labs(title = "Boxplot of Annual Lynx Trappings", y = "Number of Lynx Trapped")
+```
+
+## Problem 6: Boxplot with Jitterstrip of Age in the `infert` Dataset
+
+**Task:** Create a boxplot of the `age` column in the `infert` dataset and add a jitterstrip.
+
+**Steps:**
+1. Load the `infert` dataset.
+2. Create a boxplot with jitterstrip using `ggplot2`.
+
+**Code Example:**
+```r
+# Load ggplot2 and infert dataset
+library(ggplot2)
+data(infert)
+
+# Create boxplot with jitterstrip
+ggplot(infert, aes(y = age)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  labs(title = "Boxplot of Age in Infert Dataset", y = "Age")
+```
+
+## Problem 7: Boxplot with Labels of Sepal Width in the `iris` Dataset
+
+**Task:** Create a boxplot of the `Sepal.Width` column in the `iris` dataset and add labels to the plot.
+
+**Steps:**
+1. Load the `iris` dataset.
+2. Create a boxplot with labels using `ggplot2`.
+
+**Code Example:**
+```r
+# Load ggplot2 and iris dataset
+library(ggplot2)
+data(iris)
+
+# Create boxplot with labels
+ggplot(iris, aes(y = Sepal.Width)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Sepal Width in Iris Dataset", y = "Sepal Width", x = "Species") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Problem 8: Multiple Boxplots on One Graph for Tooth Length by Supplement and Dose in the `ToothGrowth` Dataset
+
+**Task:** Create multiple boxplots on one graph for the `len` column by `supp` and `dose` in the `ToothGrowth` dataset.
+
+**Steps:**
+1. Load the `ToothGrowth` dataset.
+2. Create multiple boxplots using `ggplot2`.
+
+**Code Example:**
+```r
+# Load ggplot2 and ToothGrowth dataset
+library(ggplot2)
+data(ToothGrowth)
+
+# Create multiple boxplots
+ggplot(ToothGrowth, aes(x = factor(dose), y = len, fill = supp)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Tooth Length by Supplement and Dose in ToothGrowth Dataset", x = "Dose", y = "Tooth Length") +
+  scale_fill_manual(values = c("VC" = "blue", "OJ" = "orange"))
+```
+
+## Problem 9: Boxplot with Custom Colors of Wind Speed in the `airquality` Dataset
+
+**Task:** Create a boxplot of the `Wind` column in the `airquality` dataset and apply custom colors to the boxplot.
+
+**Steps:**
+1. Load the `airquality` dataset.
+2. Create a boxplot with custom colors using `ggplot2`.
+
+**Code Example:**
+```r
+# Load ggplot2 and airquality dataset
+library(ggplot2)
+data(airquality)
+
+# Create boxplot with custom colors
+ggplot(airquality, aes(y = Wind, fill = factor(Month))) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Wind Speed in Airquality Dataset", y = "Wind Speed", fill = "Month") +
+  scale_fill_brewer(palette = "Set3")
+```
+
+## Problem 10: Boxplot with Facets of Sepal Length by Species in the `iris` Dataset
+
+**Task:** Create a boxplot of the `Sepal.Length` column by `Species` in the `iris` dataset and use facets to separate the plots by species.
+
+**Steps:**
+1. Load the `iris` dataset.
+2. Create a boxplot with facets using `ggplot2`.
+
+**Code Example:**
+```r
+# Load ggplot2 and iris dataset
+library(ggplot2)
+data(iris)
+
+# Create boxplot with facets
+ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_boxplot() +
+  facet_wrap(~ Species) +
+  labs(title = "Boxplot of Sepal Length by Species in Iris Dataset", x = "Species", y = "Sepal Length")
+```

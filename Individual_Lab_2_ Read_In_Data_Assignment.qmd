@@ -1,0 +1,180 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Individual Lab 2 {.unnumbered}
+
+We will be working with a database from the Star Wars universe. We need to first install the package : <br>
+
+install.packages("starwarsdb")
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Please make note that this is a different kind of way we can enter data into R. We have entered what is called a "database" which is different from a text file, a dataframe, a tibble, etc. <br>
+
+We will need to use the "**dplyr**" library to access this data, so install it if it is not already installed. <br>
+
+install.packages("dplyr")
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+**dplyr** should now be installed, but may not be loaded. You can load the library by checking it off in the packages tab, or you can enter the following :
+
+library(dplyr)
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+We are now ready to create a dataframe using a combination of "dplyr" and the "as.data.frame" command. This is similar to the "as.tibble" command used above. Let's store the information in the variable starwars_DF : <br>
+
+starwars_DF \<- as.data.frame(dplyr::starwars)
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Check the variable to make sure it is a dataframe.
+
+class(starwars_DF)
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Now we are ready to start answering questions.
+
+1.  Use two different methods for finding the number of rows in your data frame. What does this represent?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+2.  Use two different methods for finding the number of columns in your data frame. What does this represent?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+3.  Determine the dimensions of the dataframe using the dim command. What does this tell us?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+4.  What command can we use to list off the variable names in the dataframe? Carry out that command.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+5.  We want to pull out the "height" variable. Carry out two different commands that will pull out this information and save it to a new variable called SW_height. How many values are listed? Does this raise any concerns?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+6.  Do all of the observations have a value for height? If not, how many are missing and who are they missing from?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+7.  Print out the heights from smallest to largest. Also save the sorted list to a new variable called SW_height_sorted_1
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+8.  Use the sort help file to see how to sort the values from largest to smallest. Then print out the heights from largest to smallest and save new sorted list to SW_height_sorted_2
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+9.  Find two ways to find the maximum values of the height. Save this value to the variable SW_max_height.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+10. Find two ways to find the minimum values of the height. Save this value to the variable SW_max_height.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+11. Turn this dataframe into a tibble named SW_tibble.
+
+```{r}
+
+# Response
+
+```
+
+<br>

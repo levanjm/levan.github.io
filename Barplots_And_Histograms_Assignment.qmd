@@ -1,0 +1,196 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(readxl)
+```
+
+# Barplots and Histograms Assignment   {.unnumbered}
+
+In this assignment, you will be working with a small dataset and using R to create basic bar plots and histograms. This exercise will help you get familiar with data visualization techniques, which are essential for data analysis and interpretation.
+
+## Skills Checked
+
+1.  **Load the Dataset**: Load the provided dataset into R.
+2.  **Bar Plot**: Create a bar plot to visualize the data.
+3.  **Histogram**: Create a histogram to visualize the data.
+
+## Barplot Dataset 1
+
+The following is a dataset that contains information about the number of 
+students enrolled in different courses at a university. Copy the following 
+dataset into a CSV file named `courses.csv` and upload it to your working 
+directory. Create an appropriate barchart depicting the data.
+
+| Course           | Number of Students |
+|:-----------------|:------------------:|
+| Mathematics      |         45         |
+| Physics          |         30         |
+| Chemistry        |         25         |
+| Biology          |         50         |
+| Computer_Science |         40         |
+| History          |         35         |
+| English          |         20         |
+| Economics        |         30         |
+
+## Barplot Dataset 2
+
+The following is a dataset that contains sales information about the number of 
+electronic sales at your company. Copy the following 
+dataset into a CSV file named `sales.csv` and upload it to your working 
+directory.  Create an appropriate barchart depicting the data.
+
+| Product           | Sales |
+|:-----------------|:------------------:|
+| Laptops      |         120         |
+| Smartphones          |         200         |
+| Tablets      |         80         |
+| Accessories          |         150         |
+| Wearables |         90         |
+| Desktops        |         70         |
+| Cameras         |         60         |
+| Printers        |         40         |
+
+## Barplot Dataset 3
+
+The following is a dataset that contains 
+monthly rainfall (in millimeters) information for various
+cities across the United States. Copy the following 
+dataset into a CSV file named `rainfall`.csv` and upload it to your working 
+directory.  Create an appropriate barchart depicting the data.
+
+| City           | Monthly_Rainfall_mm |
+|:-----------------|:------------------:|
+| New_York  |         120         |
+| Los_Angeles   |         20         |
+| Chicago |         80         |
+| Houston |         90         |
+| Phoenix |         15         |
+| Philadelphia    |         100         |
+| San_Antonio        |         70         |
+| San_Diego      |         30         |
+| Dallas | 85 |
+| San_Jose | 25 |
+
+## Barplot Dataset 4
+
+The following is a dataset that contains 
+monthly transatlantic airtravel, in thousands of passengers, for 1958-1960. 
+There are 4 fields, "Month", "1958", "1959" and "1960" and 12 records, 
+"JAN" through "DEC". 
+<br>
+
+Create a bar chart that shows the average number of passengers for each month across the years 1958-1960.
+<br>
+
+Data : 
+https://people.sc.fsu.edu/~jburkardt/data/csv/airtravel.csv
+<br>
+
+You will need to downlaod the data set and load it into R.
+
+
+## Barplot Dataset 5
+
+Go to Kaggle and download the dat set "US Christmas Tree Sales Data" from the 
+following link:
+<br>
+
+https://www.kaggle.com/datasets/thedevastator/us-christmas-tree-sales-data/data
+<br>
+
+Create a bar chart that shows the number of trees sold (per million) for each 
+year from 2010-2016.
+
+
+```{r message=FALSE, warning=FALSE}
+tree_data <- read_csv("./US_Christmas_Tree_Sales_2010_to_2016.csv")
+```
+
+## Histogram Dataset 1
+
+The following is a dataset (`Ages.csv`) that contains information about the ages of 
+participants at a local community center. Copy the dataset into a CSV 
+file named `ages_data.csv` and upload it to your working directory. 
+Create a  histogram with 7 bins depicting the data.
+
+```{r message=FALSE, warning=FALSE}
+ages_data <- read_csv("./Ages.csv")
+
+ages_data
+```
+
+## Histogram Dataset 2
+
+The following  (`Lexington_Temperature_Data.csv`)
+is a dataset that contains information about the 
+daily temperature in Celsius for Lexington the first 50
+days of spring.
+Copy the dataset into a CSV 
+file named `Lex_temps.csv` and upload it to your working directory. 
+Create a histogram with 4 bins depicting the data.
+
+```{r message=FALSE, warning=FALSE}
+Lex_temps <- read_csv("./Lexington_Temperature_Data.csv")
+
+Lex_temps
+```
+
+
+## Histogram Dataset 3
+
+The following is a data set (`kentucky_mens_basketball_wins.csv`) that contains information about the
+number of wins for the University of Kentucky's men's basketball team from 1980 - 2024.
+Copy the dataset into a CSV
+file named `UK_wins` and upload it to your working directory.
+Create a histogram with 10 bins depicting the data on the amount of wins
+per year.
+
+```{r message=FALSE, warning=FALSE}
+
+UK_wins <- read_csv("./kentucky_mens_basketball_wins.csv")
+
+UK_wins
+```
+
+## Histogram Dataset 4
+
+The following is a data set (`Fire_Arm_Deaths_1990_to_2022.xlsx`) that contains information about the
+number of firearm deaths in the US from 1990 - 2024.
+Copy the dataset into a CSV
+file named `Fire_Arm_Deaths` and upload it to your working directory.
+Create a histogram with 10 bins depicting the data on the amount of deaths 
+per year.
+
+```{r message=FALSE, warning=FALSE}
+library(readxl)
+
+Fire_Arm_Deaths <- read_csv("./Fire_Arm_Deaths_1990_to_2022.csv")
+
+Fire_Arm_Deaths
+```
+
+
+## Histogram Dataset 5
+
+The data set (`gdp-per-capita-us-dollars-2020.csv`) contains 
+information about the GDP per capita in US dollars for various countries in 2020.
+Download the data set from 
+<a href="https://www.datasetsanalysis.com/descriptive-statistics/real-life-data/gdp-per-capita-us-dollars-2020.csv">here</a>
+and save it to yourworking directory.
+Copy the dataset into a variable named `gdp_per_capita`.
+
+```{r message=FALSE, warning=FALSE}
+
+gdp_per_capita <- read_csv("./gdp-per-capita-us-dollars-2020.csv")
+
+head(gdp_per_capita)
+```
+
+  - Create a histogram, with equal class widths, with the first class being (0 , 10000 ] and covers all data values.
+  - Create a histogram, with equal class widths, with the first class being (0 , 5000] with the last class being (55000 , 60000]
+  - Create a histogram, with equal class widths, with the first class being (0 , 1000] with the last class being (19000 , 20000]
+  - Compare all three histograms. Which one gives more information as to how the countries with low GDP are distributed?
+
+
+

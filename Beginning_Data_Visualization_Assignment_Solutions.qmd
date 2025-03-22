@@ -1,0 +1,415 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Beginning Data Visualization Assignment Solutions {.unnumbered}
+
+## Problem 1
+
+Run ggplot(data = mpg). What do you see? Why do you think this is? <br>
+
+```{r Ex1}
+
+ggplot(data = mpg)
+
+# This give us an empty canvas to start plotting our data.
+
+```
+
+## Problem 2
+
+How many rows are in mpg? How many columns? <br>
+
+```{r Ex2}
+
+# We need to find information about the data set "mpg". There are several 
+# commands that can give us this information. Here we will use "glimspe".
+
+
+glimpse(mpg)
+
+# By looking into the console, we can see that this data set has 234 rows
+# and 11 columns.
+
+# Note that we could also have used the "str" command :
+
+str(mpg)
+
+# The output is : 
+
+# tibble [234 x 11] 
+
+# So 234 rows (observations), and 11 columns (variables).
+
+# There are other commands such as "nrow" and "ncol" we could have used :
+
+nrow(mpg)
+
+# output : [1] 234
+
+ncol(mpg)
+
+# output : [1] 11
+
+# As with most problems in R, there are multiple ways to find an answer.
+```
+
+## Problem 3
+
+What does the drv variable describe? Read the help for ?mpg to find out. <br>
+
+```{r Ex3}
+
+?mpg
+
+# According to the help file, drv is a character (text) variable : 
+
+# the type of drive train, where f = front-wheel drive, r = rear wheel drive, 
+# 4 = 4wd
+
+# This means we will have a categorical variable that is either an "f", "r",
+# or "4"
+
+```
+
+## Problem 4
+
+Make a scatterplot of hwy vs cyl. <br>
+
+```{r Ex4}
+
+# hwy = highway miles per gallon
+
+# cyl = number of cylinders in the car engine 
+
+# Note that the higher the number of cylinders should cause more gas usage,
+# causing the mileage to go down.
+
+ggplot(data = mpg, aes(x=cyl, y=hwy)) +
+  geom_point()
+
+# or
+
+ggplot(data=mpg) +
+  geom_point(aes(x=cyl, y=hwy))
+```
+
+## Problem 5
+
+What happens if you make a scatterplot of class vs drv? Why is the plot not useful? <br>
+
+```{r Ex5}
+
+# class = "type" of car
+
+# drv = the type of drive train, where 
+#       f = front-wheel drive, 
+#       r = rear wheel drive, 
+#       4 = 4wd
+
+ggplot(data=mpg, aes(x=class, y=drv)) +
+  geom_point()
+
+# This isn't particularly useful as most cars have multiple drive trains,
+# depending on what is offered for the vehicle.
+
+```
+
+## Problem 6
+
+Consider the following plot. Why are the points not blue?
+
+```{r Ex6}
+
+ ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+```
+<br>
+
+ When we change the color in the `aes` function to "blue", the points will not
+ be blue because the 
+ `aes` part of the command works on mappings to the variables. In this case,
+ we are not making a color choice because of the variable itself. If we want to
+ affect the color based on the variable value, then the color can be 
+ specified inside of the `aes` function.
+<br>
+
+ Here we want the points to be one specific color that is not dependent
+ on how the data is mapped. So in this case the color change needs to be
+ outside of the `aes` function.
+<br>
+
+ That means we have a parenthesis in the wrong place! 
+<br>
+
+ Close off the parens after the mapping
+<br>
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+
+```
+
+<br>
+
+## Problem 7
+
+Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?
+
+```{r Ex7}
+
+# How can you see this information when you run mpg?
+
+# Note that the glimpse command also gives us the type of variable.
+
+# For categorical variables, look for the "<chr>" descriptor
+
+glimpse(mpg)
+
+# Here are the categorical variables :
+
+# manufacturer, model, trans, drv, fl, class
+```
+
+## Problem 8
+
+Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?
+
+```{r Ex8}
+
+# Note that some quantitative variables are discrete and some are continuous.
+
+# Discrete : year, cyl, cty, hwy
+
+# Continuous : displ
+
+# We can use the previous ggplot and make some changes :
+
+# Here is the previous plot : 
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+
+# This already has a color to the points. We could change ALL the points
+# to a different color :
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "green")
+
+# Note : UGH! Bad color!
+
+# What if we wanted to change the color based on the variable "displ"? 
+
+# Since we are going to be coloring the points based on a value of a variable,
+# we need to put the color inside of the `aes` function.
+
+ggplot(data = mpg) + 
+  geom_point(aes(x=displ, y=hwy, color=displ))
+
+# Notice the colors. You get different grades of the blue color. The larger
+# values of "displ" have a lighter color of blue and the smaller values 
+# have a darker color. 
+
+# The reason we don't have major changes in the color (blue, red, green, etc)
+# is because this is continuous (quantitative). Some values are "slightly" 
+# different than others, so the color is "slightly" different to represent 
+# that change.
+
+# Let's throw in a categorical variable. Let's compare hwy to drv
+
+ggplot(data=mpg, aes(x=drv, y=hwy)) +
+  geom_point()
+
+# This shows us the front wheel drive cars tend to get higher gas mileage
+# on the highway. 
+
+# We can make this more interesting by coloring the dots by the manufacturer
+# of the cars to see if a certain brand typcially gets higher gas mileage.
+
+ggplot(data=mpg, aes(x=drv, y=hwy, color = manufacturer)) +
+  geom_point()
+
+# or
+
+ggplot(data=mpg) +
+  geom_point(aes(x=drv, y=hwy, color = manufacturer))
+
+# Notice that from the picture, "audi" seems to have the highest gas
+# mielage for their cars.
+
+# We could then have the dots get larger as the mileage goes up.So change 
+# the size of the points based on the "hwy" variable.
+
+ggplot(data=mpg) +
+  geom_point(aes(x=drv, y=hwy, color = manufacturer, size=hwy))
+```
+
+## Problem 9
+
+What happens if you map the same variable to multiple aesthetics?
+
+```{r Ex9}
+
+# Note that we just did this with the last example! 
+
+# What this did kind of depends on your point of view. 
+
+# In some ways it was redundant. We knew that the higher points represented
+# the higher mileage. By adding the aesthetic that the size of the points
+# goes up with the mileage, we don't get any new information.
+
+# On the other hand, this also reinforces the mileage data and makes it easier 
+# to see that the bigger points means bigger mileage. 
+```
+
+## Problem 10
+
+What does the **stroke** aesthetic do? What shapes does it work with? (Hint: use ?geom_point)
+
+```{r Ex10}
+
+
+?geom_point
+
+# According to the help file, "the stroke aesthetic to modify the width of the
+# border"
+
+# Here is an example of a plot comparing "wt" to "mpg".
+
+# The points have shape 21 which is a circle with a border. The border of the
+# points is black and the interior is white : 
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(shape = 21, colour = "black", fill = "white", size = 5)
+
+# The "stroke" command perhaps refers to the size of the stroke of the pen 
+# being used? This means a bigger stroke has a bigger outline?
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
+```
+
+## Problem 11
+
+What happens if you map an aesthetic to something other than a variable name, like aes(colour = displ \< 5)? Note, you’ll also need to specify x and y.
+
+```{r Ex11}
+# Here is a basic plot comparing "displ" to "hwy"
+
+ggplot(data=mpg) +
+  geom_point(aes(x=displ, y=hwy))
+
+# Let's add in the condition 
+
+ggplot(data=mpg) +
+  geom_point(aes(x=displ, y=hwy, color = displ<5))
+
+# It appears to show us that we can differentiate two parts of the graph by 
+# color. In other words, points below a threshold get one color and points
+# above the threshold get a different color.
+```
+
+## Problem 12
+
+What happens if you facet on a continuous variable?
+
+```{r Ex12}
+
+
+# Let's look at an example. Create a graph comparing displ (engine displacement, 
+# in litres) to hwy (highway miles per gallon), but faceted with cty (city miles 
+# per gallon) : 
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ cty)
+
+# The continuous variable is converted to a categorical variable, and 
+# the plot contains a facet for each distinct value.
+
+```
+
+## Problem 13
+
+What do the empty cells in plot with facet_grid(drv \~ cyl) mean? How do they relate to this plot?
+
+```{r Ex13}
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl)) +
+  facet_grid(drv ~ cyl)
+
+# When looking at this graph, there are several blank facets
+
+# How do they relate to this plot?
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl))
+
+# Each blank facet corresponds to the locations where there is no point.
+```
+
+## Problem 14
+
+What plots does the following code make? What does . do?
+
+```{r Ex 14}
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+# The symbol . ignores that dimension when faceting. For example, 
+# drv ~ . facet by values of drv on the y-axis
+
+# While, . ~ cyl will facet by values of cyl on the x-axis.
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+```
+
+## Problem 15
+
+Consider the first faceted plot in this section. What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?
+
+```{r Ex15}
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+
+# What are the advantages to using faceting instead of the colour aesthetic? 
+
+# There are sometimes so many different colors / variables that the points can start to run
+# together and it is difficult to differentiate the variables. A facet can break up the main
+# data set by the variables themselves and make it easier to compare one variable to another.
+
+# What are the disadvantages? 
+
+
+# How might the balance change if you had a larger dataset?
+```
+
+## Problem 16
+
+Read `?facet_wrap`. What does nrow do? What does ncol do? What other options control the layout of the individual panels? Why doesn’t facet_grid() have nrow and ncol arguments?
+
+```{r Ex 16}
+
+# Answer
+
+```
+
+## Problem 17
+
+When using facet_grid() you should usually put the variable with more unique levels in the columns. Why?
+
+```{r Ex 17}
+
+# Answer
+
+```

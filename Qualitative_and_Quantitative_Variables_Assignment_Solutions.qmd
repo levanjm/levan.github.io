@@ -1,0 +1,207 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Qualitative and Quantitative Variables Assignment Solutions {.unnumbered}
+
+## Problem 1
+
+**Gender identity of individuals in a survey.**
+<br>
+
+   - **Type:** Qualitative (Nominal)
+<br>
+ 
+   - **Explanation:** Gender identity categories (e.g., male, female, non-binary) do not have a natural order.
+<br>
+
+## Problem 2
+
+**Annual income of households in a city.**
+<br>
+ 
+   - **Type:** Quantitative (Continuous)
+ <br>
+ 
+   - **Explanation:** Annual income can take on any value within a range and can be measured with precision.
+
+## Problem 3
+
+**Number of books read by students in a year.**
+ <br>
+ 
+   - **Type:** Quantitative (Discrete)
+ <br>
+ 
+   - **Explanation:** The number of books is countable and takes on whole number values.
+
+## Problem 4
+
+**Educational attainment levels (e.g., high school diploma, bachelor's degree, master's degree, etc.).**
+ <br>
+ 
+   - **Type:** Qualitative (Ordinal)
+ <br>
+ 
+   - **Explanation:** Educational levels have a meaningful order (e.g., high school < bachelor's < master's).
+
+## Problem 5
+
+**Number of reported hate crimes in different states.**
+ <br>
+ 
+   - **Type:** Quantitative (Discrete)
+ <br>
+ 
+   - **Explanation:** The number of hate crimes is countable and takes on whole number values.
+
+## Problem 6
+
+**Types of housing (e.g., owned, rented, homeless).**
+ <br>
+ 
+   - **Type:** Qualitative (Nominal)
+ <br>
+ 
+   - **Explanation:** Housing types are categories without a natural order.
+
+## Problem 7
+
+**Age of participants in a community health study.**
+ <br>
+ 
+   - **Type:** Quantitative (Continuous)
+ <br>
+ 
+   - **Explanation:** Age can take on any value within a range and can be measured with precision.
+
+## Problem 8
+
+**Political party affiliation (e.g., Democrat, Republican, Independent).**
+ <br>
+ 
+   - **Type:** Qualitative (Nominal)
+ <br>
+ 
+   - **Explanation:** Political party categories do not have a natural order.
+
+## Problem 9
+
+**Number of languages spoken by immigrants in a region.**
+ <br>
+ 
+   - **Type:** Quantitative (Discrete)
+ <br>
+ 
+   - **Explanation:** The number of languages is countable and takes on whole number values.
+
+## Problem 10
+
+**Frequency of attending religious services (e.g., never, occasionally, regularly).**
+ <br>
+ 
+  - **Type:** Qualitative (Ordinal)
+ <br>
+ 
+  - **Explanation:** Frequency categories have a meaningful order (e.g., never < occasionally < regularly).
+
+## Problem 11
+
+**Number of protests attended in a year.**
+ <br>
+ 
+  - **Type:** Quantitative (Discrete)
+ <br>
+ 
+  - **Explanation:** The number of protests is countable and takes on whole number values.
+
+## Problem 12
+
+**Types of discrimination experienced (e.g., racial, gender, disability).**
+ <br>
+ 
+  - **Type:** Qualitative (Nominal)
+ <br>
+ 
+  - **Explanation:** Discrimination types are categories without a natural order.
+
+## Problem 13
+
+**Height of students in a classroom.**
+<br>
+  
+  - **Type:** Quantitative (Continuous)
+<br>
+  
+  - **Explanation:** Height can take on any value within a range and can be measured with precision.
+
+## Problem 14
+
+**Marital status (e.g., single, married, divorced, widowed).**
+ <br>
+ 
+  - **Type:** Qualitative (Nominal)
+ <br>
+ 
+  - **Explanation:** Marital status categories do not have a natural order.
+
+## Problem 15
+
+**Number of social media accounts owned by individuals.**
+<br>
+  
+  - **Type:** Quantitative (Discrete)
+<br>
+ 
+  - **Explanation:** The number of social media accounts is countable and takes on whole number values.
+
+## Problem 16
+
+**Severity of food insecurity (e.g., none, mild, moderate, severe).**
+<br>
+ 
+  - **Type:** Qualitative (Ordinal)
+<br>
+ 
+  - **Explanation:** Severity levels have a meaningful order (e.g., none < mild < moderate < severe).
+
+## Problem 17
+
+**Number of children in a family.**
+<br>
+ 
+  - **Type:** Quantitative (Discrete)
+<br>
+ 
+  - **Explanation:** The number of children is countable and takes on whole number values.
+
+## Problem 18
+
+**Types of employment (e.g., full-time, part-time, unemployed).**
+<br>
+  
+  - **Type:** Qualitative (Nominal)
+<br>
+ 
+  - **Explanation:** Employment types are categories without a natural order.
+
+## Problem 19
+
+**Monthly electricity usage in kilowatt-hours.**
+<br>
+ 
+  - **Type:** Quantitative (Continuous)
+<br>
+ 
+  - **Explanation:** Electricity usage can take on any value within a range and can be measured with precision.
+<br>
+ 
+## Problem 20
+
+**Frequency of using public transportation (e.g., never, sometimes, always).**
+    
+  - **Type:** Qualitative (Ordinal)
+<br>
+ 
+  - **Explanation:** Frequency categories have a meaningful order (e.g., never < sometimes < always).

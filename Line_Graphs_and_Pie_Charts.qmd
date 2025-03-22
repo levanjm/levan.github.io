@@ -1,0 +1,864 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Line Graphs and Pie Charts {.unnumbered}
+
+Line graphs and pie charts are two of the most common ways to visualize data. You can often find them in newspapers, magazines, and websites.
+
+Line graphs are most useful when you want to show how data changes over time. For example, you might use a line graph to show how a company's stock price has changed over the past year. <br>
+
+Pie charts are also handy. They are best used when you want to show how a whole is divided into parts. As an example, you might use a pie chart to show how a company's revenue is divided among different products. <br>
+
+In this tutorial, we will learn how to create line graphs and pie charts in R. <br>
+
+## Line Graphs
+
+A line graph (or line chart) is used to display data points connected by a continuous line. As we mentioned above, is especially useful for showing trends over time. <br>
+
+What Does a Line Graph Do? <br>
+
+-   Shows trends and patterns : It helps visualize how a variable changes over time (e.g., stock prices, temperature changes, sales growth).
+-   Compares multiple data series : You can plot multiple lines to compare different categories or groups.
+-   Identifies peaks and dips : It makes it easy to see the highest and lowest values in a dataset.
+-   Helps in forecasting : By analyzing past trends, a line graph can give insights into possible future patterns. <br>
+
+When to Use a Line Graph?
+
+-   When data is continuous (e.g., time-based data like months, years, or days).
+-   When you want to track changes over time.
+-   When comparing trends across different categories.
+
+In order to make a line graph in R, you need to make sure the following libraries are loaded up : <br>
+
+-   `dplyr`
+-   `ggplot2`
+
+We will use a combination of `ggplot( )` and the geometry function `geom_line( )` to create a line graph. the `geom_line( )` function connects the data points in the order of the x-axis variable.
+
+### Unemployment Rate Example
+
+Let's take a look at an example of a line graph that shows the unemployment rate over time using the built-in `economics` dataset in R.
+
+```{r message=FALSE, warning=FALSE}
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load built-in economics dataset
+
+data("economics")
+
+# Create a time series line plot of unemployment rate
+
+economics %>%
+  ggplot(aes(x = date, y = unemploy)) +
+  geom_line(color = "blue") +
+  labs(title = "Unemployment Over Time",
+       x = "Year",
+       y = "Unemployment (in thousands)") +
+  theme_minimal()
+```
+
+<br>
+
+This graph shows the unemployment rate over time. We can see that the rate fluctuates over time, with some periods of high unemployment and some periods of low unemployment. This graph can help us understand how the unemployment rate has changed over time and identify any trends or patterns. <br>
+
+While line graphs are generally used as a way to show trends over time, they can also be used to compare multiple data series. Let's look at an example of a line graph that compares the price of a diamond to the size (carat) of the diamond. <br>
+
+### Diamond Price vs Carat Size Example
+
+Let's consider the `diamonds` dataset that comes with the `ggplot2` package. This dataset contains information about the price, carat, and cut of diamonds. We will use this dataset to create a line graph that shows the comparison of average price versus carat size.
+
+```{r message=FALSE, warning=FALSE}
+
+# Load the libraries
+
+library(dplyr)
+library(ggplot2)
+
+# Create a line graph of the average price of diamonds over time
+# Aggregate data: Get the average price for each carat size
+
+avg_price_per_carat <- aggregate(price ~ carat, data = diamonds, FUN = mean)
+
+# Create the line graph
+ggplot(avg_price_per_carat, aes(x = carat, y = price)) +
+  geom_line(color = "blue", linewidth = 1) + 
+  labs(title = "Diamond Price vs. Carat Size",
+       x = "Carat Size",
+       y = "Average Price (USD)") +
+  theme_minimal()
+```
+
+<br>
+
+While certainly not a surprise, we can interpret from this graph that as the number of carats in the diamond increases, the price of the diamond also increases. It is curious as to why there is a dip in the price of diamonds of size around 3 carats. This could be due to a variety of factors such as the quality of the diamond, the cut, or the color. <br>
+
+Let's walk through some examples of how we can think about how to create line graphs. Try to follow along by creating the graphs in your R console. <br>
+
+### Basic Line Graph
+
+**Objective:** Create a basic line graph using `ggplot2`. <br>
+
+**Instructions:** <br>
+
+1.  Load the `ggplot2` library.
+2.  Create a simple data frame with two columns: `year` (from 2000 to 2020) and `value` (random numbers).
+3.  Use `ggplot` to create a line graph where the x-axis represents the `year` and the y-axis represents the `value`.
+
+**Example:**
+
+```{r}
+library(ggplot2)
+
+# Create data frame
+df <- data.frame(
+  year = 2000:2020,
+  value = runif(21, min = 0, max = 100)
+)
+
+# Create line graph
+ggplot(df, aes(x = year, y = value)) +
+  geom_line()
+```
+
+### Adding Titles and Labels
+
+**Objective:** Enhance the basic line graph by adding titles and axis labels. <br>
+
+**Instructions:**
+
+1.  Add a main title, x-axis label, and y-axis label to the line graph.
+
+**Example:**
+
+```{r}
+ggplot(df, aes(x = year, y = value)) +
+  geom_line() +
+  ggtitle("Value Over Years") +
+  xlab("Year") +
+  ylab("Value")
+```
+
+### Styling the Line
+
+**Objective:** Customize the appearance of the line in the graph. <br>
+
+**Instructions:**
+
+1.  Change the line color to blue and make it thicker.
+
+**Example:**
+
+```{r}
+ggplot(df, aes(x = year, y = value)) +
+  geom_line(color = "blue", size = 1.5) +
+  ggtitle("Value Over Years") +
+  xlab("Year") +
+  ylab("Value")
+```
+
+### Adding Points to the Line Graph
+
+**Objective:** Add points to highlight data values on the line graph. <br>
+
+**Instructions:**
+
+1.  Add points on top of the line graph to indicate the actual data values.
+
+**Example:**
+
+```{r}
+ggplot(df, aes(x = year, y = value)) +
+  geom_line(color = "blue", size = 1.5) +
+  geom_point(color = "red", size = 3) +
+  ggtitle("Value Over Years") +
+  xlab("Year") +
+  ylab("Value")
+```
+
+### Faceting the Line Graph
+
+**Objective:** Create multiple line graphs using faceting. <br>
+
+**Instructions:**
+
+1.  Create a new data frame with three columns: `year` (from 2000 to 2020), `value` (random numbers), and `category` (categorical variable with two levels: "A" and "B").
+2.  Use `ggplot` to create a line graph with facets for each category.
+
+**Example:**
+
+```{r}
+# Create data frame with categories
+df <- data.frame(
+  year = rep(2000:2020, 2),
+  value = runif(42, min = 0, max = 100),
+  category = rep(c("A", "B"), each = 21)
+)
+
+# Create faceted line graph
+ggplot(df, aes(x = year, y = value, color = category)) +
+  geom_line() +
+  facet_wrap(~ category) +
+  ggtitle("Value Over Years by Category") +
+  xlab("Year") +
+  ylab("Value")
+```
+
+Now that we have seen a few examples of how to create a line graph, let's turn our attention towards pie charts.
+
+## Pie Charts
+
+A pie chart is a circular statistical graphic that is divided into slices to illustrate numerical proportions. The size of each slice is proportional to the quantity it represents. Pie charts are useful for showing the relative proportions of different categories or groups in a dataset. <br>
+
+There are several different ways on could make a pie chart. While we will use the traditinoal version of a pie chart, there are several pretty cool methods you could use to present the data is a more circularish way. You can check them out at the following link : <br>
+
+<a href=https://ggplot2.tidyverse.org/reference/coord_polar.html?q=pie%20chart#null"> Different Pie Chart Methods </a> <br>
+
+------------------------------------------------------------------------
+
+What Does a Pie Chart Do?
+
+-   Shows proportions : It helps visualize the distribution of data across different categories.
+-   Compares parts to the whole : It shows how each category contributes to the total.
+-   Highlights differences : It makes it easy to see which categories are larger or smaller.
+-   Simplifies complex data : It presents data in a simple and easy-to-understand format. <br>
+
+When to Use a Pie Chart?
+
+-   When you want to show the relative proportions of different categories.
+-   When you want to compare parts to the whole.
+-   When you have a small number of categories (3-7) to display. <br>
+
+Unfortunatley `ggplot2` doesn't have a dedicated geometry for pie charts; instead, you create them by transforming a stacked bar chart using `coord_polar( )`. <br>
+
+Here's how you can achieve this: <br>
+
+Pie charts are essentially stacked bar charts viewed in polar coordinates. You can follow these steps to create a pie chart in ggplot2: <br>
+
+-   Use `geom_bar( )` or `geom_col( )` to create the stacked bar chart, mapping your data to the y aesthetic (for the bar heights) and fill aesthetic (for the colors of the slices).
+-   Use `coord_polar( )` to transform the rectangular bar chart into a circular pie chart. <br>
+
+You can customize the pie chart further by adjusting the colors, labels, and other aesthetics using ggplot2's various functions. <br>
+
+### Diamonds Pie Chart Example
+
+Let's create a pie chart that shows the distribution of diamond cuts (Fair, Good, Very Good, Premium, Ideal)in the diamonds dataset. <br>
+
+Let's first take a quick look at the data set by using the `count( )` function to get the number of diamonds for each cut. <br>
+
+```{r}
+
+diamonds %>% count(cut)
+
+```
+
+<br>
+
+This output creates a table that has two columns: `cut` and `n`. The `cut` column contains the different types of diamond cuts, and the `n` column contains the number of diamonds for each cut. Notice that we did not save this output to a different variable. We could do this, but it is not needed if we are going to simply pipe this output to the next step of the process. <br>
+
+At this point we could make a normal bar chart as follows :
+
+```{r}
+diamonds %>%
+  count(cut) %>%
+  ggplot(aes(x = cut, y = n, fill = cut)) +
+  geom_bar(stat = "identity", width = 1) +
+  labs(title = "Distribution of Diamond Cuts",
+       fill = "Cut") +
+  theme_minimal() +
+  theme(legend.position = "right")
+```
+
+<br>
+
+What we want is a stacked bar chart, so we don't want the x-axis to be the cut of the diamond. Instead, we want the x-axis to be an empty string (`x = ""`). This will create a bar chart with only one bar. We will take this output and create a stacked barplot of the distribution of diamond cuts using another pipe and sending the output to `ggplot` and then to `geom_bar`. We finish off the bar chart by adding some labels, fills, and a theme.
+
+```{r}
+diamonds %>%
+  count(cut) %>%
+  ggplot(aes(x = "", y = n, fill = cut)) +
+#  geom_bar(stat = "identity", width = 1) +
+  geom_col() +
+    labs(title = "Distribution of Diamond Cuts",
+       fill = "Cut") +
+  theme_minimal() +
+  theme(legend.position = "right")
+```
+
+<br>
+
+We are now ready to turn this into a Pie Chart! By adding the `coord_polar` function, we transform the bar chart into a pie chart. <br>
+
+Here is the code to create a pie chart of the distribution of diamond cuts: <br>
+
+```{r}
+
+# Load necessary libraries
+
+library(ggplot2)
+library(dplyr)
+
+# Create a pie chart of the distribution of diamond cuts
+
+# We will create the bar chart as we did above, but this time we will use
+# coord_polar to make it circular.
+
+# Lastly we will add some labels and some colors
+
+# The fill color is the cut of the diamond and the sizes of the pieces of the 
+# pie are based on the number of diamonds
+
+diamonds %>%
+  count(cut) %>%
+  ggplot(aes(x = "", y = n, fill = cut)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  labs(title = "Distribution of Diamond Cuts",
+       fill = "Cut") +
+  theme_minimal() +
+  theme(legend.position = "right")
+```
+
+<br>
+
+### Cars by Cylinder Pie Chart Example
+
+Let's look at one more example by revisiting the `mtcars` dataset. We will create a pie chart that shows the distribution of car models by the number of cylinders. <br>
+
+```{r}
+
+# Load necessary libraries
+
+library(ggplot2)
+library(dplyr)
+
+# load the mtcars data set
+
+data("mtcars")
+
+# Create a pie chart of the Count of car models by number of cylinders. 
+
+# We will use the count function to get the number of cars for each 
+# combination of model and cylinders
+
+# We will then use ggplot to create the pie chart by making a bar plot and
+# using coord_polar to make it circular
+
+# Lastly we will add some labels and some colors where the fill color is the 
+# number of cylinders
+
+mtcars %>%
+  count(cyl) %>%
+  ggplot(aes(x="", y=n, fill=factor(cyl))) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y") +
+  geom_text(aes(label = n),
+        position = position_stack(vjust = 0.5),
+        color = "white", size = 5) +
+  labs(title="Count of Cars by Cylinder",
+       fill="Cylinders")
+
+
+```
+
+Note that we can remove that "outer ring" by adding `theme_void( )` to the end of the code. This will remove the axis labels and the grid lines. <br>
+
+```{r}
+
+mtcars %>%
+  count(cyl) %>%
+  ggplot(aes(x="", y=n, fill=factor(cyl))) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y") +
+  geom_text(aes(label = n),
+        position = position_stack(vjust = 0.5),
+        color = "white", size = 5) +
+  labs(title="Count of Cars by Cylinder",
+       fill="Cylinders") +
+  theme_void()
+
+```
+
+<br>
+
+As we did with the last Line Graph example, let's walk through some ideas on how to create a pie chart. <br>
+
+### Basic Pie Chart
+
+**Task:** Create a basic pie chart using the `ggplot2` library in R. <br>
+
+**Steps:**
+
+1.  Install and load the `ggplot2` library.
+2.  Create a simple data frame with two columns: `category` and `value`.
+3.  Use `ggplot2` to create a pie chart from the data frame.
+
+**Solution:**
+
+```{r}
+# Install and load ggplot2
+
+# install.packages("ggplot2")
+library(ggplot2)
+
+# Create data frame
+data <- data.frame(
+  category = c("A", "B", "C", "D"),
+  value = c(10, 20, 30, 40)
+)
+
+# Create pie chart
+ggplot(data, aes(x = "", y = value, fill = category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  theme_void()
+```
+
+### Adding Labels to the Pie Chart
+
+**Task:** Add labels to the pie chart to show the percentage of each category.
+
+**Steps:**
+
+1.  Modify the data frame to include percentage calculations.
+2.  Add labels to the pie chart using `geom_text`. <br>
+
+**Solution:**
+
+```{r}
+
+# Create data frame with percentage
+data <- data.frame(
+  category = c("A", "B", "C", "D"),
+  value = c(10, 20, 30, 40)
+)
+data$percentage <- round(data$value / sum(data$value) * 100, 1)
+
+# Create pie chart with labels
+ggplot(data, aes(x = "", y = value, fill = category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  geom_text(aes(label = paste0(percentage, "%")), position = position_stack(vjust = 0.5)) +
+  theme_void()
+```
+
+### Customizing Colors
+
+**Task:** Customize the colors of the pie chart slices. <br>
+
+**Steps:**
+
+1.  Choose a color palette.
+2.  Apply the color palette to the pie chart using `scale_fill_manual`. <br>
+
+**Solution:**
+
+```{r}
+
+# Create data frame with percentage
+data <- data.frame(
+  category = c("A", "B", "C", "D"),
+  value = c(10, 20, 30, 40)
+)
+
+# Custom colors
+colors <- c("A" = "red", "B" = "blue", "C" = "green", "D" = "purple")
+
+# Create pie chart with custom colors
+ggplot(data, aes(x = "", y = value, fill = category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  scale_fill_manual(values = colors) +
+  theme_void()
+```
+
+<br>
+
+### Adding a Title and Legend
+
+**Task:** Add a title and customize the legend of the pie chart. <br>
+
+**Steps:**
+
+1.  Use `ggtitle` to add a title to the pie chart.
+2.  Customize the legend using `theme`.
+
+**Solution:**
+
+```{r}
+# Create data frame with percentage
+data <- data.frame(
+  category = c("A", "B", "C", "D"),
+  value = c(10, 20, 30, 40)
+)
+
+# Create pie chart with title and legend
+ggplot(data, aes(x = "", y = value, fill = category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  ggtitle("Pie Chart Example") +
+  theme_void() +
+  theme(legend.position = "bottom")
+```
+
+## Exercises
+
+In this assignment, you will create line graphs and pie charts using the `ggplot2` library in R. You will use built-in datasets from RStudio to visualize different types of data. Ensure you follow the instructions for each problem carefully.
+
+### Problem 1: Line Graph of `pressure` Dataset
+
+**Task:** Create a line graph of the `pressure` dataset, which shows the relationship between temperature and pressure.
+
+**Steps:**
+<br>
+
+1.  Load the `ggplot2` library.
+2.  Use the `pressure` dataset.
+3.  Create a line graph with temperature on the x-axis and pressure on the y-axis.
+4.  Add appropriate labels to the axes and a title to the graph.
+
+**Solution:**
+
+```{r}
+#| code-fold: true
+# Load ggplot2 library
+library(ggplot2)
+
+# Create line graph
+ggplot(pressure, aes(x = temperature, y = pressure)) +
+  geom_line() +
+  labs(title = "Temperature vs Pressure",
+       x = "Temperature",
+       y = "Pressure")
+```
+
+### Problem 2: Line Graph of `AirPassengers` Dataset
+
+**Task:** Create a line graph of the `AirPassengers` dataset, which shows the number of air passengers over time.
+
+**Steps:**
+<br>
+
+1. Load the `ggplot2` library. 
+2. Use the `AirPassengers` dataset. 
+3. Convert the `AirPassengers` time series object to a data frame. 
+4. Create a line graph with time on the x-axis and the number of passengers on the y-axis. 
+5. Add appropriate labels to the axes and a title to the graph.
+
+**Solution:**
+
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: true
+# Load ggplot2 library
+library(ggplot2)
+
+# Convert AirPassengers to data frame
+airpassengers_df <- data.frame(
+  time = time(AirPassengers),
+  passengers = as.numeric(AirPassengers)
+)
+
+# Create line graph
+ggplot(airpassengers_df, aes(x = time, y = passengers)) +
+  geom_line() +
+  labs(title = "Number of Air Passengers Over Time",
+       x = "Time",
+       y = "Number of Passengers")
+```
+
+### Problem 3: Line Graph of `lynx` Dataset
+
+**Task:** Create a line graph of the `lynx` dataset, which shows the annual numbers of lynx trappings from 1821–1934 in Canada.
+
+**Steps:** 
+<br>
+
+1. Load the `ggplot2` library. 
+2. Use the `lynx` dataset. 
+3. Convert the `lynx` time series object to a data frame. 
+4. Create a line graph with time on the x-axis and the number of lynx trapped on the y-axis. 
+5. Add appropriate labels to the axes and a title to the graph.
+
+**Solution:**
+
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: true
+# Load ggplot2 library
+library(ggplot2)
+
+# Convert lynx to data frame
+lynx_df <- data.frame(
+  year = time(lynx),
+  trappings = as.numeric(lynx)
+)
+
+# Create line graph
+ggplot(lynx_df, aes(x = year, y = trappings)) +
+  geom_line() +
+  labs(title = "Annual Numbers of Lynx Trappings",
+       x = "Year",
+       y = "Number of Lynx Trapped")
+```
+
+### Problem 4: Line Graph of `economics` Dataset
+
+**Task:** Create a line graph of the `economics` dataset, which shows the unemployment rate over time.
+
+**Steps:** 
+<br>
+
+1. Load the `ggplot2` library. 
+2. Use the `economics` dataset. 
+3. Create a line graph with date on the x-axis and unemployment rate (`unemploy/pop * 100`) on the y-axis. 
+4. Add appropriate labels to the axes and a title to the graph.
+
+**Solution:**
+
+```{r}
+#| code-fold: true
+# Load ggplot2 library
+library(ggplot2)
+
+# Create line graph
+ggplot(economics, aes(x = date, y = unemploy / pop * 100)) +
+  geom_line() +
+  labs(title = "Unemployment Rate Over Time",
+       x = "Date",
+       y = "Unemployment Rate (%)")
+```
+
+### Problem 5: Line Graph of `co2` Dataset
+
+**Task:** Create a line graph of the `co2` dataset, which shows the concentration of atmospheric carbon dioxide over time.
+
+**Steps:**
+<br>
+
+1. Load the `ggplot2` library. 
+2. Use the `co2` dataset. 
+3. Convert the `co2` time series object to a data frame. 
+4. Create a line graph with time on the x-axis and CO2 concentration on the y-axis. 
+5. Add appropriate labels to the axes and a title to the graph.
+
+**Solution:**
+
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: true
+# Load ggplot2 library
+library(ggplot2)
+
+# Convert co2 to data frame
+co2_df <- data.frame(
+  time = time(co2),
+  concentration = as.numeric(co2)
+)
+
+# Create line graph
+ggplot(co2_df, aes(x = time, y = concentration)) +
+  geom_line() +
+  labs(title = "Atmospheric CO2 Concentration Over Time",
+       x = "Time",
+       y = "CO2 Concentration (ppm)")
+```
+
+### Problem 6: Pie Chart of Species Distribution in the Iris Dataset
+
+**Objective:** Create a pie chart to visualize the distribution of different species in the Iris dataset.
+
+**Steps:**
+<br>
+
+1. Load the `ggplot2` library. 
+2. Use the built-in `iris` dataset. 
+3. Create a data frame that counts the number of occurrences of each species. 
+4. Use `ggplot2` to create a pie chart displaying the species distribution.
+
+**Hints:** - Use `table` to count the occurrences of each species. - Use `geom_bar` and `coord_polar` to create the pie chart.
+
+**Solution:**
+
+```{r}
+#| code-fold: true
+# Load ggplot2
+library(ggplot2)
+
+# Load iris dataset
+data(iris)
+
+# Count species occurrences
+species_count <- as.data.frame(table(iris$Species))
+
+# Create pie chart
+ggplot(species_count, aes(x = "", y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") + 
+  geom_text(aes(label = Freq),
+        position = position_stack(vjust = 0.5),
+        color = "white", size = 5) +
+  theme_void() +
+  ggtitle("Distribution of Species in the Iris Dataset") +
+  labs(fill = "Species")
+```
+
+### Problem 7: Pie Chart of Gear Distribution in the Cars Dataset
+
+**Objective:** Create a pie chart to visualize the distribution of different gears in the `cars` dataset.
+
+**Steps:** 
+<br>
+
+1. Load the `ggplot2` library. 
+2. Use the built-in `cars` dataset. 
+3. Create a data frame that counts the number of occurrences of each gear type. 
+4. Use `ggplot2` to create a pie chart displaying the gear distribution.
+
+**Hints:** - Use `table` to count the occurrences of each gear type. - Use `geom_bar` and `coord_polar` to create the pie chart.
+
+**Solution:**
+
+```{r}
+#| code-fold: true
+# Load ggplot2
+library(ggplot2)
+
+# Load cars dataset
+data(mtcars)
+
+# Count gear occurrences
+gear_count <- as.data.frame(table(mtcars$gear))
+
+# Create pie chart
+
+ggplot(gear_count, aes(x = "", y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") + 
+  geom_text(aes(label = Freq),
+        position = position_stack(vjust = 0.5),
+        color = "white", size = 5) +
+  theme_void() +
+  ggtitle("Distribution of Gears in the Cars Dataset") +
+  labs(fill = "Gears")
+```
+
+### Problem 8: Pie Chart of Titanic Class Distribution in the Titanic Dataset
+
+**Objective:** Create a pie chart to visualize the distribution of different classes in the `Titanic` dataset.
+
+**Steps:**
+<br>
+
+1. Load the `ggplot2` library. 
+2. Use the built-in `Titanic` dataset. 
+3. Create a data frame that counts the number of occurrences of each class. 
+4. Use `ggplot2` to create a pie chart displaying the class distribution.
+
+**Hints:** - Use `table` to count the occurrences of each class. - Use `geom_bar` and `coord_polar` to create the pie chart.
+
+**Solution:**
+
+```{r}
+#| code-fold: true
+# Load ggplot2
+library(ggplot2)
+
+# Load Titanic dataset
+data(Titanic)
+
+# Convert Titanic dataset to data frame
+titanic_df <- as.data.frame(Titanic)
+
+# Count class occurrences
+class_count <- as.data.frame(table(titanic_df$Class))
+
+# Create pie chart
+ggplot(class_count, aes(x = "", y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  theme_void() +
+  ggtitle("Distribution of Classes in the Titanic Dataset") +
+  labs(fill = "Class")
+```
+
+<br>
+
+### Problem 9: Pie Chart of Supplement Distribution in the `ToothGrowth` Dataset
+
+**Task:** Create a pie chart to show the distribution of the different supplements (VC and OJ) in the `ToothGrowth` dataset.
+
+**Steps:**
+<br>
+
+1. Load the `ggplot2` library and the `ToothGrowth` dataset. 
+2. Create a data frame that summarizes the count of each supplement type. 
+3. Use `ggplot2` to create a pie chart that shows the proportion of each supplement.
+
+**Hint:** Use the `fill` aesthetic to map the `supp` column to the pie chart slices.
+
+**Solution:**
+
+```{r}
+#| code-fold: true
+# Load ggplot2 and ToothGrowth dataset
+library(ggplot2)
+data(ToothGrowth)
+
+# Summarize count of each supplement type
+supp_count <- as.data.frame(table(ToothGrowth$supp))
+
+# Create pie chart
+ggplot(supp_count, aes(x = "", y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  labs(title = "Supplement Distribution in ToothGrowth Dataset", fill = "Supplement") +
+  theme_void()
+```
+
+<br>
+
+### Problem 10: Pie Chart of Education Levels in the `infert` Dataset
+
+**Task:** Create a pie chart to show the distribution of different education levels in the `infert` dataset.
+
+**Steps:**
+<br>
+
+1. Load the `ggplot2` library and the `infert` dataset.
+2. Create a data frame that summarizes the count of each education level. 
+3. Use `ggplot2` to create a pie chart that shows the proportion of each education level.
+
+**Hint:** Use the `fill` aesthetic to map the `education` column to the pie chart slices.
+
+**Solution:**
+
+```{r}
+#| code-fold: true
+# Load ggplot2 and infert dataset
+library(ggplot2)
+data(infert)
+
+# Summarize count of each education level
+education_count <- as.data.frame(table(infert$education))
+
+# Create pie chart
+ggplot(education_count, aes(x = "", y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") + 
+  geom_text(aes(label = Freq),
+        position = position_stack(vjust = 0.5),
+        color = "white", size = 5) +
+  labs(title = "Education Levels in Infert Dataset", fill = "Education Level") +
+  theme_void()
+```
+
+## Conclusion
+
+In this tutorial, we learned how to create line graphs and pie charts in R using the `ggplot2` package. Line graphs are useful for showing trends over time and comparing multiple data series, while pie charts are useful for showing the relative proportions of different categories. By using `ggplot2`, we can create high-quality visualizations that help us understand and communicate data more effectively. I hope you found this tutorial helpful and that you can now create your own line graphs and pie charts in R. Thank you for reading!

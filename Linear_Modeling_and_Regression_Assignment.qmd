@@ -1,0 +1,287 @@
+---
+title: "Linear Modeling and Regression Assignment"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercises
+
+In this assignment, you will practice determining if there is a linear relationship between two quantitative variables in various built-in datasets in R. You will calculate the correlation, create basic scatterplots using `ggplot2`, and add a linear model to the scatterplots using `geom_smooth` with the `lm` method to visualize the relationships. Each problem will involve different pairs of variables from different datasets. Provide solutions and explanations for each problem.
+
+For each problem, answer the following:
+
+1. Calculate the correlation between the given variables.
+2. Create a scatterplot using `ggplot2`.
+3. Add a linear model to the scatterplot using `geom_smooth` with the `lm` method.
+4. Determine if the linear model is appropriate for the data.
+
+### Problem 1: Iris Dataset - Sepal Length vs Petal Length
+
+**Task:** Determine if there is a linear relationship between `Sepal.Length` and `Petal.Length` in the `iris` dataset.
+
+**Solution and Explanation:**
+
+```{r}
+# Load ggplot2 and iris dataset
+library(ggplot2)
+data(iris)
+
+# Calculate correlation
+cor_sepal_petal <- cor(iris$Sepal.Length, iris$Petal.Length)
+cor_sepal_petal
+
+# Create scatterplot with linear model
+ggplot(iris, aes(x = Sepal.Length, y = Petal.Length)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Sepal Length vs Petal Length with Linear Model", x = "Sepal Length", y = "Petal Length")
+
+# Explanation:
+# The correlation value indicates the strength and direction of the linear relationship between Sepal Length and Petal Length.
+# The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+```
+
+### Problem 2: Airquality Dataset - Ozone vs Wind
+
+**Task:** Determine if there is a linear relationship between `Ozone` and `Wind` in the `airquality` dataset.
+
+**Solution and Explanation:**
+
+```{r}
+# Load ggplot2 and airquality dataset
+library(ggplot2)
+data(airquality)
+
+# Remove NA values
+airquality_clean <- na.omit(airquality)
+
+# Calculate correlation
+cor_ozone_wind <- cor(airquality_clean$Ozone, airquality_clean$Wind)
+cor_ozone_wind
+
+# Create scatterplot with linear model
+ggplot(airquality_clean, aes(x = Ozone, y = Wind)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Ozone vs Wind with Linear Model", x = "Ozone", y = "Wind")
+
+# Explanation:
+# The correlation value indicates the strength and direction of the linear relationship between Ozone and Wind.
+# The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+```
+
+### Problem 3: ToothGrowth Dataset - Dose vs Length
+
+**Solution and Explanation:**
+
+```{r}
+# Load ggplot2 and ToothGrowth dataset
+library(ggplot2)
+data(ToothGrowth)
+
+# Calculate correlation
+cor_dose_len <- cor(ToothGrowth$dose, ToothGrowth$len)
+cor_dose_len
+
+# Create scatterplot with linear model
+ggplot(ToothGrowth, aes(x = dose, y = len)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Dose vs Length with Linear Model", x = "Dose", y = "Length")
+
+# Explanation:
+# The correlation value indicates the strength and direction of the linear relationship between Dose and Length.
+# The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+```
+
+### Problem 4: Cars Dataset - Speed vs Stopping Distance
+
+**Task:** Determine if there is a linear relationship between `speed` and `dist` in the `cars` dataset.
+
+**Solution and Explanation:**
+
+```{r}
+# Load ggplot2 and cars dataset
+library(ggplot2)
+data(cars)
+
+# Calculate correlation
+cor_speed_dist <- cor(cars$speed, cars$dist)
+cor_speed_dist
+
+# Create scatterplot with linear model
+ggplot(cars, aes(x = speed, y = dist)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Speed vs Stopping Distance with Linear Model", x = "Speed", y = "Stopping Distance")
+
+# Explanation:
+# The correlation value indicates the strength and direction of the linear relationship between Speed and Stopping Distance.
+# The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+```
+
+### Problem 5: Faithful Dataset - Eruptions vs Waiting Time
+
+**Task:** Determine if there is a linear relationship between `eruptions` and `waiting` in the `faithful` dataset.
+
+**Solution and Explanation:**
+
+```{r}
+# Load ggplot2 and faithful dataset
+library(ggplot2)
+data(faithful)
+
+# Calculate correlation
+cor_eruptions_waiting <- cor(faithful$eruptions, faithful$waiting)
+cor_eruptions_waiting
+
+# Create scatterplot with linear model
+ggplot(faithful, aes(x = eruptions, y = waiting)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Eruptions vs Waiting Time with Linear Model", x = "Eruptions", y = "Waiting Time")
+
+# Explanation:
+# The correlation value indicates the strength and direction of the linear relationship between Eruptions and Waiting Time.
+# The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+```
+
+### Problem 6: ChickWeight Dataset - Time vs Weight
+
+**Task:** Determine if there is a linear relationship between `Time` and `weight` in the `ChickWeight` dataset.
+
+**Solution and Explanation:**
+
+```{r}
+# Load ggplot2 and ChickWeight dataset
+library(ggplot2)
+data(ChickWeight)
+
+# Calculate correlation
+cor_time_weight <- cor(ChickWeight$Time, ChickWeight$weight)
+cor_time_weight
+
+# Create scatterplot with linear model
+ggplot(ChickWeight, aes(x = Time, y = weight)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Time vs Weight with Linear Model", x = "Time", y = "Weight")
+
+# Explanation:
+# The correlation value indicates the strength and direction of the linear relationship between Time and Weight.
+# The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+```
+
+### Problem 7: Pressure Dataset - Temperature vs Pressure
+
+**Task:** Determine if there is a linear relationship between `temperature` and `pressure` in the `pressure` dataset.
+
+**Solution and Explanation:**
+
+```{r}
+# Load ggplot2 and pressure dataset
+library(ggplot2)
+data(pressure)
+
+# Calculate correlation
+cor_temperature_pressure <- cor(pressure$temperature, pressure$pressure)
+cor_temperature_pressure
+
+# Create scatterplot with linear model
+ggplot(pressure, aes(x = temperature, y = pressure)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Temperature vs Pressure with Linear Model", x = "Temperature", y = "Pressure")
+
+# Explanation:
+# The correlation value indicates the strength and direction of the linear relationship between Temperature and Pressure.
+# The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+```
+
+### Problem 8: Trees Dataset - Girth vs Volume
+
+**Task:** Determine if there is a linear relationship between `Girth` and `Volume` in the `trees` dataset.
+
+**Solution and Explanation:**
+
+```{r}
+# Load ggplot2 and trees dataset
+library(ggplot2)
+data(trees)
+
+# Calculate correlation
+cor_girth_volume <- cor(trees$Girth, trees$Volume)
+cor_girth_volume
+
+# Create scatterplot with linear model
+ggplot(trees, aes(x = Girth, y = Volume)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Girth vs Volume with Linear Model", x = "Girth", y = "Volume")
+
+# Explanation:
+# The correlation value indicates the strength and direction of the linear relationship between Girth and Volume.
+# The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+```
+
+### Problem 9: USArrests Dataset - Urban Population vs Assaults
+
+**Task:** Determine if there is a linear relationship between `UrbanPop` and `Assault` in the `USArrests` dataset.
+
+**Solution and Explanation:**
+
+```{r}
+# Load ggplot2 and USArrests dataset
+library(ggplot2)
+data(USArrests)
+
+# Calculate correlation
+cor_urbanpop_assault <- cor(USArrests$UrbanPop, USArrests$Assault)
+cor_urbanpop_assault
+
+# Create scatterplot with linear model
+ggplot(USArrests, aes(x = UrbanPop, y = Assault)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Urban Population vs Assaults with Linear Model", x = "Urban Population", y = "Assaults")
+
+# Explanation:
+# The correlation value indicates the strength and direction of the linear relationship between Urban Population and Assaults.
+# The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+```
+
+### Problem 10: Swiss Dataset - Education vs Fertility
+
+**Task:** Determine if there is a linear relationship between `Education` and `Fertility` in the `swiss` dataset.
+
+**Solution and Explanation:**
+
+```{r}
+# Load ggplot2 and swiss dataset
+library(ggplot2)
+data(swiss)
+
+# Calculate correlation
+cor_education_fertility <- cor(swiss$Education, swiss$Fertility)
+cor_education_fertility
+
+# Create scatterplot with linear model
+ggplot(swiss, aes(x = Education, y = Fertility)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatterplot of Education vs Fertility with Linear Model", x = "Education", y = "Fertility")
+
+# Explanation:
+# The correlation value indicates the strength and direction of the linear relationship between Education and Fertility.
+# The scatterplot visualizes this relationship, and the linear model (line) shows the best fit line.
+```
+
+
+
+
+

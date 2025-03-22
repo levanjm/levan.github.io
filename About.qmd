@@ -1,0 +1,39 @@
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# About {.unnumbered}
+
+As we were preparing the courses for our new Data Analytics program, we quickly came to realize that what we are trying to accomplish is not what many people would consider a "traditional" introductory data science course. As we looked through our peer institutions, we found that many introductory data science courses were focused on the tools and techniques of data science. While we certainly cover those topics, we also wanted to focus on the process of data science. We wanted to teach students how to think about data, how to ask questions of data, and how to use data to answer those questions. Another caveat of this course is that it is designed for students who have little to no experience with data science, computer programming, or statistics.
+
+We wanted to create a course that would be accessible to students from a wide variety of backgrounds. This is a course that our institution allows to be taken as a general education course, so we wanted to make sure that it was accessible to students who may not have a strong background in mathematics or computer science.
+
+This course is designed to be a gentle introduction to the world of data science. We will cover the basics of data science, including data visualization, data wrangling, and data analysis. We will also cover some of the tools and techniques that are commonly used in data science, such as the R programming language and the tidyverse. We will also cover some of the ethical and social implications of data science, such as privacy, bias, and fairness.
+
+We hope that this course will be a valuable resource for students who are interested in learning more about data science, as well as for students who are interested in pursuing a career in data science. We also hope that this material will be a valuable resource for instructors who are looking for a gentle introduction to data science that they can use in their own courses.
+
+Unfortunately, there are not any textbooks that cover the material that we are trying to cover in this course. Most books used to teach data science or R courses are written for students that are intending to major in these fields. That is not the purpose of this course. This course is an amalgamation of data analytics, statistics, and R programming. We are certainly hoping that this will be a good gateway into our data science program, but we also want to make sure that this course is accessible to students who may not have any intention of majoring in data science.
+
+The information here is a dynamic document. We will be updating it as we go through the course. We will be adding new material, updating old material, and fixing any errors that we find. Here is how we intend to structure the course:
+
+1.  (Mostly) Daily lessons : We have flipped the classroom for this course. We provide a series of lessons the students are expected to watch, take notes, and to work through the examples before coming to class. This allows us to spend more time in class working through the assignments. We have found this to be especially useful for those stuents with little to no programming background.
+
+2.  (Mostly) Daily Assignments : These are shorter assignments that are given in class after the students have watched the online lesson before coming to class. These are intended to reinforce the material that was covered in the lesson.
+
+3.  Individual Labs : These are longer assignments that are intended to be completed outside of class. These are intended to give the students more in depth practice with the material that was covered in the lesson. There are some days where we will have the students work on these in class as they are intended to be more challenging than the daily assignments.
+
+4.  Group projects : We have three group projects throught the term. Students are usually broken into groups of size 3 - 4. We usually take information from students before assigning the groups. I try to make sure that each group has someone that has at least a little programming experience. The group projects are intended to give the students experience working with others on a data science project. We have found that this is a valuable experience in collaborative work. These assignments are intended to be more challenging than the individual labs and generally give up to two weeks to complete.
+
+5.  Exams : We have no exams in this course. We wanted to focus more on the process, tools, and techniques of data science. We felt that exams would not be a good way to assess the learning outcomes. We wanted the students to learn the materail through their individual and group assignments. However, we do have short quizzes that are intended to be a check on the students' progress through the course. These are generally given at the beginning of class to make sure the students are preparing adequately for that day's lesson.
+
+There are sample assignments given at the end of the book. Again, these are intended for students with a relatively low level of programming experience and with no expectations of their having any kind of higher mathematics courses.
+
+We hope that you find this material useful. We are always looking for feedback on how to improve the course. If you have any suggestions, please feel free to reach out to us.
+
+Thanks,<br> Mike
+
+------------------------------------------------------------------------
+
+Dr. Mike LeVan <br> Transylvania University<br> mlevan\@transy.edu <br><br>

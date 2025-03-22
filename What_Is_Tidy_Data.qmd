@@ -1,0 +1,437 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(tidyr)
+library(dplyr)
+library(kableExtra)
+```
+
+## What is "Tidy Data"? {.unnumbered}
+
+::: callout-note
+FYI : Here is the official page for <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">Tidy data</a>. This page is based off of the original paper describing tidy data that Hadley Wickham wrote for the Journal of Statistical Software : [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf)
+:::
+
+Tidy data is a standard way of organizing data that makes it easy to work with. It is a concept that was popularized by the **tidyverse** packages in R. tidyverse is, in a sense, a "library" that contains several packages that are designed to work together, and are designed to work with tidy data. The tidyverse packages include the **dplyr** and **tidyr** packages among others. These packages are designed to work with tidy data. As you start to learn more about **R**, you will discover several of the packages included in the `tidyverse`. These packages are designed to work with tidy data. The `tidyverse` packages include several packages that provide tools for reading in data (the **readr** package), cleaning data (the **dplyr** package), transforming data (the **tidyr** package), and visual data (the **ggplot2** package). These tools are designed to work with tidy data, so it is important to understand what tidy data is and how to organize data in a tidy format.
+
+<br> Hadley Wickham, the author of the `tidyverse` packages, defines tidy data as follows:
+
+1.  Each variable forms a column.
+2.  Each observation forms a row.
+3.  Each type of observational unit forms a table. <br>
+
+The purpose for creating data sets that are tidy is to make it easier to analyze and visualize data. Tidy data is easy to work with because it follows a **consistent structure** that makes it easy to manipulate and visualize data. If we know that the data set is set up as a tidy data set, we can use the `tidyverse` packages to work with the data. These packages provide tools that are set up to work with tidy data. <br>
+
+This consistency makes it easier to read in data, to clean data, to transform data, and to visualize data. When data is tidy, it is easier to work with because we can use the same tools to work with the data. This means we don't have to learn new tools for each new data set that we work with. <br>
+
+When data is not tidy, it can be difficult to work with. For example, if data is spread across multiple columns, it can be difficult to analyze and visualize the data. You may have to completely rewrite your code or create a completely new script to work with the data. By organizing data in a tidy format, it is easier to work with and analyze data because we have these packages that are created to work with a data set that has been formatted as "tidy". <br>
+
+## Example
+
+Consider the following data:
+
+```{r message=FALSE}
+
+# If needed, install the tidyverse package
+
+# install.packages("tidyverse")
+
+# If it is already installed, make sure it is loaded up to use :
+
+# Load the tidyverse package
+
+library(tidyverse)
+```
+
+<br>
+
+Let's create a data frame that is not tidy. We will create a data frame with three rows and four columns. The first column contains the names of three people, and the other columns contain data for the years 2010, 2011, and 2012. Each row represents a person, and each column represents their age during that year.
+
+```{r}
+df <- tibble(
+  name = c("John Smith", "Jane Doe", "Mary Johnson"),
+  `2010` = c(25, 30, 35),
+  `2011` = c(26, 31, 36),
+  `2012` = c(27, 32, 37)
+)
+
+df
+```
+
+<br>
+
+In this case, the data is not tidy because the years are spread across columns. In order for this to be considered "tidy" data, we would need to think about the data in a different way.
+
+The variables we are using are **name**, **year**, and **age**. In order for the data to be tidy, we want each observation (row) to contain a name, a year, and the age. This tells us we would need to have a column for each of these variables. In this case, we would need to have a column for the name of the person, a column for the year that the data was collected, and a column for the age of the person the year the data was collected.
+
+Here is what the tidy data would look like if we ordered the data in a tidy format by name, year, and age:
+
+```{r}
+
+df_tidy <- tibble(
+  name = c("John Smith", "John Smith", "John Smith", "Jane Doe", "Jane Doe", 
+           "Jane Doe", "Mary Johnson", "Mary Johnson", "Mary Johnson"),
+  year = c(2010, 2011, 2012, 2010, 2011, 2012, 2010, 2011, 2012),
+  age = c(25, 26, 27, 30, 31, 32, 35, 36, 37)
+)
+
+df_tidy
+
+```
+
+We have now **cleaned** the data so that we can work with it in a tidy format. <br>
+
+As an example of how you could use the tools from the tidyverse package, you could use the **pivot_longer( )** function from the **tidyr** package to convert the data from the original data frame to a tidy data frame. This is just an example to show you a more elegant way to convert the data to a tidy format. You will perform more advanced cleaning options as you learn more about the tidyverse packages.
+
+```{r}
+
+df_tidy <- df %>% 
+  pivot_longer(cols = -name, names_to = "year", values_to = "value")
+
+df_tidy
+
+```
+
+Now the data is tidy because each variable forms a column, each observation forms a row, and each type of observational unit forms a table.
+
+## Summary
+
+Tidy data is a standard way of organizing data that makes it easy to work with. The `tidyverse` packages provide tools for working with tidy data, making it easier to analyze and visualize data.
+
+---
+
+
+
+## Exercises
+
+In this assignment, you will identify whether a given dataset is in tidy format. Each problem will present a dataset from a different background along with a brief description. Your task is to determine if the dataset is tidy. If it is not tidy, describe why and provide a tidy version of the dataset.
+
+
+
+### Problem 1: Weather Data
+
+The following dataset contains weather data for three cities.
+
+```{r echo=FALSE}
+weather_data <- data.frame(
+  City = c("New York", "Los Angeles", "Chicago"),
+  Jan_Temp = c(30, 58, 25),
+  Feb_Temp = c(32, 60, 28),
+  Mar_Temp = c(45, 65, 40)
+)
+
+kable(weather_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin-right:auto;'")
+```
+
+<br>
+
+### Problem 2: Student Grades
+
+The following dataset contains grades for students in three subjects. <br>
+
+```{r echo=FALSE}
+
+grades_data <- data.frame(
+  Student = c("Alice", "Bob", "Charlie"),
+  Math = c(90, 85, 95),
+  Science = c(88, 92, 89),
+  History = c(84, 78, 91)
+)
+
+kable(grades_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Problem 3: Sales Data
+
+The following dataset contains monthly sales data for different products.
+
+```{r echo=FALSE}
+sales_data <- data.frame(
+  Product = c("A", "B", "C"),
+  Jan_Sales = c(100, 150, 200),
+  Feb_Sales = c(110, 160, 210),
+  Mar_Sales = c(120, 170, 220)
+)
+
+kable(sales_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 4: Patient Health Data
+
+The following dataset contains health data for patients.
+
+```{r echo=FALSE}
+health_data <- data.frame(
+  Patient = c("John", "Jane", "Doe"),
+  Height = c(170, 160, 180),
+  Weight = c(70, 55, 80),
+  Age = c(30, 25, 40)
+)
+
+kable(health_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 5: Financial Data
+
+The following dataset contains quarterly financial data for companies.
+
+```{r echo=FALSE}
+financial_data <- data.frame(
+  Company = c("X", "Y", "Z"),
+  Q1_Revenue = c(1000, 2000, 3000),
+  Q2_Revenue = c(1100, 2100, 3100),
+  Q3_Revenue = c(1200, 2200, 3200)
+)
+
+kable(financial_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 6: Sports Statistics
+
+The following dataset contains statistics for players in a sports team.
+
+```{r echo=FALSE}
+sports_data <- data.frame(
+  Player = c("Player1", "Player2", "Player3"),
+  Goals = c(5, 8, 7),
+  Assists = c(3, 5, 4),
+  Saves = c(2, 1, 3)
+)
+
+kable(sports_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 7: Movie Ratings
+
+The following dataset contains ratings for movies by different critics.
+
+```{r echo=FALSE}
+ratings_data <- data.frame(
+  Movie = c("Movie A", "Movie B", "Movie C"),
+  Critic1 = c(4.5, 3.8, 4.7),
+  Critic2 = c(4.0, 3.9, 4.8),
+  Critic3 = c(4.7, 4.0, 4.9)
+)
+
+kable(ratings_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 8: Employee Salary Data
+
+The following dataset contains salary data for employees in different departments.
+
+```{r echo=FALSE}
+salary_data <- data.frame(
+  Employee = c("E1", "E2", "E3"),
+  Dept1_Salary = c(50000, 55000, 60000),
+  Dept2_Salary = c(52000, 57000, 62000),
+  Dept3_Salary = c(54000, 59000, 64000)
+)
+
+kable(salary_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 9: Product Reviews
+
+The following dataset contains reviews for products.
+
+```{r echo=FALSE}
+reviews_data <- data.frame(
+  Product = c("Product1", "Product2", "Product3"),
+  Review1 = c("Good", "Average", "Excellent"),
+  Review2 = c("Very Good", "Good", "Very Good"),
+  Review3 = c("Excellent", "Good", "Good")
+)
+
+kable(reviews_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 10: Course Enrollment Data
+
+The following dataset contains enrollment data for courses.
+
+```{r echo=FALSE}
+enrollment_data <- data.frame(
+  Course = c("Course1", "Course2", "Course3"),
+  Semester1 = c(30, 25, 20),
+  Semester2 = c(35, 28, 22),
+  Semester3 = c(32, 26, 24)
+)
+
+kable(enrollment_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 11: Sales Data
+
+The following table shows the monthly sales data for three products.
+
+```{r, echo=FALSE}
+sales2_data <- data.frame(
+  Product = c("Product A", "Product B", "Product C"),
+  January = c(100, 150, 200),
+  February = c(120, 160, 220),
+  March = c(130, 170, 230)
+)
+
+kable(sales2_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 12: Survey Data
+
+The following table represents the results of a survey where respondents rated their satisfaction with three services.
+
+```{r, echo=FALSE}
+survey_data <- data.frame(
+  Respondent = c("R1", "R2", "R3"),
+  Service1_Satisfaction = c(5, 4, 3),
+  Service2_Satisfaction = c(4, 3, 2),
+  Service3_Satisfaction = c(3, 2, 1)
+)
+
+kable(survey_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 13: Weather Data
+
+The table below shows the temperature readings at different times of the day for a week.
+
+```{r, echo=FALSE}
+weather2_data <- data.frame(
+  Day = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"),
+  Morning = c(20, 21, 19, 22, 20),
+  Noon = c(25, 26, 24, 27, 25),
+  Evening = c(22, 23, 21, 24, 22)
+)
+
+kable(weather2_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 14: Exam Scores
+
+The following table lists the scores of students in three subjects.
+
+```{r, echo=FALSE}
+exam_scores <- data.frame(
+  Student = c("Student1", "Student2", "Student3"),
+  Math = c(85, 90, 95),
+  Science = c(88, 92, 96),
+  History = c(80, 85, 90)
+)
+
+kable(exam_scores, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 15: Hospital Data
+
+The table below shows the number of patients admitted to different wards of a hospital over three months.
+
+```{r, echo=FALSE}
+hospital_data <- data.frame(
+  Ward = c("Ward A", "Ward B", "Ward C"),
+  January = c(30, 25, 20),
+  February = c(35, 30, 25),
+  March = c(40, 35, 30)
+)
+
+kable(hospital_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 16: Marketing Data
+
+The following table represents the results of a marketing campaign showing the number of leads generated from different channels.
+
+```{r, echo=FALSE}
+marketing_data <- data.frame(
+  Channel = c("Email", "Social Media", "SEO"),
+  Week1 = c(50, 60, 70),
+  Week2 = c(55, 65, 75),
+  Week3 = c(60, 70, 80)
+)
+
+kable(marketing_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 17: Fitness Data
+
+The table below shows the workouts completed by three athletes over a week.
+
+```{r, echo=FALSE}
+fitness_data <- data.frame(
+  Athlete = c("Athlete1", "Athlete2", "Athlete3"),
+  Monday = c(30, 40, 50),
+  Wednesday = c(35, 45, 55),
+  Friday = c(40, 50, 60)
+)
+
+kable(fitness_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 18: Financial Data
+
+The following table shows the quarterly profits for three companies.
+
+```{r, echo=FALSE}
+financial2_data <- data.frame(
+  Company = c("Company A", "Company B", "Company C"),
+  Q1 = c(10000, 15000, 20000),
+  Q2 = c(12000, 16000, 22000),
+  Q3 = c(13000, 17000, 23000),
+  Q4 = c(14000, 18000, 24000)
+)
+
+kable(financial2_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 19: Attendance Data
+
+The table below shows the attendance numbers for different events over three days.
+
+```{r, echo=FALSE}
+attendance_data <- data.frame(
+  Event = c("Event A", "Event B", "Event C"),
+  Day1 = c(100, 150, 200),
+  Day2 = c(110, 160, 210),
+  Day3 = c(120, 170, 220)
+)
+
+kable(attendance_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 20: Production Data
+
+The following table represents the production output of different products over three shifts.
+
+```{r, echo=FALSE}
+production_data <- data.frame(
+  Product = c("Product X", "Product Y", "Product Z"),
+  Shift1 = c(300, 400, 500),
+  Shift2 = c(350, 450, 550),
+  Shift3 = c(400, 500, 600)
+)
+
+kable(production_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br><br><br>
+

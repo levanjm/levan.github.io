@@ -1,0 +1,269 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercises
+
+In this assignment, you will practice reading in data, calculating descriptive statistics (mean and median), handling missing values (NA), and using the `mutate` function to create new data columns. You will use built-in datasets from R for this assignment.
+
+### Problem 1: Mean and Median of Sepal Length in the `iris` Dataset
+
+**Task:** Calculate the mean and median of the `Sepal.Length` column in the `iris` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `iris` dataset.
+2. Calculate the mean and median of the `Sepal.Length` column.
+
+**Code Example:**
+```{r}
+# Load iris dataset
+data(iris)
+
+# Calculate mean and median of Sepal.Length
+mean_sepal_length <- mean(iris$Sepal.Length)
+median_sepal_length <- median(iris$Sepal.Length)
+
+mean_sepal_length
+median_sepal_length
+```
+
+### Problem 2: Mean and Median of Ozone Levels in the `airquality` Dataset
+
+**Task:** Calculate the mean and median of the `Ozone` column in the `airquality` dataset after removing NA values.
+<br>
+
+**Steps:**
+
+1. Load the `airquality` dataset.
+2. Remove NA values from the `Ozone` column.
+3. Calculate the mean and median of the `Ozone` column.
+
+**Code Example:**
+<br>
+```{r}
+# Load airquality dataset
+data(airquality)
+
+# Remove NA values from Ozone column
+ozone_no_na <- na.omit(airquality$Ozone)
+
+# Calculate mean and median of Ozone
+mean_ozone <- mean(ozone_no_na)
+median_ozone <- median(ozone_no_na)
+
+mean_ozone
+median_ozone
+```
+
+### Problem 3: Mean and Median of Annual Lynx Trappings in the `lynx` Dataset
+
+**Task:** Calculate the mean and median of the annual number of lynx trapped in the `lynx` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `lynx` dataset.
+2. Calculate the mean and median of the lynx trappings.
+
+**Code Example:**
+
+```{r}
+# Load lynx dataset
+data(lynx)
+
+# Calculate mean and median of lynx trappings
+mean_lynx <- mean(lynx)
+median_lynx <- median(lynx)
+
+mean_lynx
+median_lynx
+```
+
+### Problem 4: Mean and Median of Tooth Length in the `ToothGrowth` Dataset
+
+**Task:** Calculate the mean and median of the `len` column in the `ToothGrowth` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `ToothGrowth` dataset.
+2. Calculate the mean and median of the `len` column.
+
+**Code Example:**
+
+```{r}
+# Load ToothGrowth dataset
+data(ToothGrowth)
+
+# Calculate mean and median of len
+mean_len <- mean(ToothGrowth$len)
+median_len <- median(ToothGrowth$len)
+
+mean_len
+median_len
+```
+
+### Problem 5: Mean and Median of Age in the `infert` Dataset
+
+**Task:** Calculate the mean and median of the `age` column in the `infert` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `infert` dataset.
+2. Calculate the mean and median of the `age` column.
+
+**Code Example:**
+
+```{r}
+# Load infert dataset
+data(infert)
+
+# Calculate mean and median of age
+mean_age <- mean(infert$age)
+median_age <- median(infert$age)
+
+mean_age
+median_age
+```
+
+## Problem 6: Mean and Median of Wind Speed in the `airquality` Dataset
+
+**Task:** Calculate the mean and median of the `Wind` column in the `airquality` dataset after removing NA values.
+<br>
+
+**Steps:**
+
+1. Load the `airquality` dataset.
+2. Remove NA values from the `Wind` column.
+3. Calculate the mean and median of the `Wind` column.
+
+**Code Example:**
+
+```{r}
+# Load airquality dataset
+data(airquality)
+
+# Remove NA values from Wind column
+wind_no_na <- na.omit(airquality$Wind)
+
+# Calculate mean and median of Wind
+mean_wind <- mean(wind_no_na)
+median_wind <- median(wind_no_na)
+
+mean_wind
+median_wind
+```
+
+### Problem 7: Create a New Column and Calculate Mean and Median in the `iris` Dataset
+
+**Task:** Create a new column `Sepal.Area` as the product of `Sepal.Length` and `Sepal.Width` in the `iris` dataset. Calculate the mean and median of the `Sepal.Area` column.
+<br>
+
+**Steps:**
+
+1. Load the `iris` dataset.
+2. Create a new column `Sepal.Area`.
+3. Calculate the mean and median of the `Sepal.Area` column.
+
+**Code Example:**
+
+```{r}
+# Load iris dataset
+library(dplyr)
+data(iris)
+
+# Create new column Sepal.Area
+iris <- mutate(iris, Sepal.Area = Sepal.Length * Sepal.Width)
+
+# Calculate mean and median of Sepal.Area
+mean_sepal_area <- mean(iris$Sepal.Area)
+median_sepal_area <- median(iris$Sepal.Area)
+
+mean_sepal_area
+median_sepal_area
+```
+
+### Problem 8: Mean and Median of Temperature in the `airquality` Dataset
+
+**Task:** Calculate the mean and median of the `Temp` column in the `airquality` dataset after removing NA values.
+<br>
+
+**Steps:**
+
+1. Load the `airquality` dataset.
+2. Remove NA values from the `Temp` column.
+3. Calculate the mean and median of the `Temp` column.
+
+**Code Example:**
+
+```{r}
+# Load airquality dataset
+data(airquality)
+
+# Remove NA values from Temp column
+temp_no_na <- na.omit(airquality$Temp)
+
+# Calculate mean and median of Temp
+mean_temp <- mean(temp_no_na)
+median_temp <- median(temp_no_na)
+
+mean_temp
+median_temp
+```
+
+### Problem 9: Create a New Column and Calculate Mean and Median in the `ToothGrowth` Dataset
+
+**Task:** Create a new column `Dose.Milligrams` as the product of `dose` and `len` in the `ToothGrowth` dataset. Calculate the mean and median of the `Dose.Milligrams` column.
+<br>
+
+**Steps:**
+
+1. Load the `ToothGrowth` dataset.
+2. Create a new column `Dose.Milligrams`.
+3. Calculate the mean and median of the `Dose.Milligrams` column.
+
+**Code Example:**
+
+```{r}
+# Load ToothGrowth dataset
+library(dplyr)
+data(ToothGrowth)
+
+# Create new column Dose.Milligrams
+ToothGrowth <- mutate(ToothGrowth, Dose.Milligrams = dose * len)
+
+# Calculate mean and median of Dose.Milligrams
+mean_dose_mg <- mean(ToothGrowth$Dose.Milligrams)
+median_dose_mg <- median(ToothGrowth$Dose.Milligrams)
+
+mean_dose_mg
+median_dose_mg
+```
+
+### Problem 10: Mean and Median of Child Count in the `infert` Dataset
+
+**Task:** Calculate the mean and median of the `parity` column in the `infert` dataset.
+<br>
+
+**Steps:**
+
+1. Load the `infert` dataset.
+2. Calculate the mean and median of the `parity` column.
+
+**Code Example:**
+
+```{r}
+# Load infert dataset
+data(infert)
+
+# Calculate mean and median of parity
+mean_parity <- mean(infert$parity)
+median_parity <- median(infert$parity)
+
+mean_parity
+median_parity
+```

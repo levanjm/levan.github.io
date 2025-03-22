@@ -1,0 +1,381 @@
+# Reading In Data {.unnumbered}
+
+<br>
+
+We have seen a few different ways for us to store data. We discussed Vectors, Data Frames and Tibbles. We now move on to the question of how we can get data from a file into R so we can start some Elementary Data Analysis, Visualization, and other fun stuff!
+
+## CSV Files
+
+Let's consider the case to where we have data in a CSV file. If you are unaware, CSV stands for "comma separated values." These are simple text files where the data is separated by commas. We can use the `read.csv()` or `read_csv()`function to read the data into a variable in R. <br>
+
+A CSV file can be upload to RStudio by clicking on "File" and then "Import Dataset" button and selecting "From Text (base)" or "From Text (readr)."
+
+<center>![](./images/Read-In-Data-1.jpg){width="60%"}</center>
+
+<br>
+
+For this particular example, I asked ChatGPT to create a CSV file for me using the following query :
+
+<center>![](./images/Read-In-Data-6.jpg){width="60%"}</center>
+
+<br>
+
+I then proceeded to upload it using the steps above. First, I went to Files -\> Import Dataset -\> From Text (readr). This gave me a new dialog and I clicked on the file `Reds-2024`. Notice that I picked the CSV version and not the Pages version!
+
+<center>![](./images/Read-In-Data-3.jpg){width="60%"}</center>
+
+<br>
+
+I then clicked on the "Import" button and a new dialog was presented to me :
+
+<center>![](./images/Read-In-Data-4.jpg){width="60%"}</center>
+
+<br>
+
+If you look in the upper left hand corner, you will see that you are given a choice for the name of your file. The default one given is `Reds.2024`, but you can change that to anything you wish. I went ahead and just kept this default name. I clicked on the "Import" button and the data was loaded into RStudio into the variable `Reds.2024`. You can look at the variable in the `Environment` tab :
+
+<center>![](./images/Read-In-Data-7.jpg){width="60%"}</center>
+
+You can also see the CSV file in the `Files` tab :
+
+<center>![](./images/Read-In-Data-8.jpg){width="60%"}</center>
+
+<br>
+
+### read.csv( )
+
+We can write part of our code to read in a CSV file using the `read.csv()` function. The `read.csv()` function takes in a file path as an argument. If you have a CSV file uploaded into the files section of RStudio, you can use the `read.csv()` function :
+
+```{r}
+
+# Read in the data
+
+Reds2024_Another_Version <- read.csv("./Reds-2024.csv")
+
+# CAUTION : When creating variable names to use in your R script,
+# make sure you use an underscore and not a dash. When R sees a dash, 
+# it can sometimes be interpreted as a minus sign and not a dash. 
+# This can cause errors in your code.
+
+# You can try this by removing the comment tag below :
+
+# Reds-2024 <- read.csv("Reds-2024.csv")
+```
+
+<br>
+
+We can now see the new version of the data in the `Environment` tab :
+
+<center>![](./images/Read-In-Data-9.jpg){width="60%"}</center>
+
+<br>
+
+`read.csv()` is a base R function. That means it is already loaded up when you start RStudio. You do not need to load any packages to use it.
+
+However, there is a more powerful function called `read_csv()` that is part of the `readr` package. It can read in data faster and it can also read in data that is not in a CSV format, but we will stick with the CSV format for now.
+
+### read_csv( )
+
+One of the differences between read.csv( ) and read_csv( ) is that read_csv( ) is part of the `readr` package. This means you will need to load the `readr` package to use it. This is part of the `tidyverse` package. If you do not have tidyverse installed, make sure you go ahead and install it. Once tidyverse is install, you can load up the `readr` package. <br>
+
+If you are unsure if the `readr` package is loaded, you can look at the `Packages` tab in RStudio to see if the `readr` package is loaded. If it is not, you can load it by clicking on the checkbox next to the package name.
+
+<center>![](./images/Read-In-Data-10.jpg){width="60%"}</center>
+
+<br>
+
+If needed, you can also put this into your script so the user will have it loaded up for them. You can load the `readr` package by using the `library()` function :
+
+```{r}
+
+# Load the readr package
+
+library(readr)
+```
+
+<br>
+
+You can now use the `read_csv()` function to read in the data :
+
+```{r}
+# Read in the data
+
+Reds2024_Version_3 <- read_csv("Reds-2024.csv")
+
+```
+
+Why is read_csv better than read.csv? It is faster and it can read in data that is not in a CSV format. It can read in data that is in a TSV (Tab Separated Value) format, a DSV (Delimiter Separated Value) format, and a few others. It can also read in data that is in a fixed width format.
+
+<br> Basically, when in doubt, use `read_csv( )` instead of `read.csv( )`. <br>
+
+Now that we have the data loaded into R, we can start to do some Elementary Data Analysis. We can use all the commands we discussed when going over Vectors, Data Frames, and Tibbles.
+
+```{r}
+
+# Look at the data
+
+head(Reds2024_Version_3)
+
+# Look at the structure of the data
+
+class(Reds2024_Version_3)
+
+# Look at the Stolen Bases category 
+
+Reds2024_Version_3$`Stolen Bases`
+
+```
+
+### Using URL's
+
+You can also read in data from a URL. This is useful if you have a CSV file hosted on a website. You can use the `read.csv()` os `read_csv()` functions to read in the data from the URL. <br>
+
+If there is a direct URL to a CSV sheet, then you can use one of these commands to read in the data :
+
+```{r}
+
+# data_name <- read.csv('URL')
+
+data1 <- read.csv('https://www.stats.govt.nz/assets/Uploads/Annual-enterprise-survey/Annual-enterprise-survey-2020-financial-year-provisional/Download-data/annual-enterprise-survey-2020-financial-year-provisional-csv.csv')
+
+head(data1,2)
+
+
+# data_name <- read_csv('URL')
+data2 <- read_csv('https://www.stats.govt.nz/assets/Uploads/Annual-enterprise-survey/Annual-enterprise-survey-2020-financial-year-provisional/Download-data/annual-enterprise-survey-2020-financial-year-provisional-csv.csv')
+
+head(data2,2)
+
+```
+
+<br>
+
+Note : As of now, there is not an easy way to read in data from a Google Drive. You can try to use the `googledrive` package, but for our purposes, if we have a csv file on Google Drive, we will download the file and upload it as we did earlier. <br>
+
+## Excel Files
+
+We can also read in data from an Excel file. We can use the `readxl` package to read in the data. If you do not have the `readxl` package installed, you can install it by using the `install.packages()` function :
+
+```{r}
+
+# Install the readxl package
+
+# install.packages("readxl")
+
+```
+
+<br>
+
+You can then load the `readxl` package by using the `library()` function :
+
+```{r}
+
+# Load the readxl package
+
+library(readxl)
+
+```
+
+You can then use the `read_excel()` function to read in the data :
+
+```{r}
+
+# Read in the data
+
+data3 <- read_excel("Reds_1_Excel.xlsx")
+
+head(data3,2)
+
+```
+
+<br>
+
+This allows to now carry out some EDA on the variable `data3`. For example, if we wanted to sum up the number of home runs hit by the Reds in 2024, we could use the following code :
+
+```{r}
+
+# Sum up the number of home runs hit by the Reds in 2024
+
+sum(data3$`Home Runs`)
+
+```
+
+---
+
+
+## Exercises
+
+
+We will be working with a database from the Star Wars universe. We need to first install the package : <br>
+
+install.packages("starwarsdb")
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Please make note that this is a different kind of way we can enter data into R. We have entered what is called a "database" which is different from a text file, a dataframe, a tibble, etc. <br>
+
+We will need to use the "**dplyr**" library to access this data, so install it if it is not already installed. <br>
+
+install.packages("dplyr")
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+**dplyr** should now be installed, but may not be loaded. You can load the library by checking it off in the packages tab, or you can enter the following :
+
+library(dplyr)
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+We are now ready to create a dataframe using a combination of "dplyr" and the "as.data.frame" command. This is similar to the "as.tibble" command used above. Let's store the information in the variable starwars_DF : <br>
+
+starwars_DF \<- as.data.frame(dplyr::starwars)
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Check the variable to make sure it is a dataframe.
+
+class(starwars_DF)
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+Now we are ready to start answering questions.
+
+1.  Use two different methods for finding the number of rows in your data frame. What does this represent?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+2.  Use two different methods for finding the number of columns in your data frame. What does this represent?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+3.  Determine the dimensions of the dataframe using the dim command. What does this tell us?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+4.  What command can we use to list off the variable names in the dataframe? Carry out that command.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+5.  We want to pull out the "height" variable. Carry out two different commands that will pull out this information and save it to a new variable called SW_height. How many values are listed? Does this raise any concerns?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+6.  Do all of the observations have a value for height? If not, how many are missing and who are they missing from?
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+7.  Print out the heights from smallest to largest. Also save the sorted list to a new variable called SW_height_sorted_1
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+8.  Use the sort help file to see how to sort the values from largest to smallest. Then print out the heights from largest to smallest and save new sorted list to SW_height_sorted_2
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+9.  Find two ways to find the maximum values of the height. Save this value to the variable SW_max_height.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+10. Find two ways to find the minimum values of the height. Save this value to the variable SW_max_height.
+
+```{r}
+
+# Response
+
+```
+
+<br>
+
+11. Turn this dataframe into a tibble named SW_tibble.
+
+```{r}
+
+# Response
+
+```
+
+<br>

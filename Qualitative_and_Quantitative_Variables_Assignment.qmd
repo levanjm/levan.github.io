@@ -1,0 +1,234 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Qualitative and Quantitative Variables Assignment {.unnumbered}
+
+# Instructions
+In this assignment, you will distinguish between different types of variables: qualitative (nominal and ordinal) and quantitative (discrete and continuous). Each question will present a variable, and you will identify its type. 
+
+## Questions
+
+### Problem 1
+
+**Gender identity of individuals in a survey.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 2
+
+**Annual income of households in a city.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 3
+
+**Number of books read by students in a year.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 4
+
+**Educational attainment levels (e.g., high school diploma, bachelor's degree, master's degree, etc.).**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 5
+
+**Number of reported hate crimes in different states.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 6
+
+**Types of housing (e.g., owned, rented, homeless).**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 7
+
+**Age of participants in a community health study.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 8
+
+**Political party affiliation (e.g., Democrat, Republican, Independent).**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 9
+
+**Number of languages spoken by immigrants in a region.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 10
+
+**Frequency of attending religious services (e.g., never, occasionally, regularly).**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+
+### Problem 11
+
+**Number of protests attended in a year.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 12
+
+**Types of discrimination experienced (e.g., racial, gender, disability).**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 13
+
+**Height of students in a classroom.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 14
+
+**Marital status (e.g., single, married, divorced, widowed).**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 15
+
+**Number of social media accounts owned by individuals.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 16
+
+**Severity of food insecurity (e.g., none, mild, moderate, severe).**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 17
+
+**Number of children in a family.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 18
+
+**Types of employment (e.g., full-time, part-time, unemployed).**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 19
+
+**Monthly electricity usage in kilowatt-hours.**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+### Problem 20
+
+**Frequency of using public transportation (e.g., never, sometimes, always).**
+<br>
+
+   - **Type:** 
+   <br>
+   
+   - **Explanation:**
+   <br><br>
+   
+

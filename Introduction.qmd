@@ -1,0 +1,39 @@
+# Introduction {.unnumbered}
+
+## Data 1004 - Introduction
+
+#### Data Analytics and the Liberal Arts
+
+</center>
+
+<br>
+
+Welcome to DATA 1004! This course is designed to introduce you to the world of data analytics and how we can view this field of study through the lens of the liberal arts. <br>
+
+Data analytics is the process of examining data sets in order to draw conclusions about the information they contain. This process involves a variety of techniques and tools, including data mining, machine learning, and statistical analysis. The purpose of studying data analytics is to gain insights from data that can be used to make informed decisions. <br>
+
+In this course, we will explore the fundamentals of data analytics and how it can be applied to a wide range of disciplines. We will learn how to collect, clean, and analyze data, as well as how to visualize and interpret the results. We will also discuss ethical considerations related to data analytics and how to communicate our findings effectively.
+
+In this course we will be using the R programming language to explore data, create visualizations, and perform statistical analysis. R is a powerful tool for data analysis and is widely used in academia, industry, and government. It is open-source and has a large community of users who contribute to its development.
+
+This course is designed for students who are interested in learning about data analytics and how it can be applied to their field of study. Whether you are majoring in the humanities, social sciences, natural sciences, or any other discipline, data analytics can help you gain new insights and make better decisions based on evidence.
+
+This course is different from a typical introductory data science course that one would take at other institutions. Those courses are often focused on teaching students solely about the technical aspects of data science, such as programming and statistical methods. While those are important skills to have, they are not the only skills that we want to prioritize to be successful in the field of data analytics.
+
+In this course, we will take a more holistic approach to data analytics, combining technical skills with critical thinking, problem-solving, and communication skills. We will also explore how data analytics can be used to address real-world problems and make a positive impact on society. We want you to be able to take these skills to see how you can use them to help make you better citizens and professionals to those around you. We want you to consider the ethical implications of data analytics and how we can use data to make the world a better place.
+
+Once you have completed this course, you will have experience in the following areas:
+
+-   Learning how to code using R
+-   Collecting and cleaning data
+-   Learn about different types of variables.
+-   Analyzing data using statistical methods
+-   Creating visualizations to communicate results
+-   Applying data analytics to real-world problems
+-   Communicating findings effectively
+-   Understanding ethical considerations related to data analytics
+-   Collaborating with others to solve problems
+-   Learn how to carry out Elementary Data Analysis
+-   Learn how to create a linear regression model in R
+
+We hope that you will find this course to be a valuable experience and that you will be able to apply the skills you learn to your future studies and career.

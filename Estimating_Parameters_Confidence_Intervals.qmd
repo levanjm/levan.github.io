@@ -1,0 +1,574 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Estimating Parameters Using Confidence Intervals {.unnumbered}
+
+Imagine you are a political pollster that is working to try to get a candidate elected. What you are really trying to do is determine if the people are going to vote your candidate into office. You want to know the percentage of the voters that are going to vote for your candidate. Unfortunately the only way you will know this is to ask every single voter in the district. What you are trying to figure out is the **parameter** of the population. The parameter is the true value of the population. In this case the parameter is the percentage of voters that are going to vote for your candidate. The value of this parameter is often labelled $\mu$ and it is the value that you are trying to estimate. <br>
+
+Since you can't ask every voter in the district you are going to have to take a sample of the population. The sample is a subset of the population. You are going to use the sample to estimate the parameter. The estimate is called a **statistic** and it is calculated from the sample. The statistic is the best guess of the parameter that you can make given the information that you have. In this case the statistic is the percentage of voters in the sample that are going to vote for your candidate. The statistic is often labelled $\bar{x}$. <br>
+
+In almost all cases, the statistic is not going to be the same as the parameter. The statistic should to be close to the parameter but it is not going to be the same. The statistic is going to be off by some amount. The amount that the estimate is off by is called the **margin of error**. The margin of error is the difference between the parameter and the estimate and is often labelled MOE. <br>
+
+The margin of error is going to be different for every sample that you take. It is going to be different because every sample you take is going to be different. In order to avoid bias in creating the sample, you are going to take a random sample. This means you are randomly going to select people from the population to be in the sample. Since the sample is random, the margin of error changes for each group. <br>
+
+## Central Limit Theorem
+
+The theory that is driving the calculation of the margin of error is the Central Limit Theorem. The Central Limit Theorem states that the distribution of the sample mean is approximately normally distributed. Here is a way to wrap your head around this idea. Here is a picture of three completely different distributions, all with the same mean, and none of which look anything remotely like the normal distribution. <br>
+
+<center>![](./images/EPCI_4.jpg){width="70%"}</center>
+
+<br>
+
+The first distribution is a uniform distribution. The second distribution is a a bimodal distribution. The third distribution is a positive skewed distribution. <br>
+
+The sampling distribution just means that we need to take every possible sample and look at the distribution that results from those samples. In the picture above, a regular distribution is just a sampling distribution with samples of size 1. <br>
+
+Look what happens when we create a sampling distribution for the three examples above where we are taking samples of size 5. <br>
+
+<center>![](./images/EPCI_5.jpg){width="70%"}</center>
+
+<br>
+
+In this scenario, the third distribution is starting to look like a normal distribution. This is because it wasn't too far off from a normal distribution to begin with. The first two distributions are still not looking like a normal distribution. What happens if we increase the sample size to 30? <br>
+
+<center>![](./images/EPCI_6.jpg){width="70%"}</center>
+
+<br>
+
+Wow! All three of the distributions are starting to look like a normal distribution. This is the Central Limit Theorem in action. The Central Limit Theorem states that the distribution of the sample mean is going to be normally distributed as the size of the samples get larger. Generally, once the sample size hits 30, the distribution of the sample mean is going to be normally distributed. This is going to be true no matter what the original distribution of the population is. The Central Limit Theorem also states that the standard deviation of the sample mean is going to be the standard deviation of the sample divided by the square root of the number of observations in the sample. <br>
+
+## Creating a Confidence Interval
+
+Therefore we are going to use the statistic and the margin of error to come up with an interval that we will claim has a certain probability of containing the parameter. This interval is called a **confidence interval**. We are going to construct confidence intervals that are reasonable to use. <br>
+
+For example, let's think about the average test score from a typical college course. Here are three different confidence intervals to consider:
+
+1.  A 100% confidence interval for the average test score is 0 to 100.
+
+2.  A 5% confidence interval for the average test score is 82 to 85.
+
+3.  A 95% confidence interval for the average test score is 78 to 85.
+
+The first confidence interval is not very useful because it is too wide. Has an interval been constructed that will **definitely** catch the parameter? Absolutely! But it is not very useful because it is too wide. <br>
+
+The second confidence interval is too narrow. It is too narrow because it is unlikely that the interval will contain the parameter. This is saying that the confidence interval is 5% likely to contain the parameter. This is not a very useful confidence interval, either. <br>
+
+The third confidence interval is a good confidence interval. It is saying that based on the methods used, the interval is 95% likely to contain the parameter. This is a good confidence because we have a high level of confidence and a reasonable interval. <br>
+
+When you are creating a confidence interval, these are the trade offs you need to consider when creating the confidence interval. You do not want the interval to be so wide it is useless or too small so that you don't have much confidence that you have the parameter. You want to have a reasonable interval that you have a high level of confidence that you have the parameter. <br>
+
+The idea for creating a confidence interval is not difficult. You are going to take a sample from the population and calculate the statistic from the sample. You are then going to calculate the margin of error The confidence interval can be constructed as follows : <br>
+
+<center>$\bar{x} \pm MOE$</center>
+
+<br>
+
+And this leads us to the question of how to calculate the margin of error. The margin of error is calculated as follows: <br>
+
+<center>$\displaystyle{MOE = (test\,statistic) \times \frac{standard\,deviation}{\sqrt{n}}}$</center>
+
+## Test Statistic
+
+The test statistic is the number that you are going to use to help create the confidence interval. The test statistic is going to be based on the level of confidence that you want. The higher level of confidence will result in a higher test statistic. The information we are given in the problem will dictate to us the type of test statistic that we are going to use. There are 2 types of test statistics that we are going to use to create a confidence interval. They are the z-score and the t-score. They are similar to each other, especially if we have a large sample size. So which one do we use? <br>
+
+If the sample size is small, or we do not know the standard deviation of the population, then we are going to use the t-score. If we know the population standard deviation and have a large sample size ($n \geq 30$), then we are going to use the z-score. Here is a flow chart to help you decide which test statistic to use: <br>
+
+<center>![](./images/EPCI_7.jpg){width="40%"}</center>
+
+<br>
+
+The normal distribution and the t-distribution are very similar to each other. The t-distribution is going to be wider than the normal distribution. The t-distribution is going to be wider because it has more variability. All this means is that we are not as certain about the t-distribution as we are about the normal distribution. Thus the probabilities in the tails of the t-distribution are going to be larger than the normal distribution. <br>
+
+<center>![](./images/EPCI_8.jpg){width="60%"}</center>
+
+<br> As mentioned above, once the samples sizes get large, there is little difference in the sampling distributions. <br>
+
+This means the confidence intervals should take on one of the following two forms:
+
+<center>$\displaystyle{\bar{x} \pm (Z\,score) \times \frac{\sigma}{\sqrt{n}}}$</center>
+
+where
+
+-   $Z$ corresponds to the level of confidence that you want
+-   $\sigma$ is the standard deviation of the population
+-   $n$ is the number of observations in the sample
+
+or
+
+<center>$\displaystyle{\bar{x} \pm (t \, score) \times \frac{s_x}{\sqrt{n}}}$</center>
+
+where
+
+-   $t$ corresponds to the level of confidence that you want
+-   $s_x$ is the standard deviation of the sample
+-   $n$ is the number of observations in the sample <br>
+
+Let's discuss how to find the values for these two test statistics.
+
+## Z-Score
+
+The first test statistic that we are going to use is the z-score. The z-score comes from the normal distribution and is the number of standard deviations that you are away from the mean. The z-score is going to be used when we know the standard deviation of the population and when we have a large sample size. <br>
+
+### Empirical Rule
+
+A **z-score** is the number of standard deviations that you are away from the mean. This also shows us the percentage of the distribution that is within the z-score. The Empirical Rule gives us a few of the more useful z-scores: <br>
+
+<center>![](./images/EPCI_1.jpg){width="60%"}</center>
+
+<br>
+
+Based on the Empirical Rule, we can see that 95% of the distribution is within almost 2 standard deviations of the mean. This means that if we want to have a 95% confidence interval, we are going to use a z-score of 1.96. If we want to have a 90% confidence interval, we are going to use a z-score of 1.645. If we want to have a 99% confidence interval, we are going to use a z-score of 2.58. <br>
+
+<center>![](./images/EPCI_2.jpg){width="60%"}</center>
+
+<br>
+
+If we wanted to construct a 95% confidence interval, we would use the following formula to create it :
+
+<center>$\displaystyle{\bar{x} \pm (1.96) \times \frac{\sigma}{\sqrt{n}}}$</center>
+
+If we wanted to construct a 90% confidence interval, we would use the following formula to create it : <br>
+
+<center>$\displaystyle{\bar{x} \pm (1.645) \times \frac{\sigma}{\sqrt{n}}}$</center>
+
+<br>
+
+If we wanted to construct a 99% confidence interval, we would use the following formula to create it : <br>
+
+<center>$\displaystyle{\bar{x} \pm (2.58) \times \frac{\sigma}{\sqrt{n}}}$</center>
+
+<br>
+
+When we look at the formula, you may notice that there is not much that we are in control of throughout this process. We are not in control of the sample mean or the standard deviation of the sample. What we can control is the number of observations in the sample and the level of confidence that we want. <br>
+
+What if we have created a confidence interval and think it is too narrow, then we can increase the level of confidence. If we created a 90% confidence interval then we could increase the level of confidence to 95% to make the confidence interval wider. We do have to be too cautious about making it too wide. <br>
+
+What if we have created a confidence interval and think it is too wide, then we can increase the number of observations in the sample. If we increase the number of observations in the sample then the standard deviation of the sample is going to decrease. This is going to make the margin of error smaller and the confidence interval narrower. <br>
+
+Consider this image: <br>
+
+<center>![](./images/EPCI_3.jpg){width="60%"}</center>
+
+<br>
+
+This image shows the relationship between the number of observations in the sample and the margin of error. The first part shows the length of the confidence interval with a small sample size of $n=5$. The second part shows the length of the confidence interval with a slightly larger sample of sinze $10$. The third part shows the length of the confidence interval with a larger sample size of $n=150$. As the number of observations in the sample increases, the margin of error decreases. This is because the larger sample size is giving us more information so the data is not as varied. While this is a good thing, it is not always possible to increase the number of observations in the sample. This could be a process that takes a lot of time and money. <br>
+
+The moral of this story is that you may have to make some trade offs when creating a confidence interval. <br>
+
+### Example Using Z-Score
+
+Example : Suppose we collect a population of turtles with the following information :
+
+-   Population size : $n=35$
+-   Population mean weight : $\bar{x} = 300$
+-   Population standard deviation : $\sigma = 18.5$ <br>
+
+We want to construct a 95% confidence interval for the average weight of the turtles.
+
+```{r}
+
+# Sample size
+
+n <- 35
+
+# Sample mean weight
+
+x_bar <- 300
+
+# Sample standard deviation
+
+sigma <- 18.5
+
+# Z-score for 95% confidence interval
+
+z <- 1.96
+
+# Margin of error
+
+MOE <- z * sigma / sqrt(n)
+
+MOE
+
+# Confidence interval
+
+CI <- c(x_bar - MOE, x_bar + MOE)
+
+CI
+
+```
+
+<br>
+
+Our interpretation would be that we are 95% confident that the value of the parameter is between 293.87 and 306.13. <br>
+
+I hope some questions are popping into your mind right now. For instance, if we have the data for the entire population, why do we need to create a confidence interval? This is an excellent question. One of the reasons is that we could just be working through an example where the population is given to us. In practice, we will not have the data for the entire population. Which means we will almost always be using a t-score to create a confidence interval.
+
+## T-Score
+
+The t-score is going to be used when we do not know the standard deviation of the population or when we have a small sample size. We can use R to calculate the value of a t-score that we need. We do need a little bit of information to calculate the t-score. We need to know the level of confidence that we want and the degrees of freedom. The degrees of freedom is the number of observations in the sample minus 1. This represents the number of independent scores in the data set. Let's revist the previous example, but with a smaller sample size and the stnadard deviation of the population was unknown so we calculated it from the sample. <br>
+
+-   Sample size : $n=25$
+-   Sample mean weight : $\bar{x} = 300$
+-   Sample standard deviation : $s_x = 19.3$ <br>
+
+We want to construct a 95% confidence interval for the average weight of the turtles.
+
+```{r}
+
+# Sample size
+
+n <- 25
+
+# Sample mean weight
+
+x_bar <- 300
+
+# Sample standard deviation
+
+s_x <- 19.3
+
+# Degrees of freedom
+
+df <- n - 1
+
+# T-score for 95% confidence interval. Use the qt command.
+
+t <- qt(0.975, df)
+
+# Margin of error
+
+MOE <- t * s_x / sqrt(n)
+
+MOE
+
+# Confidence interval
+
+CI <- c(x_bar - MOE, x_bar + MOE)
+
+CI
+
+```
+
+<br>
+
+The interpretation here is that the confidence interval goes from 292.03 to 307.97. We are 95% confident that the parameter is in this interval. <br>
+
+Let's go over the command we used to find the t-score. <br>
+
+<center>`t <- qt(0.975, df)`</center>
+
+The `qt` command is used to find the t-score. The first argument is the level of confidence that we want. In this case we want a 95% confidence interval so we are going to use 0.975. Why do we do this? Consider this image: <br>
+
+<center>![](./images/EPCI_9.jpg){width="60%"}</center>
+
+<br>
+
+The t-score needed is the mark at the end of the green shaded area, which is the middle 95% of the t-distribution. If you look at the mark though, it covers the first 97.5% of the t-distribution. This is why we use 0.975 as the argument in the `qt` command. The second argument is the degrees of freedom. The degrees of freedom is the number of observations in the sample minus 1. <br>
+
+When people think about the end areas for the confidence interval, this is measured
+using the variable $\alpha$. A 95% confidence interval would have $\alpha$
+represent the other 5%, so $\alpha = 0.05$. <br>
+
+This means that the area in each tail is **half** of $\alpha$, or 0.025. This 
+is why we use 0.975 as the argument in the `qt` command, because
+$1 - 0.025 = 0.975$.<br>
+
+We could have also used the following command to find the t-score:
+
+```{r}
+
+n <- 25
+
+df <- n - 1
+
+alpha = 0.05
+
+t <- qt(1 - (alpha/2), df)
+
+```
+
+
+If we wanted a 90% confidence interval, we would use the following command to find the t-score:
+
+<center>`t <- qt(0.95, df)`</center>
+
+<center>![](./images/EPCI_10.jpg){width="60%"}</center>
+
+<br>
+
+As you can see, the purple region ends after the first 95% of the area of the distribution. This is why we use 0.95 as the argument in the `qt` command. <br>
+
+## Conclusion
+
+This section has been about constructing confidence intervals. We are trying to estimate a parameter from a population. We know that when we take a sample, the value from the sample is almost sure to be different from the population. So instead of using the singular value from the sample, we create an interval that we feel comfortable that captures the parameter. Because of the randomness of drawing a sample we are not going to definitively know if the parameter is in the interval. However, based on the methods we have discussed in this section, we can be highly confident that the parameter is in the interval.
+
+## Exercises
+
+For the following problems you will need to calculate the following :
+
+  - The mean of the sample
+  - The standard deviation of the sample
+  - The number of observations in the sample
+  - The alpha level
+  - The test statistic (t-score)
+  - The margin of error
+  - The confidence interval
+
+
+### Problem 1: Estimating the Mean Waiting Time for Old Faithful Eruptions
+Use the `faithful` dataset to estimate the mean waiting time between eruptions using a 99% confidence interval.
+
+```{r}
+# Solution
+data("faithful")
+
+waiting_times <- faithful$waiting
+
+mean_waiting <- mean(waiting_times)
+sd_waiting <- sd(waiting_times)
+n <- length(waiting_times)
+alpha_level <- 0.01
+t_score <- qt(1 - (alpha/2), df = n - 1)
+
+margin_of_error <- t_score * (sd_waiting / sqrt(n))
+lower_bound <- mean_waiting - margin_of_error
+upper_bound <- mean_waiting + margin_of_error
+
+list(mean = mean_waiting, sd = sd_waiting, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 99% confidence interval for the mean waiting time between eruptions is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 2: Estimating the Mean Speed of Cars in the `cars` Dataset
+
+Use the `cars` dataset to estimate the mean speed of cars using a 95% confidence interval.
+
+```{r}
+# Solution
+data("cars")
+car_speeds <- cars$speed
+
+mean_speed <- mean(car_speeds)
+sd_speed <- sd(car_speeds)
+n <- length(car_speeds)
+alpha_level <- 0.05
+t_score <- qt(1 - (alpha/2), df = n - 1)
+
+margin_of_error <- t_score * (sd_speed / sqrt(n))
+lower_bound <- mean_speed - margin_of_error
+upper_bound <- mean_speed + margin_of_error
+
+list(mean = mean_speed, sd = sd_speed, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 95% confidence interval for the mean speed of cars is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 3: Estimating the Mean Gas Mileage of Cars in the `mtcars` Dataset
+Use the `mtcars` dataset to estimate the mean miles per gallon (mpg) of cars using a 99% confidence interval.
+
+```{r}
+# Solution
+data("mtcars")
+mpg <- mtcars$mpg
+
+mean_mpg <- mean(mpg)
+sd_mpg <- sd(mpg)
+n <- length(mpg)
+alpha_level <- 0.01
+t_score <- qt(1 - (alpha/2), df = n - 1)
+
+margin_of_error <- t_score * (sd_mpg / sqrt(n))
+lower_bound <- mean_mpg - margin_of_error
+upper_bound <- mean_mpg + margin_of_error
+
+list(mean = mean_mpg, sd = sd_mpg, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 99% confidence interval for the mean miles per gallon of cars is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 4: Estimating the Mean Height of Trees in the `trees` Dataset
+Use the `trees` dataset to estimate the mean height of trees using a 95% confidence interval.
+
+```{r}
+# Solution
+data("trees")
+tree_heights <- trees$Height
+
+mean_height <- mean(tree_heights)
+sd_height <- sd(tree_heights)
+n <- length(tree_heights)
+alpha_level <- 0.05
+t_score <- qt(0.975, df = n - 1)
+
+margin_of_error <- t_score * (sd_height / sqrt(n))
+lower_bound <- mean_height - margin_of_error
+upper_bound <- mean_height + margin_of_error
+
+list(mean = mean_height, sd = sd_height, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 95% confidence interval for the mean height of trees is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 5: Estimating the Mean Air Quality in New York
+Use the `airquality` dataset to estimate the mean ozone level using a 90% confidence interval.
+
+```{r}
+# Solution
+data("airquality")
+ozone_levels <- airquality$Ozone[!is.na(airquality$Ozone)]
+
+mean_ozone <- mean(ozone_levels)
+sd_ozone <- sd(ozone_levels)
+n <- length(ozone_levels)
+t_score <- qt(0.95, df = n - 1)
+alpha_level <- 0.10
+margin_of_error <- t_score * (sd_ozone / sqrt(n))
+lower_bound <- mean_ozone - margin_of_error
+upper_bound <- mean_ozone + margin_of_error
+
+list(mean = mean_ozone, sd = sd_ozone, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 90% confidence interval for the mean ozone level is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 6: Estimating the Mean Depth of Quakes in Fiji
+Use the `quakes` dataset to estimate the mean depth of earthquakes using a 95% confidence interval.
+
+```{r}
+# Solution
+data("quakes")
+quake_depths <- quakes$depth
+
+mean_depth <- mean(quake_depths)
+sd_depth <- sd(quake_depths)
+n <- length(quake_depths)
+t_score <- qt(0.975, df = n - 1)
+alpha_level <- 0.05
+margin_of_error <- t_score * (sd_depth / sqrt(n))
+lower_bound <- mean_depth - margin_of_error
+upper_bound <- mean_depth + margin_of_error
+
+list(mean = mean_depth, sd = sd_depth, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 95% confidence interval for the mean depth of earthquakes is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 7: Estimating the Mean Monthly Sunspots
+Use the `sunspot.month` dataset to estimate the mean number of monthly sunspots using a 99% confidence interval.
+
+```{r}
+# Solution
+data("sunspot.month")
+monthly_sunspots <- sunspot.month
+
+mean_sunspots <- mean(monthly_sunspots)
+sd_sunspots <- sd(monthly_sunspots)
+n <- length(monthly_sunspots)
+alpha_level <- 0.01
+t_score <- qt(0.995, df = n - 1)
+
+margin_of_error <- t_score * (sd_sunspots / sqrt(n))
+lower_bound <- mean_sunspots - margin_of_error
+upper_bound <- mean_sunspots + margin_of_error
+
+list(mean = mean_sunspots, sd = sd_sunspots, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 99% confidence interval for the mean number of monthly sunspots is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 8: Estimating the Mean Pressure in the `pressure` Dataset
+Use the `pressure` dataset to estimate the mean pressure using a 95% confidence interval.
+
+```{r}
+# Solution
+data("pressure")
+pressure_values <- pressure$pressure
+
+mean_pressure <- mean(pressure_values)
+sd_pressure <- sd(pressure_values)
+n <- length(pressure_values)
+t_score <- qt(0.975, df = n - 1)
+alpha_level <- 0.05
+margin_of_error <- t_score * (sd_pressure / sqrt(n))
+lower_bound <- mean_pressure - margin_of_error
+upper_bound <- mean_pressure + margin_of_error
+
+list(mean = mean_pressure, sd = sd_pressure, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 95% confidence interval for the mean pressure is approximately [`r lower_bound`, `r upper_bound`].
+
+### Problem 9: Estimating the Mean Weight of Chickens
+Use the `ChickWeight` dataset to estimate the mean weight of chickens at Time 20 using a 95% confidence interval.
+
+(Hint : Look at the set up of ChickWeight using ?Chickweight. There are 4 variables, 
+one of which is "Time". We want the variable Chickweight$Time when Time = 20. 
+Filter the dataset to get the weights at Time 20)
+
+```{r}
+# Solution
+
+# ?ChickWeight
+
+data("ChickWeight")
+
+# chick_weights <- filter(ChickWeight, Time == 20)$weight
+
+chick_weights <- ChickWeight$weight[ChickWeight$Time == 20]
+
+mean_weight <- mean(chick_weights)
+sd_weight <- sd(chick_weights)
+n <- length(chick_weights)
+t_score <- qt(0.975, df = n - 1)
+alpha_level <- 0.05
+margin_of_error <- t_score * (sd_weight / sqrt(n))
+lower_bound <- mean_weight - margin_of_error
+upper_bound <- mean_weight + margin_of_error
+
+list(mean = mean_weight, sd = sd_weight, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 95% confidence interval for the mean weight of chickens at Time 20 is approximately [`r lower_bound`, `r upper_bound`].
+
+
+
+### Problem 10: Estimating the Mean Sepal Length of Versicolor Species
+Use the `iris` dataset to estimate the mean sepal length of the Versicolor species using a 90% confidence interval.
+
+(Hint : We want to pull out the Sepal.Length column for the Versicolor species)
+```{r}
+# Solution
+data("iris")
+
+# versicolor_sepal_length <- filter(iris, Species == "versicolor")$Sepal.Length
+
+versicolor_sepal_length <- iris$Sepal.Length[iris$Species == "versicolor"]
+
+mean_sepal_length <- mean(versicolor_sepal_length)
+sd_sepal_length <- sd(versicolor_sepal_length)
+n <- length(versicolor_sepal_length)
+t_score <- qt(0.95, df = n - 1)
+alpha_level <- 0.10
+margin_of_error <- t_score * (sd_sepal_length / sqrt(n))
+lower_bound <- mean_sepal_length - margin_of_error
+upper_bound <- mean_sepal_length + margin_of_error
+
+list(mean = mean_sepal_length, sd = sd_sepal_length, t_score = t_score, alpha_level = alpha_level,
+     margin_of_error = margin_of_error, lower_bound = lower_bound, upper_bound = upper_bound)
+```
+
+**Result**: The 90% confidence interval for the mean sepal length of the Versicolor species is approximately [`r lower_bound`, `r upper_bound`].
+
+
+<br><br>
+

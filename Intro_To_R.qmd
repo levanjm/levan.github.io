@@ -1,0 +1,973 @@
+# Intro to R {.unnumbered}
+
+In this section we are going to go through some of the basics to programming in R. We will look at how to comment your work, basic calculator computations, create a variable, create a vector, how to install a library / package, and use some of the built-in functions. <br> <br>
+
+## Comments
+
+<br> Comments are a very important part of coding. When you are writing code, you will want to leave notes to yourself and your collaborators to describe what you are doing at each step. You can also leave notes on parts of the code that are norking or that you feel should be changed. It is a way to remind yourself and your collaborators the work that has been done, why it was done, what is broken, other changes you want to make, and more. They are especially important when you come back to the code after not having looked at it for a while. <br>
+
+Basically, leave as many comments as possible while coding. You should start with the names of those that are working on the project with a synopsis on what is the purpose of the project. <br>
+
+A comment is any text following a hashtag (#) on the same line. This text is ignored by the R compiler and does not affect how the script is run. This is an example of how you should start every script you write in this class or at your job. <br>
+
+```{r}
+
+# Mike LeVan
+# Data-1004 Data Analytics and Statistics
+# Date
+
+# Assignment Description
+
+# I can write out notes to myself and my colleagues!
+
+# R ignores all the lines that start with #
+
+```
+
+## Calculator
+
+<br> While this is quite a bit of overkill, R can be used as a basic calculator. Here are the operators :
+
+### Addition ( + )
+
+```{r}
+
+# This is an example of addition.
+
+4 + 8
+```
+
+Notice the output above :
+
+`[1] 12`
+
+The \[1\] means the first output followed the by value of the output 12. <br>
+
+### Subtraction ( - )
+
+```{r}
+
+# Here is an example of subtraction.
+
+5 - 14
+```
+
+<br>
+
+### Multiplication ( \* )
+
+```{r}
+
+# Here is an example of multiplication
+
+8 * 17
+```
+
+<br>
+
+### Division ( / )
+
+```{r}
+
+# Division
+
+22 / 7
+```
+
+<br>
+
+### Exponentiation ( \^ )
+
+```{r}
+
+# Exponentiation
+
+5^3
+```
+
+<br>
+
+### Square Roots and Radicals
+
+Recall that we can use exponents to calculate radicals, too. If you recall, the square root function is the same as raising a value to the (1 / 2) power!
+
+```{r}
+
+# Here is the square root of 9
+
+9^(1/2)
+```
+
+<br>
+
+Notice that there are some levels of estimation / rounding here. For example, calculate the square root of 2
+
+```{r}
+
+2^(1/2)
+```
+
+<br>
+
+Obviously the real answer goes further than six decimal places. Also think about the square root of 2 multiplied by itself. We should get the value 2 right back :
+
+```{r}
+2^(1/2) * 2^(1/2)
+```
+
+<br>
+
+But notice what happens if we then subtract 2 from the previous result :
+
+```{r}
+
+2^(1/2) * 2^(1/2) - 2
+
+```
+
+<br> This result is in scientific notation, but what does it mean? When you see the "e-16" part, that says to move the decimal places 16 spots to the left, so this answer is closer to 0.000000000000000440892. Notice that it is not zero, as it should be. This is because of the estimation that was talked about above. <br>
+
+### Creating a variable
+
+<br> What is a variable? Imagine dumping some data in a bucket and then giving that bucket a name. Now, every time you use that name, you are really referring to what is in the bucket. <br>
+
+NOTE 1 : Recall our discussion from class about naming your variables. You want to pick a name for your variables that make sense. It will make editing your script much easier in the long run. If I called a variable "Quiz_Scores" then we know what types of values we are working with. If I called the variable "x" instead, what does that tell us about the variable itself? <br>
+
+We can use an "arrow" to assign a value into a variable. An arrow is just a less than sign followed by a dash with no spaces between them : <br>
+
+<center>`<-`</center>
+
+<br>
+
+For example, what if I wanted to assign the value 3 into a variable called "x" and the value 7 into a variable called "y", we could type this into our R script :
+
+```{r}
+
+# Assign 3 to the variable "x"
+
+x <- 3
+
+# Assign 7 to the variable "y"
+
+y <- 7
+```
+
+<br>
+
+NOTE 2 : At this point you should look at the ENVIRONMENT window. This window shows you the variables you are using and the values they contain.
+
+Now that we have values in these variables, we can now use them in our script. For example, what if I wanted to perform some basic calculations with these variables :
+
+### Addition of two variables : x + y
+
+```{r}
+
+# We are going to calculate x + y. 
+
+# Recall that x = 3 and y = 7 from above, so this should return 10
+
+x + y
+
+```
+
+<br>
+
+We could do the same for several different operations :
+
+```{r}
+
+# Example 1 : Subtract two variables :
+
+y - x
+
+# Example 2 : Multiply a variable by a constant. We could multiply the variable x by 9 to
+# get 9 * 3 = 27
+
+9*x
+
+# Example 3 : Take a linear combination of two different variables. For example, we can
+# multiply your by 2 and x by 3 and add them together to get 
+# 2*7 + 3*3 = 13 + 9 = 23 
+
+2*y + 3*x
+
+# Example 4 : Use one variable as an exponent for another variable. In this case, take the 
+# variable x and raise it to the power y. In this case, we are computing 3 ^ 7
+# which is 3 * 3 * 3 * 3 * 3 * 3 * 3 = 2187:
+
+x^y
+```
+
+<br>
+
+### Assigning Operations to Variables
+
+<br>
+
+We could also take the result from an operation and assign that to a different variable. For exampe, we could multiply x by 7 and multiply y by 2, subtract them and store the result in a new variable z.
+
+```{r}
+
+z <- 7*x - 2*y
+```
+
+<br>
+
+If you want to print out what is now in the variable z, you can now see it in the ENVIRONMENT window. You can also type it out in the script : <br>
+
+```{r}
+
+# Print out the variable z
+
+z
+```
+
+<br>
+
+Recall from class that there are different kinds of variables we might be asked to consider. We could have QUANTITATIVE data that could be in the form of continuous or discrete values. Another kind of data we talked about was CATEGORICAL data. Depending on the type of data you are analyzing, you would need to perform different operations.
+
+### Creating vectors
+
+Let's assume the class takes a quiz and I want to keep track of them. Instead of creating a variable for each individual quiz, I can create one vector that will have all of the scores. <br>
+
+For example, if I have the quiz scores 10, 5, 8, 9, 4 then I could create the variables Student_1_Quiz, Student_2_Quiz, etc. It is much easier to create a single variable that holds all of these values. <br>
+
+We will use the following command : **c( )** <br>
+
+The "**c**" is shorthand for "**concatenate**" which means to link objects together in a chain or series. <br>
+
+If I wanted to create a vector for the quiz scores above, I would create a vector called Quiz1_Scores and assign the variables as follows : <br>
+
+Notice the order is important. If we want to assign the first student a 10, the second a 5, the third an 8, the fourth a 9, and the fifth a 4, then we would do the following :
+
+```{r}
+
+# Create a vector and call it "Quiz1_Scores" 
+
+Quiz1_Scores <- c(10, 5, 8, 9 ,4)
+```
+
+<br>
+
+Notice how this is represented in the ENVIRONMENT window :
+
+```{r}
+
+# We can print out the variable to check what it contains
+
+Quiz1_Scores     
+
+```
+
+This tells us the scores are located in spots 1, 2, 3, 4, 5 in the vector. In this vector, the values in the spots are then shown as the values : 10 5 8 9 4 <br>
+
+Let's say Student 3 comes to see us and ask about their quiz grade. We can then access the individual value as follows :
+
+```{r}
+Quiz1_Scores[3]
+
+```
+
+<br>
+
+If we wanted the fifth value in the vector we could say :
+
+```{r}
+
+Quiz1_Scores[5]
+
+```
+
+<br>
+
+If we wanted to print out the 3rd, 4th, and 5th scores, we could say :
+
+```{r}
+
+Quiz1_Scores[3:5]
+
+```
+
+<br>
+
+Obviously we would want to make sure we enter in the data in an appropriate order because if I rearrange the order I get a completely different vector :
+
+```{r}
+
+Quiz1_Scores_B <- c(5, 10, 4, 9, 8)
+
+```
+
+<br>
+
+While I have the same scores, they are located in different spots of the vectors and would assign different values to Student 1, Student 2, etc. <br>
+
+We could also use characters in our vectors. We would need to make sure we use quotation marks so the compiler does not think we are using other variables in our vector.
+
+```{r}
+
+Students <- c("Alice", "Bob", "Chad", "Debbie", "Eric")
+
+```
+
+Check out what is now in the ENVIRONMENT window :
+
+```{r}
+
+# Print out the Students vector :
+
+Students
+
+```
+
+<br>
+
+The only real difference from above is the we are using characters instead of numeric values and that is identified because of the "chr" notation in the description. <br>
+
+We can look at the individual entries jsut as we did above. To look at the fourth entry in the vector we would type :
+
+```{r}
+
+Students[4]
+
+```
+
+<br>
+
+If you are given a variable or vector and want to know what type of values it contains, you can use the "class" command to tell you. Here are some examples to check entire vectors or individual locations in a vector : <br>
+
+```{r}
+class(Quiz1_Scores)
+
+class(Quiz1_Scores[2])
+
+class(Students)
+
+class(Students[1])
+
+class(Students)
+```
+
+<br>
+
+What happens if we mix our variables and have numbers and characters in the same vector? <br>
+
+Here is how one could be created :
+
+```{r}
+
+blah <- c(4, "dffdg", 6, 9, "trte")
+
+```
+
+<br>
+
+How does R interpret these values?
+
+```{r}
+
+class(blah)
+
+```
+
+<br>
+
+Notice that it considers EVERY entry in this vector to be a CHARACTER even though we entered some as numbers. Be careful with this as it could cause issues on how we work and interact with this vector.
+
+### Libraries and Packages
+
+<br>
+
+When we start up a session of R, there are some commands that are already built into the program that we can use. For instance, we used the basic mathematics operations above. <br>
+
+You will eventually want to do a deeper analysis of the data that needs a command that is not already installed in your current session of R. This is where the idea of Libraries or Packages comes into play. <br>
+
+If there is a command we want to use that is not currently loaded into R, we can install the package that includes the command. <br>
+
+You can see what is loaded already by clicking on the PACKAGES tab. <br>
+
+You will see the packages that are loaded up as they will have a check mark indicated they have been installed. <br>
+
+Let's say there was something in the "**tcltk**" library I wanted to use. I could then click on the check box for "**tcltk**" and a message should come up in the Console showing that the package was installed.
+
+**\> library(tcltk, lib.loc = "/opt/R/4.3.1/lib/R/library")** <br>
+
+We could remove the package by unclicking on the check box. We get a confirmation in the Console :
+
+**\> detach("package:tcltk", unload = TRUE)** <br>
+
+What happens if we need a package that is not included in the list. There are hundreds of packages that people have developed to use in R. <br>
+
+For example, consider the **tidyverse** library. This is a library that contains several commands that we will be using over the semester. <br>
+
+If we know we are going to be using a specific library in our R script, then we should install it at the top of the script. We would enter in a command such as : <br> **install.packages("tidyverse")** <br>
+
+Once we do this, you will see several different commands that are now available for us to use to analyze our data set. <br>
+
+If you look at the Packages tab, you will see several new packages that we can add to use in the program. <br>
+
+**tidyverse** comes with several packages. If you click on the tidyverse package, you will see several packages installed :
+
+**\> library(tidyverse)**
+
+── Attaching core tidyverse packages ────────────────────── tidyverse 2.0.0 ──
+
+✔ dplyr 1.1.2 ✔ readr 2.1.4
+
+✔ forcats 1.0.0 ✔ stringr 1.5.0
+
+✔ ggplot2 3.4.2 ✔ tibble 3.2.1
+
+✔ lubridate 1.9.2 ✔ tidyr 1.3.0
+
+✔ purrr 1.0.1\
+<br>
+
+These packages are now loaded into R. Note that is we uncheck the tidyverse package, these are still loaded into R. We can remove them by unchecking their package. For example, if I uncheck the ggplot2 package you will see the following message : <br>
+
+`> detach("package:ggplot2", unload = TRUE)` <br>
+
+When you are starting to become a programmer it might be tempting just to load up EVERYTING, but that is not good practice. When these packages are loaded up, they are taking up memory. This can lead to slower computation times as well as lead to larger files being generated, wasting space. Try to be efficient and load up what you need and avoid bloat.
+
+### Functions
+
+<br>
+
+There are two kinds of functions we are going to deal with in class - the ones that are built into R and ones we create ourselves. This lesson will only consider the functions that are built in. <br>
+
+A **FUNCTION** is a command that takes in some kind of data, manipulates it, and returns a value. It has the following form : <br>
+
+**FUNCTION_NAME( data )** <br>
+
+This will simply print out the result. Remember we could also assign the result to a variable.
+
+**result \<- FUNCTION_NAME ( data)**
+
+For example, go back to the quiz grades we had listed earlier. What if I wanted to calculated the average (mean) of the quiz scores? I could enter the following :
+
+```{r}
+mean(Quiz1_Scores)
+
+```
+
+<br>
+
+I could assign the result to a variable, such as :
+
+```{r}
+
+# Calculate the average and store the result in the variable 
+# named "Quiz1_Average"
+
+Quiz1_Average <- mean(Quiz1_Scores)
+
+# Print out the average
+
+Quiz1_Average
+
+```
+
+<br>
+
+There are several other built in functions. Here are a few : <br>
+
+**min( ), max( ), mean( ), median( ), sum( ), range( ), abs( )** <br>
+
+If we wanted the highest quiz grade, we could say :
+
+```{r}
+
+# Find the maximum value :
+
+max(Quiz1_Scores)
+```
+
+<br>
+
+If I wanted to know how many values are in my vector, I could say :
+
+```{r}
+
+# Use the length function :
+
+length(Quiz1_Scores)
+
+```
+
+<br>
+
+If I wanted to pick a random number from 1 - 100, I could type the following
+
+```{r}
+
+sample(100,1)
+
+```
+
+<br>
+
+If I wanted to pick three random numbers (all different) from 1 - 100, we could say this :
+
+```{r}
+
+sample(100,3)
+
+```
+
+<br>
+
+If I wanted to pick seven random numbers from 1 - 100 where we could have (but not guarantee) duplicate values, I could say this :
+
+```{r}
+
+sample(100, 7, replace=TRUE)
+
+```
+
+<br>
+
+To create a random vector for a range of values, we can use sample function. We just need to pass the range and the sample size inside the sample function. <br>
+
+For example, if we want to create a random sample of size 20 for a range of values between 1 to 100 then we can use the command sample(1:100,20) and if the sample size is larger than 100 then we can add replace=TRUE as shown in the below examples.
+
+```{r}
+
+# Create random sample of 20 values from 1 - 100
+
+x1 <- sample(1:100,20)
+
+# Print out the result
+
+x1
+
+```
+
+<br>
+
+```{r}
+
+# Create a sample of 200 values from 1 - 100. Obviously there will be repeats!
+
+x2 <- sample(1:100,200,replace=TRUE)
+
+# Print out the sample
+
+x2
+```
+
+<br>
+
+There are far too many built in functions to list. You may have to use a book or The Google to help you find an appropriate one to use. <br>
+
+Lastly, make sure that the data you enter into the function makes sense. For example, what if I tried to find the average of the names of the students we put into the vector "Students"? Let's remind ourselves what we have saved in this variable :
+
+```{r}
+
+Students
+
+```
+
+It shouldn't make any sense to try to find the average of these because these variables are **characters** and not **numeric**. What should happen if we try to take an average of characters instead of numerical values? Check the output below to see! <br>
+
+```{r}
+
+mean(Students)
+
+```
+
+<br>
+
+Yeah, this is R pretty much telling us we are not using the function correctly. <br>
+
+### Boolean (Logical) Variables
+
+On a side note, when the error message tells us that a variable is not **logical**, R is not saying that we are being illogical. Instead, R is referring to another type of variable we might discuss later. These are called **boolean** or **logical** variables and all that means is that our variable takes on one of two values : TRUE or FALSE. <br>
+
+If I wanted to set the variable **f** to TRUE and the variable **g** to FALSE, I could do the following :
+
+```{r}
+
+f <- TRUE
+
+g <- FALSE
+```
+
+We could then print these out to see the result :
+
+```{r}
+
+# Print out f
+f
+
+# Print out g
+g
+```
+
+
+### Boolean (Logical) Operators
+
+There are several operators that we can use to compare values. Here are a few : <br>
+
+  - AND : &
+  - OR : |
+  - NOT : ! 
+  - EQUALS : == 
+  - NOT EQUALS : != 
+<br>
+  
+Lets create some variables to see how these work. <br>
+
+```{r}
+
+a <- TRUE
+
+b <- FALSE
+
+c <- TRUE
+
+d <- FALSE
+```
+
+Now we can use these variables to see how these operators work. <br>
+
+```{r} 
+
+# The AND operator will return TRUE if both values are TRUE. If one or 
+# both are FALSE, then it will return FALSE.
+
+a & b
+
+a&c
+
+a&d
+
+b&c
+
+b&d
+
+c&d
+```
+<br>
+
+```{r}
+
+# The OR operator will return TRUE if one or both values are TRUE. If both
+# are FALSE, then it will return FALSE.
+
+a|b
+
+a|c
+
+a|d
+
+b|c
+
+b|d
+
+c|d
+```
+<br>
+
+```{r}
+
+# The NOT operator will return the opposite of the value. If the value is TRUE
+# then it will return FALSE. If the value is FALSE, then it will return TRUE.
+
+!a
+
+!b
+```
+<br>
+
+```{r}
+
+# The EQUALS operator will return TRUE if the values are the same. If the values
+# are different, then it will return FALSE.
+
+a==b
+
+a==c
+```
+<br>
+
+```{r}
+
+# The NOT EQUALS operator will return TRUE if the values are different. If the values
+# are the same, then it will return FALSE.
+
+a!=b
+
+a!=c
+```
+<br>
+
+---
+
+## Exercises 
+
+This exercise set will review the basic functions of R. Most of the commands 
+were reviewed in the lesson, but there are a few that you will have to look up
+to see how to carry out the commands.
+<br>
+
+**Instructions**
+
+- Write R code to solve each of the following problems.
+- Make sure to test your code to ensure it works correctly.
+- Provide comments in your code to explain your logic where necessary.
+
+Problem 1: Addition
+
+Add two numbers, 12 and 34.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+Problem 2: Subtraction
+
+Subtract 25 from 75.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 3: Multiplication
+ 
+Multiply 28 by 19.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 4: Division
+ 
+Divide 144 by 12.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 5: Exponentiation
+ 
+Calculate 9 raised to the power of 7.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 6: Square Root
+ 
+Find the square root of 64.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 7: Logarithm
+ 
+Calculate the natural logarithm (base e) of 20.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 8: Absolute Value
+ 
+Find the absolute value of -15.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 9: Factorial
+ 
+Calculate the factorial of 6.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 10: Variables
+ 
+Create a variable `x` that is assigned the value 10 and another variable `y` 
+that is assigned the value 5. Add the two variables together.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 11: Variables
+ 
+Create a variable `z` that is the combination of `11*x + 13*y`, where `x` 
+and `y` are from the previous problem.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 12: Mean and Median of a Vector
+ 
+Find the mean and median of the elements in the vector c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20).
+
+```{r}
+
+# Response
+
+```
+<br>
+
+Problem 13: Create a Vector
+
+Create a vector (with an appropriate name) that contains the names of 5 of your friends. What is the
+class of this vector? 
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 14:
+ 
+ Create a vector with 20 random values between 300 and 500. What is the mean of this vector?
+ What is the median of this vector?
+ 
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 15: Maximum and Minimum
+ 
+Find the maximum and minimum values of the vector created in Problem 14.
+
+```{r}
+
+# Response
+
+```
+<br> 
+
+Problem 16: Vectors
+ 
+In the vector you created in problem 14 : 
+
+  - Print out the 7th element.
+  - Print out the first 10 elements.
+  - Print out the last 5 elements.
+  - Add the 4th and 18th elements together.
+
+  
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 17: Loading Libraries
+ 
+Load the library `readr` and use the help file to find out what 
+the `read_csv` function does.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+ Problem 18: Boolean Vectors
+
+Create a boolean vector that contains the values TRUE, FALSE, TRUE, TRUE, FALSE.
+Print out the vector.
+
+```{r}
+
+# Response
+
+```
+<br>
+
+Problem 19: Logical Operators
+ 
+```{r}
+
+# Explain the output for the following code :
+
+x <- TRUE
+
+y <- FALSE
+
+z <- TRUE
+
+x & (y | z)
+ 
+```
+<br>
+
+Problem 20: Logical Operators
+ 
+```{r}
+ 
+# Explain the output for the following code :
+
+x <- 5
+
+y <- 10
+
+z <- 15
+
+x > y & y < z
+ 
+```
+<br>
+
+Problem 21: Commenting
+<br>
+
+Go back and make sure your code is commented. Make sure you have a comment 
+at the top of the script that includes your name, the class, and the date. 
+Make sure you have comments throughout the script to explain what is 
+happening at each step.
+
+
+ 
+

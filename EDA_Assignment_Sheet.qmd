@@ -1,0 +1,144 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# EDA Assignment Sheet  {.unnumbered}
+
+
+## Introduction
+
+Now that you have seen some of the introductory data skills in R, it is time
+to put them to use. This assignment consists of 10 problems where you will 
+download quantitative datasets from various sources. You will then analyze 
+the data by creating different visualizations such as scatterplots, 
+histograms, and bar plots. You will also calculate means, medians, 
+standard deviations, five-number summaries, and regression lines. Some 
+datasets will be continuous and some will be discrete.
+
+
+## Problem 1: Gender Pay Gap Analysis
+
+**Dataset:** [Gender Pay Gap Data](https://data.world/gender-pay-gap)
+
+**Description:** This dataset contains information on the gender pay gap across different industries. The variables include industry, median pay for men, and median pay for women (continuous variables).
+
+**Tasks:**
+
+1. Calculate the mean and median pay for men and women.
+2. Create a barplot to visualize the median pay for men and women across different industries.
+3. Calculate the pay gap (difference between men's and women's pay) for each industry.
+4. Create a histogram of the pay gap.
+5. Calculate a 95% confidence interval for the average pay gap.
+
+## Problem 2: Racial Disparities in Incarceration Rates
+
+**Dataset:** [US Incarceration Rates](https://www.prisonpolicy.org/reports/pie2020.html)
+
+**Description:** This dataset contains the incarceration rates per 100,000 people for different racial groups (discrete variables).
+
+**Tasks:**
+
+1. Calculate the mean and standard deviation of incarceration rates for each racial group.
+2. Create a barplot to visualize the incarceration rates for each racial group.
+3. Calculate a 95% confidence interval for the average incarceration rate for each racial group.
+
+## Problem 3: Access to Education by Region
+
+**Dataset:** [Global Education Data](https://databank.worldbank.org/source/education-statistics)
+
+**Description:** This dataset contains information on the average years of schooling for different regions (continuous variable).
+
+**Tasks:**
+
+1. Calculate the mean and median years of schooling for each region.
+2. Create a histogram of the years of schooling.
+3. Calculate a 95% confidence interval for the average years of schooling for each region.
+
+## Problem 4: Unemployment Rates by Race and Gender
+
+**Dataset:** [US Unemployment Data](https://www.bls.gov/cps/)
+
+**Description:** This dataset contains unemployment rates for different racial and gender groups (discrete variables).
+
+**Tasks:**
+
+1. Calculate the mean and standard deviation of unemployment rates for each racial and gender group.
+2. Create a faceted scatterplot to visualize the unemployment rates for each racial and gender group over time.
+3. Calculate a 95% confidence interval for the average unemployment rate for each racial and gender group.
+
+## Problem 5: Income Inequality by State
+
+**Dataset:** [US Income Inequality Data](https://www.census.gov/data.html)
+
+**Description:** This dataset contains the Gini coefficient for income inequality by state (continuous variable).
+
+**Tasks:**
+
+1. Calculate the mean and median Gini coefficient for the states.
+2. Create a histogram of the Gini coefficients.
+3. Calculate a 95% confidence interval for the average Gini coefficient.
+
+## Problem 6: Food Insecurity Rates by County
+
+**Dataset:** [USDA Food Insecurity Data](https://www.ers.usda.gov/data-products/food-access-research-atlas/)
+
+**Description:** This dataset contains the percentage of households experiencing food insecurity by county (discrete variable).
+
+**Tasks:**
+
+1. Calculate the mean and standard deviation of food insecurity rates for the counties.
+2. Create a barplot to visualize the food insecurity rates by county.
+3. Calculate a 95% confidence interval for the average food insecurity rate.
+
+## Problem 7: Environmental Pollution and Health Outcomes
+
+**Dataset:** [EPA Air Quality Data](https://www.epa.gov/outdoor-air-quality-data)
+
+**Description:** This dataset contains air quality index (AQI) values and asthma rates for different regions (continuous variables).
+
+**Tasks:**
+
+1. Calculate the mean and median AQI and asthma rates for each region.
+2. Create a scatterplot to visualize the relationship between AQI and asthma rates.
+3. Calculate the correlation coefficient between AQI and asthma rates.
+4. Fit a linear regression model to predict asthma rates based on AQI.
+5. Create a residual plot for the regression model.
+6. Calculate a 95% confidence interval for the slope of the regression line.
+
+## Problem 8: Access to Clean Water
+
+**Dataset:** [WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene](https://washdata.org/)
+
+**Description:** This dataset contains the percentage of the population with access to clean water by country (discrete variable).
+
+**Tasks:**
+
+1. Calculate the mean and standard deviation of access to clean water rates for the countries.
+2. Create a barplot to visualize the access to clean water rates by country.
+3. Calculate a 95% confidence interval for the average access to clean water rate.
+
+## Problem 9: Child Mortality Rates by Region
+
+**Dataset:** [UNICEF Child Mortality Data](https://data.unicef.org/topic/child-survival/under-five-mortality/)
+
+**Description:** This dataset contains child mortality rates (deaths per 1,000 live births) for different regions (continuous variable).
+
+**Tasks:**
+
+1. Calculate the mean and median child mortality rates for each region.
+2. Create a histogram of the child mortality rates.
+3. Calculate a 95% confidence interval for the average child mortality rate.
+
+## Problem 10: Literacy Rates by Gender
+
+**Dataset:** [UNESCO Literacy Data](http://uis.unesco.org/en/topic/literacy)
+
+**Description:** This dataset contains literacy rates for males and females in different countries (discrete variables).
+
+**Tasks:**
+
+1. Calculate the mean and standard deviation of literacy rates for males and females.
+2. Create a faceted scatterplot to visualize the literacy rates for males and females by country.
+3. Calculate a 95% confidence interval for the average literacy rate for males and females.
+<br><br>

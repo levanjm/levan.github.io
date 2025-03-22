@@ -1,0 +1,290 @@
+---
+title: "Line Graph and Pie Chart Assignment"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Line Graph and Pie Chart Assignment
+
+# Homework Assignment: Creating Line Graphs in R using ggplot2
+
+In this assignment, you will create line graphs using the `ggplot2` library in R. You will use built-in datasets from RStudio to visualize different types of data. Ensure you follow the instructions for each problem carefully.
+
+## Problem 1: Line Graph of `pressure` Dataset
+
+**Task:** Create a line graph of the `pressure` dataset, which shows the relationship between temperature and pressure.
+
+**Steps:** 1. Load the `ggplot2` library. 2. Use the `pressure` dataset. 3. Create a line graph with temperature on the x-axis and pressure on the y-axis. 4. Add appropriate labels to the axes and a title to the graph.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2 library
+library(ggplot2)
+
+# Create line graph
+ggplot(pressure, aes(x = temperature, y = pressure)) +
+  geom_line() +
+  labs(title = "Temperature vs Pressure",
+       x = "Temperature",
+       y = "Pressure")
+```
+
+## Problem 2: Line Graph of `AirPassengers` Dataset
+
+**Task:** Create a line graph of the `AirPassengers` dataset, which shows the number of air passengers over time.
+
+**Steps:** 1. Load the `ggplot2` library. 2. Use the `AirPassengers` dataset. 3. Convert the `AirPassengers` time series object to a data frame. 4. Create a line graph with time on the x-axis and the number of passengers on the y-axis. 5. Add appropriate labels to the axes and a title to the graph.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2 library
+library(ggplot2)
+
+# Convert AirPassengers to data frame
+airpassengers_df <- data.frame(
+  time = time(AirPassengers),
+  passengers = as.numeric(AirPassengers)
+)
+
+# Create line graph
+ggplot(airpassengers_df, aes(x = time, y = passengers)) +
+  geom_line() +
+  labs(title = "Number of Air Passengers Over Time",
+       x = "Time",
+       y = "Number of Passengers")
+```
+
+## Problem 3: Line Graph of `lynx` Dataset
+
+**Task:** Create a line graph of the `lynx` dataset, which shows the annual numbers of lynx trappings from 1821–1934 in Canada.
+
+**Steps:** 1. Load the `ggplot2` library. 2. Use the `lynx` dataset. 3. Convert the `lynx` time series object to a data frame. 4. Create a line graph with time on the x-axis and the number of lynx trapped on the y-axis. 5. Add appropriate labels to the axes and a title to the graph.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2 library
+library(ggplot2)
+
+# Convert lynx to data frame
+lynx_df <- data.frame(
+  year = time(lynx),
+  trappings = as.numeric(lynx)
+)
+
+# Create line graph
+ggplot(lynx_df, aes(x = year, y = trappings)) +
+  geom_line() +
+  labs(title = "Annual Numbers of Lynx Trappings",
+       x = "Year",
+       y = "Number of Lynx Trapped")
+```
+
+## Problem 4: Line Graph of `economics` Dataset
+
+**Task:** Create a line graph of the `economics` dataset, which shows the unemployment rate over time.
+
+**Steps:** 1. Load the `ggplot2` library. 2. Use the `economics` dataset. 3. Create a line graph with date on the x-axis and unemployment rate (`unemploy/pop * 100`) on the y-axis. 4. Add appropriate labels to the axes and a title to the graph.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2 library
+library(ggplot2)
+
+# Create line graph
+ggplot(economics, aes(x = date, y = unemploy / pop * 100)) +
+  geom_line() +
+  labs(title = "Unemployment Rate Over Time",
+       x = "Date",
+       y = "Unemployment Rate (%)")
+```
+
+## Problem 5: Line Graph of `co2` Dataset
+
+**Task:** Create a line graph of the `co2` dataset, which shows the concentration of atmospheric carbon dioxide over time.
+
+**Steps:** 1. Load the `ggplot2` library. 2. Use the `co2` dataset. 3. Convert the `co2` time series object to a data frame. 4. Create a line graph with time on the x-axis and CO2 concentration on the y-axis. 5. Add appropriate labels to the axes and a title to the graph.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2 library
+library(ggplot2)
+
+# Convert co2 to data frame
+co2_df <- data.frame(
+  time = time(co2),
+  concentration = as.numeric(co2)
+)
+
+# Create line graph
+ggplot(co2_df, aes(x = time, y = concentration)) +
+  geom_line() +
+  labs(title = "Atmospheric CO2 Concentration Over Time",
+       x = "Time",
+       y = "CO2 Concentration (ppm)")
+```
+
+## Problem 1: Pie Chart of Species Distribution in the Iris Dataset
+
+**Objective:** Create a pie chart to visualize the distribution of different species in the Iris dataset.
+
+**Steps:** 1. Load the `ggplot2` library. 2. Use the built-in `iris` dataset. 3. Create a data frame that counts the number of occurrences of each species. 4. Use `ggplot2` to create a pie chart displaying the species distribution.
+
+**Hints:** - Use `table` to count the occurrences of each species. - Use `geom_bar` and `coord_polar` to create the pie chart.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2
+library(ggplot2)
+
+# Load iris dataset
+data(iris)
+
+# Count species occurrences
+species_count <- as.data.frame(table(iris$Species))
+
+# Create pie chart
+ggplot(species_count, aes(x = "", y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") + 
+  geom_text(aes(label = Freq),
+        position = position_stack(vjust = 0.5),
+        color = "white", size = 5) +
+  theme_void() +
+  ggtitle("Distribution of Species in the Iris Dataset") +
+  labs(fill = "Species")
+```
+
+## Problem 2: Pie Chart of Gear Distribution in the Cars Dataset
+
+**Objective:** Create a pie chart to visualize the distribution of different gears in the `cars` dataset.
+
+**Steps:** 1. Load the `ggplot2` library. 2. Use the built-in `cars` dataset. 3. Create a data frame that counts the number of occurrences of each gear type. 4. Use `ggplot2` to create a pie chart displaying the gear distribution.
+
+**Hints:** - Use `table` to count the occurrences of each gear type. - Use `geom_bar` and `coord_polar` to create the pie chart.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2
+library(ggplot2)
+
+# Load cars dataset
+data(mtcars)
+
+# Count gear occurrences
+gear_count <- as.data.frame(table(mtcars$gear))
+
+# Create pie chart
+
+ggplot(gear_count, aes(x = "", y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") + 
+  geom_text(aes(label = Freq),
+        position = position_stack(vjust = 0.5),
+        color = "white", size = 5) +
+  theme_void() +
+  ggtitle("Distribution of Gears in the Cars Dataset") +
+  labs(fill = "Gears")
+```
+
+## Problem 3: Pie Chart of Titanic Class Distribution in the Titanic Dataset
+
+**Objective:** Create a pie chart to visualize the distribution of different classes in the `Titanic` dataset.
+
+**Steps:** 1. Load the `ggplot2` library. 2. Use the built-in `Titanic` dataset. 3. Create a data frame that counts the number of occurrences of each class. 4. Use `ggplot2` to create a pie chart displaying the class distribution.
+
+**Hints:** - Use `table` to count the occurrences of each class. - Use `geom_bar` and `coord_polar` to create the pie chart.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2
+library(ggplot2)
+
+# Load Titanic dataset
+data(Titanic)
+
+# Convert Titanic dataset to data frame
+titanic_df <- as.data.frame(Titanic)
+
+# Count class occurrences
+class_count <- as.data.frame(table(titanic_df$Class))
+
+# Create pie chart
+ggplot(class_count, aes(x = "", y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  theme_void() +
+  ggtitle("Distribution of Classes in the Titanic Dataset") +
+  labs(fill = "Class")
+```
+
+<br>
+
+## Problem 4: Pie Chart of Supplement Distribution in the `ToothGrowth` Dataset
+
+**Task:** Create a pie chart to show the distribution of the different supplements (VC and OJ) in the `ToothGrowth` dataset.
+
+**Steps:** 1. Load the `ggplot2` library and the `ToothGrowth` dataset. 2. Create a data frame that summarizes the count of each supplement type. 3. Use `ggplot2` to create a pie chart that shows the proportion of each supplement.
+
+**Hint:** Use the `fill` aesthetic to map the `supp` column to the pie chart slices.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2 and ToothGrowth dataset
+library(ggplot2)
+data(ToothGrowth)
+
+# Summarize count of each supplement type
+supp_count <- as.data.frame(table(ToothGrowth$supp))
+
+# Create pie chart
+ggplot(supp_count, aes(x = "", y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  labs(title = "Supplement Distribution in ToothGrowth Dataset", fill = "Supplement") +
+  theme_void()
+```
+
+<br>
+
+## Problem 5: Pie Chart of Education Levels in the `infert` Dataset
+
+**Task:** Create a pie chart to show the distribution of different education levels in the `infert` dataset.
+
+**Steps:** 1. Load the `ggplot2` library and the `infert` dataset. 2. Create a data frame that summarizes the count of each education level. 3. Use `ggplot2` to create a pie chart that shows the proportion of each education level.
+
+**Hint:** Use the `fill` aesthetic to map the `education` column to the pie chart slices.
+
+**Code Example:**
+
+```{r}
+# Load ggplot2 and infert dataset
+library(ggplot2)
+data(infert)
+
+# Summarize count of each education level
+education_count <- as.data.frame(table(infert$education))
+
+# Create pie chart
+ggplot(education_count, aes(x = "", y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") + 
+  geom_text(aes(label = Freq),
+        position = position_stack(vjust = 0.5),
+        color = "white", size = 5) +
+  labs(title = "Education Levels in Infert Dataset", fill = "Education Level") +
+  theme_void()
+```

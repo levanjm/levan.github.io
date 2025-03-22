@@ -1,0 +1,266 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(knitr.kable.NA = '')
+library(knitr)
+library(tidyr)
+library(dplyr)
+library(kableExtra)
+```
+
+# Tidy Data Assignment Solutions {.unnumbered}
+
+## Solutions
+
+### Problem 1 Solution
+
+The dataset is not tidy. Here is the tidy version:
+
+``` r
+tidy_weather_data <- gather(weather_data, key = "Month", value = "Temperature", Jan_Temp:Mar_Temp) %>%
+  mutate(Month = gsub("_Temp", "", Month))
+
+kable(tidy_weather_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 2 Solution
+
+The dataset is not tidy. Here is the tidy version:
+
+``` r
+tidy_grades_data <- gather(grades_data, key = "Subject", value = "Grade", Math:History)
+
+kable(tidy_grades_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 3 Solution
+
+The dataset is not tidy. Here is the tidy version:
+
+``` r
+tidy_sales_data <- gather(sales_data, key = "Month", value = "Sales", Jan_Sales:Mar_Sales) %>%
+  mutate(Month = gsub("_Sales", "", Month))
+
+kable(tidy_sales_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 4 Solution
+
+The dataset is tidy.
+
+### Problem 5 Solution
+
+The dataset is not tidy. Here is the tidy version:
+
+``` r
+tidy_financial_data <- gather(financial_data, key = "Quarter", value = "Revenue", Q1_Revenue:Q3_Revenue) %>%
+  mutate(Quarter = gsub("_Revenue", "", Quarter))
+
+kable(tidy_financial_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 6 Solution
+
+The dataset is tidy.
+
+### Problem 7 Solution
+
+The dataset is not tidy. Here is the tidy version:
+
+``` r
+tidy_ratings_data <- gather(ratings_data, key = "Critic", value = "Rating", Critic1:Critic3)
+
+kable(tidy_ratings_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 8 Solution
+
+The dataset is not tidy. Here is the tidy version:
+
+``` r
+tidy_salary_data <- gather(salary_data, key = "Department", value = "Salary", Dept1_Salary:Dept3_Salary) %>%
+  mutate(Department = gsub("_Salary", "", Department))
+
+kable(tidy_salary_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+### Problem 9 Solution
+
+The dataset is not tidy. Here is the tidy version:
+
+``` r
+tidy_reviews_data <- gather(reviews_data, key = "Review_Number", value = "Review", Review1:Review3) %>%
+  mutate(Review_Number = gsub("Review", "", Review_Number))
+
+kable(tidy_reviews_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Problem 10 Solution
+
+The dataset is not tidy. Here is the tidy version:
+
+``` r
+tidy_enrollment_data <- gather(enrollment_data, key = "Semester", value = "Enrollment", Semester1:Semester3) %>%
+  mutate(Semester = gsub("Semester", "", Semester))
+
+kable(tidy_enrollment_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Solution to Problem 11
+
+**Is the data tidy?** No
+
+``` r
+tidy_sales2_data <- gather(sales2_data, key = "Month", value = "Sales", January:March)
+
+tidy_sales2_data$Month <- factor(tidy_sales2_data$Month, levels = c("January", "February", "March"))
+
+kable(tidy_sales_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Solution to Problem 12
+
+**Is the data tidy?** No
+
+``` r
+tidy_survey_data <- gather(survey_data, key = "Service", value = "Satisfaction", Service1_Satisfaction:Service3_Satisfaction)
+
+tidy_survey_data$Service <- gsub("_Satisfaction", "", tidy_survey_data$Service)
+
+kable(tidy_survey_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Solution to Problem 13
+
+**Is the data tidy?** No
+
+``` r
+tidy_weather2_data <- gather(weather2_data, key = "Time", value = "Temperature", Morning:Evening)
+
+tidy_weather2_data$Time <- factor(tidy_weather2_data$Time, levels = c("Morning", "Noon", "Evening"))
+
+kable(tidy_weather2_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Solution to Problem 14
+
+**Is the data tidy?** No
+
+``` r
+tidy_exam_scores <- gather(exam_scores, key = "Subject", value = "Score", Math:History)
+
+tidy_exam_scores$Subject <- factor(tidy_exam_scores$Subject, levels = c("Math", "Science", "History"))
+
+kable(tidy_exam_scores, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Solution to Problem 15
+
+**Is the data tidy?** No
+
+``` r
+tidy_hospital_data <- gather(hospital_data, key = "Month", value = "Patients", January:March)
+
+tidy_hospital_data$Month <- factor(tidy_hospital_data$Month, levels = c("January", "February", "March"))
+
+kable(tidy_hospital_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Solution to Problem 16
+
+**Is the data tidy?** No
+
+``` r
+tidy_marketing_data <- gather(marketing_data, key = "Week", value = "Leads", Week1:Week3)
+
+tidy_marketing_data$Week <- factor(tidy_marketing_data$Week, levels = c("Week1", "Week2", "Week3"))
+
+kable(tidy_marketing_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Solution to Problem 17
+
+**Is the data tidy?** No
+
+``` r
+tidy_fitness_data <- gather(fitness_data, key = "Day", value = "Workout_Time", Monday:Friday)
+
+tidy_fitness_data$Day <- factor(tidy_fitness_data$Day, levels = c("Monday", "Wednesday", "Friday"))
+
+kable(tidy_fitness_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br> \### Solution to Problem 18
+
+**Is the data tidy?** No
+
+``` r
+tidy_financial2_data <- gather(financial2_data, key = "Quarter", value = "Profit", Q1:Q4)
+
+tidy_financial2_data$Quarter <- factor(tidy_financial2_data$Quarter, levels = c("Q1", "Q2", "Q3", "Q4"))
+
+kable(tidy_financial2_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Solution to Problem 19
+
+**Is the data tidy?** No
+
+``` r
+tidy_attendance_data <- gather(attendance_data, key = "Day", value = "Attendance", Day1:Day3)
+
+tidy_attendance_data$Day <- factor(tidy_attendance_data$Day, levels = c("Day1", "Day2", "Day3"))
+
+kable(tidy_attendance_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br>
+
+### Solution to Problem 20
+
+**Is the data tidy?** No
+
+``` r
+tidy_production_data <- gather(production_data, key = "Shift", value = "Output", Shift1:Shift3)
+
+tidy_production_data$Shift <- factor(tidy_production_data$Shift, levels = c("Shift1", "Shift2", "Shift3"))
+
+kable(tidy_production_data, format = "html", table.attr = "style='width:4in; margin-left:auto; margin.right:auto;'")  %>%
+  kable_styling(position="center")
+```
+
+<br><br><br>

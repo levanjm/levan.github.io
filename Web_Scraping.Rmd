@@ -1,0 +1,62 @@
+---
+title: "Web Scraping"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Web Scraping
+
+Web scraping is the process of extracting information from websites. This 
+can be done manually, but it is often done using a program or script. 
+In this tutorial, we will use the `rvest` package in R to scrape data 
+from a website.
+
+### Installing the rvest package
+
+To install the `rvest` package, use the following command:
+
+```{r}
+
+library(rvest)
+```
+
+### Reading HTML
+
+To read HTML from a website, use the `read_html()` function. This function
+takes a URL as an argument and returns an HTML document.
+
+
+
+```{r}
+
+url <- "https://www.basketball-reference.com/players/j/jamesle01.html"
+
+lebron <- read_html(url)
+
+lebron %>% 
+  html_nodes("h1") %>% 
+  html_text()
+
+lebron %>%
+  html_nodes("table") %>%
+  html_table()
+
+lebron %>%
+  html_nodes("table") %>%
+  html_table() %>%
+  .[[1]]
+
+lebron %>%
+  html_nodes("table") %>%
+  html_table() %>%
+  .[[1]] %>%
+  head()
+
+```
+
+

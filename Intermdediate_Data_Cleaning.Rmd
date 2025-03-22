@@ -1,0 +1,114 @@
+---
+title: "Intermediate Data Cleaning"
+author: "Mike LeVan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Intermediate Data Cleaning
+
+In this tutorial, we will learn how to clean data using the `dplyr` 
+package. We will use the `gapminder` dataset, which is included in the 
+`gapminder` package.
+
+```{r}
+
+# Load the gapminder package
+
+library(gapminder)
+
+# Load the dplyr package
+
+library(dplyr)
+
+# View the first few rows of the gapminder dataset
+
+head(gapminder)
+
+```
+
+### Selecting Columns
+
+```{r}
+
+# Select the country and year columns
+
+gapminder %>%
+  select(country, year)
+
+```
+
+### Filtering Rows
+
+```{r}
+
+# Filter the dataset to include only rows where the country is "United States"
+
+gapminder %>%
+  filter(country == "United States")
+
+```
+
+### Creating New Columns
+
+```{r}
+
+# Create a new column called "gdp" that is equal to "gdpPercap" multiplied by "pop"
+
+gapminder %>%
+  mutate(gdp = gdpPercap * pop)
+
+```
+
+### Grouping Data
+
+```{r}
+
+# Group the data by "year" and calculate the average "gdpPercap" for each year
+
+gapminder %>%
+  group_by(year) %>%
+  summarise(avg_gdpPercap = mean(gdpPercap))
+
+```
+
+### Sorting Data
+
+```{r}
+
+# Sort the data by "year" in descending order
+
+gapminder %>%
+  arrange(desc(year))
+
+```
+
+### Combining Operations
+
+```{r}
+
+# Filter the data to include only rows where the country is "United States",
+
+# group the data by "year", and calculate the average "gdpPercap" for each year
+
+gapminder %>%
+  filter(country == "United States") %>%
+  group_by(year) %>%
+  summarise(avg_gdpPercap = mean(gdpPercap))
+
+```
+
+### Conclusion
+
+In this tutorial, we learned how to clean data using the `dplyr` 
+package. We covered selecting columns, filtering rows, creating 
+new columns, grouping data, sorting data, and combining operations. 
+These are just a few of the many functions available in the `dplyr` 
+package for data cleaning and manipulation. For more information, 
+check out the `dplyr` documentation at https://dplyr.tidyverse.org/.
+```
+

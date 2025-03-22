@@ -1,0 +1,486 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Advanced Scatterplot Techniques {.unnumbered}
+
+::: callout-tip
+## ggplot cheatsheet
+
+<a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf"> Here</a> is a cheatsheet that shows you many of the commands that can be used with ggplot
+:::
+
+<br>
+
+There are several different kinds of layers one can add to their ggplot. One could add points, labels, shapes, geometries and more. When adding these layers, there are certain ideas you want ggplot to use. You may want to make sure all of the points are blue, or that a line is red. When you are describing what you want each layer to do you are talking about the **aesthetics** of that layer. <br>
+
+Before we start looking at some of the many ways one can bedazzle one of their visualizations, we should have a discussion on what the term **aesthetics** means, as well as how and when ggplot uses them. <br>
+
+## Aesthetics
+
+Aesthetics basically describe what you are going to see on the graph. The very first aesthetic you will need to use is when you initially call ggplot : <br>
+
+<center>`ggplot( Dataset, aes(x, y))`</center>
+
+<br>
+
+The first argument you will give ggplot is the data set you want to use. The aesthetics in this command label which variable will be used on the x-axis and which will be used on the y-axis. Any aesthetics that are listed at this level will be used as the default for the rest of the visualization.<br>
+
+For this section we will be creating many different examples using the `mtcars` built in data set. Here is a quick summary of the data.
+
+```{r}
+
+# Take a quick peek at the data set mtcars
+
+head(mtcars)
+
+```
+
+<br>
+
+We can use the help file to give us a better understanding of the data set : <br>
+
+<center>![](./images/AST_1.jpg){width="60%"}</center>
+
+<br>
+
+After reading the description of the variables, suppose we are interested in the relationship between the weight (wt) of the car and the miles per gallon (mpg) for the car. The traditional concept is that if a car is heavier it will need more gas to move the car, so heavier cars will use more gas giving them a lower mpg.<br>
+
+We can investigate this with a quick scatterplot. We are saying that the weight is affecting the miles per gallon so we will use **wt** as the explanatory variable (x-axis) and **mpg** as the response variable (y-axis). Here is the basic command in R: <br>
+
+```{r message=FALSE, warning=FALSE}
+
+library(tidyverse)
+
+ggplot( mtcars, aes(x=wt, y=mpg))
+  
+```
+
+<br>
+
+So far we have set up the canvas for the plot. For this canvas layer, when we add conditions to the \`aes( )\`\` portion, we are giving instructions for all subsequent layers to use. These aesthetics are used as defaults for each subsequent layer. Usually this layer will give the explanatory and response variable. There are some other options that you can explore but we will just use this for now. <br>
+
+The next step is to add some type of **geometry** to show the data. There are several types of geometries one could add to the visualization.
+
+-   `geom_point()` for scatterplots, dot plots, etc
+-   `geom_line()` for adding a line to the plot
+-   `geom_histogram()` for adding a histogram <br>
+
+There are several more that you can check out on the cheatsheet or through other sources. <br>
+
+For this example, let's just add some basic points to the graph. <br>
+
+```{r}
+
+ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point() 
+
+```
+
+<br>
+
+There could be instances where you need to adjust the values of the variables. For instance, what if we wanted to transform these data points to the metric system? We would need to change miles to kilometers by multiplying the miles by 1.60934 and change the weight to kilograms by multiplying the weight by 0.453. <br>
+
+```{r}
+
+ggplot(mtcars, aes(x=wt*1.60934, y=mpg*.0453)) +
+  geom_point() 
+
+```
+
+<br>
+
+We obviously need to work on the labels for the previous graph! You can see how to do this in previous sections and examples. <br>
+
+We are now ready to add some other aesthetics to the graph to pretty this up!
+
+## geom_point( )
+
+The first geometry we will discuss is the one we used above. What we want to do is change the presentation of the points on the scatterplot. There are several modifications that we can make. Here are the aesthetics we can use for `geom_point( )`:
+
+-   **x**
+
+-   **y**
+
+-   colour
+
+-   shape
+
+-   size
+
+-   stroke
+
+-   fill
+
+-   alpha (transparency)
+
+-   group <br>
+
+(More information can be found <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html">here</a>.) <br>
+
+There are too many ways to show you an exhaustive list on the different types and combinations you could make with your visualization. Here you will be presented with many different examples showing a few of the ways these aesthetics could be used. <br>
+
+We have already discussed some of the coloring options, so let's talk about some of the different shapes that could be used. <br>
+
+<center>![](./images/AST_2.jpg){width="40%"}</center>
+
+<br>
+
+```{r}
+
+# Example where we change the shape, size, and color of the points
+
+# The default size is 0.5 (diameter)
+
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point(shape=18, size=5, color="blue")
+```
+
+<br>
+
+Look at the chart above showing the different shapes and consider shape 23. This looks like it is a blue diamond, but it represents a diamond filled with a color. If we wished, we could change the color of the diamond. <br>
+
+```{r}
+
+ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point( shape=23, fill="green", size=6)
+
+```
+
+<br> Notice that the diamond is has a black outline. We could change the color of the outline as well as how thick that line is. This outline is called the **stroke**. You can think of it is how wide is the stroke of the pen that is making the shapes. <br>
+
+```{r}
+
+ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point( shape=23, fill="green", color="darkred", stroke=3, size=6)
+
+```
+
+Admittedly, not the best looking color scheme. <br>
+
+We can also see that some of the points are overlapping each other. That can sometimes be confusing. As we saw in a previous sectino we can make the points more transparent. This is called chaning the **alpha** level of the points. The alpha level needs to be between 0 and 1 where 0 is completely transparent and 1 is no transparency. <br>
+
+```{r}
+
+ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point( shape=23, fill="green", color="darkred", stroke=3, 
+              alpha = 0.4, size=6)
+
+```
+
+The way you can read this is that the darker portions of the graph have more overlap than the lighter portions. <br>
+
+We could also group the points together based on another variable. For instance, the number of cylinders a car reflects the size of the engine. So a car with more cylinders (**cyl**) usually weights more than a car with less cylinders. We can change the color of the points using the number of cylinders as our grouping. We will make this grouping a default for the entire graph, so that means we will add the new condition to the original `ggplot( )` call.
+
+```{r}
+
+# For this type of example, we want the cylinders to be used as factors to 
+# determine the different shapes. They will be automatically given a shape and
+# a key will appear to show you the mapping.
+
+ggplot(mtcars, aes(x=wt, y=mpg, group=cyl)) +
+  geom_point(aes(shape=factor(cyl)))
+
+```
+
+<br>
+
+In order for this to stand out, we could also change the color of each group: <br>
+
+```{r}
+
+# Add color as a factor for the cylinders.
+
+ggplot(mtcars, aes(x=wt, y=mpg, group=cyl)) +
+  geom_point(aes(shape=factor(cyl), color=factor(cyl)))
+
+```
+
+<br>
+
+If we are feeling really sassy, we could change the size based on the number of cylinders that are in a car.
+
+```{r warning=FALSE}
+
+ggplot(mtcars, aes(x=wt, y=mpg, group=cyl)) +
+  geom_point(aes(shape=factor(cyl),color=factor(cyl), size=factor(cyl)))
+
+```
+
+<br>
+
+We could also change these values manually if we do not like the defaults. We can use the following functions:
+
+-   `scale_shape_manual( )` - this changes the shapes
+-   `scale_color_manual( )` - this changes the colors
+-   `scale_size_manual( )` - this changes the size <br>
+
+In this example, we are working with the cylinder size. There are three values for this variable. If we want to change these manually, make sure that you have a value for each of these three factor levels. <br>
+
+We will create a vector describing which values we want to use. For example, if I want to use the shapes 3, 16, and 17 from the chart above, I would create a vector with this three variables and use it in the `scale_shape_manual( )` command: <br>
+
+<center>`scale_shape_manual(values=c(3, 16, 17))`</center>
+
+<br>
+
+We would do something similar for other choices.
+
+<br>
+
+```{r warning=FALSE}
+
+# We can also change where the legend is positioned in our visualization
+
+ggplot(mtcars, aes(x=wt, y=mpg, group=cyl)) +
+  geom_point(aes(shape=factor(cyl),color=factor(cyl), size=2))+
+  scale_shape_manual(values=c(3, 16, 17)) +
+  scale_color_manual(values=c('#999999', '#E69F00', '#56B4E9')) +
+  theme(legend.position="top")
+
+```
+
+<br>
+
+## Faceting
+
+There are times when we have a large data set and plotting all of the points together is not a useful visualization. We could create a single graphic one variable at a time, or we could create what is called a **facet**. A facet is the process that will take a single plot and break it up into smaller subplots. This will create a grid with each of the smaller plots for easy comparison between the variables. <br>
+
+To help with this, let's use the `gapminder.csv` data set. This data set can be found on our Github repository. Here is a brief description of the data set. <br>
+
+<center>![](./images/AST_3.jpg){width="90%"}</center>
+
+<br>
+
+```{r message=FALSE}
+
+# Make sure we have the libary loaded that uses read_csv
+
+library(readr)
+
+# Read the data set into "gapdata"
+
+gapdata <- read_csv("./gapminder.csv")
+
+# Look at the first few lines of the data
+
+head(gapdata)
+
+```
+
+<br>
+
+Let's take a quick look at the relationship between `x = gpdPercap` and `y = lifeExp`. <br>
+
+```{r}
+
+ggplot(gapdata, aes(x=gdpPercap, y=lifeExp)) +
+  geom_point()
+
+```
+
+<br>
+
+If we were to describe this scatterplot we would say
+
+-   form : nonlinear (logarithmic)
+-   direction : positive
+-   strength : fairly strong <br>
+
+There is definitely a pattern here, so we would say the strength is strong, but we could also note that the linear strength would be weak. The pattern is nonlinear and looks to follow an logarithmic pattern and the association has a positive direction. <br>
+
+If we wanted to consider the data set by the continent, we could do what we just learned about to color the points by their continent. <br>
+
+```{r}
+
+  ggplot(gapdata, aes(x=gdpPercap, y=lifeExp)) +
+  geom_point(aes(color=continent))
+
+```
+
+<br>
+
+While the colors look nice, this is just a jumbled mess. What we could do is change how we view this graph. Since this shape is logarithmic, we should be able to use the `scale_x_log10( )` option. If the shape is logarithmic, this command transforms the points into a plt that should look more linear.
+
+```{r}
+
+  ggplot(gapdata, aes(x=gdpPercap, y=lifeExp)) +
+  geom_point(aes(color=continent)) +
+  scale_x_log10()
+
+```
+
+<br>
+
+This makes the graph a little easier to read, but it is still a jumbled mess. What we need to do is create a **facet** so we can see the subplots of each continent individually. The command `facet_wrap( )` tries to sensibly wrap a series of facets using smaller subplots. We can give it the directions on how to set up the facet. Fos this example, we want a facet by continent so we will add : <br>
+
+<center>\`facet_wrap(\~continent)</center>
+
+<br>
+
+```{r}
+
+ ggplot(gapdata, aes(x=gdpPercap, y=lifeExp)) +
+  geom_point() +
+  scale_x_log10() +
+  facet_wrap(~continent)
+
+```
+
+<br>
+
+We can also clean this up using the optimization techniques we saw earlier. For instance, if we wanted to have one column of facets with colors :
+
+```{r}
+
+ggplot(gapdata, aes(x=gdpPercap, y=lifeExp)) +
+  geom_point(aes(colour=continent)) +
+  scale_x_log10() +
+  facet_wrap(~continent, ncol=1) 
+  
+
+```
+
+<br>
+
+Using this visualization, it is now much easier to compare the continents. You can see that the population on Oceania has much less variation in their GDP Per Capita and life expectancy when compared to Asia. By taking the plot and creating these facets, it was mich easier to interpret the data and find a better story the data is trying to tell us. <br>
+
+## Saving Scatterplots
+
+After you have been working with the data and options to create the perfect scatterplot, you awnt to save it so you can use it anytime you want. You can save the plot to some file format on your computer. You could then upload the graph to a Google Doc, Word file, etc.. You can also save the size, set the width or height, and more. <br>
+
+You can read more about \``ggsave()` <a href="https://www.rdocumentation.org/packages/ggplot2/versions/0.9.0/topics/ggsave">here</a>. <br>
+
+Let's save the previous plot as a PDF file. <br>
+
+```{r}
+
+# We need to recreate the plot and save it to a variable. Let's call it "pfinal"
+
+pfinal <- ggplot(gapdata, aes(x=gdpPercap, y=lifeExp)) +
+          geom_point(aes(colour=continent)) +
+          scale_x_log10() +
+          facet_wrap(~continent, ncol=1) 
+
+# We can now save this to our computer. Let's call the file saved on the 
+# computer "myplot.pdf"
+
+ggsave(pfinal, file="myplot.pdf", width=5, height=15)
+
+```
+
+<br>
+
+This is now in my working directory : <br>
+
+<center>![](./images/AST_4.jpg){width="30%"}</center>
+
+<br>
+
+And here is my new PDF : <br>
+
+<center>![](./images/AST_5.jpg){width="30%"}</center>
+
+<br>
+
+## Conclusion
+
+While we have gone over a lot of ways to customize a scatterplot, we really have barely scratched the surface for all we can do. Feel free to play around with other options and other geometries to see what else you can create. <br>
+
+One final note is to make sure that the **substance** of the visualization is more important than the **style** of the visualization. You don't want you picture to be so flashy that the story you are trying to tell gets lost. These customization be very beneficial, just don't over do it!
+
+## Exercises
+
+### Problem 1: Custom Colors and Shapes
+Use the `iris` dataset to create a scatterplot of `Sepal.Length` vs. `Sepal.Width`. Change the color of the points based on `Species` and use different shapes for each species.
+
+```{r}
+# Solution
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species, shape = Species)) +
+  geom_point()
+```
+
+### Problem 2: Size and Alpha Levels
+Use the `iris` dataset to create a scatterplot of `Sepal.Length` vs. `Petal.Length`. Change the size of the points based on `Petal.Width` and set the alpha level to 0.6.
+
+```{r}
+# Solution
+ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, size = Petal.Width)) +
+  geom_point(alpha = 0.6)
+```
+
+### Problem 3: Fill and Stroke
+Use the `iris` dataset to create a scatterplot of `Petal.Length` vs. `Petal.Width`. Change the fill color of the points based on `Species` and add a black border (stroke) to the points.
+
+```{r}
+# Solution
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width, fill = Species)) +
+  geom_point(shape = 21, color = "black")
+```
+
+### Problem 4: Faceted Scatterplot (Single Variable)
+Use the `iris` dataset to create a scatterplot of `Sepal.Length` vs. `Sepal.Width`. Facet the plot by `Species`.
+
+```{r}
+# Solution
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point() +
+  facet_wrap(~ Species)
+```
+
+### Problem 5: Faceted Scatterplot (Multiple Variables)
+Use the `iris` dataset to create a scatterplot of `Petal.Length` vs. `Petal.Width`. Facet the plot by `Species` and include a different color for each species.
+
+```{r}
+# Solution
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
+  geom_point() +
+  facet_grid(~ Species)
+```
+
+### Problem 6: Log Scale
+Use the `diamonds` dataset to create a scatterplot of `carat` vs. `price`. Apply a log scale to the y-axis.
+
+```{r}
+# Solution
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point() +
+  scale_y_log10()
+```
+
+### Problem 7: Custom Colors and Alpha
+Use the `diamonds` dataset to create a scatterplot of `carat` vs. `price`. Change the color of the points based on `clarity` and set the alpha level to 0.5.
+
+```{r}
+# Solution
+ggplot(diamonds, aes(x = carat, y = price, color = clarity)) +
+  geom_point(alpha = 0.5)
+```
+
+### Problem 8: Size and Shape
+Use the `ToothGrowth` dataset to create a scatterplot of `len` vs. `dose`. Change the size of the points based on `supp` and use different shapes for each supplement type.
+
+```{r}
+# Solution
+ggplot(ToothGrowth, aes(x = dose, y = len, size = supp, shape = supp)) +
+  geom_point()
+```
+
+### Problem 9: Faceted Scatterplot with Custom Colors
+Use the `ToothGrowth` dataset to create a scatterplot of `len` vs. `dose`. Facet the plot by `supp` and change the color of the points based on `dose`.
+
+```{r}
+# Solution
+ggplot(ToothGrowth, aes(x = dose, y = len, color = factor(dose))) +
+  geom_point() +
+  facet_wrap(~ supp)
+```
+
+### Problem 10: Fill, Size, and Alpha
+Use the `ChickWeight` dataset to create a scatterplot of `Time` vs. `weight`. Change the fill color of the points based on `Diet`, the size of the points based on `Chick`, and set the alpha level to 0.7.
+
+```{r}
+# Solution
+ggplot(ChickWeight, aes(x = Time, y = weight, fill = factor(Diet), size = Chick)) +
+  geom_point(shape = 21, alpha = 0.7)
+```

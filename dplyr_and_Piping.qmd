@@ -1,0 +1,957 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+# Beginning Data Cleaning with dplyr and piping {.unnumbered}
+
+In this tutorial, we will learn how to clean data using the `dplyr` package. `dplyr` is a powerful package for data manipulation in R. It provides a consistent set of functions for working with data frames and tibbles.
+
+Some of the key functions in `dplyr` include:
+
+-   chaining operations with the `%>%` (piping) operator
+-   `filter()`: Filter rows based on conditions
+-   `mutate()`: Create new columns
+-   `select()`: Select columns
+-   `arrange()`: Arrange rows
+-   `group_by()`: Group data
+-   `summarize()`: Summarize data
+
+We will work through several examples of these commands. Let's revisit the `mtcars` dataset that we used earlier. This data set has information about various car models, including miles per gallon (mpg), number of cylinders (cyl), and horsepower (hp). This gives us several variables to demonstrate the `dplyr` functions. `mtcars` is a built-in dataset in R so we don't need to load any additional packages. Just make sure that you have the `datasets` package loaded. If you do, then you can load the `mtcars` dataset with the following command:
+
+```{r message=FALSE}
+# Load necessary libraries
+
+library(datasets)
+library(dplyr)
+
+# Sample dataset: Built-in mtcars dataset
+
+data <- mtcars
+
+# Let's review the data set by checking out the first few rows
+
+head(data)
+
+```
+
+<br>
+
+## piping
+
+There are two kinds of ways to use piping. One is with the built in command 
+and the other is with the command that comes with the `dplyr` package. The 
+built in command is `|>` and the `dplyr` command is `%>%`. They both work in the 
+same way so you can pick your favorite. There are some subtle differences
+between the two, but for the sake of this course, you will probably not notice. 
+<br>
+
+
+OK, we are now ready to start using the `dplyr` functions. Let's start by dicussing the piping operator `%>%`. The piping operator `%>%` is used to chain together multiple operations in a single line of code. It takes the output of one function and passes it as the first argument to the next function. This makes it easy to read and understand the code. The syntax is bascially 
+<br>
+
+
+<center>`data |> function1()`</center>
+<br>
+or
+<br>
+<center>`data %>% function1()`</center>
+
+<br>
+
+This is equivalent to `function1(data)`, in other words, take the data and apply function1 to it. We can chain this together with multiple functions to perform complex data manipulations in a single line of code.
+
+<br>
+
+<center>`data %>% function1() %>% function2() %>% function3()`</center>
+
+<br>
+
+You can read this command as "take the data set, apply function1, then take the output of function1 and apply function2, then take the output of function2 and apply function3". Hopefully, this makes it easy to read and understand the code.
+
+## filter( )
+
+The `filter( )` function is used to filter rows based on conditions. You can specify the condition you want to filter by passing it as an argument to the `filter( )` function. 
+<br>
+
+Here are the different comparisons you can use with the `filter( )` command. 
+These are called **comparison operators**.
+<br>
+
+<center>
+![](./images/DAP_1.jpg){width="50%"}
+</center>
+<br>
+
+Let's create a simple data frame to demonstrate how the `filter( )` function works. 
+We will use the `data.frame()` function to create a data frame with two 
+columns: `id` and `value`. The `id` column will contain the numbers 1 through 
+15, and the `value` column will contain the numbers 5, 2, 9, 4, 6, 3, 8, 1, 7, 
+10, 2, 6, 8, 3, and 5. We will then use the `filter( )` function to filter the data frame 
+based on different conditions.
+<br>
+
+```{r}
+
+# Sample data frame
+data <- data.frame(
+  id = 1:15,
+  value = c(5, 2, 9, 4, 6, 3, 8, 1, 7, 10, 2, 6, 8, 3, 5)
+)
+
+data
+```
+<br>
+
+Here is an example of how to use the `filter( )` function to filter the data 
+frame to include only rows where the value is equal to 5.
+
+```{r}
+
+# Filter rows where value is equal to 5
+filtered_data_1 <- filter(data, value == 5)
+
+# Print out the results
+filtered_data_1
+```
+<br>
+
+Here are more examples :
+<br>
+
+
+```{r}
+# Filter rows where value is not equal to 5
+filtered_data_2 <- filter(data, value != 5)
+
+filtered_data_2
+
+# Filter rows where value is less than 5
+filtered_data_3 <- filter(data, value < 5)
+
+filtered_data_3
+
+# Filter rows where value is less than or equal to 3
+filtered_data_4 <- filter(data, value <= 3)
+
+filtered_data_4
+
+# Filter rows where value is greater than 8
+filtered_data_5 <- filter(data, value > 8)
+
+filtered_data_5
+
+# Filter rows where value is greater than or equal to 7
+filtered_data_6 <- filter(data, value >= 7)
+
+filtered_data_6
+
+# Filter rows where value is in the set of 1, 5, or 10
+filtered_data_7 <- filter(data, value %in% c(1, 5, 10))
+
+filtered_data_7
+```
+
+
+
+
+Going back to the mtcars example, 
+if you want to filter the data to include only rows where the number of 
+cylinders is 6, you can use the following command:
+
+<br>
+
+```{r}
+
+# reinitialize the data set
+
+data <- mtcars
+
+# Filter the data to include only rows where the number of cylinders is 6
+
+data %>%
+  filter(cyl == 6)
+
+```
+
+<br>
+
+As you can see from the output, the data has been filtered to include only rows where the number of cylinders is 6. This is a simple example, but you can use the `filter()` function to filter the data based on any condition.
+<br>
+
+You can also use the filter() function from the dplyr package in combination 
+with the `is.na( )` and `!is.na( )` functions to filter 
+rows based on whether they contain `NA` (missing) values or not.
+<br>
+
+Here are examples of how to use `filter( )` with `is.na( )` and 
+`!is.na( )`:
+<br>
+
+```{r}
+# Create a sample data frame
+data <- data.frame(
+  id = 1:10,
+  value = c(5, NA, 9, 4, NA, 3, 8, 1, NA, 10)
+)
+
+# Filter rows where the 'value' column has NA values
+filtered_data_na <- filter(data, is.na(value))
+print(filtered_data_na)
+
+
+# Filter rows where the 'value' column does not have NA values
+filtered_data_not_na <- filter(data, !is.na(value))
+print(filtered_data_not_na)
+
+```
+<br>
+
+Lastly, we can use the `filter()` function to filter the data based on multiple 
+conditions. You can specify multiple conditions by passing them as arguments 
+to the `filter()` function. Here are the logical operators you can use to
+combine multiple conditions:
+<br>
+
+<center>
+![](./images/DAP_2.jpg){width="20%"}
+</center>
+<br>
+
+Recall that the **AND** operator means we want all of the conditions to be true.
+The **OR** operator means we want at least one of the conditions to be true.
+The **NOT** operator means we want the condition to be false.
+<br>
+
+
+We will use this data set for the next few examples. 
+<br>
+
+```{r}
+# Create a sample data frame
+data <- data.frame(
+  id = 1:15,
+  value = c(3, 5, 7, 2, 8, 9, 10, 1, 4, 6, 3, 8, 1, 7, 10),
+  category = c("C", "A", "B", "C", "C", "A", "B", "C", "A", "B", "A", "C", "B", "A", "B")
+)
+
+data
+```
+<br>
+
+Let's filter the data to
+include only rows where the value is greater than 5 **AND** the category is "A".
+
+```{r}
+# Filter rows where 'value' is greater than 5 AND 'category' is 'A'
+filtered_data_and <- filter(data, value > 8 & category == "A")
+
+filtered_data_and
+```
+In this example, we only had one instance where the value was greater than 8 
+and the category was "A". So, we only have one row in the output.
+<br>
+
+Next we will filter the data to include only rows where the value is greater
+than 5 **OR** the category is "B".
+<br>
+
+```{r}
+# Filter rows where 'value' is greater than 5 OR 'category' is 'B'
+filtered_data_or <- filter(data, value <= 2 | category == "B")
+
+filtered_data_or
+```
+This example gave us many more rows in the output because we are looking for
+rows where the value is less than or equal to 2 or the category is "B". The
+**OR** command is less restrictive than the **AND** command, usually leading to
+more rows in the output.
+<br>
+
+Finally, we will filter the data to include only rows where the value is not
+equal to 5.
+
+```{r}
+
+# Filter rows where 'value' is not equal to 5
+
+filtered_data_not <- filter(data, value != 5)
+
+filtered_data_not
+```
+Here we have plenty of results where the value is **not** equal to 5.
+
+## mutate( )
+
+When using the `mutate()` function, we can create new columns based on existing columns in the data set. You do have to be careful if you want to save the new data set with the new column. If you don't assign the output to a new variable, the new column will not be saved. <br>
+
+Let's use the `mutate()` function to create a new column called `gpm` that calculates the miles per gallon (mpg) per cylinder (cyl). This will give us a measure of fuel efficiency per cylinder.
+
+```{r message=TRUE}
+# reinitialize the data set
+
+data <- mtcars
+
+# Create a new column called "gpm" that calculates the miles per gallon per cylinder
+
+data %>%
+  mutate(gpm = mpg / cyl)
+
+```
+
+At this point we have not saved the new data set with the new column. If you look at the data set, you will see that the new column has not been saved.
+
+```{r}
+
+head(data)
+
+# If we want to save the new data set with the new column, we need to assign the
+# output to a new variable.
+
+data2 <- data %>%
+  mutate(gpm = mpg / cyl)
+
+# Notice that the output did not get printed out. It was saved to the new
+# variable data2. data2 is a new data set with the new column has been saved.
+
+head(data2)
+
+```
+
+<br>
+
+We can now use `data2` for further analysis or if we need the new column for any other purpose.
+<br>
+
+It is also possible to use the `mutate()` function to create multiple new 
+columns at once. You can specify the new columns you want to create by 
+passing them as arguments to the `mutate()` function. Let's use the 
+`mutate()` function to create two new columns: `gpm` 
+(miles per gallon per cylinder) and `hp_per_cyl` (horsepower per cylinder).
+
+```{r}
+
+# Create two new columns: "gpm" and "hp_per_cyl"
+
+data %>%
+  mutate(gpm = mpg / cyl,
+         hp_per_cyl = hp / cyl)
+
+```
+Don't forget to save these new columns if you want to use them later on :
+
+```{r}
+
+# Save the new data set with the new columns
+
+data3 <- data %>%
+  mutate(gpm = mpg / cyl,
+         hp_per_cyl = hp / cyl)
+
+head(data3)
+
+```
+<br>
+
+If needed, we can also use `mutate()` to change the values in an existing column. 
+For example, if we wanted to add 1 to the **cyl** variable,
+we could use the following command:
+
+```{r}
+# Original data set :
+
+head(data)
+```
+
+```{r}
+#| message: false
+
+# Convert the miles per gallon (mpg) column to kilometers per liter (kpl)
+  
+data <- data %>%
+  mutate(cyl = cyl + 1)
+```
+
+```{r}
+
+# New data set:
+
+head(data)
+
+```
+
+
+## select( )
+
+The `select()` function is used to select columns from the data set. You can specify the columns you want to keep by passing their names as arguments to the `select()` function. You can also use the `:` operator to select a range of columns. Let's use the `select()` function to select the columns `mpg`, `cyl`, and `hp` from the data set.
+
+```{r}
+
+# reinitialize the data set
+
+data <- mtcars
+
+# Select the columns mpg, cyl, and hp
+
+data %>%
+  select(mpg, cyl, hp)
+
+```
+
+<br>
+
+As you can see from the output, the data set has been filtered to include only the columns `mpg`, `cyl`, and `hp`. You can use the `select()` function to select any columns you want from the data set.
+
+It is also worth noting that we **did not** save the new data set with the selected columns. If you want to save the new data set with the selected columns, you need to assign the output to a new variable.
+
+```{r}
+
+# Save the new data set with the selected columns
+
+data3 <- data %>%
+  select(mpg, cyl, hp)
+
+# Notice that the output did not get printed out. It was saved to the new
+# variable data3. data3 is a new data set with the selected columns.
+
+head(data3)
+
+```
+
+We could also use the `:` operator to select a range of columns. For example, if we wanted to select all columns from `mpg` to `hp`, we could use the following command:
+
+```{r}
+
+# Select all columns from mpg to hp and save the new data set to data4
+
+data4 <- data %>%
+  select(mpg:hp)
+
+head(data4)
+
+```
+
+<br>
+
+If we want to exclude a column, we can use the `-` operator. For example, if we wanted to select all columns except `mpg`, we could use the following command:
+
+```{r}
+
+# Select all columns except mpg and save the new data set to data5
+
+data5 <- data %>%
+  select(-mpg)
+
+head(data5)
+
+```
+If we want to remove a **range** of columns, we can combine the last two ideas.
+For instance, if we want to remove the columns from `mpg` to `hp`, we could use the following command:
+
+```{r}
+
+# Remove all columns from mpg to hp and save the new data set to data6
+
+data6 <- data %>%
+  select(-(mpg:hp))
+
+head(data6)
+
+```
+
+<br>
+
+## arrange( )
+
+The `arrange()` function is used to sort the data set based on one or more columns. You can specify the columns you want to sort by passing their names as arguments to the `arrange()` function. By default, the data set is sorted in ascending order. If you want to sort in descending order, you can use the `desc()` function. Let's use the `arrange()` function to sort the data set by the `mpg` column in descending order.
+
+```{r}
+
+# reinitialize the data set
+
+data <- mtcars
+
+# Sort the data set by the mpg column in descending order
+
+data %>%
+  arrange(desc(mpg))
+
+```
+
+<br>
+
+As we saw above, the output is not saved. If you want to save the sorted data set, you need to assign the output to a new variable.
+
+```{r}
+
+# Save the sorted data set to data6
+
+data6 <- data %>%
+  arrange(desc(mpg))
+
+head(data6)
+
+```
+
+<br>
+
+We can sort the data set by multiple columns by passing multiple arguments to the `arrange()` function. For example, if we wanted to sort the data set by the `mpg` column in descending order and then by the `cyl` column in ascending order, we could use the following command:
+
+```{r}
+
+# Sort the data set by the mpg column in descending order and then by the cyl 
+# column in ascending order and save the output to data7
+
+data7 <- data %>%
+  arrange(desc(mpg), cyl)
+
+head(data7)
+tail(data7)
+
+```
+
+<br>
+
+You can see from the `head( )` and `tail( )` commands that the data set has been sorted first by the `mpg` column in descending order and then by the `cyl` column in ascending order. So the cars with 4 cylinders come first and they are sorted by the miles per gallon in descending order. Then the cars with 6 cylinders come next and they are also sorted by the miles per gallon in descending order. Finally, the cars with 8 cylinders come last and they are also sorted by the miles per gallon in descending order.
+
+## group_by( ) and summarize( )
+
+The `group_by()` function is used to group the data set by one or more columns. The `summarize()` function is used to summarize the data within each group. You can specify the summary statistics you want to calculate by passing them as arguments to the `summarize()` function. Let's use the `group_by()` and `summarize()` functions to calculate the average miles per gallon (mpg) for each number of cylinders (cyl).
+
+```{r}
+
+# reinitialize the data set
+
+data <- mtcars
+
+# Group the data set by the cyl column and calculate the average mpg for each group
+
+data %>%
+  group_by(cyl) %>%
+  summarize(avg_mpg = mean(mpg))
+
+```
+
+<br>
+
+In this example, the data was grouped together by cylinders and then the average was calculated to the miles per gallon for each group.
+
+Let's verify this result by looking at the cars with 6 cylinders. Let us filter the data set to include only cars with 6 cylinders and then calculate the average miles per gallon for these cars.
+
+```{r}
+
+# Filter the data set to include only cars with 6 cylinders
+
+cyl6_data <- data %>%
+  filter(cyl == 6)
+
+cyl6_data
+```
+
+<br>
+
+We can now calculate the average miles per gallon for these cars.
+
+```{r}
+
+# Calculate the average miles per gallon for cars with 6 cylinders
+
+mean(cyl6_data$mpg)
+
+```
+
+
+<br>
+
+::: callout-tip
+As you are coding, it is always good to double check your work with a small subset of the data to make sure that you are getting the results you expect.
+:::
+
+As we saw above, the output is not saved as we are just printing out the result. If you want to save the summarized data set, you need to assign the output to a new variable.
+
+```{r}
+
+# Save the summarized data set to data8
+
+data8 <- data %>%
+  group_by(cyl) %>%
+  summarize(avg_mpg = mean(mpg))
+
+data8
+
+```
+<br>
+
+What happens if we have data that is incomplete? In other words, what if we have 
+missing values in our data set? Let's take a look at the `airquality` 
+data set, which contains information about air quality measurements in 
+New York City. This data set has missing values, so we need to be 
+careful when calculating summary statistics.
+
+```{r}
+
+# Load the airquality data set
+
+data("airquality")
+
+# Print out the first few rows of the data set
+
+head(airquality)
+
+```
+
+Let's calculate the average `Solar.R` value for each month in the `airquality` 
+data set. We will use the `group_by()` and `summarize()` functions to group 
+the data by the `Month` column and calculate the average temperature for 
+each month.
+
+```{r}
+
+# Group the data set by the Month column and calculate the average Temp for each group
+
+airquality %>%
+  group_by(Month) %>%
+  summarize(avg_temp = mean(Solar.R))
+
+```
+You can see that the `NA` values did not allow us to properly calculate the
+mean. R does not automatically drop the `NA` vaules when going through the calculations. 
+We can use the `na.rm = TRUE` argument to remove the `NA` values and
+calculate the mean for the remaining values.
+
+```{r}
+
+# Group the data set by the Month column and calculate the average Solar.R for each group
+
+airquality %>%
+  group_by(Month) %>%
+  summarize(avg_temp = mean(Solar.R, na.rm = TRUE))
+
+```
+There are many other functions that you can use with `summarize()` other than
+just `mean()`. Here are some of the other functions that you can use:
+
+-   `mean()`: Calculate the mean
+-   `median()`: Calculate the median
+-   `sd()`: Calculate the standard deviation
+-   `var()`: Calculate the variance
+-   `min()`: Calculate the minimum value
+-   `max()`: Calculate the maximum value
+-   `n()`: Count the number of observations
+-   `sum()`: Calculate the sum
+-   `first()`: Get the first value
+-   `last()`: Get the last value
+-   `nth()`: Get the nth value
+-   `n_distinct()`: Count the number of distinct values
+
+You can use these functions to calculate a wide range of summary statistics for your data.
+
+Here is an example of how to use the `summarize()` function to find the number of unique values in the `Month` column of the `airquality` data set.
+
+```{r}
+
+# Find the number of unique values in the Month column
+
+airquality %>%
+  summarize(unique_months = n_distinct(Month))
+
+```
+
+
+## Chaining Operations
+
+One of the powerful features of the `dplyr` package is the ability to chain operations together using the piping operator `%>%`. This allows you to perform multiple data manipulation steps in a single line of code. Let's walk through an example to see how this works.
+  
+Suppose we want to filter the `mtcars` data set to include only cars with 6 cylinders, select the `mpg`, `cyl`, and `hp` columns, and then arrange the data by the `mpg` column in descending order. We can do this in a single line of code using the piping operator `%>%`.
+
+```{r}
+
+# reinitialize the data set
+
+data <- mtcars
+
+# Filter the data to include only cars with 6 cylinders, select the mpg, cyl, 
+# and hp columns, and arrange the data by the mpg column in descending order
+
+data %>%
+  filter(cyl == 6) %>%
+  select(mpg, cyl, hp) %>%
+  arrange(desc(mpg))
+
+```
+
+Another example is to filter the `mtcars` data set to include only cars with 6 cylinders, create a new column `power_to_weight` that calculates the ratio of `hp` to `wt`, and then select the `mpg`, `cyl`, `hp`, and `power_to_weight` columns.
+
+```{r}
+
+# reinitialize the data set
+
+data <- mtcars
+
+# Filter the data to include only cars with 6 cylinders, create a new column
+# power_to_weight that calculates the ratio of hp to wt, and select the mpg, cyl,
+# hp, and power_to_weight columns
+
+data %>%
+  filter(cyl == 6) %>%
+  mutate(power_to_weight = hp / wt) %>%
+  select(mpg, cyl, hp, power_to_weight)
+
+```
+
+
+<br>
+
+## Conclusion
+
+In this tutorial, we learned how to clean data using the `dplyr` package. We saw several of the key functions in `dplyr`, including `filter()`, `mutate()`, `select()`, `arrange()`, `group_by()`, and `summarize()`. We also learned how to chain operations together using the piping operator `%>%`. These functions are powerful tools for data manipulation in R and can help you clean and transform your data quickly and efficiently.
+
+For more information on the `dplyr` package, check out the documentation at <https://dplyr.tidyverse.org/>. <br><br><br>
+
+## Exercises
+
+**Instructions:** Solve each of the following problems using the commands we saw earlier from the dplyr package :
+
+-   chaining operations with the `%>%` (piping) operator
+-   `filter()`: Filter rows based on conditions
+-   `mutate()`: Create new columns
+-   `select()`: Select columns
+-   `arrange()`: Arrange rows
+-   `group_by()`: Group data
+-   `summarize()`: Summarize data
+
+Each of the solutions should be one piped command. Some may be a single pipe while others may take multiple pipes.
+
+### Problem 1: Filtering Rows
+
+Use the `mtcars` dataset to filter the rows where the `mpg` (miles per gallon) is greater than 20. Save the result to `filtered_mtcars`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+# If needed, load up dplyr
+
+# library(dplyr)
+
+filtered_mtcars <- mtcars %>%
+  filter(mpg > 20)
+
+filtered_mtcars
+```
+
+### Problem 2: Selecting Columns
+
+Use the `mtcars` dataset to select the columns `mpg`, `cyl`, and `hp`. Save the result to `selected_mtcars`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+selected_mtcars <- mtcars %>%
+  select(mpg, cyl, hp)
+
+selected_mtcars
+```
+
+### Problem 3: Arranging Rows
+
+Use the `mtcars` dataset to arrange the rows in descending order of `hp` (horsepower). Save the result to `arranged_mtcars`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+arranged_mtcars <- mtcars %>%
+  arrange(desc(hp))
+
+arranged_mtcars
+```
+
+### Problem 4: Creating New Columns
+
+Use the `mtcars` dataset to create a new column `power_to_weight` which is the ratio of `hp` (horsepower) to `wt` (weight). Save the result to `mutated_mtcars`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+mutated_mtcars <- mtcars %>%
+  mutate(power_to_weight = hp / wt)
+
+mutated_mtcars
+```
+
+### Problem 5: Summarizing Data
+
+Use the `mtcars` dataset to calculate the mean `mpg` (miles per gallon). Save the result to `summary_mtcars`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+summary_mtcars <- mtcars %>%
+  summarise(mean_mpg = mean(mpg))
+
+summary_mtcars
+```
+
+### Problem 6: Grouping and Summarizing Data
+
+Use the `mtcars` dataset to calculate the mean `mpg` (miles per gallon) for each number of cylinders (`cyl`). Save the result to `grouped_summary_mtcars`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+grouped_summary_mtcars <- mtcars %>%
+  group_by(cyl) %>%
+  summarise(mean_mpg = mean(mpg))
+
+grouped_summary_mtcars
+```
+
+### Problem 7: Filtering, Selecting, and Arranging
+
+Use the `mtcars` dataset to filter the rows where `mpg` is greater than 20, select the columns `mpg` and `hp`, and arrange the rows in ascending order of `hp`. Save the result to `filtered_selected_arranged_mtcars`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+filtered_selected_arranged_mtcars <- mtcars %>%
+  filter(mpg > 20) %>%
+  select(mpg, hp) %>%
+  arrange(hp)
+
+filtered_selected_arranged_mtcars
+```
+
+### Problem 8: Creating Multiple New Columns
+
+Use the `mtcars` dataset to create two new columns: `power_to_weight` (ratio of `hp` to `wt`) and `mpg_per_cyl` (ratio of `mpg` to `cyl`). Save the result to `mutated_mtcars`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+mutated_mtcars <- mtcars %>%
+  mutate(power_to_weight = hp / wt,
+         mpg_per_cyl = mpg / cyl)
+
+mutated_mtcars
+```
+
+### Problem 9: Counting Rows
+
+Use the `mtcars` dataset to count the number of cars for each number of cylinders (`cyl`). Save the result to `counted_mtcars`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+counted_mtcars <- mtcars %>%
+  count(cyl)
+
+counted_mtcars
+```
+
+### Problem 10: Filtering and Summarizing
+
+Use the `airquality` dataset to filter the rows where `Month` is 5 (May), and calculate the mean `Temp` (temperature). Save the result to `filtered_summary_airquality`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+data("airquality")
+
+filtered_summary_airquality <- airquality %>%
+  filter(Month == 5) %>%
+  summarise(mean_temp = mean(Temp, na.rm = TRUE))
+
+filtered_summary_airquality
+```
+
+### Problem 11: Grouping and Creating New Columns
+
+Use the `airquality` dataset to group the data by `Month` and create a new column `mean_temp` which is the mean `Temp` (temperature) for each month. Save the result to `grouped_mutated_airquality`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+grouped_mutated_airquality <- airquality %>%
+  group_by(Month) %>%
+  mutate(mean_temp = mean(Temp, na.rm = TRUE))
+
+grouped_mutated_airquality
+```
+
+### Problem 12: Filtering, Grouping, and Summarizing
+
+Use the `airquality` dataset to filter the rows where `Temp` is greater than 80, group by `Month`, and calculate the mean `Ozone` level for each month. Save the result to `filtered_grouped_summary_airquality`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+filtered_grouped_summary_airquality <- airquality %>%
+  filter(Temp > 80) %>%
+  group_by(Month) %>%
+  summarise(mean_ozone = mean(Ozone, na.rm = TRUE))
+
+filtered_grouped_summary_airquality
+```
+
+### Problem 13: Selecting and Summarizing
+
+Use the `trees` dataset to select the `Height` and `Volume` columns and calculate the mean `Height` and `Volume`. Save the result to `selected_summary_trees`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+data("trees")
+
+selected_summary_trees <- trees %>%
+  select(Height, Volume) %>%
+  summarise(mean_height = mean(Height),
+            mean_volume = mean(Volume))
+
+selected_summary_trees
+```
+
+### Problem 14: Filtering, Mutating, and Arranging
+
+Use the `trees` dataset to filter the rows where `Height` is greater than 75, create a new column `volume_to_height` which is the ratio of `Volume` to `Height`, and arrange the rows in descending order of `volume_to_height`. Save the result to `filtered_mutated_arranged_trees`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+filtered_mutated_arranged_trees <- trees %>%
+  filter(Height > 75) %>%
+  mutate(volume_to_height = Volume / Height) %>%
+  arrange(desc(volume_to_height))
+
+filtered_mutated_arranged_trees
+```
+
+### Problem 15: Combining Multiple Steps
+
+Use the `trees` dataset to filter the rows where `Height` is greater than 70, select the `Height` and `Volume` columns, create a new column `volume_to_height` which is the ratio of `Volume` to `Height`, and calculate the mean `volume_to_height`. Save the result to `combined_trees`.
+
+```{r}
+#| code-fold: true
+# Solution
+
+
+combined_trees <- trees %>%
+  filter(Height > 70) %>%
+  select(Height, Volume) %>%
+  mutate(volume_to_height = Volume / Height) %>%
+  summarise(mean_volume_to_height = mean(volume_to_height))
+combined_trees
+
+```

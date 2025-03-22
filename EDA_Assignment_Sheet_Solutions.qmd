@@ -1,0 +1,357 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# EDA Assignment Solutions  {.unnumbered}
+
+This document contains the solutions to the EDA assignment problems.
+
+You need to verify te locations of where you save the data files.
+
+## Problem 1: Gender Pay Gap Analysis
+
+```r
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+gender_pay_gap <- read.csv("gender_pay_gap_data.csv")
+
+# Calculate the mean and median pay for men and women
+mean_men <- mean(gender_pay_gap$men_pay, na.rm = TRUE)
+median_men <- median(gender_pay_gap$men_pay, na.rm = TRUE)
+mean_women <- mean(gender_pay_gap$women_pay, na.rm = TRUE)
+median_women <- median(gender_pay_gap$women_pay, na.rm = TRUE)
+
+# Create a barplot to visualize the median pay for men and women across different industries
+ggplot(gender_pay_gap, aes(x = industry)) +
+  geom_bar(aes(y = women_pay), stat = "identity", fill = "pink") +
+  geom_bar(aes(y = men_pay), stat = "identity", fill = "blue", alpha = 0.5) +
+  ylab("Median Pay") + xlab("Industry") + 
+  ggtitle("Median Pay by Gender and Industry") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+# Calculate the pay gap for each industry
+gender_pay_gap <- gender_pay_gap %>%
+  mutate(pay_gap = men_pay - women_pay)
+
+# Create a histogram of the pay gap
+ggplot(gender_pay_gap, aes(x = pay_gap)) +
+  geom_histogram(binwidth = 5000, fill = "blue", alpha = 0.7) +
+  xlab("Pay Gap") + ylab("Frequency") + 
+  ggtitle("Histogram of Gender Pay Gap")
+
+# Calculate a 95% confidence interval for the average pay gap
+pay_gap_mean <- mean(gender_pay_gap$pay_gap, na.rm = TRUE)
+pay_gap_sd <- sd(gender_pay_gap$pay_gap, na.rm = TRUE)
+n <- nrow(gender_pay_gap)
+error_margin <- qt(0.975, df = n-1) * pay_gap_sd / sqrt(n)
+ci_lower <- pay_gap_mean - error_margin
+ci_upper <- pay_gap_mean + error_margin
+ci_lower
+ci_upper
+```
+
+## Problem 2: Racial Disparities in Incarceration Rates
+
+```r
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+incarceration_rates <- read.csv("us_incarceration_rates.csv")
+
+# Calculate the mean and standard deviation of incarceration rates for each racial group
+incarceration_summary <- incarceration_rates %>%
+  group_by(race) %>%
+  summarize(mean_rate = mean(rate, na.rm = TRUE),
+            sd_rate = sd(rate, na.rm = TRUE))
+
+# Create a barplot to visualize the incarceration rates for each racial group
+ggplot(incarceration_rates, aes(x = race, y = rate)) +
+  geom_bar(stat = "identity", fill = "red") +
+  ylab("Incarceration Rate") + xlab("Racial Group") + 
+  ggtitle("Incarceration Rates by Racial Group")
+
+# Calculate a 95% confidence interval for the average incarceration rate for each racial group
+incarceration_summary <- incarceration_summary %>%
+  mutate(error_margin = qt(0.975, df = n()-1) * sd_rate / sqrt(n()),
+         ci_lower = mean_rate - error_margin,
+         ci_upper = mean_rate + error_margin)
+incarceration_summary
+```
+
+## Problem 3: Access to Education by Region
+
+```r
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+education_data <- read.csv("global_education_data.csv")
+
+# Calculate the mean and median years of schooling for each region
+education_summary <- education_data %>%
+  group_by(region) %>%
+  summarize(mean_years = mean(years_of_schooling, na.rm = TRUE),
+            median_years = median(years_of_schooling, na.rm = TRUE))
+
+# Create a histogram of the years of schooling
+ggplot(education_data, aes(x = years_of_schooling)) +
+  geom_histogram(binwidth = 1, fill = "green", alpha = 0.7) +
+  xlab("Years of Schooling") + ylab("Frequency") + 
+  ggtitle("Histogram of Years of Schooling")
+
+# Calculate a 95% confidence interval for the average years of schooling for each region
+education_summary <- education_summary %>%
+  mutate(sd_years = sd(education_data$years_of_schooling, na.rm = TRUE),
+         n = n(),
+         error_margin = qt(0.975, df = n-1) * sd_years / sqrt(n),
+         ci_lower = mean_years - error_margin,
+         ci_upper = mean_years + error_margin)
+education_summary
+```
+
+## Problem 4: Unemployment Rates by Race and Gender
+
+```r
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+unemployment_data <- read.csv("us_unemployment_data.csv")
+
+# Calculate the mean and standard deviation of unemployment rates for each racial and gender group
+unemployment_summary <- unemployment_data %>%
+  group_by(race, gender) %>%
+  summarize(mean_rate = mean(unemployment_rate, na.rm = TRUE),
+            sd_rate = sd(unemployment_rate, na.rm = TRUE))
+
+# Create a faceted scatterplot to visualize the unemployment rates for each racial and gender group over time
+ggplot(unemployment_data, aes(x = year, y = unemployment_rate, color = gender)) +
+  geom_point() +
+  facet_wrap(~ race) +
+  ylab("Unemployment Rate") + xlab("Year") + 
+  ggtitle("Unemployment Rates by Race and Gender Over Time")
+
+# Calculate a 95% confidence interval for the average unemployment rate for each racial and gender group
+unemployment_summary <- unemployment_summary %>%
+  mutate(n = n(),
+         error_margin = qt(0.975, df = n-1) * sd_rate / sqrt(n),
+         ci_lower = mean_rate - error_margin,
+         ci_upper = mean_rate + error_margin)
+unemployment_summary
+```
+
+## Problem 5: Income Inequality by State
+
+```r
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+income_inequality_data <- read.csv("us_income_inequality_data.csv")
+
+# Calculate the mean and median Gini coefficient for the states
+mean_gini <- mean(income_inequality_data$gini_coefficient, na.rm = TRUE)
+median_gini <- median(income_inequality_data$gini_coefficient, na.rm = TRUE)
+
+# Create a histogram of the Gini coefficients
+ggplot(income_inequality_data, aes(x = gini_coefficient)) +
+  geom_histogram(binwidth = 0.01, fill = "purple", alpha = 0.7) +
+  xlab("Gini Coefficient") + ylab("Frequency") + 
+  ggtitle("Histogram of Gini Coefficients")
+
+# Calculate a 95% confidence interval for the average Gini coefficient
+gini_mean <- mean(income_inequality_data$gini_coefficient, na.rm = TRUE)
+gini_sd <- sd(income_inequality_data$gini_coefficient, na.rm = TRUE)
+n <- nrow(income_inequality_data)
+error_margin <- qt(0.975, df = n-1) * gini_sd / sqrt(n)
+ci_lower <- gini_mean - error_margin
+ci_upper <- gini_mean + error_margin
+ci_lower
+ci_upper
+```
+
+## Problem 6: Food Insecurity Rates by County
+
+```r
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+food_insecurity_data <- read.csv("usda_food_insecurity_data.csv")
+
+# Calculate the mean and standard deviation of food insecurity rates for the counties
+food_insecurity_summary <- food_insecurity_data %>%
+  summarize(mean_rate = mean(food_insecurity_rate, na.rm = TRUE),
+            sd_rate = sd(food_insecurity_rate, na.rm = TRUE))
+
+# Create a barplot to visualize the food insecurity rates by county
+ggplot(food_insecurity_data, aes(x = county, y = food_insecurity_rate)) +
+  geom_bar(stat = "identity", fill = "orange") +
+  ylab("Food Insecurity Rate") + xlab("County") + 
+  ggtitle("Food Insecurity Rates by County") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+# Calculate a 95% confidence interval for the average food insecurity rate
+mean_rate <- mean(food_insecurity_data$food_insecurity_rate, na.rm = TRUE)
+sd_rate <- sd(food_insecurity_data$food_insecurity_rate, na.rm = TRUE)
+n <- nrow(food_insecurity_data)
+error_margin <- qt(0.975, df = n-1) * sd_rate / sqrt(n)
+ci_lower <- mean_rate - error_margin
+ci_upper <- mean_rate + error_margin
+ci_lower
+ci_upper
+```
+
+## Problem 7: Environmental Pollution and Health Outcomes
+
+```r
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+air_quality_data <- read.csv("epa_air_quality_data.csv")
+
+# Calculate the mean and median AQI and asthma rates for each region
+air_quality_summary <- air_quality_data %>%
+  group_by(region) %>%
+  summarize(mean_aqi = mean(AQI, na.rm = TRUE),
+            median_aqi = median(AQI, na.rm = TRUE),
+            mean_asthma_rate = mean(asthma_rate, na.rm = TRUE),
+            median_asthma_rate = median(asthma_rate, na.rm = TRUE))
+
+# Create a scatterplot to visualize the relationship between AQI and asthma rates
+ggplot(air_quality_data, aes(x = AQI, y = asthma_rate)) +
+  geom_point(color = "blue") +
+  xlab("Air Quality Index (AQI)") + ylab("Asthma Rate") + 
+  ggtitle("Relationship between AQI and Asthma Rates")
+
+# Calculate the correlation coefficient between AQI and asthma rates
+correlation <- cor(air_quality_data$AQI, air_quality_data$asthma_rate, use = "complete.obs")
+
+# Fit a linear regression model to predict asthma rates based on AQI
+model <- lm(asthma_rate ~ AQI, data = air_quality_data)
+summary(model)
+
+# Create a residual plot for the regression model
+residuals <- resid(model)
+ggplot(air_quality_data, aes(x = AQI, y = residuals)) +
+  geom_point(color = "red") +
+  xlab("Air Quality Index (AQI)") + ylab("Residuals") + 
+  ggtitle("Residual Plot")
+
+# Calculate a 95% confidence interval for the slope of the regression line
+confint(model, level = 0.95)
+```
+
+## Problem 8: Access to Clean Water
+
+```r
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+clean_water_data <- read.csv("who_unicef_clean_water_data.csv")
+
+# Calculate the mean and standard deviation of access to clean water rates for the countries
+clean_water_summary <- clean_water_data %>%
+  summarize(mean_rate = mean(access_rate, na.rm = TRUE),
+            sd_rate = sd(access_rate, na.rm = TRUE))
+
+# Create a barplot to visualize the access to clean water rates by country
+ggplot(clean_water_data, aes(x = country, y = access_rate)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  ylab("Access to Clean Water Rate") + xlab("Country") + 
+  ggtitle("Access to Clean Water Rates by Country") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+# Calculate a 95% confidence interval for the average access to clean water rate
+mean_rate <- mean(clean_water_data$access_rate, na.rm = TRUE)
+sd_rate <- sd(clean_water_data$access_rate, na.rm = TRUE)
+n <- nrow(clean_water_data)
+error_margin <- qt(0.975, df = n-1) * sd_rate / sqrt(n)
+ci_lower <- mean_rate - error_margin
+ci_upper <- mean_rate + error_margin
+ci_lower
+ci_upper
+```
+
+
+
+## Problem 9: Child Mortality Rates by Region
+
+```r
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+child_mortality_data <- read.csv("unicef_child_mortality_data.csv")
+
+# Calculate the mean and median child mortality rates for each region
+mortality_summary <- child_mortality_data %>%
+  group_by(region) %>%
+  summarize(mean_rate = mean(mortality_rate, na.rm = TRUE),
+            median_rate = median(mortality_rate, na.rm = TRUE))
+
+# Create a histogram of the child mortality rates
+ggplot(child_mortality_data, aes(x = mortality_rate)) +
+  geom_histogram(binwidth = 5, fill = "pink", alpha = 0.7) +
+  xlab("Child Mortality Rate") + ylab("Frequency") + 
+  ggtitle("Histogram of Child Mortality Rates")
+
+# Calculate a 95% confidence interval for the average child mortality rate
+mortality_mean <- mean(child_mortality_data$mortality_rate, na.rm = TRUE)
+mortality_sd <- sd(child_mortality_data$mortality_rate, na.rm = TRUE)
+n <- nrow(child_mortality_data)
+error_margin <- qt(0.975, df = n-1) * mortality_sd / sqrt(n)
+ci_lower <- mortality_mean - error_margin
+ci_upper <- mortality_mean + error_margin
+ci_lower
+ci_upper
+```
+
+## Problem 10: Literacy Rates by Gender
+
+```r
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Load the dataset
+literacy_data <- read.csv("unesco_literacy_data.csv")
+
+# Calculate the mean and standard deviation of literacy rates for males and females
+literacy_summary <- literacy_data %>%
+  group_by(gender) %>%
+  summarize(mean_rate = mean(literacy_rate, na.rm = TRUE),
+            sd_rate = sd(literacy_rate, na.rm = TRUE))
+
+# Create a faceted scatterplot to visualize the literacy rates for males and females by country
+ggplot(literacy_data, aes(x = country, y = literacy_rate, color = gender)) +
+  geom_point() +
+  facet_wrap(~ gender) +
+  ylab("Literacy Rate") + xlab("Country") + 
+  ggtitle("Literacy Rates by Gender and Country") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+# Calculate a 95% confidence interval for the average literacy rate for males and females
+literacy_summary <- literacy_summary %>%
+  mutate(n = n(),
+         error_margin = qt(0.975, df = n-1) * sd_rate / sqrt(n),
+         ci_lower = mean_rate - error_margin,
+         ci_upper = mean_rate + error_margin)
+literacy_summary
+```
