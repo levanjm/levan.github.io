@@ -108,7 +108,7 @@ look for that variable in the data argument. If you put a string inside
 aes(), ggplot2 will treat it as a constant value. <br>
 
 For example, that happens to the last command if we put `color = "class"` instead of `color = class`?
-
+ 
 ```{r}
 
 ggplot(data = mpg) +
