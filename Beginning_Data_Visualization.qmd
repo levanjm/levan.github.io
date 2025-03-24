@@ -102,6 +102,25 @@ The colors reveal that many of the unusual points are two-seater cars. These car
 
 <br>
 
+As an important note, you need to be careful about using quotation marks in the 
+aes() function. If you put a variable name inside aes(), ggplot2 will 
+look for that variable in the data argument. If you put a string inside 
+aes(), ggplot2 will treat it as a constant value. <br>
+
+For example, that happens to the last command if we put `color = "class"` instead of `color = class`?
+
+```{r}
+
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = "class"))
+
+```
+We can see in this case that all the points are the same color, because ggplot2 
+is treating "class" as a constant value, not as a variable in the data frame. <br>
+
+
+
+We can also map different characteristics to the points, and not just color.
 In the above example, we mapped class to the color aesthetic, but we could have mapped class to the size aesthetic in the same way. In this case, the exact size of each point would reveal its class affiliation. We get a warning here, because mapping an unordered variable (class) to an ordered aesthetic (size) is not a good idea.
 
 ```{r Example2}
@@ -236,8 +255,7 @@ ncol(mpg)
 
 ### Problem 3
 
-What does the drv variable describe? Use the `str( )` function with `ggplot2::mpg` 
-to see the different types of variables in the data set.<br>
+What does the drv variable describe? Use the `str( )` function with `ggplot2::mpg` to see the different types of variables in the data set.<br>
 
 ```{r Ex3}
 
