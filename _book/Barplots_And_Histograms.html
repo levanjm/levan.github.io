@@ -472,6 +472,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>As we can see in the documentation : <br></p>
 <p>There are two types of bar charts: <code>geom_bar( )</code> and <code>geom_col( )</code>. <code>geom_bar( )</code> makes the height of the bar proportional to the number of cases in each group (or if the weight aesthetic is supplied, the sum of the weights). If you want the heights of the bars to represent values in the data, use <code>geom_col( )</code> instead. <br></p>
 <p>You should read through this as it shows you all of the different options you have when creating a barplot. <br></p>
+<p>There are two approaches one can use when trying to create a barplot. <br></p>
+<p>The first is to let <strong>ggplot</strong> do most of the work for you. In this case,</p>
+<ul>
+<li>You go ahead and immediately use the entore data set.</li>
+<li>Only assign the x-axis variable.</li>
+<li>Use the default settings to have ggplot count the y values.
+<ul>
+<li>Note : If we were making a histogram, this would be the same as using the command <code>geom_histogram(stat="count")</code>. <br></li>
+</ul></li>
+</ul>
+<p>The second approach is to do some work before calling the ggplot function. Here we would</p>
+<ul>
+<li>Wrangle the data before plotting to set up a new data frame.</li>
+<li>Map x and y axis using variables</li>
+<li>use <code>stat="identity"</code> to tell ggplot that the y values are already calculated.</li>
+<li>This tells ggplot to use <strong>your</strong> values and not to do any calculations on its own. <br></li>
+</ul>
+<p>Note : <code>geom_col( )</code> yields the same results as <code>geom_bar(stat="identity")</code>. <br></p>
 <p>Let’s revisit the data set we discussed in our previous Categorical Variables section. Let’s go back to the Supermarkets Transactions data set to create a few barplots. <br></p>
 <p>Let’s first read in the data : <br></p>
 <div class="cell">
@@ -507,7 +525,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><br></p>
-<p>We can use ggplot to easily make a barplot of the Gender data. We will create a barplot that has two bars, one for each gender listed in the data set. Note that in the data set, the variable is listed with a capitol letter. The variable we want to use is <strong>Gender</strong>, and not gender. A small typo such as that can mess uo your entire code.<br></p>
+<p>We can use ggplot to easily make a barplot of the Gender data. We will create a barplot that has two bars, one for each gender listed in the data set. Note that in the data set, the variable is listed with a capitol letter. The variable we want to use is <strong>Gender</strong>, and not gender. A small typo such as that can mess up your entire code.<br></p>
 <p>We will start off the <code>ggplot</code> command by telling the function which data set we are using, and then we will use the <code>aes</code> function to tell <code>ggplot</code> which variable we want to use for the x-axis. We will then use the <code>geom_bar</code> function to create the barplot. Finally, we will use the <code>labs</code> function to add a title to the plot, and to label the x and y axes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -678,8 +696,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="histograms" class="level2">
 <h2 class="anchored" data-anchor-id="histograms">Histograms</h2>
-<p>Histograms are used to display the distribution of a continuous variable. <br></p>
+<p>Histograms are used to display the distribution of a <strong>continuous</strong> variable. <br></p>
 <p>Documentation for the histogram command can be found at the following link: <br> <a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html?q=histogram#null&quot;">histogram documentation</a> <br></p>
+<p>Here are some of the ideas R uses to create histograms :</p>
+<ul>
+<li>You need an <strong>x-axis</strong> variable that is continuous, but you do not need a <strong>y-axis</strong> variable. The y-axis will be created by R.</li>
+<li>R will create bins for the data. The default number of bins is 30. You can change this number if you want. A bin is a range of values. For example, if you have a bin width of 5, the first bin will be from 0 to 5, the second bin will be from 5 to 10, the third bin will be from 10 to 15, and so on.</li>
+<li>The height of the bars will be the count of the number of values in each bin.
+<ul>
+<li>Some of this work is done <strong>before</strong> the aesthetic mapping. <strong>ggplot</strong> creates and counts bins before the aesthetic mapping. This is why you do not need to specify a y-axis variable.</li>
+</ul></li>
+</ul>
 <p>There are several arguments that can be used to customize the histogram and you should review the documentation to see all of the options available. <br></p>
 <p>Let’s create a histogram of the <strong>Revenue</strong> variable from the supermarket data set. We will use the <code>geom_histogram( )</code> function to create the histogram. We will also use the <code>labs</code> function to add a title to the plot, and to label the x and y axes. <br></p>
 <p>The following is a basic default histogram before any customization:</p>
