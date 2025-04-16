@@ -1,5 +1,16 @@
 project:
   type: book
+#  type: website
+  output-dir: docs
+#  output:
+#    html_document:
+#      self_contained: true
+#      toc: true
+#      toc_depth: 2
+#      toc_float: true
+#      number_sections: true
+#      theme: cosmo
+#      highlight: tango
 
 book:
   title: "Data Analytics and Statistics"
@@ -26,7 +37,7 @@ book:
     
     - part: Step 2 - Data Preparation
       chapters:
-#        - What_Is_Tidy_Data.qmd
+##        - What_Is_Tidy_Data.qmd
         - What_Is_Tidy_Data_PDF.qmd 
 #   - Tidy_Data_Assignment.qmd
         - Vectors_DataFrames_Tibbles.qmd
@@ -77,18 +88,19 @@ book:
 #   - Daily Assignments
 #   - Categorical Variables - Assignment.qmd
   appendices:
-    - Qualitative_and_Quantitative_Variables_Assignment_Solutions.qmd
-    - Tidy_Data_Assignment_Solutions.qmd
-    - Beginning_Data_Visualization_Assignment_Solutions.qmd
-    - EDA_Assignment_sheet.qmd
-    - EDA_Assignment_Sheet_Solutions.qmd
+    - Creating_Documents_And_Reports.qmd
+#    - Qualitative_and_Quantitative_Variables_Assignment_Solutions.qmd
+#    - Tidy_Data_Assignment_Solutions.qmd
+#    - Beginning_Data_Visualization_Assignment_Solutions.qmd
+#    - EDA_Assignment_sheet.qmd
+#    - EDA_Assignment_Sheet_Solutions.qmd
 #    - Individual Labs
-    - Individual_Lab_1_Intro_To_R.qmd
-    - Individual_Lab_2_ Read_In_Data_Assignment.qmd
-    - Individual_Lab_3_Review.qmd
-    - Individual_Lab_4.qmd
-    - Individual_Lab_5.qmd
-    - Individual_Lab_6.qmd
+#    - Individual_Lab_1_Intro_To_R.qmd
+#    - Individual_Lab_2_ Read_In_Data_Assignment.qmd
+#    - Individual_Lab_3_Review.qmd
+#    - Individual_Lab_4.qmd
+#    - Individual_Lab_5.qmd
+#    - Individual_Lab_6.qmd
 
 #    - Group Projects
 
@@ -96,11 +108,25 @@ book:
 
 bibliography: references.bib
 
-format:
-  html:
-    theme: cosmo
-  pdf:
-    documentclass: scrreprt
+#format:
+ # html:
+#    theme: cosmo
+ # pdf:
+#    documentclass: scrreprt
 
-editor: visual
+editor: source
 
+filters:
+  - webr
+engine: knitr
+
+format: live-html
+#  pdf:
+#    documentclass: scrreprt
+
+webr:
+  engine: knitr
+  packages:
+    - tidyverse
+    - gt
+    - medicaldata
