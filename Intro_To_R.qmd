@@ -1,3 +1,16 @@
+---
+#title: "Class Example"
+engine: knitr
+format: live-html
+#toc: true
+webr:
+  show-startup-message: false  
+  packages: ['tidyverse', 'dplyr', 'janitor']
+  autoload-packages: true
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
 # Intro to R {.unnumbered}
 
 In this section we are going to go through some of the basics to programming in R. We will look at how to comment your work, basic calculator computations, create a variable, create a vector, how to install a library / package, and use some of the built-in functions. <br> <br>
@@ -603,18 +616,16 @@ f
 g
 ```
 
-
 ### Boolean (Logical) Operators
 
 There are several operators that we can use to compare values. Here are a few : <br>
 
-  - AND : &
-  - OR : |
-  - NOT : ! 
-  - EQUALS : == 
-  - NOT EQUALS : != 
-<br>
-  
+-   AND : &
+-   OR : \|
+-   NOT : !
+-   EQUALS : ==
+-   NOT EQUALS : != <br>
+
 Lets create some variables to see how these work. <br>
 
 ```{r}
@@ -630,7 +641,7 @@ d <- FALSE
 
 Now we can use these variables to see how these operators work. <br>
 
-```{r} 
+```{r}
 
 # The AND operator will return TRUE if both values are TRUE. If one or 
 # both are FALSE, then it will return FALSE.
@@ -647,6 +658,7 @@ b&d
 
 c&d
 ```
+
 <br>
 
 ```{r}
@@ -666,6 +678,7 @@ b|d
 
 c|d
 ```
+
 <br>
 
 ```{r}
@@ -677,6 +690,7 @@ c|d
 
 !b
 ```
+
 <br>
 
 ```{r}
@@ -688,6 +702,7 @@ a==b
 
 a==c
 ```
+
 <br>
 
 ```{r}
@@ -699,235 +714,506 @@ a!=b
 
 a!=c
 ```
+
 <br>
 
----
+------------------------------------------------------------------------
 
-## Exercises 
+## Practice Problems
 
-This exercise set will review the basic functions of R. Most of the commands 
-were reviewed in the lesson, but there are a few that you will have to look up
-to see how to carry out the commands.
-<br>
+This exercise set will review the basic functions of R. Most of the commands were reviewed in the lesson, but there are a few that you will have to look up to see how to carry out the commands. <br>
 
 **Instructions**
 
-- Write R code to solve each of the following problems.
-- Make sure to test your code to ensure it works correctly.
-- Provide comments in your code to explain your logic where necessary.
+-   Write R code to solve each of the following problems.
+-   Make sure to test your code to ensure it works correctly.
+-   Provide comments in your code to explain your logic where necessary.
 
 Problem 1: Addition
 
-Add two numbers, 12 and 34.
+Add two numbers : 12 and 34.
 
-```{r}
+```{webr-r}
+#| exercise: ex_1
 
-# Response
-
+__ + __
 ```
+
+::: { .hint exercise="ex_1"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+12 + 34
+```
+:::
+:::
+
+
 <br>
 
 Problem 2: Subtraction
 
 Subtract 25 from 75.
 
-```{r}
+```{webr-r}
+#| exercise: ex_2
 
-# Response
-
+__ - __
 ```
+
+::: { .hint exercise="ex_2"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+25 - 75
+```
+:::
+:::
+
 <br>
 
- Problem 3: Multiplication
- 
+Problem 3: Multiplication
+
 Multiply 28 by 19.
 
-```{r}
+```{webr-r}
+#| exercise: ex_3
 
-# Response
-
+__ * __
 ```
+
+::: { .hint exercise="ex_3"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+28 * 19
+```
+:::
+:::
+
 <br>
 
- Problem 4: Division
- 
+Problem 4: Division
+
 Divide 144 by 12.
 
-```{r}
+```{webr-r}
+#| exercise: ex_4
 
-# Response
-
+___ / ___
 ```
+
+::: { .hint exercise="ex_4"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+144 / 12
+```
+:::
+:::
+
 <br>
 
- Problem 5: Exponentiation
- 
+Problem 5: Exponentiation
+
 Calculate 9 raised to the power of 7.
 
-```{r}
+```{webr-r}
+#| exercise: ex_5
 
-# Response
-
+___ ^ ___
 ```
+
+::: { .hint exercise="ex_5"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+9 ^ 7
+```
+:::
+:::
+
 <br>
 
- Problem 6: Square Root
- 
+Problem 6: Square Root
+
 Find the square root of 64.
 
-```{r}
+```{webr-r}
+#| exercise: ex_6
 
-# Response
-
+___ ^ ___
 ```
+
+::: { .hint exercise="ex_6"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+(12 + 34)64)^(1/2)
+```
+:::
+:::
+
 <br>
 
- Problem 7: Logarithm
- 
+Problem 7: Logarithm
+
 Calculate the natural logarithm (base e) of 20.
 
-```{r}
+```{webr-r}
+#| exercise: ex_7
 
-# Response
-
+___(___)
 ```
+
+::: { .hint exercise="ex_7"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+log(20)
+```
+:::
+:::
+
 <br>
 
- Problem 8: Absolute Value
- 
+Problem 8: Absolute Value
+
 Find the absolute value of -15.
 
-```{r}
+```{webr-r}
+#| exercise: ex_8
 
-# Response
-
+___(___)
 ```
+
+::: { .hint exercise="ex_8"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+abs(-15)
+```
+:::
+:::
+
 <br>
 
- Problem 9: Factorial
- 
+Problem 9: Factorial
+
 Calculate the factorial of 6.
 
-```{r}
+```{webr-r}
+#| exercise: ex_9
 
-# Response
-
+______(___)
 ```
+
+::: { .hint exercise="ex_9"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+factorial(6)
+```
+:::
+:::
+
 <br>
 
- Problem 10: Variables
- 
-Create a variable `x` that is assigned the value 10 and another variable `y` 
-that is assigned the value 5. Add the two variables together.
+Problem 10: Variables
 
-```{r}
+Create a variable `x` that is assigned the value 10 and another variable `y` that is assigned the value 5. Add the two variables together.
 
-# Response
+```{webr-r}
+#| exercise: ex_10
 
+___ <- ___
+
+___ <- ___
+
+___ + ___
 ```
+
+::: { .hint exercise="ex_10"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+x <- 10
+
+y <- 10
+
+x + y
+```
+:::
+:::
+
 <br>
 
- Problem 11: Variables
- 
-Create a variable `z` that is the combination of `11*x + 13*y`, where `x` 
-and `y` are from the previous problem.
+Problem 11: Variables
 
-```{r}
+Create a variable `z` that is the combination of `11*x + 13*y`, where `x` and `y` have the same values as the previous problem. Print off `z` when done.
 
-# Response
+```{webr-r}
+#| exercise: ex_11
 
+___ <- ___
+
+___ <- ___
+
+___ <- ___*___ + ___*___
+
+___
 ```
+
+::: { .hint exercise="ex_11"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+x <- 10
+
+y <- 5
+
+z <- x*11 + y*13
+
+z
+```
+:::
+:::
+
 <br>
 
- Problem 12: Mean and Median of a Vector
- 
-Find the mean and median of the elements in the vector c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20).
+Problem 12: Mean and Median of a Vector
 
-```{r}
+Create a vector c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20) and call it `vec`.
+Find the mean and median of the elements in the 
+vector.
 
-# Response
+```{webr-r}
+#| exercise: ex_12
+
+____ <- __________________
+
+_____(_______)
+
+_____(_______)
 
 ```
+
+::: { .hint exercise="ex_12"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+
+vec <- c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
+
+mean(vec)
+
+median(vec)
+
+```
+:::
+:::
+
 <br>
 
 Problem 13: Create a Vector
 
-Create a vector (with an appropriate name) that contains the names of 5 of your friends. What is the
-class of this vector? 
+Create a vector (with an appropriate name) that contains the names of 5 of your friends. What is the class of this vector?
+```{webr-r}
+#| exercise: ex_13
 
-```{r}
+_______ <- _____________________
 
-# Response
-
+_____(______)
 ```
+
+::: { .hint exercise="ex_13"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+friends <- c("Alice", "Bob", "Charlie", "David", "Eve")
+
+class(friends)
+```
+:::
+:::
 <br>
 
- Problem 14:
- 
- Create a vector with 20 random values between 300 and 500. What is the mean of this vector?
- What is the median of this vector?
- 
-```{r}
+Problem 14:
 
-# Response
+Create a vector with 20 random values between 300 and 500 and name it 
+`rand_nums`. What is the mean of this vector? What is the median of this vector?
 
+```{webr-r}
+#| exercise: ex_14
+
+_______ <- _____(____,____,____)
+
+_____(_______)
 ```
+
+::: { .hint exercise="ex_14"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+rand_nums <- runif(20, 300, 500)
+
+mean(rand_nums)
+```
+:::
+:::
+
 <br>
 
- Problem 15: Maximum and Minimum
- 
-Find the maximum and minimum values of the vector created in Problem 14.
+Problem 15: Maximum and Minimum
 
-```{r}
+Find the maximum and minimum values of a vector created as the same
+way in Problem 14.
 
-# Response
+```{webr-r}
+#| exercise: ex_15
+
+_______ <- _____(____,____,____)
+
+_____(______)
+
+_____(______)
+```
+
+::: { .hint exercise="ex_15"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+rand_nums <- runif(20, 300, 500)
+
+max(rand_nums)
+
+min(rand_nums)
 
 ```
-<br> 
+:::
+:::
+
+<br>
 
 Problem 16: Vectors
- 
-In the vector you created in problem 14 : 
 
-  - Print out the 7th element.
-  - Print out the first 10 elements.
-  - Print out the last 5 elements.
-  - Add the 4th and 18th elements together.
+In the vector you created in problem 14 :
 
-  
-```{r}
+-   Print out the 7th element.
+-   Print out the first 10 elements.
+-   Print out the last 5 elements.
+-   Add the 4th and 18th elements together.
 
-# Response
+```{webr-r}
+#| exercise: ex_16
+
+_______ <- _____(____,____,____)
+
+_______[____]
+
+_______[____ : ____]
+
+_______[____ : ____]
+
+_______[____] + ______[____]
+
 
 ```
+
+::: { .hint exercise="ex_16"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+rand_nums <- runif(20, 300, 500)
+
+rand_nums[7]
+
+rand_nums[1:10]
+
+rand_nums[16:20]
+
+rand_nums[4] + rand_nums[18]
+
+```
+:::
+:::
 <br>
 
- Problem 17: Loading Libraries
- 
-Load the library `readr` and use the help file to find out what 
-the `read_csv` function does.
+Problem 17: Loading Libraries
 
-```{r}
+Load the library `readr` and use the help file to find out what the `read_csv` function does.
 
-# Response
+```{webr-r}
+#| exercise: ex_17
+
+_____(_____)
+
+_ ______
 
 ```
+
+::: { .hint exercise="ex_17"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+
+library(readr)
+
+?read_csv
+
+```
+:::
+:::
+
 <br>
 
- Problem 18: Boolean Vectors
+Problem 18: Boolean Vectors
 
-Create a boolean vector that contains the values TRUE, FALSE, TRUE, TRUE, FALSE.
-Print out the vector.
+Create a boolean vector called `bool_vec` that contains the values TRUE, FALSE, TRUE, TRUE, FALSE. Print out the vector.
 
-```{r}
+```{webr-r}
+#| exercise: ex_18
 
-# Response
+_______ <- ______(____,____,____,____,____)
+
+_______
+```
+
+::: { .hint exercise="ex_18"}
+::: { .callout-note collapse="true"}
+## Hint
+
+```r
+
+bool_vec <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+
+bool_vec
 
 ```
+:::
+:::
+
 <br>
 
 Problem 19: Logical Operators
- 
+
 ```{r}
 
 # Explain the output for the following code :
@@ -941,10 +1227,11 @@ z <- TRUE
 x & (y | z)
  
 ```
+
 <br>
 
 Problem 20: Logical Operators
- 
+
 ```{r}
  
 # Explain the output for the following code :
@@ -958,16 +1245,10 @@ z <- 15
 x > y & y < z
  
 ```
+
 <br>
 
-Problem 21: Commenting
-<br>
+Problem 21: Commenting <br>
 
-Go back and make sure your code is commented. Make sure you have a comment 
-at the top of the script that includes your name, the class, and the date. 
-Make sure you have comments throughout the script to explain what is 
-happening at each step.
-
-
- 
+Go back and make sure your code is commented. Make sure you have a comment at the top of the script that includes your name, the class, and the date. Make sure you have comments throughout the script to explain what is happening at each step.
 
